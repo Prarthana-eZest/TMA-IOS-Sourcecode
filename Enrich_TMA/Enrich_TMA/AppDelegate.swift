@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var orientationLock = UIInterfaceOrientationMask.all
     
-    
     var window: UIWindow?
     let customTabbarController = CustomTabbarController.instantiate(fromAppStoryboard: .HomeLanding)
 
