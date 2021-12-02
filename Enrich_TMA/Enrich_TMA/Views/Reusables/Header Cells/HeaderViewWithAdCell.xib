@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderViewWithAdCell" rowHeight="93" id="KGk-i7-Jjw" customClass="HeaderViewWithAdCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="430" height="93"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="430" height="92.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d6L-IA-LQB">
+                        <rect key="frame" x="15" y="0.0" width="400" height="92.5"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vMr-l7-Nsw">
+                                <rect key="frame" x="0.0" y="32.5" width="380" height="45"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="offerImageArrow" translatesAutoresizingMaskIntoConstraints="NO" id="NVT-B4-nTp">
+                                        <rect key="frame" x="0.0" y="0.0" width="380" height="45"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Earn 200 points on purchase of any these products together with this head massage" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7an-Se-4Pc">
+                                        <rect key="frame" x="10" y="0.0" width="360" height="45"/>
+                                        <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NVT-B4-nTp" firstAttribute="height" secondItem="7an-Se-4Pc" secondAttribute="height" id="3P0-0k-kSk"/>
+                                    <constraint firstItem="NVT-B4-nTp" firstAttribute="top" secondItem="vMr-l7-Nsw" secondAttribute="top" id="9eB-VT-lZd"/>
+                                    <constraint firstItem="7an-Se-4Pc" firstAttribute="centerY" secondItem="vMr-l7-Nsw" secondAttribute="centerY" id="FYg-l4-qjT"/>
+                                    <constraint firstAttribute="trailing" secondItem="NVT-B4-nTp" secondAttribute="trailing" id="G9O-AP-qgW"/>
+                                    <constraint firstAttribute="bottom" secondItem="NVT-B4-nTp" secondAttribute="bottom" id="V0h-yM-mni"/>
+                                    <constraint firstItem="7an-Se-4Pc" firstAttribute="leading" secondItem="vMr-l7-Nsw" secondAttribute="leading" constant="10" id="Xib-EK-nFo">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="7an-Se-4Pc" secondAttribute="trailing" constant="10" id="aw6-zs-lTp">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                                    </constraint>
+                                    <constraint firstItem="NVT-B4-nTp" firstAttribute="leading" secondItem="vMr-l7-Nsw" secondAttribute="leading" id="lQX-U5-j23"/>
+                                    <constraint firstAttribute="height" constant="45" id="wLW-Wc-5CV">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                                    </constraint>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recommended Products" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cQL-cj-JJf">
+                                <rect key="frame" x="0.0" y="2.5" width="330" height="26"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="30"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C7s-6N-xYz">
+                                <rect key="frame" x="340" y="-1" width="60" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="keP-Fx-ppj">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                <state key="normal" title="View All">
+                                    <color key="titleColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                </variation>
+                                <connections>
+                                    <action selector="actionViewAll:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="300-0h-LMg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vz0-E7-e1i" firstAttribute="bottom" secondItem="vMr-l7-Nsw" secondAttribute="bottom" constant="15" id="RHS-41-byy">
+                                <variation key="heightClass=regular-widthClass=regular" constant="22.5"/>
+                            </constraint>
+                            <constraint firstItem="C7s-6N-xYz" firstAttribute="leading" secondItem="cQL-cj-JJf" secondAttribute="trailing" constant="10" id="T4f-Hk-yuu"/>
+                            <constraint firstItem="vMr-l7-Nsw" firstAttribute="leading" secondItem="vz0-E7-e1i" secondAttribute="leading" id="eah-Mc-mon"/>
+                            <constraint firstItem="vz0-E7-e1i" firstAttribute="trailing" secondItem="C7s-6N-xYz" secondAttribute="trailing" id="evh-fe-Unu"/>
+                            <constraint firstItem="vMr-l7-Nsw" firstAttribute="top" secondItem="cQL-cj-JJf" secondAttribute="bottom" constant="4" id="l6c-fx-ybh">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="C7s-6N-xYz" firstAttribute="centerY" secondItem="cQL-cj-JJf" secondAttribute="centerY" id="ocT-1Z-vWc"/>
+                            <constraint firstItem="cQL-cj-JJf" firstAttribute="leading" secondItem="vz0-E7-e1i" secondAttribute="leading" id="yGD-fL-WPI"/>
+                            <constraint firstItem="vz0-E7-e1i" firstAttribute="trailing" secondItem="vMr-l7-Nsw" secondAttribute="trailing" constant="20" id="zKw-2j-jqg">
+                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            </constraint>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vz0-E7-e1i"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="d6L-IA-LQB" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="030-n7-Z6R">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                    <constraint firstItem="d6L-IA-LQB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HEo-Br-6EC"/>
+                    <constraint firstAttribute="bottom" secondItem="d6L-IA-LQB" secondAttribute="bottom" id="hSj-51-YBv"/>
+                    <constraint firstAttribute="trailing" secondItem="d6L-IA-LQB" secondAttribute="trailing" constant="15" id="nDk-a0-Sd0">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="addTextLabel" destination="7an-Se-4Pc" id="YcF-fP-Hcz"/>
+                <outlet property="titleLabel" destination="cQL-cj-JJf" id="7Gx-Qj-cYA"/>
+                <outlet property="viewAllButton" destination="C7s-6N-xYz" id="bwU-te-3hK"/>
+            </connections>
+            <point key="canvasLocation" x="220.80000000000001" y="176.76161919040482"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="offerImageArrow" width="276" height="47"/>
+    </resources>
+</document>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MonthCollectionViewCell" reuseIdentifier="MonthCollectionViewCell" id="gTV-IL-0wX" customClass="MonthCollectionViewCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="59"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="90" height="59"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPc-eH-5ba">
+                        <rect key="frame" x="0.0" y="0.0" width="90" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GAS-bh-grC">
+                                <rect key="frame" x="0.0" y="10" width="90" height="22.5"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Rj-qu-26Q">
+                                <rect key="frame" x="25" y="37" width="40" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3ZL-HT-Cxq"/>
+                                    <constraint firstAttribute="width" constant="40" id="5hJ-Jn-PDJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="GAS-bh-grC" firstAttribute="leading" secondItem="VPc-eH-5ba" secondAttribute="leading" id="8DU-jv-bal"/>
+                            <constraint firstItem="1Rj-qu-26Q" firstAttribute="top" secondItem="GAS-bh-grC" secondAttribute="bottom" constant="4.5" id="BIN-Gx-mQK"/>
+                            <constraint firstItem="1Rj-qu-26Q" firstAttribute="centerX" secondItem="VPc-eH-5ba" secondAttribute="centerX" id="Hgd-ML-WNe"/>
+                            <constraint firstItem="GAS-bh-grC" firstAttribute="top" secondItem="VPc-eH-5ba" secondAttribute="top" constant="10" id="T41-CY-TgV"/>
+                            <constraint firstAttribute="trailing" secondItem="GAS-bh-grC" secondAttribute="trailing" id="cOX-GK-faa"/>
+                            <constraint firstAttribute="bottom" secondItem="1Rj-qu-26Q" secondAttribute="bottom" constant="2" id="dtr-8U-wGE"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="VPc-eH-5ba" secondAttribute="trailing" id="giE-62-pas"/>
+                <constraint firstAttribute="bottom" secondItem="VPc-eH-5ba" secondAttribute="bottom" constant="-1" id="hMU-qB-v8I"/>
+                <constraint firstItem="VPc-eH-5ba" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rKm-Wj-4sc"/>
+                <constraint firstItem="VPc-eH-5ba" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="zzf-Dg-gkz"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="90" height="59"/>
+            <connections>
+                <outlet property="lblDate" destination="1Rj-qu-26Q" id="G2j-bm-YxL"/>
+                <outlet property="lblWeek" destination="GAS-bh-grC" id="1ss-QD-gmD"/>
+            </connections>
+            <point key="canvasLocation" x="-36.799999999999997" y="47.226386806596707"/>
+        </collectionViewCell>
+    </objects>
+</document>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProductCell" reuseIdentifier="ProductCell" id="gTV-IL-0wX" customClass="ProductCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="209" height="329"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="209" height="329"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MED-ox-JHu">
+                        <rect key="frame" x="0.0" y="0.0" width="209" height="329"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productDefault" translatesAutoresizingMaskIntoConstraints="NO" id="n8k-9K-JHi">
+                                <rect key="frame" x="24.666666666666671" y="5" width="160" height="160"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="hIt-CQ-fwo">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="240"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beardo- black Velvette wash" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7v7-qf-QGM">
+                                <rect key="frame" x="10" y="175" width="189" height="45.333333333333343"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="17.659999847412109"/>
+                                <color key="textColor" red="0.15294117647058825" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="26.549999237060547"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="INR 100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AE-8N-lKn">
+                                <rect key="frame" x="10" y="225.33333333333334" width="189" height="21.333333333333343"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16.600000381469727"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24.899999618530273"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1AE-8N-lKn" firstAttribute="top" secondItem="7v7-qf-QGM" secondAttribute="bottom" constant="5" id="5Kh-yV-UwD">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="7v7-qf-QGM" firstAttribute="leading" secondItem="MED-ox-JHu" secondAttribute="leading" constant="10" id="7z5-Xe-c2D"/>
+                            <constraint firstItem="1AE-8N-lKn" firstAttribute="centerX" secondItem="MED-ox-JHu" secondAttribute="centerX" id="Lsv-bI-AOY"/>
+                            <constraint firstItem="7v7-qf-QGM" firstAttribute="top" secondItem="n8k-9K-JHi" secondAttribute="bottom" constant="10" id="Z4J-4v-289">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="n8k-9K-JHi" firstAttribute="centerX" secondItem="MED-ox-JHu" secondAttribute="centerX" id="bvh-Ud-6JW"/>
+                            <constraint firstItem="1AE-8N-lKn" firstAttribute="leading" secondItem="7v7-qf-QGM" secondAttribute="leading" id="feZ-49-zFo"/>
+                            <constraint firstItem="n8k-9K-JHi" firstAttribute="top" secondItem="MED-ox-JHu" secondAttribute="top" constant="5" id="hcD-Lf-SBV"/>
+                            <constraint firstAttribute="trailing" secondItem="7v7-qf-QGM" secondAttribute="trailing" constant="10" id="hvj-SB-aeZ"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1AE-8N-lKn" secondAttribute="bottom" constant="10" id="lrm-Uf-xcf"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="MED-ox-JHu" secondAttribute="trailing" id="0Ns-8O-s88"/>
+                <constraint firstItem="MED-ox-JHu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sdu-iU-USz"/>
+                <constraint firstItem="MED-ox-JHu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="thY-Rp-MxR"/>
+                <constraint firstAttribute="bottom" secondItem="MED-ox-JHu" secondAttribute="bottom" id="x15-qI-Ama"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="247" height="349"/>
+            <connections>
+                <outlet property="cornerView" destination="MED-ox-JHu" id="hQZ-LI-e7w"/>
+                <outlet property="productImageView" destination="n8k-9K-JHi" id="Ub9-ao-8vv"/>
+                <outlet property="productName" destination="7v7-qf-QGM" id="nFk-yk-QPP"/>
+                <outlet property="productPrice" destination="1AE-8N-lKn" id="GEl-4G-o5m"/>
+            </connections>
+            <point key="canvasLocation" x="36.956521739130437" y="24.864130434782609"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="productDefault" width="160" height="138"/>
+    </resources>
+</document>

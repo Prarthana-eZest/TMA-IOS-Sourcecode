@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="NotoSans-Regular.ttf">
+            <string>NotoSans-Regular</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CashbackOfferCell" rowHeight="109" id="KGk-i7-Jjw" customClass="CashbackOfferCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="109"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="461" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JCa-Cd-4C6">
+                        <rect key="frame" x="0.0" y="0.0" width="461" height="108.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="752" text="Flat ₹200 cahsback on Airtel payment bank" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykl-2q-3wc">
+                                <rect key="frame" x="65" y="12" width="381" height="22"/>
+                                <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="16"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="22"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="You have to spend min. 2000 for the first time transaction" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OHX-76-mpr">
+                                <rect key="frame" x="65" y="39" width="381" height="54.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="AFu-qh-j7w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="16"/>
+                                <color key="textColor" red="0.1058823529" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="22"/>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59o-WE-ck4" userLabel="View offer percentage">
+                                <rect key="frame" x="15" y="15" width="40" height="30"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nqK-To-N3K">
+                                        <rect key="frame" x="3" y="1.5" width="34" height="27"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="loe-we-Adr">
+                                        <rect key="frame" x="13.5" y="4" width="14" height="23.5"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="25"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="620-3H-vJX">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                    </constraint>
+                                    <constraint firstItem="nqK-To-N3K" firstAttribute="centerY" secondItem="59o-WE-ck4" secondAttribute="centerY" id="GJH-5C-bwO"/>
+                                    <constraint firstItem="loe-we-Adr" firstAttribute="centerY" secondItem="59o-WE-ck4" secondAttribute="centerY" constant="0.5" id="L5K-Hn-Pg1"/>
+                                    <constraint firstAttribute="height" constant="30" id="cDa-QC-1vE">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                    </constraint>
+                                    <constraint firstItem="loe-we-Adr" firstAttribute="centerX" secondItem="59o-WE-ck4" secondAttribute="centerX" constant="0.5" id="lbU-R7-nn0"/>
+                                    <constraint firstItem="nqK-To-N3K" firstAttribute="centerX" secondItem="59o-WE-ck4" secondAttribute="centerX" id="yl8-7m-Pme"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JJ3-UW-H5P">
+                                <rect key="frame" x="0.0" y="108" width="461" height="0.5"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="5MO-P6-Pg1"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="ykl-2q-3wc" secondAttribute="trailing" constant="15" id="0GY-a7-kAd">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="OHX-76-mpr" firstAttribute="leading" secondItem="ykl-2q-3wc" secondAttribute="leading" id="4Is-vO-byv"/>
+                            <constraint firstItem="ykl-2q-3wc" firstAttribute="top" secondItem="JCa-Cd-4C6" secondAttribute="top" constant="12" id="4xN-e9-EQ7">
+                                <variation key="heightClass=regular-widthClass=regular" constant="18"/>
+                            </constraint>
+                            <constraint firstItem="OHX-76-mpr" firstAttribute="trailing" secondItem="ykl-2q-3wc" secondAttribute="trailing" id="8RZ-vo-f96"/>
+                            <constraint firstItem="JJ3-UW-H5P" firstAttribute="leading" secondItem="JCa-Cd-4C6" secondAttribute="leading" id="9kM-SB-8nd"/>
+                            <constraint firstItem="OHX-76-mpr" firstAttribute="top" secondItem="ykl-2q-3wc" secondAttribute="bottom" constant="5" id="FoQ-L0-mpJ">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="59o-WE-ck4" firstAttribute="top" secondItem="JCa-Cd-4C6" secondAttribute="top" constant="15" id="MAn-d1-JCZ">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="ykl-2q-3wc" firstAttribute="leading" secondItem="59o-WE-ck4" secondAttribute="trailing" constant="10" id="UXv-bn-mO5">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstAttribute="bottom" secondItem="JJ3-UW-H5P" secondAttribute="bottom" id="dFK-1i-nb7"/>
+                            <constraint firstAttribute="bottom" secondItem="OHX-76-mpr" secondAttribute="bottom" constant="15" id="jTD-0w-bqa">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="59o-WE-ck4" firstAttribute="leading" secondItem="JCa-Cd-4C6" secondAttribute="leading" constant="15" id="wum-WK-mCg">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="JJ3-UW-H5P" secondAttribute="trailing" id="yU0-db-SeH"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="JCa-Cd-4C6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0bU-Z6-NVU"/>
+                    <constraint firstAttribute="trailing" secondItem="JCa-Cd-4C6" secondAttribute="trailing" id="8pX-aK-eac"/>
+                    <constraint firstItem="JCa-Cd-4C6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="D7t-uL-XeW"/>
+                    <constraint firstAttribute="bottom" secondItem="JCa-Cd-4C6" secondAttribute="bottom" id="e1A-73-eXp"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblPercentage" destination="loe-we-Adr" id="PGe-oz-3rL"/>
+                <outlet property="lblSubTitile" destination="OHX-76-mpr" id="b6E-f9-kcd"/>
+                <outlet property="lblTitle" destination="ykl-2q-3wc" id="NIL-6u-mlK"/>
+            </connections>
+            <point key="canvasLocation" x="165.59999999999999" y="-54.422788605697157"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="oval" width="34" height="27"/>
+    </resources>
+</document>

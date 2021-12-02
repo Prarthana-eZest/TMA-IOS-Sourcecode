@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBold.otf">
+            <string>FuturaPT-Bold</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="NotoSerif-Regular.ttf">
+            <string>NotoSerif</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="IrresistibleOffersCell" id="gTV-IL-0wX" customClass="IrresistibleOffersCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="366" height="170"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="366" height="170"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELw-It-UNs">
+                        <rect key="frame" x="0.0" y="0.0" width="366" height="170"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k6d-ZP-PL2">
+                                <rect key="frame" x="0.0" y="6" width="366" height="158"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="irresistibleDefault" translatesAutoresizingMaskIntoConstraints="NO" id="BcL-xR-h11">
+                                        <rect key="frame" x="0.0" y="-6" width="128" height="170"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JR2-P1-E2P">
+                                        <rect key="frame" x="164.5" y="0.0" width="165" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ThriftyThursday" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Weu-A7-rtE">
+                                                <rect key="frame" x="0.0" y="0.0" width="165" height="30"/>
+                                                <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="14"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="18"/>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.67843137254901964" green="0.19215686274509802" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Weu-A7-rtE" firstAttribute="top" secondItem="JR2-P1-E2P" secondAttribute="top" id="7oR-cS-4tL"/>
+                                            <constraint firstAttribute="bottom" secondItem="Weu-A7-rtE" secondAttribute="bottom" id="8rV-gr-LrT"/>
+                                            <constraint firstItem="Weu-A7-rtE" firstAttribute="leading" secondItem="JR2-P1-E2P" secondAttribute="leading" id="R4Z-sQ-rYd"/>
+                                            <constraint firstAttribute="trailing" secondItem="Weu-A7-rtE" secondAttribute="trailing" id="SVs-LP-ZHH"/>
+                                            <constraint firstAttribute="height" constant="30" id="aUM-ln-gfp"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cuts &amp; Blowdry" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GNd-H1-1gz">
+                                        <rect key="frame" x="138" y="66" width="218" height="26"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="25"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50% OFF" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1uP-tO-FXg">
+                                        <rect key="frame" x="138" y="35" width="218" height="32.5"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Bold" family="Futura PT" pointSize="25"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Bold" family="Futura PT" pointSize="35"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offer only valid on Thursdays with selected stylists. Booking Essential. Show Voucher in Salon to receive discount" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hkf-Xa-HbD">
+                                        <rect key="frame" x="133" y="94" width="228" height="50"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="13"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90980392156862744" green="0.13333333333333333" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="GNd-H1-1gz" firstAttribute="trailing" secondItem="1uP-tO-FXg" secondAttribute="trailing" id="5au-NO-ovd"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Hkf-Xa-HbD" secondAttribute="bottom" constant="5" id="7nk-JZ-cE4"/>
+                                    <constraint firstItem="Hkf-Xa-HbD" firstAttribute="leading" secondItem="BcL-xR-h11" secondAttribute="trailing" constant="5" id="8Jd-eT-wWf"/>
+                                    <constraint firstItem="GNd-H1-1gz" firstAttribute="centerY" secondItem="k6d-ZP-PL2" secondAttribute="centerY" id="Kib-V1-AYa"/>
+                                    <constraint firstItem="BcL-xR-h11" firstAttribute="leading" secondItem="k6d-ZP-PL2" secondAttribute="leading" id="LlV-0h-Uch"/>
+                                    <constraint firstItem="1uP-tO-FXg" firstAttribute="centerY" secondItem="k6d-ZP-PL2" secondAttribute="centerY" multiplier="0.65" id="Rg6-RQ-rqK"/>
+                                    <constraint firstItem="JR2-P1-E2P" firstAttribute="top" secondItem="k6d-ZP-PL2" secondAttribute="top" id="iKV-zl-4Mk"/>
+                                    <constraint firstItem="1uP-tO-FXg" firstAttribute="leading" secondItem="BcL-xR-h11" secondAttribute="trailing" constant="10" id="izX-BC-m3e"/>
+                                    <constraint firstItem="JR2-P1-E2P" firstAttribute="centerX" secondItem="k6d-ZP-PL2" secondAttribute="centerX" multiplier="1.35" id="mW1-q5-3pZ"/>
+                                    <constraint firstItem="BcL-xR-h11" firstAttribute="width" secondItem="k6d-ZP-PL2" secondAttribute="width" multiplier="0.35" id="sCw-OF-ssb"/>
+                                    <constraint firstItem="Hkf-Xa-HbD" firstAttribute="top" secondItem="GNd-H1-1gz" secondAttribute="bottom" constant="2" id="tIh-BD-hYl">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="4"/>
+                                    </constraint>
+                                    <constraint firstItem="JR2-P1-E2P" firstAttribute="width" secondItem="k6d-ZP-PL2" secondAttribute="width" multiplier="0.45" id="wqV-2N-fxz"/>
+                                    <constraint firstAttribute="trailing" secondItem="1uP-tO-FXg" secondAttribute="trailing" constant="10" id="xDV-sB-tgU"/>
+                                    <constraint firstAttribute="trailing" secondItem="Hkf-Xa-HbD" secondAttribute="trailing" constant="5" id="xel-fG-Mpe"/>
+                                    <constraint firstItem="GNd-H1-1gz" firstAttribute="leading" secondItem="1uP-tO-FXg" secondAttribute="leading" id="xqa-fU-uYE"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="k6d-ZP-PL2" firstAttribute="top" secondItem="ELw-It-UNs" secondAttribute="top" constant="6" id="3VM-LI-pso">
+                                <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                            </constraint>
+                            <constraint firstItem="BcL-xR-h11" firstAttribute="top" secondItem="ELw-It-UNs" secondAttribute="top" id="7N4-CB-eXj"/>
+                            <constraint firstAttribute="bottom" secondItem="k6d-ZP-PL2" secondAttribute="bottom" constant="6" id="7ux-bz-bY4">
+                                <variation key="heightClass=regular-widthClass=regular" constant="8"/>
+                            </constraint>
+                            <constraint firstItem="k6d-ZP-PL2" firstAttribute="leading" secondItem="ELw-It-UNs" secondAttribute="leading" id="KhI-An-Iyi"/>
+                            <constraint firstAttribute="bottom" secondItem="BcL-xR-h11" secondAttribute="bottom" id="iX8-X7-JgG"/>
+                            <constraint firstAttribute="trailing" secondItem="k6d-ZP-PL2" secondAttribute="trailing" id="w4U-Wh-kAG"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="ELw-It-UNs" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="8mS-HE-tZO"/>
+                <constraint firstAttribute="bottom" secondItem="ELw-It-UNs" secondAttribute="bottom" id="IMc-jg-zAP"/>
+                <constraint firstAttribute="trailing" secondItem="ELw-It-UNs" secondAttribute="trailing" id="P3o-vc-eNu"/>
+                <constraint firstItem="ELw-It-UNs" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="avQ-R7-yk8"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="366" height="170"/>
+            <connections>
+                <outlet property="backgroundImageView" destination="BcL-xR-h11" id="3B6-UG-rnf"/>
+                <outlet property="lblDiscountText" destination="1uP-tO-FXg" id="twG-AP-hYz"/>
+                <outlet property="lblSubTitle" destination="Hkf-Xa-HbD" id="13l-Og-glR"/>
+                <outlet property="lblTitle" destination="GNd-H1-1gz" id="Ydy-9U-FEp"/>
+                <outlet property="lblTopTitle" destination="Weu-A7-rtE" id="bua-UK-xVT"/>
+            </connections>
+            <point key="canvasLocation" x="385.60000000000002" y="208.69565217391306"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="irresistibleDefault" width="103" height="129"/>
+    </resources>
+</document>

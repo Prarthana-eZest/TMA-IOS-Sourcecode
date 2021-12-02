@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PettyCashAttachementCell" rowHeight="307" id="HUA-cn-Qy9" customClass="PettyCashAttachementCell" customModule="Enrich_TMA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="307"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HUA-cn-Qy9" id="PTS-Rw-SH8">
+                <rect key="frame" x="0.0" y="0.0" width="414" height="306.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="L8S-Hr-8Mi">
+                        <rect key="frame" x="20" y="15" width="374" height="253"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attachment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCg-bU-3Gu">
+                                <rect key="frame" x="0.0" y="0.0" width="61" height="18"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="14"/>
+                                <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="14f-Sv-eHk">
+                                <rect key="frame" x="0.0" y="23" width="374" height="230"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="230" id="GlM-xE-UcH"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="14f-Sv-eHk" firstAttribute="leading" secondItem="L8S-Hr-8Mi" secondAttribute="leading" id="Ddm-zm-rNE"/>
+                            <constraint firstAttribute="trailing" secondItem="14f-Sv-eHk" secondAttribute="trailing" id="gbJ-jh-UAO"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="L8S-Hr-8Mi" secondAttribute="trailing" constant="20" id="IEf-X3-Vod"/>
+                    <constraint firstItem="L8S-Hr-8Mi" firstAttribute="top" secondItem="PTS-Rw-SH8" secondAttribute="top" constant="15" id="J1S-kx-VOC"/>
+                    <constraint firstItem="L8S-Hr-8Mi" firstAttribute="leading" secondItem="PTS-Rw-SH8" secondAttribute="leading" constant="20" id="Pm9-K4-BgO"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="L8S-Hr-8Mi" secondAttribute="bottom" constant="15" id="Q5N-cN-Ls2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+            <connections>
+                <outlet property="attachmentImage" destination="14f-Sv-eHk" id="ERy-SH-dPZ"/>
+                <outlet property="lblTitle" destination="VCg-bU-3Gu" id="oQ2-ZI-9bj"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

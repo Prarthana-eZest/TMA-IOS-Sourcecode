@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductFullCell" rowHeight="80" id="KGk-i7-Jjw" customClass="ProductFullCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="331" height="138"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="331" height="137.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bll-TH-xL7">
+                        <rect key="frame" x="15" y="0.0" width="301" height="140.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="with Acail Oil  Treatment Oil 60ml" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5s-nu-wqY">
+                                <rect key="frame" x="122" y="27" width="169" height="51.5"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="28"/>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="productDefault" translatesAutoresizingMaskIntoConstraints="NO" id="MP1-B7-wbR">
+                                <rect key="frame" x="0.0" y="0.0" width="112" height="140.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="PZg-O3-BCT">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="210"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" secondItem="MP1-B7-wbR" secondAttribute="height" multiplier="4:5" id="aEF-in-W5x"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="140" id="eu0-PS-afi"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹490" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2U-82-RyC">
+                                <rect key="frame" x="122" y="83.5" width="169" height="27.5"/>
+                                <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="28"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="MP1-B7-wbR" firstAttribute="top" secondItem="bll-TH-xL7" secondAttribute="top" id="B2t-zy-zMm"/>
+                            <constraint firstItem="t2U-82-RyC" firstAttribute="trailing" secondItem="s5s-nu-wqY" secondAttribute="trailing" id="EGw-JT-pbS"/>
+                            <constraint firstAttribute="height" constant="140" id="Fy0-CZ-PKr">
+                                <variation key="heightClass=regular-widthClass=regular" constant="210"/>
+                            </constraint>
+                            <constraint firstItem="MP1-B7-wbR" firstAttribute="leading" secondItem="bll-TH-xL7" secondAttribute="leading" id="ON9-pp-Fte"/>
+                            <constraint firstItem="s5s-nu-wqY" firstAttribute="leading" secondItem="MP1-B7-wbR" secondAttribute="trailing" constant="10" id="Qlh-qE-7dX">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="t2U-82-RyC" firstAttribute="top" secondItem="s5s-nu-wqY" secondAttribute="bottom" constant="5" id="fOy-Dq-0xk"/>
+                            <constraint firstAttribute="trailing" secondItem="s5s-nu-wqY" secondAttribute="trailing" constant="10" id="hbm-ZJ-O1K">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="t2U-82-RyC" firstAttribute="leading" secondItem="s5s-nu-wqY" secondAttribute="leading" id="j68-cS-JMU"/>
+                            <constraint firstItem="s5s-nu-wqY" firstAttribute="centerY" secondItem="MP1-B7-wbR" secondAttribute="centerY" multiplier="0.75" id="u9e-0j-DLP"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="bll-TH-xL7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="3bc-bF-1kC"/>
+                    <constraint firstAttribute="bottom" secondItem="bll-TH-xL7" secondAttribute="bottom" id="CgQ-2i-TV5"/>
+                    <constraint firstItem="bll-TH-xL7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="DV9-nU-wYK">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                    <constraint firstAttribute="trailing" secondItem="bll-TH-xL7" secondAttribute="trailing" constant="15" id="JPq-cz-l2L">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblPrice" destination="t2U-82-RyC" id="Tx6-mi-VTp"/>
+                <outlet property="lblTitle" destination="s5s-nu-wqY" id="nkM-Vb-6LM"/>
+                <outlet property="productImageView" destination="MP1-B7-wbR" id="8g0-a8-uzO"/>
+            </connections>
+            <point key="canvasLocation" x="141.59999999999999" y="197.00149925037482"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="productDefault" width="160" height="138"/>
+    </resources>
+</document>

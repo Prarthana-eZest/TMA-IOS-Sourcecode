@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="ErrorCustomView" id="iN0-l3-epB" customClass="ErrorCustomView" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFI-gp-GlJ">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Vs-xv-7WJ">
+                            <rect key="frame" x="47.5" y="205.5" width="280" height="256.5"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="VnW-FO-gdV">
+                                    <rect key="frame" x="10" y="20" width="260" height="156.5"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Le-Oz-ZcW">
+                                            <rect key="frame" x="0.0" y="0.0" width="260" height="31"/>
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="36"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZo-W0-RQO">
+                                            <rect key="frame" x="0.0" y="41" width="260" height="115.5"/>
+                                            <string key="text">wefrwtyertywer kjwherhjwgrhjwger wegrwgherfwghr whjergwhjergwhefr sjefgjwheg wegfrwghefr whgfrghwefr hwegrhjwefgr hwegrhjwegr jhwegrjhfwgehr</string>
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="8Le-Oz-ZcW" firstAttribute="top" secondItem="VnW-FO-gdV" secondAttribute="top" id="4b5-uI-k6K"/>
+                                        <constraint firstAttribute="trailing" secondItem="8Le-Oz-ZcW" secondAttribute="trailing" id="82d-f8-jGM"/>
+                                        <constraint firstAttribute="bottom" secondItem="zZo-W0-RQO" secondAttribute="bottom" id="SJN-GY-8eb"/>
+                                        <constraint firstItem="8Le-Oz-ZcW" firstAttribute="leading" secondItem="VnW-FO-gdV" secondAttribute="leading" id="vGz-US-fbr"/>
+                                        <constraint firstItem="zZo-W0-RQO" firstAttribute="leading" secondItem="VnW-FO-gdV" secondAttribute="leading" id="yk4-zY-xqy"/>
+                                        <constraint firstAttribute="trailing" secondItem="zZo-W0-RQO" secondAttribute="trailing" id="zCW-t0-sfB"/>
+                                    </constraints>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Ue9-Ba-bRt">
+                                    <rect key="frame" x="10" y="196.5" width="260" height="40"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXg-f4-dHR">
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                            <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="s9w-4l-fCD"/>
+                                            </constraints>
+                                            <state key="normal" title="Ok">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="actionBtnOk:" destination="iN0-l3-epB" eventType="touchUpInside" id="8HF-0B-GCy"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0e-Nz-XfV">
+                                            <rect key="frame" x="140" y="0.0" width="120" height="40"/>
+                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" title="Cancel">
+                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="6"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="actionBtnCancel:" destination="iN0-l3-epB" eventType="touchUpInside" id="amW-wI-kBy"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="VnW-FO-gdV" secondAttribute="trailing" constant="10" id="18d-6e-3xc"/>
+                                <constraint firstAttribute="bottom" secondItem="Ue9-Ba-bRt" secondAttribute="bottom" constant="20" id="Dz5-T7-cMB"/>
+                                <constraint firstItem="Ue9-Ba-bRt" firstAttribute="top" secondItem="VnW-FO-gdV" secondAttribute="bottom" constant="20" id="H85-Pc-cjU"/>
+                                <constraint firstAttribute="trailing" secondItem="Ue9-Ba-bRt" secondAttribute="trailing" constant="10" id="NLT-hl-MPg"/>
+                                <constraint firstItem="VnW-FO-gdV" firstAttribute="leading" secondItem="3Vs-xv-7WJ" secondAttribute="leading" constant="10" id="SHW-xl-SHH"/>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="aVV-nG-9cE"/>
+                                <constraint firstItem="Ue9-Ba-bRt" firstAttribute="leading" secondItem="3Vs-xv-7WJ" secondAttribute="leading" constant="10" id="cyL-tV-WBe"/>
+                                <constraint firstItem="VnW-FO-gdV" firstAttribute="top" secondItem="3Vs-xv-7WJ" secondAttribute="top" constant="20" id="epq-wS-Obf"/>
+                                <constraint firstAttribute="width" constant="280" id="kLb-DF-CJr"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="3Vs-xv-7WJ" firstAttribute="centerX" secondItem="QFI-gp-GlJ" secondAttribute="centerX" id="JOL-Ka-s4a"/>
+                        <constraint firstItem="3Vs-xv-7WJ" firstAttribute="centerY" secondItem="QFI-gp-GlJ" secondAttribute="centerY" id="bfd-pe-Rnd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="QFI-gp-GlJ" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="0fF-aU-4X0"/>
+                <constraint firstItem="QFI-gp-GlJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="DYk-sw-fnS"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="QFI-gp-GlJ" secondAttribute="bottom" id="FUJ-NE-h3Z"/>
+                <constraint firstItem="QFI-gp-GlJ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="y8T-Tb-xM0"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="btnCancel" destination="f0e-Nz-XfV" id="f5w-CW-Z8V"/>
+                <outlet property="btnOk" destination="hXg-f4-dHR" id="J7L-Mt-6LS"/>
+                <outlet property="lblErrorDescription" destination="zZo-W0-RQO" id="vfV-ab-cfy"/>
+                <outlet property="lblErrorTitle" destination="8Le-Oz-ZcW" id="ezF-7z-J6T"/>
+            </connections>
+            <point key="canvasLocation" x="-55" y="106"/>
+        </view>
+    </objects>
+</document>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RecommendedMoriningAfterEvenNightCollectionViewCell" id="VjH-ik-kI1" userLabel="RecommendedMoriningAfterEvenNightCollectionViewCell" customClass="RecommendedMoriningAfterEvenNightCollectionViewCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="259" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="259" height="90"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aZk-gD-8zE">
+                        <rect key="frame" x="0.0" y="0.0" width="259" height="90"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAD-Eo-FIx">
+                                <rect key="frame" x="0.0" y="34" width="259" height="22"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25.5"/>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3va-LM-YPg">
+                                <rect key="frame" x="115" y="85" width="29" height="5"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="as7-xZ-nxi"/>
+                                    <constraint firstAttribute="height" constant="5" id="z4n-qD-Rfh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3va-LM-YPg" firstAttribute="centerX" secondItem="aZk-gD-8zE" secondAttribute="centerX" id="9xa-Xk-XkQ"/>
+                            <constraint firstAttribute="bottom" secondItem="3va-LM-YPg" secondAttribute="bottom" id="Fms-Yk-kXk"/>
+                            <constraint firstItem="NAD-Eo-FIx" firstAttribute="width" secondItem="aZk-gD-8zE" secondAttribute="width" id="Q6f-W7-ZQx"/>
+                            <constraint firstItem="NAD-Eo-FIx" firstAttribute="centerX" secondItem="aZk-gD-8zE" secondAttribute="centerX" id="Wx8-6v-tZf"/>
+                            <constraint firstItem="NAD-Eo-FIx" firstAttribute="centerY" secondItem="aZk-gD-8zE" secondAttribute="centerY" id="uJX-3a-VNQ"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="aZk-gD-8zE" secondAttribute="trailing" id="4LW-R5-ZNH">
+                    <variation key="heightClass=regular-widthClass=regular" constant="3"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="aZk-gD-8zE" secondAttribute="bottom" id="7cw-Hh-vfY"/>
+                <constraint firstItem="aZk-gD-8zE" firstAttribute="top" secondItem="VjH-ik-kI1" secondAttribute="top" id="GrF-LB-y1B"/>
+                <constraint firstItem="aZk-gD-8zE" firstAttribute="leading" secondItem="VjH-ik-kI1" secondAttribute="leading" id="XMw-GG-KJX"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="npc-0E-jTd"/>
+            <size key="customSize" width="259" height="90"/>
+            <connections>
+                <outlet property="backGroundV" destination="aZk-gD-8zE" id="d81-FY-NSr"/>
+                <outlet property="selectionView" destination="3va-LM-YPg" id="V1N-VA-qmR"/>
+                <outlet property="titleLabel" destination="NAD-Eo-FIx" id="TUa-Ru-iD3"/>
+            </connections>
+            <point key="canvasLocation" x="300" y="172.71364317841082"/>
+        </collectionViewCell>
+    </objects>
+</document>

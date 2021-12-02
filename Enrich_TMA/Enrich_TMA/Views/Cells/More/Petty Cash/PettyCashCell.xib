@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PettyCashCell" rowHeight="98" id="TL7-3t-Fhr" customClass="PettyCashCell" customModule="Enrich_TMA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="423" height="98"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TL7-3t-Fhr" id="MSW-XD-neX">
+                <rect key="frame" x="0.0" y="0.0" width="423" height="97.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="hkQ-jl-wAP">
+                        <rect key="frame" x="20" y="15" width="383" height="47"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date &amp; time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu3-gg-GY5">
+                                <rect key="frame" x="0.0" y="0.0" width="67" height="18"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="14"/>
+                                <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Tue, 5 Apr   12:10 pm" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yMd-KV-G7E">
+                                <rect key="frame" x="0.0" y="23" width="383" height="24"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="yMd-KV-G7E" secondAttribute="trailing" id="9Vl-MY-00z"/>
+                            <constraint firstItem="yMd-KV-G7E" firstAttribute="leading" secondItem="hkQ-jl-wAP" secondAttribute="leading" id="gfR-Yr-ncx"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hkQ-jl-wAP" firstAttribute="top" secondItem="MSW-XD-neX" secondAttribute="top" constant="15" id="6xh-0g-WfD"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hkQ-jl-wAP" secondAttribute="bottom" constant="10" id="JbJ-Is-VN0"/>
+                    <constraint firstItem="hkQ-jl-wAP" firstAttribute="leading" secondItem="MSW-XD-neX" secondAttribute="leading" constant="20" id="UBi-Lb-Jab"/>
+                    <constraint firstAttribute="trailing" secondItem="hkQ-jl-wAP" secondAttribute="trailing" constant="20" id="etH-im-InK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+            <connections>
+                <outlet property="lblTitle" destination="yu3-gg-GY5" id="bKY-p4-LoK"/>
+                <outlet property="txtFValue" destination="yMd-KV-G7E" id="upS-FO-E41"/>
+            </connections>
+            <point key="canvasLocation" x="44.20289855072464" y="42.1875"/>
+        </tableViewCell>
+    </objects>
+</document>

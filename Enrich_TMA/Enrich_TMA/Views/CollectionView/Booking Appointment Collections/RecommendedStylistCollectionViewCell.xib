@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="RecommendedStylistCollectionViewCell" reuseIdentifier="RecommendedStylistCollectionViewCell" id="zuE-Zb-Gf2" userLabel="RecommendedStylistCollectionViewCell" customClass="RecommendedStylistCollectionViewCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="216" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="216" height="60"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VMT-qG-jcI">
+                        <rect key="frame" x="0.0" y="0.0" width="216" height="60"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4AL-5n-c4L">
+                                <rect key="frame" x="0.0" y="5" width="216" height="22"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zL9-Xq-SIn" userLabel="Description">
+                                <rect key="frame" x="0.0" y="32" width="216" height="22"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                </variation>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ueu-SG-aJp">
+                                <rect key="frame" x="0.0" y="54" width="216" height="6"/>
+                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="6" id="PKf-DU-wvu"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ueu-SG-aJp" firstAttribute="trailing" secondItem="zL9-Xq-SIn" secondAttribute="trailing" id="56R-bX-Jlg"/>
+                            <constraint firstItem="zL9-Xq-SIn" firstAttribute="centerX" secondItem="4AL-5n-c4L" secondAttribute="centerX" id="BtV-d3-KTm"/>
+                            <constraint firstItem="zL9-Xq-SIn" firstAttribute="top" secondItem="4AL-5n-c4L" secondAttribute="bottom" constant="5" id="DOp-99-LNv"/>
+                            <constraint firstItem="Ueu-SG-aJp" firstAttribute="leading" secondItem="zL9-Xq-SIn" secondAttribute="leading" id="E3e-0w-WNh"/>
+                            <constraint firstItem="4AL-5n-c4L" firstAttribute="centerX" secondItem="VMT-qG-jcI" secondAttribute="centerX" id="QgB-Ay-KdS"/>
+                            <constraint firstAttribute="bottom" secondItem="Ueu-SG-aJp" secondAttribute="bottom" id="V4m-Uj-085"/>
+                            <constraint firstItem="Ueu-SG-aJp" firstAttribute="centerX" secondItem="4AL-5n-c4L" secondAttribute="centerX" id="Vzl-y6-IBX"/>
+                            <constraint firstItem="zL9-Xq-SIn" firstAttribute="width" secondItem="VMT-qG-jcI" secondAttribute="width" id="mhU-iw-I37"/>
+                            <constraint firstItem="4AL-5n-c4L" firstAttribute="top" secondItem="VMT-qG-jcI" secondAttribute="top" constant="5" id="t6J-uH-eSV"/>
+                            <constraint firstItem="4AL-5n-c4L" firstAttribute="width" secondItem="VMT-qG-jcI" secondAttribute="width" id="xSj-lh-I5O"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="VMT-qG-jcI" firstAttribute="top" secondItem="zuE-Zb-Gf2" secondAttribute="top" id="BPJ-fo-wC9"/>
+                <constraint firstItem="VMT-qG-jcI" firstAttribute="leading" secondItem="zuE-Zb-Gf2" secondAttribute="leading" id="goK-Ag-jej"/>
+                <constraint firstAttribute="trailing" secondItem="VMT-qG-jcI" secondAttribute="trailing" id="pgD-Xw-raI">
+                    <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="VMT-qG-jcI" secondAttribute="bottom" id="zdU-Q3-pKt"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="t6w-BN-zEF"/>
+            <size key="customSize" width="216" height="71"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="zL9-Xq-SIn" id="qPi-RB-xDZ"/>
+                <outlet property="selectionView" destination="Ueu-SG-aJp" id="Kd2-5U-P5q"/>
+                <outlet property="titleLabel" destination="4AL-5n-c4L" id="iXu-8W-HMd"/>
+            </connections>
+            <point key="canvasLocation" x="265.60000000000002" y="162.81859070464768"/>
+        </collectionViewCell>
+    </objects>
+</document>

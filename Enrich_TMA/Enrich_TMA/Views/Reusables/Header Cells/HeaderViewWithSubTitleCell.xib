@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HeaderViewWithSubTitleCell" rowHeight="87" id="KGk-i7-Jjw" customClass="HeaderViewWithSubTitleCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="465" height="87"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="465" height="86.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B6f-zg-Jba">
+                        <rect key="frame" x="15" y="0.0" width="435" height="86.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Frequently booked services" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixl-uo-9Vj">
+                                <rect key="frame" x="0.0" y="26" width="365" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                <color key="textColor" red="0.15294117647058825" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="With head massage" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8I-8L-EpC">
+                                <rect key="frame" x="0.0" y="53" width="435" height="23.5"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="27"/>
+                                </variation>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QP5-LC-ij4">
+                                <rect key="frame" x="375" y="20" width="60" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="RMa-oJ-1YD">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                <state key="normal" title="View All">
+                                    <color key="titleColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                </variation>
+                                <connections>
+                                    <action selector="actionViewAll:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="qAz-ys-l3T"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QP5-LC-ij4" firstAttribute="leading" secondItem="ixl-uo-9Vj" secondAttribute="trailing" constant="10" id="Boe-Ga-hY7"/>
+                            <constraint firstItem="T6b-Ak-9bg" firstAttribute="bottom" secondItem="v8I-8L-EpC" secondAttribute="bottom" constant="10" id="PO6-fa-3V7">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="QP5-LC-ij4" firstAttribute="centerY" secondItem="ixl-uo-9Vj" secondAttribute="centerY" id="j1U-Uh-ts4"/>
+                            <constraint firstItem="v8I-8L-EpC" firstAttribute="top" secondItem="QP5-LC-ij4" secondAttribute="bottom" id="kZq-IZ-DTx"/>
+                            <constraint firstItem="ixl-uo-9Vj" firstAttribute="leading" secondItem="T6b-Ak-9bg" secondAttribute="leading" id="llm-ia-aB7"/>
+                            <constraint firstItem="v8I-8L-EpC" firstAttribute="leading" secondItem="B6f-zg-Jba" secondAttribute="leading" id="lxr-DV-sO8"/>
+                            <constraint firstAttribute="trailing" secondItem="QP5-LC-ij4" secondAttribute="trailing" id="oQY-XK-qDS"/>
+                            <constraint firstItem="T6b-Ak-9bg" firstAttribute="trailing" secondItem="v8I-8L-EpC" secondAttribute="trailing" id="opN-Az-y8o"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="T6b-Ak-9bg"/>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="B6f-zg-Jba" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="UI7-9K-VdI">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                    <constraint firstItem="B6f-zg-Jba" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VlS-qm-gZk"/>
+                    <constraint firstAttribute="bottom" secondItem="B6f-zg-Jba" secondAttribute="bottom" id="oZt-vc-v0o"/>
+                    <constraint firstAttribute="trailing" secondItem="B6f-zg-Jba" secondAttribute="trailing" constant="15" id="pZh-ZW-PNe">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnViewAll" destination="QP5-LC-ij4" id="uVD-yM-16t"/>
+                <outlet property="subTitleLabel" destination="v8I-8L-EpC" id="fOk-xe-g59"/>
+                <outlet property="titleLabel" destination="ixl-uo-9Vj" id="BJS-fn-sDP"/>
+            </connections>
+            <point key="canvasLocation" x="248.80000000000001" y="174.06296851574214"/>
+        </tableViewCell>
+    </objects>
+</document>

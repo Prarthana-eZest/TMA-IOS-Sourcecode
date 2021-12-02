@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckBoxCell" rowHeight="55" id="KGk-i7-Jjw" customClass="CheckBoxCell" customModule="Enrich_TMA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="394" height="55"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="394" height="54.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NoJ-4U-6lQ">
+                        <rect key="frame" x="0.0" y="15" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="TPU-z6-U1O"/>
+                            <constraint firstAttribute="height" constant="25" id="sfN-Zc-P3F"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                        <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" backgroundImage="checkBoxUnSelectedLoginScreen">
+                            <color key="titleColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" backgroundImage="checkBoxSelectedLoginScreen"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="All services" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7oB-Hz-JQ8">
+                        <rect key="frame" x="40" y="15.5" width="78" height="24"/>
+                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7oB-Hz-JQ8" firstAttribute="centerY" secondItem="NoJ-4U-6lQ" secondAttribute="centerY" id="GL9-gx-8uy"/>
+                    <constraint firstItem="NoJ-4U-6lQ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Iws-dL-dlR"/>
+                    <constraint firstItem="NoJ-4U-6lQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="JdD-ib-64z"/>
+                    <constraint firstItem="7oB-Hz-JQ8" firstAttribute="leading" secondItem="NoJ-4U-6lQ" secondAttribute="trailing" constant="15" id="yGk-Vu-Ifi"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnCheckbox" destination="NoJ-4U-6lQ" id="l0z-py-vFd"/>
+                <outlet property="lblTitle" destination="7oB-Hz-JQ8" id="2fG-nY-NOB"/>
+            </connections>
+            <point key="canvasLocation" x="185.50724637681162" y="157.03125"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="checkBoxSelectedLoginScreen" width="23" height="23"/>
+        <image name="checkBoxUnSelectedLoginScreen" width="23" height="23"/>
+    </resources>
+</document>

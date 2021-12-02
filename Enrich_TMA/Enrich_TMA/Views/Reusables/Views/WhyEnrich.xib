@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+        <array key="NotoSerif-Bold.ttf">
+            <string>NotoSerif-Bold</string>
+        </array>
+        <array key="NotoSerif-Regular.ttf">
+            <string>NotoSerif</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WhyEnrich" customModule="EnrichSalon" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="WhyEnrich" id="iN0-l3-epB" customClass="WhyEnrich" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="639" height="548"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jjs-QG-LIj">
+                    <rect key="frame" x="0.0" y="35" width="639" height="513"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="whyEnrichBackImg" translatesAutoresizingMaskIntoConstraints="NO" id="oA3-Qz-ZIf">
+                            <rect key="frame" x="0.0" y="15" width="639" height="478"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </imageView>
+                        <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UlU-zk-73z">
+                            <rect key="frame" x="0.0" y="15" width="639" height="478"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why Enrich?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAn-cc-lxa">
+                            <rect key="frame" x="208.33333333333331" y="163.66666666666666" width="222.33333333333331" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="4RM-SL-HKJ">
+                                    <variation key="heightClass=regular-widthClass=regular" constant="75"/>
+                                </constraint>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="36"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="54"/>
+                            </variation>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="QhH-eP-MtM">
+                            <rect key="frame" x="0.0" y="297" width="639" height="122"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Cxw-jh-gRb">
+                                    <rect key="frame" x="0.0" y="0.0" width="205.33333333333334" height="122"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="100+" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="DVm-tB-V9Q">
+                                            <rect key="frame" x="60.333333333333343" y="0.0" width="85" height="52"/>
+                                            <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="38"/>
+                                            <color key="textColor" red="0.56862745098039214" green="0.86274509803921573" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="57"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Holistic Services" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8pR-p7-5Jm">
+                                            <rect key="frame" x="57.666666666666657" y="52" width="90" height="70"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="Q7C-Mv-qbf"/>
+                                                <constraint firstAttribute="width" constant="90" id="zku-y4-w9I"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="K3D-eH-tUc">
+                                    <rect key="frame" x="205.33333333333331" y="0.0" width="228.33333333333331" height="122"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100+" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="RQN-HM-fFP">
+                                            <rect key="frame" x="71.666666666666657" y="0.0" width="85" height="52"/>
+                                            <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="38"/>
+                                            <color key="textColor" red="0.56862745098039214" green="0.86274509803921573" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="57"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Certified Professionals" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opN-mm-NBt">
+                                            <rect key="frame" x="64.333333333333343" y="52" width="100" height="70"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="70" id="hCm-21-HdM"/>
+                                                <constraint firstAttribute="width" constant="100" id="txi-Sf-uW0"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="JU8-Zb-jLW">
+                                    <rect key="frame" x="433.66666666666669" y="0.0" width="205.33333333333331" height="122"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100+" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="9H6-ne-g1I">
+                                            <rect key="frame" x="60" y="0.0" width="85" height="52"/>
+                                            <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="38"/>
+                                            <color key="textColor" red="0.56862745098039214" green="0.86274509803921573" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="57"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latest Products" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f42-m7-g3Q">
+                                            <rect key="frame" x="57.666666666666629" y="52" width="90" height="70"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="CXd-YA-ZF8"/>
+                                                <constraint firstAttribute="height" constant="70" id="JMh-p0-q28"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="At Enrich we offers you services that are precisely tailored for you." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyg-Vq-Jlj">
+                            <rect key="frame" x="96" y="240.66666666666671" width="447" height="46.333333333333343"/>
+                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                            <variation key="heightClass=regular-widthClass=regular">
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="27"/>
+                            </variation>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="UlU-zk-73z" firstAttribute="leading" secondItem="oA3-Qz-ZIf" secondAttribute="leading" id="1OV-nF-cS9"/>
+                        <constraint firstItem="UlU-zk-73z" firstAttribute="trailing" secondItem="oA3-Qz-ZIf" secondAttribute="trailing" id="4Qh-Zz-xgu"/>
+                        <constraint firstAttribute="bottom" secondItem="oA3-Qz-ZIf" secondAttribute="bottom" constant="20" id="59r-IT-SxU"/>
+                        <constraint firstItem="QhH-eP-MtM" firstAttribute="top" secondItem="eyg-Vq-Jlj" secondAttribute="bottom" constant="10" id="5jY-RV-pXg"/>
+                        <constraint firstItem="eyg-Vq-Jlj" firstAttribute="centerX" secondItem="jjs-QG-LIj" secondAttribute="centerX" id="5xN-AB-RTm"/>
+                        <constraint firstAttribute="trailing" secondItem="QhH-eP-MtM" secondAttribute="trailing" id="Hd7-xG-uxd"/>
+                        <constraint firstItem="QhH-eP-MtM" firstAttribute="centerX" secondItem="jjs-QG-LIj" secondAttribute="centerX" id="HtF-SB-esj"/>
+                        <constraint firstAttribute="trailing" secondItem="oA3-Qz-ZIf" secondAttribute="trailing" id="KrJ-fj-4Jo"/>
+                        <constraint firstItem="oA3-Qz-ZIf" firstAttribute="leading" secondItem="jjs-QG-LIj" secondAttribute="leading" id="NuH-t3-gxb"/>
+                        <constraint firstItem="jAn-cc-lxa" firstAttribute="centerX" secondItem="jjs-QG-LIj" secondAttribute="centerX" id="S3N-vl-V7H"/>
+                        <constraint firstItem="QhH-eP-MtM" firstAttribute="leading" secondItem="jjs-QG-LIj" secondAttribute="leading" id="Yd0-N8-Jhe"/>
+                        <constraint firstItem="eyg-Vq-Jlj" firstAttribute="top" secondItem="jAn-cc-lxa" secondAttribute="bottom" constant="27" id="df0-ej-C1l"/>
+                        <constraint firstItem="oA3-Qz-ZIf" firstAttribute="top" secondItem="jjs-QG-LIj" secondAttribute="top" constant="15" id="eIJ-dR-vZ3"/>
+                        <constraint firstItem="eyg-Vq-Jlj" firstAttribute="width" secondItem="oA3-Qz-ZIf" secondAttribute="width" multiplier="0.7" id="fAi-jw-CZu"/>
+                        <constraint firstItem="QhH-eP-MtM" firstAttribute="centerY" secondItem="jjs-QG-LIj" secondAttribute="centerY" multiplier="1.45" constant="-14" id="pPo-yN-hm2"/>
+                        <constraint firstItem="UlU-zk-73z" firstAttribute="bottom" secondItem="oA3-Qz-ZIf" secondAttribute="bottom" id="uho-AV-8Ef"/>
+                        <constraint firstItem="UlU-zk-73z" firstAttribute="top" secondItem="oA3-Qz-ZIf" secondAttribute="top" id="xDr-iv-lKy"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="jjs-QG-LIj" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="4O9-eg-IR8"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jjs-QG-LIj" secondAttribute="trailing" id="77H-FE-ScT"/>
+                <constraint firstItem="jjs-QG-LIj" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="15" id="GvQ-W8-7Il"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="jjs-QG-LIj" secondAttribute="bottom" id="nEF-k3-40V"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="lblCertified" destination="RQN-HM-fFP" id="vor-zf-fTZ"/>
+                <outlet property="lblHolistic" destination="DVm-tB-V9Q" id="4bQ-wp-tbN"/>
+                <outlet property="lblLatestProduct" destination="9H6-ne-g1I" id="Tbo-Wh-COh"/>
+            </connections>
+            <point key="canvasLocation" x="-10" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="whyEnrichBackImg" width="926" height="715"/>
+    </resources>
+</document>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="LocationOtherTableViewCell" selectionStyle="none" indentationWidth="10" rowHeight="188" id="5gX-0U-8sm" customClass="LocationOtherTableViewCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="402" height="188"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5gX-0U-8sm" id="71z-8g-hfx">
+                <rect key="frame" x="0.0" y="0.0" width="402" height="187.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BackShadowImg" translatesAutoresizingMaskIntoConstraints="NO" id="yLE-ri-Fd7">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="187.5"/>
+                    </imageView>
+                    <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBx-aI-I2v">
+                        <rect key="frame" x="8" y="5" width="382.5" height="174.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.80000000000000004"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.79774008279999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otherIconImg" translatesAutoresizingMaskIntoConstraints="NO" id="9Yh-oZ-1lD">
+                        <rect key="frame" x="30" y="31" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="17" id="CVD-9a-nx6">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20.399999999999999"/>
+                            </constraint>
+                            <constraint firstAttribute="height" constant="17" id="saf-DY-wkM">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20.399999999999999"/>
+                            </constraint>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aundh Aundh Aundh Aundh Aundh" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VTa-vr-FAc">
+                        <rect key="frame" x="61" y="24" width="284" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="32" id="tgM-Ul-nqf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                        </variation>
+                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Fd-pd-gj8">
+                        <rect key="frame" x="61" y="66" width="284" height="91"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sayali Terrace, Flat No.1, 94 Anand Park, Roman 2, Lti Road, Opp HDFC Bank, Aundh-411007, Pune" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gwq-kZ-Cdl">
+                                <rect key="frame" x="0.0" y="0.0" width="284" height="62"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                </variation>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11  km from your location" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3M5-bO-MIb">
+                                <rect key="frame" x="0.0" y="70" width="284" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="css-bJ-8Xy"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                                </variation>
+                            </label>
+                        </subviews>
+                        <variation key="heightClass=regular-widthClass=regular" spacing="10"/>
+                    </stackView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gk8-BT-7Nu">
+                        <rect key="frame" x="355" y="31" width="15" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="17" id="IkO-6R-cjo">
+                                <variation key="heightClass=regular-widthClass=regular" constant="20.399999999999999"/>
+                            </constraint>
+                            <constraint firstAttribute="width" constant="15" id="Y2p-QX-TZV">
+                                <variation key="heightClass=regular-widthClass=regular" constant="22.5"/>
+                            </constraint>
+                        </constraints>
+                        <state key="normal" backgroundImage="starDisabled"/>
+                        <state key="disabled" backgroundImage="starDisabled"/>
+                        <state key="selected" backgroundImage="starEnabled"/>
+                        <connections>
+                            <action selector="actionBtnStar:" destination="5gX-0U-8sm" eventType="touchUpInside" id="GmZ-X7-8Vn"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GBx-aI-I2v" firstAttribute="leading" secondItem="71z-8g-hfx" secondAttribute="leading" constant="8" id="4Gv-Bd-HFB"/>
+                    <constraint firstAttribute="trailing" secondItem="GBx-aI-I2v" secondAttribute="trailing" constant="11.5" id="8fA-gz-j8v"/>
+                    <constraint firstAttribute="bottom" secondItem="GBx-aI-I2v" secondAttribute="bottom" constant="8" id="9Jg-UB-BcW"/>
+                    <constraint firstAttribute="bottom" secondItem="yLE-ri-Fd7" secondAttribute="bottom" id="Byx-Ok-Z6S"/>
+                    <constraint firstAttribute="trailing" secondItem="yLE-ri-Fd7" secondAttribute="trailing" id="EZa-Ce-NO4"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Gk8-BT-7Nu" secondAttribute="trailing" constant="12" id="GZc-zw-LrL"/>
+                    <constraint firstItem="VTa-vr-FAc" firstAttribute="top" secondItem="71z-8g-hfx" secondAttribute="topMargin" constant="13" id="Lgd-J5-9Qb"/>
+                    <constraint firstItem="VTa-vr-FAc" firstAttribute="leading" secondItem="9Yh-oZ-1lD" secondAttribute="trailing" constant="14" id="NS1-Jf-p36"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="4Fd-pd-gj8" secondAttribute="bottom" constant="20" id="OaR-ib-xgO"/>
+                    <constraint firstItem="4Fd-pd-gj8" firstAttribute="trailing" secondItem="VTa-vr-FAc" secondAttribute="trailing" id="T2U-7I-AWw"/>
+                    <constraint firstItem="Gk8-BT-7Nu" firstAttribute="leading" secondItem="VTa-vr-FAc" secondAttribute="trailing" constant="10" id="T77-uv-txt"/>
+                    <constraint firstItem="4Fd-pd-gj8" firstAttribute="leading" secondItem="VTa-vr-FAc" secondAttribute="leading" id="X0x-2g-1pF"/>
+                    <constraint firstItem="Gk8-BT-7Nu" firstAttribute="top" secondItem="9Yh-oZ-1lD" secondAttribute="top" id="XOM-fF-KhY"/>
+                    <constraint firstItem="9Yh-oZ-1lD" firstAttribute="leading" secondItem="71z-8g-hfx" secondAttribute="leadingMargin" constant="10" id="aaz-FI-Ddg"/>
+                    <constraint firstItem="9Yh-oZ-1lD" firstAttribute="top" secondItem="71z-8g-hfx" secondAttribute="topMargin" constant="20" id="f1d-TP-gsY"/>
+                    <constraint firstItem="GBx-aI-I2v" firstAttribute="top" secondItem="71z-8g-hfx" secondAttribute="top" constant="5" id="h18-sD-nBA"/>
+                    <constraint firstItem="yLE-ri-Fd7" firstAttribute="leading" secondItem="71z-8g-hfx" secondAttribute="leading" id="k2P-Qd-bsh"/>
+                    <constraint firstItem="yLE-ri-Fd7" firstAttribute="top" secondItem="71z-8g-hfx" secondAttribute="top" id="rIP-qX-SNW"/>
+                    <constraint firstItem="4Fd-pd-gj8" firstAttribute="top" secondItem="VTa-vr-FAc" secondAttribute="bottom" constant="10" id="xpL-oc-gdf">
+                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="0r6-4U-mQv"/>
+            <connections>
+                <outlet property="btnStar" destination="Gk8-BT-7Nu" id="9AB-7V-6LW"/>
+                <outlet property="imgBackground" destination="yLE-ri-Fd7" id="HXz-Nk-YV1"/>
+                <outlet property="imgPlaceTypeIcon" destination="9Yh-oZ-1lD" id="LxM-pU-qm5"/>
+                <outlet property="lblPlaceAddress" destination="Gwq-kZ-Cdl" id="Env-kS-g6s"/>
+                <outlet property="lblPlaceDistance" destination="3M5-bO-MIb" id="DO5-eA-7fR"/>
+                <outlet property="lblPlaceTitle" destination="VTa-vr-FAc" id="zC0-f2-XAJ"/>
+                <outlet property="viewBackBorder" destination="GBx-aI-I2v" id="vau-vt-muD"/>
+            </connections>
+            <point key="canvasLocation" x="65.599999999999994" y="101.64917541229386"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="BackShadowImg" width="340" height="168"/>
+        <image name="otherIconImg" width="13" height="17"/>
+        <image name="starDisabled" width="17" height="17"/>
+        <image name="starEnabled" width="15" height="17"/>
+    </resources>
+</document>
