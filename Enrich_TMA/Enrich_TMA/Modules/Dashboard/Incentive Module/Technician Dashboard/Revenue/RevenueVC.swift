@@ -110,11 +110,9 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
     func updateRevenueScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             revenueScreenData(startDate: startDate ?? Date.today, endDate: endDate, otherFilters: filterArray, completion: nil)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//        }
     }
     
     
@@ -261,6 +259,9 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         headerGraphDataGraphEntries = getTotalRevenueBarLineGraphEntry(forData: filteredRevenueForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
         
         completion?()
+        
+        tableView.reloadData()
+        EZLoadingActivity.hide()
     }
     
     func getBarLineGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> BarLineGraphEntry
@@ -306,7 +307,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -377,7 +378,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
@@ -463,7 +464,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
                     
                 case .cutome:
                     
-                    if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+                    if dateRange.end.monthName != dateRange.start.monthName
                     {
                         let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                         for month in months {

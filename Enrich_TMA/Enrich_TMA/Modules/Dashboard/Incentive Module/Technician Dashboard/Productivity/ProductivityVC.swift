@@ -280,7 +280,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -337,7 +337,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 let monthlyDates = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM-dd")
                 for (index, monthlyDate) in monthlyDates.enumerated() {
@@ -454,7 +454,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
@@ -524,7 +524,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+            if dateRange.end.monthName != dateRange.start.monthName
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
