@@ -33,10 +33,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
     
     var dateSelectedTitle : String = ""
     
-//    var filterPenetrationData = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
-//    var filterCrossSellData = [Dashboard.GetRevenueDashboard.Cross_sell_transactions]()
-//    var filterPenetrationRatio = [Dashboard.GetRevenueDashboard.PenetrationRatio]()
-//
+    //    var filterPenetrationData = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
+    //    var filterCrossSellData = [Dashboard.GetRevenueDashboard.Cross_sell_transactions]()
+    //    var filterPenetrationRatio = [Dashboard.GetRevenueDashboard.PenetrationRatio]()
+    //
     var fromFilters : Bool = false
     
     var fromChartFilter : Bool = false
@@ -125,7 +125,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.Productivity.graphBarColor
+        let graphColor = EarningDetails.PenetrationRatios.graphBarColor
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
     }
@@ -136,7 +136,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
         if data == nil, (data?.count ?? 0 <= 0) {
-        
+            
             
             filteredPenetrationRatio = technicianDataJSON?.data?.revenue_transactions?.filter({ (penetrationRatio) -> Bool in
                 if let date = penetrationRatio.date?.date()?.startOfDay {
@@ -146,35 +146,36 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 return false
             })
         }
-            let uniqueInvoices = filteredPenetrationRatio?.compactMap({$0.invoice_number}).unique(map: {$0}) ?? []
+        let uniqueInvoices = filteredPenetrationRatio?.compactMap({$0.invoice_number}).unique(map: {$0}) ?? []
+        
+        //Service count per Invoice
+        if(index == 0){
+            return calculateServiceCountPerInvoice(filterArray: filteredPenetrationRatio ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
+        }
+        else if(index == 1){ // product to service
+            return calculateProductToService(filterArray: filteredPenetrationRatio ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
+        }
+        else if(index == 2){ // App Booking
             
-            //Service count per Invoice
-            if(index == 0){
-                return calculateServiceCountPerInvoice(filterArray: filteredPenetrationRatio ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-            }
-            else if(index == 1){ // product to service
-                return calculateProductToService(filterArray: filteredPenetrationRatio ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-            }
-            else if(index == 2){ // App Booking
-                
-                //customers served
-                let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
-                    if let date = customerEngagement.date?.date()?.startOfDay {
-
-                        return date >= dateRange.start && date <= dateRange.end
-                    }
-                    return false
-                })
-                
-                return calculateAppBooking(filterArray: filteredPenetrationRatio ?? [], customerServedArray: filteredCustomerEngagement ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-            }
-            else if(index == 3) {// cross sell
+            //customers served
+            let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
+                if let date = customerEngagement.date?.date()?.startOfDay {
+                    
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+            
+            return calculateAppBooking(filterArray: filteredPenetrationRatio ?? [], customerServedArray: filteredCustomerEngagement ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
+        }
+        else if(index == 3) {// cross sell
             let crossSell = technicianDataJSON?.data?.cross_sell_transactions
             return calculateCrossSell(filterArray: crossSell ?? [], dateRange: dateRange, dateRangeType: dateRangeType)
-            }
-            else {
-                let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
-            }
+        }
+        else {
+            let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
+            return calculatePenetrationRatioForDyanmicData(penetrationRatioFromServer: penerationRatioFromFilters ?? [], penetrationRatio: filteredPenetrationRatio ?? [], dateRange: dateRange, dateRangeType: dateRangeType)
+        }
         
         return [0.0]
     }
@@ -334,14 +335,14 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         if(invoiceNumbers.count > 0) {
             appBookingRatio =  Double(appBooking.count / invoiceNumbers.count)
         }
-//        customers served
-//        let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
-//            if let date = customerEngagement.date?.date()?.startOfDay {
-//
-//                return date >= startDate && date <= endDate
-//            }
-//            return false
-//        })
+        //        customers served
+        //        let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
+        //            if let date = customerEngagement.date?.date()?.startOfDay {
+        //
+        //                return date >= startDate && date <= endDate
+        //            }
+        //            return false
+        //        })
         let customersServed = customerServedArray.filter({$0.no_of_services ?? 0 > 0})
         var customersServedCount : Double = 0.0
         for objCustomersServed in customersServed {
@@ -471,7 +472,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     }
                 }
             }
-        
+            
         }
         return values
     }
@@ -481,90 +482,86 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         var categotyCount : Int = 0
         var subCategoryCount : Int = 0
-        var ratio : Int = 0
-        
+        //        var ratio : Int = 0
+        var filterPenetrationArrayWithCategoryData = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
         if(penetrationRatioFromServer.count > 0){
-            for objPenetration in penetrationRatioFromServer {
-                
-                for objTransaction in penetrationRatio  {
-                    
+            for objTransaction in penetrationRatio  {
+                for objPenetration in penetrationRatioFromServer {
                     if((objTransaction.category == objPenetration.compare_label!) || (objTransaction.category == objPenetration.to_compare_label!)) {
                         categotyCount = categotyCount + 1
+                        filterPenetrationArrayWithCategoryData.append(objTransaction)
                     }
                     
                     if((objTransaction.sub_category == objPenetration.compare_label) || (objTransaction.sub_category == objPenetration.to_compare_label)){
                         subCategoryCount = subCategoryCount + 1
+                        filterPenetrationArrayWithCategoryData.append(objTransaction)
+                    }
+                }
+            }
+                    
+                }
+                
+                
+                switch dateRangeType
+                {
+                case .yesterday, .today, .week, .mtd:
+                    let dates = dateRange.end.dayDates(from: dateRange.start)
+                    for objDt in dates {
+                        if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first{
+                            values.append(Double(1.0))
+                        }
+                        else {
+                            values.append(Double(0.0))
+                        }
+                    }
+                case .qtd, .ytd:
+                    let months = dateRange.end.monthNames(from: dateRange.start)
+                    for qMonth in months {
+                        let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
+                            if let rMonth = services.date?.date()?.string(format: "MMM"),
+                               rMonth == qMonth
+                            {
+                                return 1.0
+                            }
+                            return 0.0
+                        }).reduce(0) {$0 + $1}
+                        
+                        values.append(value)
                     }
                     
+                case .cutome:
                     
+                    if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
+                    {
+                        let months = dateRange.end.monthNames(from: dateRange.start)
+                        for qMonth in months {
+                            let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
+                                if let rMonth = services.date?.date()?.string(format: "MMM"),
+                                   rMonth == qMonth
+                                {
+                                    return (Double(1.0))
+                                }
+                                return 0.0
+                            }).reduce(0) {$0 + $1}
+                            
+                            values.append(value)
+                        }
+                    }
+                    else {
+                        let dates = dateRange.end.dayDates(from: dateRange.start)
+                        for objDt in dates {
+                            if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first
+                            {
+                                values.append((Double(1.0)))
+                            }
+                            else {
+                                values.append(Double(0.0))
+                            }
+                        }
+                    }
                 }
-                if(categotyCount > 0){
-                    ratio = subCategoryCount / categotyCount
-                }
-              
-                
-//                switch dateRangeType
-//                {
-//                case .yesterday, .today, .week, .mtd:
-//                    let dates = dateRange.end.dayDates(from: dateRange.start)
-//                    for objDt in dates {
-//                        if let data = customerServedArray.filter({$0.date == objDt}).first{
-//                            values.append(Double(data.no_of_services ?? 0))
-//                        }
-//                        else {
-//                            values.append(Double(0.0))
-//                        }
-//                    }
-//                case .qtd, .ytd:
-//                    let months = dateRange.end.monthNames(from: dateRange.start)
-//                    for qMonth in months {
-//                        let value = customerServedArray.map ({ (services) -> Double in
-//                            if let rMonth = services.date?.date()?.string(format: "MMM"),
-//                               rMonth == qMonth
-//                            {
-//                                return (Double(services.no_of_services ?? 0))
-//                            }
-//                            return 0.0
-//                        }).reduce(0) {$0 + $1}
-//
-//                        values.append(value)
-//                    }
-//
-//                case .cutome:
-//
-//                    if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
-//                    {
-//                        let months = dateRange.end.monthNames(from: dateRange.start)
-//                        for qMonth in months {
-//                            let value = customerServedArray.map ({ (services) -> Double in
-//                                if let rMonth = services.date?.date()?.string(format: "MMM"),
-//                                   rMonth == qMonth
-//                                {
-//                                    return (Double(services.no_of_services ?? 0))
-//                                }
-//                                return 0.0
-//                            }).reduce(0) {$0 + $1}
-//
-//                            values.append(value)
-//                        }
-//                    }
-//                    else {
-//                        let dates = dateRange.end.dayDates(from: dateRange.start)
-//                        for objDt in dates {
-//                            if let data = customerServedArray.filter({$0.date == objDt}).first
-//                            {
-//                                values.append((Double(data.no_of_services ?? 0)))
-//                            }
-//                            else {
-//                                values.append(Double(0.0))
-//                            }
-//                        }
-//                    }
-//                }
-        
-            }
-        }
         return values
+        
     }
     func doSomething()
     {
@@ -603,7 +600,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
-       
+        
         //invoice data
         let invoiceNumber = filteredPenetrationRatio?.filter({($0.invoice_number ?? "") != ""})
         let updateUniqueData = invoiceNumber?.unique(map: {$0.invoice_number})
@@ -727,7 +724,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 //Graph Data
                 graphData.append(getGraphEntry(penetrationModel.title, forData: filteredPenetrationForGraph, atIndex: index, dateRange: graphDateRange, dateRangeType: graphRangeType))
                 
-//                dataModel.append(EarningsCellDataModel(earningsType: .PenetrationRatios, title: objPenetration.heading ?? "", value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [objPenetration.compare_label ?? "" ,objPenetration.to_compare_label ?? "", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange))
+                //                dataModel.append(EarningsCellDataModel(earningsType: .PenetrationRatios, title: objPenetration.heading ?? "", value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [objPenetration.compare_label ?? "" ,objPenetration.to_compare_label ?? "", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange))
                 
                 categotyCount = 0
                 subCategoryCount = 0
@@ -760,289 +757,289 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         }
     }
     
-//    func graphPlottingValues(index: Int) -> [Double]{
-//        var valuesArr = [Double]()
-//        //invoice data
-//        let invoiceNumber = filterPenetrationData.filter({($0.invoice_number ?? "") != ""})
-//        let updateUniqueData = invoiceNumber.unique(map: {$0.invoice_number})
-//        
-//        if(index == 0){//service count per invoice
-//            let serviceCount = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
-//            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-//                
-//                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-//                
-//                for objDt in weekArray {
-//                    if let data = serviceCount.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(Double(0.0))
-//                    }
-//                    
-//                }
-//            }
-//            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-//                
-//                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-//                
-//                for objDt in monthArr {
-//                    if let data = serviceCount.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(0.0)
-//                    }
-//                    
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-//                
-//                let months = Date.today.monthNames(from: Date.today.lastQuarter())
-//                
-//                for qMonth in months {
-//                    let value = serviceCount.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == qMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-//                let months = Date.today.monthNames(from: Date.today.lastYear())
-//                
-//                for yMonth in months {
-//                    let value = serviceCount.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == yMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//            }
-//        }
-//        else if(index == 1){//product to service
-//            let productCount = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-//            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-//                
-//                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-//                
-//                for objDt in weekArray {
-//                    if let data = productCount.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(Double(0.0))
-//                    }
-//                    
-//                }
-//            }
-//            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-//                
-//                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-//                
-//                for objDt in monthArr {
-//                    if let data = productCount.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(0.0)
-//                    }
-//                    
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-//                
-//                let months = Date.today.monthNames(from: Date.today.lastQuarter())
-//                
-//                for qMonth in months {
-//                    let value = productCount.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == qMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-//                let months = Date.today.monthNames(from: Date.today.lastYear())
-//                
-//                for yMonth in months {
-//                    let value = productCount.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == yMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//            }
-//        }
-//        else if(index == 2){//app booking
-//            let appBooking = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
-//            
-//            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-//                
-//                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-//                
-//                for objDt in weekArray {
-//                    if let data = appBooking.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(Double(0.0))
-//                    }
-//                    
-//                }
-//            }
-//            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-//                
-//                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-//                
-//                for objDt in monthArr {
-//                    if let data = appBooking.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(0.0)
-//                    }
-//                    
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-//                
-//                let months = Date.today.startOfMonth.yesterday().monthNames(from: Date.today.lastQuarter())
-//                
-//                for qMonth in months {
-//                    let value = appBooking.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == qMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-//                let months = Date.today.monthNames(from: Date.today.lastYear())
-//                
-//                for yMonth in months {
-//                    let value = appBooking.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == yMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//            }
-//        }
-//        else if(index == 3){//cross sell
-//            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-//                
-//                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-//                
-//                for objDt in weekArray {
-//                    if let data = filterCrossSellData.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(Double(0.0))
-//                    }
-//                    
-//                }
-//            }
-//            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-//                
-//                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-//                
-//                for objDt in monthArr {
-//                    if let data = filterCrossSellData.filter({$0.date == objDt}).first
-//                    {
-//                        valuesArr.append(Double(1.0))
-//                    }
-//                    else {
-//                        valuesArr.append(0.0)
-//                    }
-//                    
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-//                
-//                let months = Date.today.monthNames(from: Date.today.lastQuarter())
-//                
-//                for qMonth in months {
-//                    let value = filterCrossSellData.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == qMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//                
-//            }
-//            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-//                let months = Date.today.monthNames(from: Date.today.lastYear())
-//                
-//                for yMonth in months {
-//                    let value = filterCrossSellData.map ({ (revenue) -> Double in
-//                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-//                           rMonth == yMonth
-//                        {
-//                            return Double(1.0)
-//                        }
-//                        return 0.0
-//                    }).reduce(0) {$0 + $1}
-//                    
-//                    valuesArr.append(value)
-//                }
-//            }
-//        }
-//        else {
-//            
-//        }
-//        return valuesArr
-//    }
+    //    func graphPlottingValues(index: Int) -> [Double]{
+    //        var valuesArr = [Double]()
+    //        //invoice data
+    //        let invoiceNumber = filterPenetrationData.filter({($0.invoice_number ?? "") != ""})
+    //        let updateUniqueData = invoiceNumber.unique(map: {$0.invoice_number})
+    //
+    //        if(index == 0){//service count per invoice
+    //            let serviceCount = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
+    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
+    //
+    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
+    //
+    //                for objDt in weekArray {
+    //                    if let data = serviceCount.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(Double(0.0))
+    //                    }
+    //
+    //                }
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
+    //
+    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
+    //
+    //                for objDt in monthArr {
+    //                    if let data = serviceCount.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(0.0)
+    //                    }
+    //
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
+    //
+    //                let months = Date.today.monthNames(from: Date.today.lastQuarter())
+    //
+    //                for qMonth in months {
+    //                    let value = serviceCount.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == qMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
+    //                let months = Date.today.monthNames(from: Date.today.lastYear())
+    //
+    //                for yMonth in months {
+    //                    let value = serviceCount.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == yMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //            }
+    //        }
+    //        else if(index == 1){//product to service
+    //            let productCount = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
+    //
+    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
+    //
+    //                for objDt in weekArray {
+    //                    if let data = productCount.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(Double(0.0))
+    //                    }
+    //
+    //                }
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
+    //
+    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
+    //
+    //                for objDt in monthArr {
+    //                    if let data = productCount.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(0.0)
+    //                    }
+    //
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
+    //
+    //                let months = Date.today.monthNames(from: Date.today.lastQuarter())
+    //
+    //                for qMonth in months {
+    //                    let value = productCount.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == qMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
+    //                let months = Date.today.monthNames(from: Date.today.lastYear())
+    //
+    //                for yMonth in months {
+    //                    let value = productCount.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == yMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //            }
+    //        }
+    //        else if(index == 2){//app booking
+    //            let appBooking = filterPenetrationData.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
+    //
+    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
+    //
+    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
+    //
+    //                for objDt in weekArray {
+    //                    if let data = appBooking.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(Double(0.0))
+    //                    }
+    //
+    //                }
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
+    //
+    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
+    //
+    //                for objDt in monthArr {
+    //                    if let data = appBooking.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(0.0)
+    //                    }
+    //
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
+    //
+    //                let months = Date.today.startOfMonth.yesterday().monthNames(from: Date.today.lastQuarter())
+    //
+    //                for qMonth in months {
+    //                    let value = appBooking.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == qMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
+    //                let months = Date.today.monthNames(from: Date.today.lastYear())
+    //
+    //                for yMonth in months {
+    //                    let value = appBooking.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == yMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //            }
+    //        }
+    //        else if(index == 3){//cross sell
+    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
+    //
+    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
+    //
+    //                for objDt in weekArray {
+    //                    if let data = filterCrossSellData.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(Double(0.0))
+    //                    }
+    //
+    //                }
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
+    //
+    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
+    //
+    //                for objDt in monthArr {
+    //                    if let data = filterCrossSellData.filter({$0.date == objDt}).first
+    //                    {
+    //                        valuesArr.append(Double(1.0))
+    //                    }
+    //                    else {
+    //                        valuesArr.append(0.0)
+    //                    }
+    //
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
+    //
+    //                let months = Date.today.monthNames(from: Date.today.lastQuarter())
+    //
+    //                for qMonth in months {
+    //                    let value = filterCrossSellData.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == qMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //
+    //            }
+    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
+    //                let months = Date.today.monthNames(from: Date.today.lastYear())
+    //
+    //                for yMonth in months {
+    //                    let value = filterCrossSellData.map ({ (revenue) -> Double in
+    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+    //                           rMonth == yMonth
+    //                        {
+    //                            return Double(1.0)
+    //                        }
+    //                        return 0.0
+    //                    }).reduce(0) {$0 + $1}
+    //
+    //                    valuesArr.append(value)
+    //                }
+    //            }
+    //        }
+    //        else {
+    //
+    //        }
+    //        return valuesArr
+    //    }
 }
 
 extension PenetrationRatiosVC: EarningsFilterDelegate {
