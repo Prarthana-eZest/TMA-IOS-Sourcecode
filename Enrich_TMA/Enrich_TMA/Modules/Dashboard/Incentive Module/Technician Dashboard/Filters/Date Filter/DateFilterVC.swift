@@ -201,6 +201,11 @@ class DateFilterVC: UIViewController, DateFilterDisplayLogic
     @IBAction func actionApplyFilter(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
         
+        let rangeType = DateRangeType(rawValue: selectedRangeTypeString) ?? .cutome
+        if rangeType == .cutome {
+            selectedData = data.last
+        }
+        
         viewDismissBlock?(true, selectedData?.fromDate?.startOfDay, selectedData?.toDate?.endOfDay, selectedRangeTypeString)
     }
     
