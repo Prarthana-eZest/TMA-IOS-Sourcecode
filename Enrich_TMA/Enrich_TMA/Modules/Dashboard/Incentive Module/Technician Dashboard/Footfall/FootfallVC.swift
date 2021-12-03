@@ -321,7 +321,7 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = totalFootfallGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.FreeServices.graphBarColor
+        let graphColor = EarningDetails.Footfall.graphBarColor
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Free Service", units: units, values: values, barColor: graphColor.first!)
     }

@@ -283,10 +283,10 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let values = totalRevenueGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
         let graphColor = EarningDetails.Revenue.graphBarColor
         
-        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Total Revenue", units: units, values: values, barColor: graphColor.first!)
+        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Total Revenue", units: units, values: values, barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: values, barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }

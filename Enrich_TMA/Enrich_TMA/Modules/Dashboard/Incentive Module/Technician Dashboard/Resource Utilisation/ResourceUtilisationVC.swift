@@ -119,8 +119,14 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.ResourceUtilisation.graphBarColor
+        var graphColor = [UIColor]()
         
+        if(title == "Attendance" && index == 3){
+            graphColor = EarningDetails.Revenue.graphBarColor
+        }
+        else {
+            graphColor = EarningDetails.ResourceUtilisation.graphBarColor
+        }
         return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
     }
     
