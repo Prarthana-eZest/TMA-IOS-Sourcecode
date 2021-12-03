@@ -111,11 +111,11 @@ class SalesVC: UIViewController, SalesDisplayLogic
     func updateSalesScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             salesScreenData(startDate:  startDate ?? Date.today, endDate: endDate)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//            tableView.reloadData()
+//            EZLoadingActivity.hide()
+//        }
     }
     
     func updateSalesScreenData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -144,7 +144,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
     }
     
 
-    func salesScreenData(startDate : Date, endDate : Date = Date().startOfDay){
+    func salesScreenData(startDate : Date, endDate : Date = Date().startOfDay) {
         
         //Handled Wrong function calling to avoid data mismatch
         guard fromChartFilter == false else {
@@ -231,6 +231,9 @@ class SalesVC: UIViewController, SalesDisplayLogic
         headerModel?.value = membershipRevenueCount + valuePackageRevenueCount + servicePackageRevenueCount
         headerModel?.dateRangeType = graphRangeType
         headerGraphData = getTotalSalesGraphEntry(forData: filteredSalesForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        
+        tableView.reloadData()
+        EZLoadingActivity.hide()
     }
     
     func getGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
@@ -256,7 +259,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
         switch rangeType
         {
         
-        case .yesterday, .today, .mtd, .week:
+        case .yesterday, .today, .mtd:
+            return dateRange.end.endOfMonth.dayDates(from: dateRange.start.startOfMonth, withFormat: "dd")
+            
+        case .week:
             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
             
         case .qtd, .ytd:
@@ -346,36 +352,32 @@ class SalesVC: UIViewController, SalesDisplayLogic
             }
             
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
-            for qMonth in months {
-                let value = filteredSales?.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-                       rMonth == qMonth
-                    {
-                        return Double(revenue.total ?? 0.0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1} ?? 0.0
-                
-                totalSales.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+            for month in months {
+                if let data = filteredSales?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
+                {
+                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                    totalSales.append(Double(value))
+                }
+                else {
+                    totalSales.append(Double(0.0))
+                }
             }
             
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > dateRange.end.daysInMonth()
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
-                for qMonth in months {
-                    let value = filteredSales?.map ({ (revenue) -> Double in
-                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-                           rMonth == qMonth
-                        {
-                            return Double(revenue.total ?? 0.0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1} ?? 0.0
-                    
-                    totalSales.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+                for month in months {
+                    if let data = filteredSales?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
+                    {
+                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                        totalSales.append(Double(value))
+                    }
+                    else {
+                        totalSales.append(Double(0.0))
+                    }
                 }
             }
             else {
