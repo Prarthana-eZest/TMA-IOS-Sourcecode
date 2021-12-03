@@ -81,12 +81,9 @@ class EarningDetailsHeaderCell: UITableViewCell, ChartViewDelegate {
         graphRangeBtn.setTitle(model.dateRangeType.rawValue, for: .normal)
         tileHeightConstraint.constant = model.earningsType.headerTileHeight
         chartParentView.isHidden = !model.isExpanded
-
-//        if chartView.data == nil, !model.isExpanded, model.earningsType.isGraphAvailable {
-            drawGraph(graphData: data, showRightAxix: false)
-//        }
-    
         lblValue.text = model.value?.roundedStringValue() ?? ""
+        
+        self.drawGraph(graphData: data, showRightAxix: false)
     }
     
     @IBAction func actionDurationFilter(_ sender: UIButton) {
@@ -152,7 +149,9 @@ extension EarningDetailsHeaderCell {
         xAxis.axisLineWidth = 0.5
         xAxis.gridLineDashLengths = [(5.0)]
         xAxis.axisMinimum = 0.5
-        xAxis.axisMaximum = xAxis.axisMaximum + 0.5
+        xAxis.axisMaximum = Double(graphData.first?.units.count ?? 0) + 1
+        xAxis.spaceMin = 0.3
+        xAxis.spaceMax = 0.3
         
         
         
@@ -209,6 +208,8 @@ extension EarningDetailsHeaderCell {
         
         chartView.extraBottomOffset = 10
         chartView.extraTopOffset = 50
+        chartView.doubleTapToZoomEnabled = false
+        chartView.pinchZoomEnabled = false
         chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         chartView.fitScreen()
     }
@@ -236,7 +237,7 @@ extension EarningDetailsHeaderCell {
         
         barChartData.barWidth = barWidth
         
-        barChartData.groupBars(fromX: 0.5, groupSpace: groupSpace, barSpace: barSpace)
+//        barChartData.groupBars(fromX: 0.5, groupSpace: groupSpace, barSpace: barSpace)
         
         return barChartData
     }
