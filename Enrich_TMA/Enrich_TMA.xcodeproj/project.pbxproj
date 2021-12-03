@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E745891275A58C500005935 /* ExtensionDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E745890275A58C500005935 /* ExtensionDouble.swift */; };
 		69400E1D2F1F3F927A241AA8 /* Pods_Enrich_TMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C6778C4F80BC364D0D5CAA /* Pods_Enrich_TMA.framework */; };
 		6C8EF22ABB4EBF37B69F6F6E /* Pods_Enrich_TMAUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F93DD41D1FF48BF2C4971B5 /* Pods_Enrich_TMAUITests.framework */; };
 		D7A97E9D62DD6FD8DA434C0D /* Pods_Enrich_TMATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E5937A73CD31D48C3E419B /* Pods_Enrich_TMATests.framework */; };
@@ -571,7 +572,6 @@
 		F85282E426BD63C800E02CB2 /* EarningDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85282E226BD63C800E02CB2 /* EarningDetailsCell.swift */; };
 		F85282E526BD63C800E02CB2 /* EarningDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85282E326BD63C800E02CB2 /* EarningDetailsCell.xib */; };
 		F855C380249B9809000C2351 /* DeleteReasonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855C37F249B9809000C2351 /* DeleteReasonVC.swift */; };
-		F858C3832758FC3400A32786 /* ExtensionDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F858C3822758FC3400A32786 /* ExtensionDouble.swift */; };
 		F85925AF24459881005E386A /* ChangeTimeSlotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85925A924459881005E386A /* ChangeTimeSlotPresenter.swift */; };
 		F85925B024459881005E386A /* ChangeTimeSlotWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85925AA24459881005E386A /* ChangeTimeSlotWorker.swift */; };
 		F85925B224459881005E386A /* ChangeTimeSlotModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85925AC24459881005E386A /* ChangeTimeSlotModels.swift */; };
@@ -855,6 +855,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0E745890275A58C500005935 /* ExtensionDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionDouble.swift; path = Enrich_TMA/Utility/Extensions/ExtensionDouble.swift; sourceTree = SOURCE_ROOT; };
 		0F93DD41D1FF48BF2C4971B5 /* Pods_Enrich_TMAUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMAUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F07588299F85041D16386AA /* Pods-Enrich_TMA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMA.release.xcconfig"; path = "Target Support Files/Pods-Enrich_TMA/Pods-Enrich_TMA.release.xcconfig"; sourceTree = "<group>"; };
 		32C6778C4F80BC364D0D5CAA /* Pods_Enrich_TMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1436,7 +1437,6 @@
 		F85282E226BD63C800E02CB2 /* EarningDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningDetailsCell.swift; sourceTree = "<group>"; };
 		F85282E326BD63C800E02CB2 /* EarningDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningDetailsCell.xib; sourceTree = "<group>"; };
 		F855C37F249B9809000C2351 /* DeleteReasonVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteReasonVC.swift; sourceTree = "<group>"; };
-		F858C3822758FC3400A32786 /* ExtensionDouble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionDouble.swift; path = "../../../../../Downloads/TMA-iOS 6/Enrich_TMA/Enrich_TMA/Utility/Extensions/ExtensionDouble.swift"; sourceTree = "<group>"; };
 		F85925A924459881005E386A /* ChangeTimeSlotPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTimeSlotPresenter.swift; sourceTree = "<group>"; };
 		F85925AA24459881005E386A /* ChangeTimeSlotWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTimeSlotWorker.swift; sourceTree = "<group>"; };
 		F85925AC24459881005E386A /* ChangeTimeSlotModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTimeSlotModels.swift; sourceTree = "<group>"; };
@@ -2143,6 +2143,7 @@
 				E33F10A8234B103700C2F9F5 /* UIBarButtonItem+Badge.swift */,
 				E33F10A9234B103700C2F9F5 /* ExtensionUIButton.swift */,
 				E33F10AA234B103700C2F9F5 /* ExtensionUIView.swift */,
+				0E745890275A58C500005935 /* ExtensionDouble.swift */,
 				E33F10AB234B103700C2F9F5 /* ExtensionUITableView.swift */,
 				E33F10AC234B103700C2F9F5 /* ExtensionString.swift */,
 				E33F10AD234B103700C2F9F5 /* ExtensionTextField.swift */,
@@ -2153,7 +2154,6 @@
 				E3B3A610237C2D3A00F6B56E /* ExtensionAppDelegate.swift */,
 				F8C7699427291871002096A0 /* ExtensionDate.swift */,
 				F87D6F2A273B9926008EF1A1 /* ExtensionEncodable.swift */,
-				F858C3822758FC3400A32786 /* ExtensionDouble.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5119,7 +5119,7 @@
 				F8DD44D024D404C0006BC246 /* AutoApplyDiscountCell.swift in Sources */,
 				F8C7699527291872002096A0 /* ExtensionDate.swift in Sources */,
 				F87494E826CA9E4C002A2202 /* PackageFilterPresenter.swift in Sources */,
-				F858C3832758FC3400A32786 /* ExtensionDouble.swift in Sources */,
+				0E745891275A58C500005935 /* ExtensionDouble.swift in Sources */,
 				E3FCB888240D3141008349A8 /* ProductDetailsModulePresenter.swift in Sources */,
 				F82BCF73248F7A4800F16419 /* SendPaymentLinkModels.swift in Sources */,
 				F851EF1E26BBC10400D97020 /* SalesPresenter.swift in Sources */,
