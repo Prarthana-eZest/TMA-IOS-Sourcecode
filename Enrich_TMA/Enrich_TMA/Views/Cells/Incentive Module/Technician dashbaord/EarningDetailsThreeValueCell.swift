@@ -175,7 +175,9 @@ extension EarningDetailsThreeValueCell {
         xAxis.axisLineWidth = 0.5
         xAxis.gridLineDashLengths = [(5.0)]
         xAxis.axisMinimum = 0.5
-        xAxis.axisMaximum = xAxis.axisMaximum + 0.5
+        xAxis.axisMaximum = Double(graphData.first?.units.count ?? 0) + 1
+        xAxis.spaceMin = 0.3
+        xAxis.spaceMax = 0.3
         
         
         // Left Axis
@@ -231,6 +233,8 @@ extension EarningDetailsThreeValueCell {
         
         chartView.extraBottomOffset = 10
         chartView.extraTopOffset = 50
+        chartView.doubleTapToZoomEnabled = false
+        chartView.pinchZoomEnabled = false
         chartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
         chartView.fitScreen()
     }
@@ -258,7 +262,7 @@ extension EarningDetailsThreeValueCell {
         
         barChartData.barWidth = barWidth
         
-        barChartData.groupBars(fromX: 0.5, groupSpace: groupSpace, barSpace: barSpace)
+//        barChartData.groupBars(fromX: 0.5, groupSpace: groupSpace, barSpace: barSpace)
         
         return barChartData
     }
