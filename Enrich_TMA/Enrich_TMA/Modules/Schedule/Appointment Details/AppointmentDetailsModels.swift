@@ -12,20 +12,31 @@
 
 import UIKit
 
-enum AppointmentDetails
-{
+enum AppointmentDetails {
   // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+
+    enum AppointmentStatus {
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            let data: Data?
+        }
+
+        struct Data: Codable {
+            let complete: Bool
+        }
     }
-    struct Response
-    {
+
+    enum UploadSelfie {
+        struct Request: Codable {
+            let appointment_id: Int64?
+            let selfie_image: String?
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+        }
     }
-    struct ViewModel
-    {
-    }
-  }
 }

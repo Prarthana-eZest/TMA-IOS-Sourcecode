@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BookingDetailsAddOnsCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookingDetailsAddOnsCell" id="DoR-4t-nVh" customClass="BookingDetailsAddOnsCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DoR-4t-nVh" id="zfj-QJ-9l0">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="59.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H29-5R-Nne">
+                        <rect key="frame" x="20" y="10" width="199" height="38"/>
+                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y1-Jf-tBf">
+                        <rect key="frame" x="224" y="18" width="70" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="70" id="zO7-15-nej">
+                                <variation key="heightClass=regular-widthClass=regular" constant="105"/>
+                            </constraint>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="16"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="24"/>
+                        </variation>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bce-0A-1vG">
+                        <rect key="frame" x="16" y="58" width="288" height="0.5"/>
+                        <color key="backgroundColor" red="0.80784313730000001" green="0.80784313730000001" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="pq5-Ru-8jk"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="H29-5R-Nne" firstAttribute="leading" secondItem="zfj-QJ-9l0" secondAttribute="leading" constant="20" id="QbC-3Q-kxX"/>
+                    <constraint firstItem="8Y1-Jf-tBf" firstAttribute="centerY" secondItem="H29-5R-Nne" secondAttribute="centerY" id="RNO-vM-B2M"/>
+                    <constraint firstItem="bce-0A-1vG" firstAttribute="leading" secondItem="zfj-QJ-9l0" secondAttribute="leadingMargin" id="SKE-IV-fCT"/>
+                    <constraint firstAttribute="bottom" secondItem="bce-0A-1vG" secondAttribute="bottom" constant="1" id="acf-ag-kD0"/>
+                    <constraint firstItem="H29-5R-Nne" firstAttribute="top" secondItem="zfj-QJ-9l0" secondAttribute="top" constant="10" id="cSr-zg-gmQ"/>
+                    <constraint firstItem="bce-0A-1vG" firstAttribute="top" secondItem="H29-5R-Nne" secondAttribute="bottom" constant="10" id="dJV-X9-g8R"/>
+                    <constraint firstItem="8Y1-Jf-tBf" firstAttribute="leading" secondItem="H29-5R-Nne" secondAttribute="trailing" constant="5" id="laF-wS-mV4"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="bce-0A-1vG" secondAttribute="trailing" id="qJ7-sQ-h9U"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="8Y1-Jf-tBf" secondAttribute="trailing" constant="10" id="tgl-mM-RS2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="lblPrice" destination="8Y1-Jf-tBf" id="iEs-ql-ulo"/>
+                <outlet property="lblTitle" destination="H29-5R-Nne" id="ZBh-ZW-miX"/>
+                <outlet property="sepratorLine" destination="bce-0A-1vG" id="pme-WA-PSj"/>
+            </connections>
+            <point key="canvasLocation" x="9.5999999999999996" y="48.575712143928037"/>
+        </tableViewCell>
+    </objects>
+</document>

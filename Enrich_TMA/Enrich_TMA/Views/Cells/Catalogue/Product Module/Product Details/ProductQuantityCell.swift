@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol QuantityDelegate {
+protocol QuantityDelegate: class {
     func selectedQuantity(text: String)
 }
 
@@ -19,7 +19,7 @@ class ProductQuantityCell: UITableViewCell {
     @IBOutlet weak private var lblSecondQuantity: UILabel!
     @IBOutlet weak private var lblThirdQuantity: UILabel!
 
-    var delegate: QuantityDelegate?
+    weak var delegate: QuantityDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -91,7 +91,8 @@ extension _AnyEncodable {
         case let dictionary as [String: Any?]:
             try container.encode(dictionary.mapValues { AnyCodable($0) })
         default:
-            let context = EncodingError.Context(codingPath: container.codingPath, debugDescription: "AnyCodable value cannot be encoded")
+            let context = EncodingError.Context(codingPath: container.codingPath,
+                                                debugDescription: "AnyCodable value cannot be encoded")
             throw EncodingError.invalidValue(value, context)
         }
     }
@@ -122,8 +123,8 @@ extension _AnyEncodable {
         case .doubleType, .float64Type, .cgFloatType:
             try container.encode(nsnumber.doubleValue)
         #if swift(>=5.0)
-            @unknown default:
-                fatalError()
+        @unknown default:
+            fatalError()
         #endif
         }
     }

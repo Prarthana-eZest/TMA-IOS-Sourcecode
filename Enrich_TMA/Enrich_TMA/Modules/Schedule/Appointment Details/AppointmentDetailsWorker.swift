@@ -12,9 +12,77 @@
 
 import UIKit
 
-class AppointmentDetailsWorker
-{
-  func doSomeWork()
-  {
-  }
+class AppointmentDetailsWorker {
+    let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
+    var presenter: AppointmentDetailsPresentationLogic?
+
+    func postRequestForAppointments(request: Schedule.GetAppointnents.AppointmentDetailsRequest, method: HTTPMethod) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (Schedule.GetAppointnents.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentGetAppointmentsSuccess(response: response)
+        }
+
+        self.networkLayer.post(urlString: ConstantAPINames.getAppointments.rawValue, body: request,
+                               headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: .post)
+
+    }
+
+    func postRequestForChangeAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (JobCard.ChangeAppointmentStatus.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentUpdateAppointmentStatus(response: response)
+        }
+
+        let url = ConstantAPINames.changeAppointmentStatus.rawValue + appointmentId
+
+        self.networkLayer.post(urlString: url, body: request, headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: .post)
+
+    }
+
+    func getRequestForAppointmentStatus(appointmentId: String) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            self.presenter?.presentError(responseError: error)
+        }
+
+        let successHandler: (AppointmentDetails.AppointmentStatus.Response) -> Void = { (response) in
+            self.presenter?.presentGetAppointmentStatus(response: response)
+        }
+
+        let url = ConstantAPINames.checkAppointmentStatus.rawValue + appointmentId
+
+        self.networkLayer.get(urlString: url, headers: ["X-Request-From": "tma"],
+                              successHandler: successHandler, errorHandler: errorHandler)
+    }
+
+    func postRequestForUploadSelfie(request: AppointmentDetails.UploadSelfie.Request) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (AppointmentDetails.UploadSelfie.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentUpdateAppointmentStatus(response: response)
+        }
+
+        let url = ConstantAPINames.uploadSelfie.rawValue
+
+        self.networkLayer.post(urlString: url, body: request,
+                               headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: .post)
+
+    }
 }

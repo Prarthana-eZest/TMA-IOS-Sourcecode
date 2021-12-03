@@ -15,12 +15,10 @@ public enum CacheFolderNameKeys: String {
     case k_folder_name_SalonHomeServiceSubCategory = "k_folder_name_SalonServiceSubCategory" // Top Menu
     case k_folder_name_ProductLandingData = "k_folder_name_ProductLandingData" // Top Menu
     case k_folder_name_ProductLandingCategories = "k_folder_name_ProductLandingCategories" // Top Menu
-
     case k_folder_name_SalonHomeServiceSubCategoryList = "k_folder_name_SalonHomeServiceSubCategoryList" // SubCategory List Items
-
     case k_folder_name_Testimonials = "k_folder_name_Testimonials"
-
 }
+
 public enum CacheFileNameKeys: String {
     case k_file_name_salonlocation = "k_file_name_salonlocation"
     case k_file_name_salonService = "k_file_name_salonService"

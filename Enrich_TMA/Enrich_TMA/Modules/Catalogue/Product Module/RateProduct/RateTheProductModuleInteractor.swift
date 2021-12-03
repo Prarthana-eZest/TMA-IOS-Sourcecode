@@ -19,12 +19,10 @@ class RateTheProductModuleInteractor: RateTheProductModuleBusinessLogic {
   var worker: RateTheProductModuleWorker?
 
     // MARK: Do something
-    func doPostRateTheProduct(request: RateTheProductModule.RateTheProduct.Request, accessToken: String)
-    {
+    func doPostRateTheProduct(request: RateTheProductModule.RateTheProduct.Request, accessToken: String) {
         worker = RateTheProductModuleWorker()
         worker?.presenter = self.presenter
         worker?.postRequest(request: request, accessToken: accessToken)
     }
-
 
 }

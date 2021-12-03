@@ -12,9 +12,42 @@
 
 import UIKit
 
-class GenericCustomerConsulationWorker
-{
-  func doSomeWork()
-  {
-  }
+class GenericCustomerConsulationWorker {
+
+    let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
+    var presenter: GenericCustomerConsulationPresentationLogic?
+
+    func getServiceSpecificConsultationForm(request: GenericCustomerConsulation.FormData.Request, method: HTTPMethod) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (GenericCustomerConsulation.FormData.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentSuccess(response: response)
+        }
+
+        self.networkLayer.post(urlString: ConstantAPINames.getConsulationForm.rawValue,
+                               body: request, headers: [:], successHandler: successHandler, errorHandler: errorHandler,
+                               method: .post)
+
+    }
+
+    func postSubmitSpecificConsultationForm(request: GenericCustomerConsulation.SubmitFormData.Request, method: HTTPMethod) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (GenericCustomerConsulation.SubmitFormData.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentSuccess(response: response)
+        }
+
+        self.networkLayer.post(urlString: ConstantAPINames.setConsulationForm.rawValue,
+                               body: request, headers: [:], successHandler: successHandler, errorHandler: errorHandler,
+                               method: .post)
+
+    }
 }

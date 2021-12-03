@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BillOfMaterialCell" rowHeight="193" id="KGk-i7-Jjw" customClass="BillOfMaterialCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="354" height="229"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="354" height="229"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQf-F3-kxA">
+                        <rect key="frame" x="20" y="5" width="314" height="54"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="asterisk" translatesAutoresizingMaskIntoConstraints="NO" id="BcM-fZ-kuk">
+                                <rect key="frame" x="3" y="16.5" width="10" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="10" id="JpK-gb-INb"/>
+                                    <constraint firstAttribute="height" constant="10" id="KHN-3m-gV9"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="d3U-Z4-RAO">
+                                <rect key="frame" x="15" y="10" width="289" height="34"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="249" text="Product Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AC3-Ta-FXN">
+                                        <rect key="frame" x="0.0" y="6.5" width="162" height="21"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aYi-P7-gcP">
+                                        <rect key="frame" x="167" y="0.0" width="80" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="ts9-NT-sVP"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="900" verticalHuggingPriority="900" text="ML" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsi-Ix-Efu">
+                                        <rect key="frame" x="252" y="6.5" width="20" height="21"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dropArrowSelectService" translatesAutoresizingMaskIntoConstraints="NO" id="IRJ-cP-F2S">
+                                        <rect key="frame" x="277" y="11" width="12" height="12"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="12" id="FVK-Bd-zW3"/>
+                                            <constraint firstAttribute="height" constant="12" id="WB3-2N-OsN"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="d3U-Z4-RAO" secondAttribute="trailing" constant="10" id="Dae-vP-2yf"/>
+                            <constraint firstItem="d3U-Z4-RAO" firstAttribute="top" secondItem="rQf-F3-kxA" secondAttribute="top" constant="10" id="Z6b-lh-ZHC"/>
+                            <constraint firstAttribute="bottom" secondItem="d3U-Z4-RAO" secondAttribute="bottom" constant="10" id="gEV-rf-bf8"/>
+                            <constraint firstItem="BcM-fZ-kuk" firstAttribute="top" secondItem="AC3-Ta-FXN" secondAttribute="top" id="pqE-mR-rxx"/>
+                            <constraint firstItem="BcM-fZ-kuk" firstAttribute="leading" secondItem="rQf-F3-kxA" secondAttribute="leading" constant="3" id="t8h-Ow-S5b"/>
+                            <constraint firstItem="d3U-Z4-RAO" firstAttribute="leading" secondItem="rQf-F3-kxA" secondAttribute="leading" constant="15" id="tu6-J5-LIx"/>
+                            <constraint firstItem="d3U-Z4-RAO" firstAttribute="centerY" secondItem="rQf-F3-kxA" secondAttribute="centerY" id="x5h-zy-UJe"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="rQf-F3-kxA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="BtX-GO-yCR"/>
+                    <constraint firstAttribute="trailing" secondItem="rQf-F3-kxA" secondAttribute="trailing" constant="20" id="fTb-fi-BzN"/>
+                    <constraint firstItem="rQf-F3-kxA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="g0Y-Tr-asj"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rQf-F3-kxA" secondAttribute="bottom" constant="5" id="siP-mZ-JdT"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="imgIsRequired" destination="BcM-fZ-kuk" id="lLt-gr-TH7"/>
+                <outlet property="lblMaterialName" destination="AC3-Ta-FXN" id="20i-0h-HMK"/>
+                <outlet property="lblQuantity" destination="gsi-Ix-Efu" id="eEq-wd-xjR"/>
+                <outlet property="txtfQuantity" destination="aYi-P7-gcP" id="iu0-vy-mza"/>
+            </connections>
+            <point key="canvasLocation" x="127.53623188405798" y="167.07589285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="asterisk" width="20" height="12"/>
+        <image name="dropArrowSelectService" width="15" height="8"/>
+    </resources>
+</document>

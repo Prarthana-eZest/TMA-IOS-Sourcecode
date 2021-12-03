@@ -6,7 +6,7 @@
 import UIKit
 
 // MARK: - SORT TYPES & NAMES
-protocol SortSelectionDelegate {
+protocol SortSelectionDelegate: class {
     func SortSelectedIndex(index: Int)
     func CloseSortView()
 }
@@ -43,7 +43,7 @@ class SortProductViewController: UIViewController {
                       SortIndexNames.Newest.getName()]
 
     var selectedIndex = -1
-    var delegate: SortSelectionDelegate?
+    weak var delegate: SortSelectionDelegate?
 
     // MARK: - View lifecycle
     override func viewDidLoad() {
@@ -76,16 +76,22 @@ extension SortProductViewController: UITableViewDelegate, UITableViewDataSource 
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell: SortCell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath) as? SortCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath) as? SortCell else {
             return UITableViewCell()
         }
         cell.selectionStyle = .none
+        tableView.separatorStyle = .singleLine
         cell.lblTitle.text = self.sortPoints[indexPath.row]
         if indexPath.row == selectedIndex {
             cell.lblTitle.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: is_iPAD ? 24.0 : 16.0)
-        } else {
+        }
+        else {
             cell.lblTitle.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: is_iPAD ? 24.0 : 16.0)
         }
+        if tableView.numberOfRows(inSection: indexPath.section) - 1 == indexPath.row {
+            tableView.separatorStyle = .none
+        }
+
         return cell
     }
 

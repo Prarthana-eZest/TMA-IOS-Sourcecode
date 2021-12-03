@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EarningDetailsHeaderFilterCell" rowHeight="80" id="KGk-i7-Jjw" customClass="EarningDetailsHeaderFilterCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="80"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="444" height="80"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aRl-nY-flu">
+                        <rect key="frame" x="15" y="37" width="341.5" height="28"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Showing Results For" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5qg-ub-aXv">
+                                <rect key="frame" x="0.0" y="2.5" width="153.5" height="23.5"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                <color key="textColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xh-Mm-wh9">
+                                <rect key="frame" x="163.5" y="0.0" width="84" height="28"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="erv-PX-9X2">
+                                        <rect key="frame" x="10" y="0.0" width="64" height="28"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J0v-6p-v8k">
+                                                <rect key="frame" x="0.0" y="0.0" width="52" height="28"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="12"/>
+                                                <state key="normal" title="MTD">
+                                                    <color key="titleColor" red="0.16862745100000001" green="0.1647058824" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionDateFilter:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="X3y-g8-AA6"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="2sx-dv-p5e">
+                                                <rect key="frame" x="57" y="11.5" width="7" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="5" id="IOf-3j-uh3"/>
+                                                    <constraint firstAttribute="width" constant="7" id="aVX-1p-6b4"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="erv-PX-9X2" firstAttribute="leading" secondItem="1xh-Mm-wh9" secondAttribute="leading" constant="10" id="OvO-Lm-dgA"/>
+                                    <constraint firstItem="erv-PX-9X2" firstAttribute="top" secondItem="1xh-Mm-wh9" secondAttribute="top" id="PG0-Wt-RVh"/>
+                                    <constraint firstAttribute="bottom" secondItem="erv-PX-9X2" secondAttribute="bottom" id="Req-YV-SGI"/>
+                                    <constraint firstAttribute="height" constant="28" id="VTW-Vv-HJ6"/>
+                                    <constraint firstAttribute="trailing" secondItem="erv-PX-9X2" secondAttribute="trailing" constant="10" id="yFx-GX-zOd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                        <color key="value" red="0.93119038310000002" green="0.91608615049999997" blue="0.97441709840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VXZ-R4-A29">
+                                <rect key="frame" x="257.5" y="0.0" width="84" height="28"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XhW-qy-LTu">
+                                        <rect key="frame" x="10" y="0.0" width="64" height="28"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earningsFilter" translatesAutoresizingMaskIntoConstraints="NO" id="fcT-Mv-xQm">
+                                                <rect key="frame" x="0.0" y="8" width="12" height="12"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="12" id="FYq-YQ-shU"/>
+                                                    <constraint firstAttribute="height" constant="12" id="cvw-bb-Iw6"/>
+                                                </constraints>
+                                            </imageView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="im2-UY-Dlh">
+                                                <rect key="frame" x="17" y="0.0" width="35" height="28"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="12"/>
+                                                <state key="normal" title="FILTER">
+                                                    <color key="titleColor" red="0.16862745100000001" green="0.1647058824" blue="0.16078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionNormalFilter:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="MCl-1I-Ygp"/>
+                                                </connections>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="downArrow" translatesAutoresizingMaskIntoConstraints="NO" id="2W8-wv-jVK">
+                                                <rect key="frame" x="57" y="11.5" width="7" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="7" id="Nla-Jh-3on"/>
+                                                    <constraint firstAttribute="height" constant="5" id="XyP-bG-Fxi"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="XhW-qy-LTu" firstAttribute="leading" secondItem="VXZ-R4-A29" secondAttribute="leading" constant="10" id="0lH-8s-dAh"/>
+                                    <constraint firstItem="XhW-qy-LTu" firstAttribute="top" secondItem="VXZ-R4-A29" secondAttribute="top" id="4NB-e9-Cqv"/>
+                                    <constraint firstAttribute="trailing" secondItem="XhW-qy-LTu" secondAttribute="trailing" constant="10" id="6KB-na-cUK"/>
+                                    <constraint firstAttribute="bottom" secondItem="XhW-qy-LTu" secondAttribute="bottom" id="7WN-ft-Z4w"/>
+                                    <constraint firstAttribute="height" constant="28" id="xfI-DF-kbc"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                        <color key="value" red="0.93119038310000002" green="0.91608615049999997" blue="0.97441709840000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" red="0.96078431372549022" green="0.96470588235294119" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                <constraints>
+                    <constraint firstItem="aRl-nY-flu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="W05-M3-Qo9"/>
+                    <constraint firstAttribute="bottom" secondItem="aRl-nY-flu" secondAttribute="bottom" constant="15" id="tmD-Zt-jOf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnDateFilter" destination="J0v-6p-v8k" id="gKK-ty-o4l"/>
+                <outlet property="btnNormalFilter" destination="im2-UY-Dlh" id="JkJ-4T-p6a"/>
+                <outlet property="dateFilterView" destination="1xh-Mm-wh9" id="TQp-EJ-sJ6"/>
+                <outlet property="normalFilterView" destination="VXZ-R4-A29" id="dXi-W9-gmK"/>
+            </connections>
+            <point key="canvasLocation" x="117.39130434782609" y="101.78571428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="downArrow" width="13" height="7"/>
+        <image name="earningsFilter" width="13" height="13"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

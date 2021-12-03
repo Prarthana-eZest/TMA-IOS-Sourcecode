@@ -64,7 +64,7 @@ extension AddOnListingViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell: SortCell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath) as? SortCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SortCell", for: indexPath) as? SortCell else {
             return UITableViewCell()
         }
         cell.selectionStyle = .none

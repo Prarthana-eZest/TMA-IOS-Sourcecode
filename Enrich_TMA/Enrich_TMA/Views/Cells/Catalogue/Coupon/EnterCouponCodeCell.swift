@@ -14,7 +14,7 @@ protocol ApplyCouponCodeDelegate: class {
 
 class EnterCouponCodeCell: UITableViewCell {
 
-    @IBOutlet weak private var txtFCouponCode: UITextField!
+    @IBOutlet weak var txtFCouponCode: UITextField!
 
     weak var delegate: ApplyCouponCodeDelegate?
 

@@ -10,18 +10,19 @@ import UIKit
 
 class PettyCashCell: UITableViewCell {
 
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var txtFValue: UITextField!
-    
+    @IBOutlet weak private var lblTitle: UILabel!
+    @IBOutlet weak private var txtFValue: UITextField!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    func configureCell(model:PettyCashCellModel){
-        lblTitle.text = model.title
-        txtFValue.text = model.value
-        txtFValue.isUserInteractionEnabled = model.canEdit
+
+    func configureCell(title: String, value: String, valueFont: UIFont) {
+        lblTitle.text = title
+        txtFValue.text = value
+        txtFValue.font = valueFont
+        txtFValue.isUserInteractionEnabled = false
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -29,11 +30,5 @@ class PettyCashCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-}
-struct PettyCashCellModel{
-    let title: String
-    let value: String
-    let imageURL: String
-    let canEdit: Bool
+
 }

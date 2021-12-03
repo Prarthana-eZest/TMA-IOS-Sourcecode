@@ -12,19 +12,16 @@
 
 import UIKit
 
-protocol AppointmentFilterPresentationLogic
-{
+protocol AppointmentFilterPresentationLogic {
   func presentSomething(response: AppointmentFilter.Something.Response)
 }
 
-class AppointmentFilterPresenter: AppointmentFilterPresentationLogic
-{
+class AppointmentFilterPresenter: AppointmentFilterPresentationLogic {
   weak var viewController: AppointmentFilterDisplayLogic?
-  
+
   // MARK: Do something
-  
-  func presentSomething(response: AppointmentFilter.Something.Response)
-  {
+
+  func presentSomething(response: AppointmentFilter.Something.Response) {
     let viewModel = AppointmentFilter.Something.ViewModel()
     viewController?.displaySomething(viewModel: viewModel)
   }

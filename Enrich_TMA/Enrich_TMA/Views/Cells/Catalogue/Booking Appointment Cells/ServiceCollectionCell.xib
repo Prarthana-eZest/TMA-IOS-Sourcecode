@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ServiceCollectionCell" customModule="enrich" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ServiceCollectionCell" reuseIdentifier="ServiceCollectionCell" id="nWM-ZS-vX8" customClass="ServiceCollectionCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="596" height="432"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                <rect key="frame" x="0.0" y="0.0" width="596" height="432"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tol-gL-Gl4">
+                        <rect key="frame" x="0.0" y="5" width="596" height="427"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="VaW-fz-GdW">
+                                <rect key="frame" x="20" y="20" width="556" height="215.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="19" translatesAutoresizingMaskIntoConstraints="NO" id="KNu-cs-Mxl">
+                                        <rect key="frame" x="0.0" y="0.0" width="556" height="82.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THB-ut-GRd">
+                                                <rect key="frame" x="0.0" y="0.0" width="507" height="82.5"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <string key="text">Head massage Head massage Head massage Head massage Head massage v Head massage Head massage Head massage Head massage Head massage Head massage Head massage Head massage v Head massage Head massage Head massage</string>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VHC-Ws-PvG" userLabel="delete">
+                                                <rect key="frame" x="526" y="0.0" width="30" height="22"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="Q3q-JR-TnF">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <state key="normal" title="Button" image="Delete"/>
+                                                <connections>
+                                                    <action selector="actionDeletelicked:" destination="nWM-ZS-vX8" eventType="touchUpInside" id="7Eu-G5-ZzE"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="THB-ut-GRd" secondAttribute="bottom" id="Gdn-Hh-iXe"/>
+                                            <constraint firstItem="VHC-Ws-PvG" firstAttribute="leading" secondItem="THB-ut-GRd" secondAttribute="trailing" constant="19" id="Iw2-L6-dku"/>
+                                            <constraint firstItem="THB-ut-GRd" firstAttribute="top" secondItem="KNu-cs-Mxl" secondAttribute="top" id="TeZ-4B-KZ9"/>
+                                            <constraint firstItem="THB-ut-GRd" firstAttribute="leading" secondItem="KNu-cs-Mxl" secondAttribute="leading" id="i3g-oy-jWs"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ETY-sa-WYj">
+                                        <rect key="frame" x="0.0" y="87.5" width="556" height="41.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">With silicon free oil with shampoo With silicon free oil with shampoo With silicon free oil with shampoo With silicon free oil with shampoo With silicon free oil with shampoo</string>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="20"/>
+                                        </variation>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="-2" translatesAutoresizingMaskIntoConstraints="NO" id="VgV-Yl-oIi">
+                                        <rect key="frame" x="0.0" y="134" width="123.5" height="30"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service add-ons " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y6g-1b-wNM">
+                                                <rect key="frame" x="0.0" y="0.0" width="105.5" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-4" translatesAutoresizingMaskIntoConstraints="NO" id="lgq-ao-OdP">
+                                                <rect key="frame" x="103.5" y="0.0" width="20" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hhd-9T-9cP" userLabel="add_ons">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="33"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                                                        <state key="normal" title="+2">
+                                                            <color key="titleColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </state>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                                                        </variation>
+                                                        <connections>
+                                                            <action selector="actionAddOnClicked:" destination="nWM-ZS-vX8" eventType="touchUpInside" id="Prh-Ul-Luj"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f5q-DY-Ma6">
+                                                        <rect key="frame" x="0.0" y="29" width="20" height="1"/>
+                                                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="5Kv-6o-L99"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="20" id="Cz7-gf-KwU">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    </constraint>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total estimated time: 30 min." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQq-Ar-jcN">
+                                        <rect key="frame" x="0.0" y="169" width="165" height="19.5"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="15"/>
+                                        <color key="textColor" red="0.14901960780000001" green="0.14901960780000001" blue="0.14901960780000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="20"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="₹100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ll-ll-UYb">
+                                        <rect key="frame" x="0.0" y="193.5" width="37" height="22"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="16"/>
+                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="24"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ETY-sa-WYj" firstAttribute="leading" secondItem="VaW-fz-GdW" secondAttribute="leading" id="18i-tB-TaS"/>
+                                    <constraint firstItem="KNu-cs-Mxl" firstAttribute="leading" secondItem="VaW-fz-GdW" secondAttribute="leading" id="OxX-Lp-j1m"/>
+                                    <constraint firstAttribute="trailing" secondItem="KNu-cs-Mxl" secondAttribute="trailing" id="pEm-aM-6A9"/>
+                                    <constraint firstAttribute="trailing" secondItem="ETY-sa-WYj" secondAttribute="trailing" id="y93-J5-hdK"/>
+                                </constraints>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="5vb-YN-tDb">
+                                <rect key="frame" x="20" y="277.5" width="556" height="129.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pYN-sD-0d8">
+                                        <rect key="frame" x="0.0" y="0.0" width="157.5" height="63.5"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="female-unselected" translatesAutoresizingMaskIntoConstraints="NO" id="1Uo-3n-2Eo">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="60" id="YGe-Mo-VCW"/>
+                                                    <constraint firstAttribute="width" constant="60" id="ymL-8f-4j7"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Gtd-PO-JK4">
+                                                <rect key="frame" x="70" y="0.0" width="87.5" height="63.5"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="wIy-zJ-NXN" userLabel="stylistStackview">
+                                                        <rect key="frame" x="0.0" y="0.0" width="87.5" height="63.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rohit Joshi" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dP-Qm-AWg">
+                                                                <rect key="frame" x="0.0" y="0.0" width="64.5" height="21"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                                                </variation>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Graduate level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Stx-Wc-NgG">
+                                                                <rect key="frame" x="0.0" y="26" width="87.5" height="19.5"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="15"/>
+                                                                <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="22"/>
+                                                                </variation>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBS-aL-4MF" customClass="CosmosView" customModule="Cosmos">
+                                                                <rect key="frame" x="0.0" y="50.5" width="85" height="13"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="13" id="Axv-wm-PvB">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="18"/>
+                                                                    </constraint>
+                                                                    <constraint firstAttribute="width" constant="85" id="L78-fO-D3f"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                                        <real key="value" value="13"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                                        <real key="value" value="4"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="starEnabled"/>
+                                                                    <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starDisabled"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jnK-bu-u1n">
+                                                        <rect key="frame" x="0.0" y="0.0" width="80" height="0.0"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGt-P3-naI">
+                                                                <rect key="frame" x="0.0" y="0.0" width="80" height="0.0"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="80" id="5x8-Fg-hcr"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                                <state key="normal" title="CHANGE">
+                                                                    <color key="titleColor" red="0.90980392156862744" green="0.13333333333333333" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </state>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                        <color key="value" red="0.90980392160000001" green="0.1333333333" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                                                </variation>
+                                                                <connections>
+                                                                    <action selector="actionChangeStylistClicked:" destination="nWM-ZS-vX8" eventType="touchUpInside" id="tmP-Vi-9gB"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                                <variation key="heightClass=regular-widthClass=regular" spacing="25"/>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y4n-Co-gxR" userLabel="separatorView">
+                                        <rect key="frame" x="0.0" y="78.5" width="556" height="1"/>
+                                        <color key="backgroundColor" white="0.79774008279999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="PM9-x2-UVR"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="B9O-hB-uRM">
+                                        <rect key="frame" x="0.0" y="94.5" width="130" height="35"/>
+                                        <subviews>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="th2-kZ-TJG">
+                                                <rect key="frame" x="0.0" y="0.0" width="130" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                <state key="normal" title="After tips ">
+                                                    <color key="titleColor" red="0.90980392160000001" green="0.1333333333" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.90980392160000001" green="0.1333333333" blue="0.094117647060000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                                </variation>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnL-yX-8SQ" userLabel="add_ons">
+                                                <rect key="frame" x="0.0" y="0.0" width="130" height="35"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="130" id="WYc-YQ-FcD">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="150"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="height" constant="35" id="gKU-ss-56k"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="17"/>
+                                                <state key="normal" title="Important Tips">
+                                                    <color key="titleColor" red="0.95294117649999999" green="0.2133737778" blue="0.14541413759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.95294117649999999" green="0.2133737778" blue="0.14541413759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="21"/>
+                                                </variation>
+                                                <connections>
+                                                    <action selector="actionImportantTips:" destination="nWM-ZS-vX8" eventType="touchUpInside" id="cKu-Uk-ecr"/>
+                                                </connections>
+                                            </button>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NWO-jF-jRn">
+                                                <rect key="frame" x="0.0" y="0.0" width="130" height="1"/>
+                                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="kaF-vO-tp7"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="ZZJ-T0-xoV"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                <color key="value" red="0.95294117649999999" green="0.2133737778" blue="0.14541413759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Y4n-Co-gxR" firstAttribute="leading" secondItem="5vb-YN-tDb" secondAttribute="leading" id="QXZ-Vg-cip"/>
+                                    <constraint firstAttribute="trailing" secondItem="Y4n-Co-gxR" secondAttribute="trailing" id="rpc-dD-9c6"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2BG-O5-zmq" firstAttribute="trailing" secondItem="5vb-YN-tDb" secondAttribute="trailing" constant="20" id="2MR-lQ-Drp"/>
+                            <constraint firstItem="5vb-YN-tDb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="VaW-fz-GdW" secondAttribute="bottom" constant="20" id="5qR-om-KTe"/>
+                            <constraint firstItem="5vb-YN-tDb" firstAttribute="leading" secondItem="2BG-O5-zmq" secondAttribute="leading" constant="20" id="7Lj-U7-frA"/>
+                            <constraint firstItem="VaW-fz-GdW" firstAttribute="top" secondItem="2BG-O5-zmq" secondAttribute="top" constant="20" id="Deg-IC-vXy"/>
+                            <constraint firstItem="VaW-fz-GdW" firstAttribute="leading" secondItem="2BG-O5-zmq" secondAttribute="leading" constant="20" id="Qj0-o9-6xA"/>
+                            <constraint firstItem="2BG-O5-zmq" firstAttribute="trailing" secondItem="VaW-fz-GdW" secondAttribute="trailing" constant="20" id="eEc-8Y-6kz"/>
+                            <constraint firstItem="2BG-O5-zmq" firstAttribute="bottom" secondItem="5vb-YN-tDb" secondAttribute="bottom" constant="20" id="w2k-1C-R9G"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2BG-O5-zmq"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.79774008279999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Tol-gL-Gl4" firstAttribute="leading" secondItem="nWM-ZS-vX8" secondAttribute="leading" id="6Eu-GB-JfU"/>
+                <constraint firstItem="Tol-gL-Gl4" firstAttribute="top" secondItem="nWM-ZS-vX8" secondAttribute="top" constant="5" id="CVC-6V-1bs">
+                    <variation key="heightClass=regular-widthClass=regular" constant="10"/>
+                </constraint>
+                <constraint firstAttribute="bottom" secondItem="Tol-gL-Gl4" secondAttribute="bottom" id="Uv7-Ei-72w"/>
+                <constraint firstAttribute="trailing" secondItem="Tol-gL-Gl4" secondAttribute="trailing" id="xOt-Ty-GmD"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="o4f-4K-xTO"/>
+            <size key="customSize" width="596" height="527"/>
+            <connections>
+                <outlet property="btnDelete" destination="VHC-Ws-PvG" id="W0v-Og-CDi"/>
+                <outlet property="btnNumberOfAdd_ons" destination="hhd-9T-9cP" id="Zf0-V4-XfT"/>
+                <outlet property="cosmosViewRating" destination="FBS-aL-4MF" id="jGf-C5-Pxa"/>
+                <outlet property="imgviewStylistProfile" destination="1Uo-3n-2Eo" id="rAH-aS-93Y"/>
+                <outlet property="lblNumberOfServiceAddons" destination="y6g-1b-wNM" id="Lgb-3x-Zm1"/>
+                <outlet property="lblServiceAddon" destination="ETY-sa-WYj" id="lgK-ez-n6P"/>
+                <outlet property="lblServiceName" destination="THB-ut-GRd" id="Nk3-ge-RoE"/>
+                <outlet property="lblServicePrice" destination="6Ll-ll-UYb" id="Rts-E7-z7y"/>
+                <outlet property="lblServiceTotalTime" destination="BQq-Ar-jcN" id="rMk-c8-mMd"/>
+                <outlet property="lblStylistLevel" destination="Stx-Wc-NgG" id="ED6-zt-6Wa"/>
+                <outlet property="lblStylistName" destination="1dP-Qm-AWg" id="yxS-j6-HfD"/>
+                <outlet property="stackViewAddOn" destination="VgV-Yl-oIi" id="Jmr-gL-jhW"/>
+                <outlet property="stackViewChangeButton" destination="jnK-bu-u1n" id="oW3-fT-0dX"/>
+                <outlet property="stackViewImportantTips" destination="B9O-hB-uRM" id="Xxc-lL-lce"/>
+            </connections>
+            <point key="canvasLocation" x="-171.19999999999999" y="-536.13193403298351"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="Delete" width="21" height="22"/>
+        <image name="female-unselected" width="77" height="76"/>
+        <image name="starDisabled" width="17" height="17"/>
+        <image name="starEnabled" width="15" height="17"/>
+    </resources>
+</document>

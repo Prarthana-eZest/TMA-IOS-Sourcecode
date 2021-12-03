@@ -12,20 +12,20 @@
 
 import UIKit
 
-protocol MyCustomersPresentationLogic
-{
-  func presentSomething(response: MyCustomers.Something.Response)
+protocol MyCustomersPresentationLogic {
+    func presentSuccess<T: Decodable>(response: T)
+    func presentError(responseError: String?)
 }
 
-class MyCustomersPresenter: MyCustomersPresentationLogic
-{
-  weak var viewController: MyCustomersDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: MyCustomers.Something.Response)
-  {
-    let viewModel = MyCustomers.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class MyCustomersPresenter: MyCustomersPresentationLogic {
+    weak var viewController: MyCustomersDisplayLogic?
+
+    // MARK: Do something
+
+    func presentSuccess<T: Decodable>(response: T) {
+        viewController?.displaySuccess(viewModel: response)
+    }
+    func presentError(responseError: String? ) {
+        viewController?.displayError(errorMessage: responseError)
+    }
 }

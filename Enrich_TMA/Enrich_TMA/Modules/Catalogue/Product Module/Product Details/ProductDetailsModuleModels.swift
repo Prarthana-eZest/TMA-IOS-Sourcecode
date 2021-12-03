@@ -11,24 +11,6 @@
 import UIKit
 
 enum ProductDetailsModule {
-  // MARK: Use cases
-
-//  enum RecentlyViewedProducts
-//  {
-//    struct Request:Codable
-//    {
-//        let customer_id: String
-//        let limit: Int64?
-//        let is_custom: Bool  = true // Custom API
-//        let platform: String = "mobile"
-//    }
-//    struct Response:Codable
-//    {
-//        let status: Bool?
-//        let message: String?
-//        let data:[ProductLandingModule.Something.Product]?
-//    }
-//  }
 
     // Use For Logged In Customer
     enum GetQuoteIDMine {
@@ -40,10 +22,10 @@ enum ProductDetailsModule {
         struct Response: Codable {
             let status: Bool?
             let message: String?
-            let data: DataQuote?
+            var data: DataQuote?
         }
         struct DataQuote: Codable {
-            let quote_id: Int64
+            var quote_id: Int64
         }
 
     }
@@ -110,68 +92,84 @@ enum ProductDetailsModule {
         }
     }
 
-    // Use For Logged In Customer/Guest Same RequestModel
-    enum AddBundleProductToCartMineGuest {
+    // Use For Logged In Mine
+    enum AddBulkProductMine {
         struct Request: Codable {
-            let cart_item: Cart_item?
-        }
-        struct Cart_item: Codable {
-            let quote_id: Int64
-            let sku: String
-            let qty: Int64
-            let product_option: Product_option?
-        }
-        struct Product_option: Codable {
-            let extension_attributes: Extension_attributes?
-        }
-        struct Extension_attributes: Codable {
-            let bundle_options: [Bundle_options]?
-        }
-        struct Bundle_options: Codable {
-            let option_id: Int64?
-            let option_selections: [Int64]?
-        }
-        struct Response: Codable {
-            let message: String?
-            let item_id: Int64
-            let sku: String
-            let name, product_type: String?
-            let qty: Int64?
-            let price: Double?
-            let quote_id: String
-        }
-    }
+            let items: [Items]?
+            let quote_id: Int64?
+            let is_custom: Bool = true // Custom API
+            let platform: String = "mobile"
+            let salon_id: Int64?
 
-    // Use For Logged In Customer/Guest Same RequestModel
-    enum AddConfigurableProductToCartMineGuest {
-        struct Request: Codable {
-            let cart_item: Cart_item?
         }
-        struct Cart_item: Codable {
-            let quote_id: Int64
-            let sku: String
-            let qty: Int64
+        struct Items: Codable {
+            let sku: String?
+            let qty: Int?
             let product_option: Product_option?
+            let appointment_type: String?
+
         }
         struct Product_option: Codable {
             let extension_attributes: Extension_attributes?
         }
         struct Extension_attributes: Codable {
             let configurable_item_options: [Configurable_item_options]?
+           let bundle_options: [Bundle_options]?
+
+        }
+        struct Bundle_options: Codable {
+            let option_id: Int64?
+            let option_selections: [Int64]?
+            let option_qty: Int64?
         }
         struct Configurable_item_options: Codable {
             let option_id: Int64?
             let option_value: Int64?
         }
         struct Response: Codable {
+            let status: Bool?
             let message: String?
-            let item_id: Int64
-            let sku: String
-            let name, product_type: String?
-            let qty: Int64?
-            let price: Double?
-            let quote_id: String
+            let quote_id: Int64?
+        }
+    }
+
+    // Use For Logged In Guest
+    enum AddBulkProductGuest {
+        struct Request: Codable {
+            let items: [Items]?
+            let quote_id: String?
+            let is_custom: Bool = true // Custom API
+            let platform: String = "mobile"
+            let salon_id: Int64?
+
+        }
+        struct Items: Codable {
+            let sku: String?
+            let qty: Int?
             let product_option: Product_option?
+            let appointment_type: String?
+        }
+        struct Product_option: Codable {
+            let extension_attributes: Extension_attributes?
+        }
+        struct Extension_attributes: Codable {
+            let configurable_item_options: [Configurable_item_options]?
+           let bundle_options: [Bundle_options]?
+
+        }
+        struct Configurable_item_options: Codable {
+            let option_id: Int64?
+            let option_value: Int64?
+        }
+        struct Bundle_options: Codable {
+            let option_id: Int64?
+            let option_selections: [Int64]?
+            let option_qty: Int64?
+        }
+
+        struct Response: Codable {
+            let status: Bool?
+            let message: String?
         }
     }
 
@@ -188,46 +186,33 @@ enum ProductDetailsModule {
             let price: Double?
             let product_type: String?
             let quote_id: String?
+            let product_option: Product_option?
             let extension_attributes: Extension_attributes?
             let message: String?
 
         }
-        struct Extension_attributes: Codable {
-            let appointment_options: [Appointment_options]?
-            let image_url: String?
-            
+        struct Product_option: Codable {
+            let extension_attributes: Extension_attributesConfigurable?
         }
-        struct Appointment_options: Codable {
-            let date_time: String?
-            let tehnical_id: Int?
-            let technicion_name: String?
-            let salon_id: Int?
-            let estimated_time: String?
+        struct Extension_attributesConfigurable: Codable {
+            let configurable_item_options: [Configurable_item_options]?
+            let bundle_options: [AddBulkProductMine.Bundle_options]?
+
         }
-
-    }
-
-    // GetAllCartsItemCustomer
-    // Response would be the same what we have in case of Guest
-    enum GetAllCartsItemCustomer {
-        struct Request: Codable {
-            let accessToken: String
-        }
-        struct Response: Codable {
-            let item_id: Int64
-            let sku: String
-            let qty: Int64?
-            let name: String?
-            let price: Double?
-            let product_type: String?
-            let quote_id: String?
-            let extension_attributes: Extension_attributes?
-            let message: String?
-
+        struct Configurable_item_options: Codable {
+            let option_id: String?
+            let option_value: Int64?
         }
         struct Extension_attributes: Codable {
             let appointment_options: [Appointment_options]?
             let image_url: String?
+            let product_attribute_options: [GetAllCartsItemCustomer.ProductAttributeOption]?
+            let product_category_type: String?
+            let service_time: String?
+            let cart_product_id: Int64?
+            let salon_data: [LocationModule.Something.SalonParamModel]?
+            let gender: [String]?
+            let type_of_service: String?
 
         }
         struct Appointment_options: Codable {
@@ -236,6 +221,146 @@ enum ProductDetailsModule {
             let technicion_name: String?
             let salon_id: Int64?
             let estimated_time: String?
+            let appointment_type: String?
+        }
+    }
+
+    // GetAllCartsItemCustomer
+    // Response would be the same what we have in case of Guest
+    enum GetAllCartsItemCustomer {
+        struct Request: Codable {
+            let accessToken: String
+        }
+
+        struct Response: Codable {
+            let item_id: Int64
+            let sku: String
+            let qty: Int64?
+            let name: String?
+            let price: Double?
+            let product_type: String?
+            let quote_id: String?
+            let product_option: Product_option?
+            let extension_attributes: Extension_attributes?
+            let message: String?
+        }
+
+        struct Product_option: Codable {
+            let extension_attributes: Extension_attributesConfigurable?
+        }
+
+        struct Extension_attributesConfigurable: Codable {
+            let configurable_item_options: [Configurable_item_options]?
+            let bundle_options: [AddBulkProductMine.Bundle_options]?
+
+        }
+
+        struct Configurable_item_options: Codable {
+            let option_id: String?
+            let option_value: Int64?
+        }
+
+        struct Extension_attributes: Codable {
+            let appointment_options: [Appointment_options]?
+            let image_url: String?
+            let product_attribute_options: [ProductAttributeOption]?
+            let product_category_type: String?
+            let service_time: String?
+            let cart_product_id: Int64?
+            let salon_data: [LocationModule.Something.SalonParamModel]?
+            let gender: [String]?
+            let type_of_service: String?
+            let service_category_id: Int64?
+        }
+
+        struct Appointment_options: Codable {
+            let date_time: String?
+            let tehnical_id: Int64?
+            let technicion_name: String?
+            let salon_id: Int64?
+            let estimated_time: String?
+            let appointment_type: String?
+        }
+
+        struct ProductAttributeOption: Codable {
+            let id, label, useDefault, position: String?
+            let values: [Value]?
+            let attributeID, attributeCode, frontendLabel, storeLabel: String?
+            let options: [Option]?
+            let optionID, parentID, productAttributeOptionRequired, type: String?
+            let defaultTitle: AnyCodable?
+            let title: String?
+            let optionSelections: [OptionSelection]?
+
+            enum CodingKeys: String, CodingKey {
+                case id, label
+                case useDefault = "use_default"
+                case position, values
+                case attributeID = "attribute_id"
+                case attributeCode = "attribute_code"
+                case frontendLabel = "frontend_label"
+                case storeLabel = "store_label"
+                case options
+                case optionID = "option_id"
+                case parentID = "parent_id"
+                case productAttributeOptionRequired = "required"
+                case type
+                case defaultTitle = "default_title"
+                case title
+                case optionSelections = "option_selections"
+            }
+        }
+
+        struct OptionSelection: Codable {
+            let entityID, attributeSetID, typeID, sku: String?
+            let hasOptions, requiredOptions, createdAt, updatedAt: String?
+            let selectionID, optionID, parentProductID, productID: String?
+            let position, isDefault, selectionPriceType, selectionPriceValue: String?
+            let selectionQty, selectionCanChangeQty, productName: String?, service_time: String?
+
+            enum CodingKeys: String, CodingKey {
+                case entityID = "entity_id"
+                case attributeSetID = "attribute_set_id"
+                case typeID = "type_id"
+                case sku
+                case hasOptions = "has_options"
+                case requiredOptions = "required_options"
+                case createdAt = "created_at"
+                case updatedAt = "updated_at"
+                case selectionID = "selection_id"
+                case optionID = "option_id"
+                case parentProductID = "parent_product_id"
+                case productID = "product_id"
+                case position
+                case isDefault = "is_default"
+                case selectionPriceType = "selection_price_type"
+                case selectionPriceValue = "selection_price_value"
+                case selectionQty = "selection_qty"
+                case selectionCanChangeQty = "selection_can_change_qty"
+                case productName = "product_name"
+                case service_time = "service_time"
+            }
+        }
+
+        // MARK: - Value
+        struct Value: Codable {
+            let valueIndex, label, productSuperAttributeID, defaultLabel: String?
+            let storeLabel: String?
+            let useDefaultValue: Bool?
+
+            enum CodingKeys: String, CodingKey {
+                case valueIndex = "value_index"
+                case label
+                case productSuperAttributeID = "product_super_attribute_id"
+                case defaultLabel = "default_label"
+                case storeLabel = "store_label"
+                case useDefaultValue = "use_default_value"
+            }
+        }
+
+        // MARK: - Option
+        struct Option: Codable {
+            let value, label: String?
         }
 
     }
@@ -261,194 +386,11 @@ enum ProductDetailsModule {
 
     }
 
-}
-
-enum ServiceDetailModule {
-    // MARK: Use cases
-    enum ServiceDetails {
-        //*************** Service/PRODUCT Details ****************
-        
-        // ProductDetails Response
-        struct Request: Codable {
-            let requestedParameters: String
-        }
+    enum FlushCart {
         struct Response: Codable {
-            let id: Int64?
-            let name, type_id, created_at, updated_at: String?
-            let sku: String
-            let attribute_set_id, status, visibility: Int64?
-            let price: Double?
-            let extension_attributes: ExtensionAttributes?
-            var product_links: [HairTreatmentModule.Something.Items]?
-            let media_gallery_entries: [HairTreatmentModule.Something.Media_gallery_entries]?
-            let custom_attributes: [HairTreatmentModule.Something.Custom_attributes]?
-            
-            enum CodingKeys: String, CodingKey {
-                case id, sku, name
-                case attribute_set_id
-                case status, visibility
-                case type_id
-                case created_at
-                case updated_at
-                case extension_attributes
-                case product_links
-                case media_gallery_entries
-                case custom_attributes
-                case price
-                
-            }
-        }
-        
-        // MARK: - ExtensionAttributes
-        struct ExtensionAttributes: Codable {
-            let website_ids: [Double]?
-            let recommended_for_info, product_url: String?
-            let tips_info: [TipsInfo]?
-            let total_reviews, rating_percentage: Double?
-            let media_url: String?
-            let wishlist_flag: Bool?
-            let recently_viewed_products: [ProductLandingModule.Something.Product]?
-            let configurable_subproduct_options: [HairTreatmentModule.Something.Configurable_subproduct_options]?
-            
-            enum CodingKeys: String, CodingKey {
-                case website_ids
-                case recommended_for_info
-                case tips_info
-                case product_url
-                case total_reviews
-                case rating_percentage
-                case media_url
-                case wishlist_flag
-                case recently_viewed_products
-                case configurable_subproduct_options
-            }
-        }
-        
-        // MARK: - TipsInfo
-        struct TipsInfo: Codable {
-            let label, value: String?
-        }
-        
-        //*************** PRODUCT REVIEWS ****************
-        // MARK: - ProductReviewRequest
-        
-        struct ProductReviewRequest: Codable {
-            let product_id: String
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
-            let limit: Int64?
-            
-        }
-        // MARK: - ProductReviewResponse
-        struct ProductReviewResponse: Codable {
             let status: Bool?
             let message: String?
-            let data: DataClass?
-            
-            enum CodingKeys: String, CodingKey {
-                case status, message
-                case data
-            }
         }
-        // MARK: - DataClass
-        struct DataClass: Codable {
-            let product_review_count, product_rating_count: Int64?
-            let product_rating_percentage: Double?
-            let review_items: [ReviewItem]?
-            let all_star_rating: [String: Int64]?
-            
-            enum CodingKeys: String, CodingKey {
-                case review_items
-                case all_star_rating
-                case product_review_count
-                case product_rating_percentage
-                case product_rating_count
-            }
-        }
-        
-        // MARK: - ReviewItem
-        struct ReviewItem: Codable {
-            let review_id, created_at, title, detail, nickname, entity_code: String?
-            let rating_votes: [RatingVote]?
-            
-            enum CodingKeys: String, CodingKey {
-                case review_id
-                case created_at
-                case title, detail, nickname
-                case entity_code
-                case rating_votes
-            }
-        }
-        // MARK: - RatingVote
-        struct RatingVote: Codable {
-            let vote_id, option_id, entity_pk_value, rating_id, review_id, value, rating_code, store_id: String?
-            let customer_id: AnyCodable?
-            let percent: Double
-            
-            enum CodingKeys: String, CodingKey {
-                case vote_id
-                case option_id
-                case customer_id
-                case entity_pk_value
-                case rating_id
-                case review_id
-                case percent, value
-                case rating_code
-                case store_id
-            }
-        }
-        //*************** FREQUENTLY AVAILED PRODUCTS ****************
-        
-        // MARK: - FrequentlyAvailedProductRequest
-        
-        struct FrequentlyAvailedProductRequest: Codable {
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
-            
-        }
-        // MARK: - FrequentlyAvailedProductResponse
-        struct FrequentlyAvailedProductResponse: Codable {
-            let status: Bool?
-            let message: String?
-            let data: DataFrequentlyClass?
-            
-        }
-        // MARK: - DataClass
-        struct DataFrequentlyClass: Codable {
-            let frequently_availed: [FrequentlyAvailed]?
-            
-            enum CodingKeys: String, CodingKey {
-                case frequently_availed
-            }
-        }
-        
-        // MARK: - FrequentlyAvailed
-        struct FrequentlyAvailed: Codable {
-            let id, name, sku: String?
-            let image: String?
-        }
-        
-        //*************** RATE A  SERVICES ****************
-        
-        // MARK: - RateAServiceRequest
-        struct RateAServiceRequest: Codable {
-            let customer_id: Int64
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
-            let product_id: String
-            let rating: Int64
-            let summary: String?
-            let message: String?
-            
-        }
-        // MARK: - RateAServiceResponse
-        struct RateAServiceResponse: Codable {
-            let status: Bool?
-            let message: String?
-            let data: [JSONAny]?
-            
-        }
-        
     }
-}
 
+}

@@ -13,23 +13,25 @@ enum StorageType {
 
     var searchPathDirectory: FileManager.SearchPathDirectory {
         switch self {
-        case .cache: return .cachesDirectory
-        case .permanent: return .documentDirectory
+        case .cache:
+            return .cachesDirectory
+        case .permanent:
+            return .documentDirectory
         }
     }
 
     func subFolderName(subfolder: String) -> URL {
-        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first!
+        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first ?? ""
         return URL(fileURLWithPath: path).appendingPathComponent(subfolder)
     }
 
     func clearStorage() {
-        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first!
+        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first ?? ""
         try? FileManager.default.removeItem(at: URL(fileURLWithPath: path).appendingPathComponent("/"))
     }
 
     func clearStorageForSubfolder(subfolder: String) {
-        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first!
+        let path = NSSearchPathForDirectoriesInDomains(searchPathDirectory, .userDomainMask, true).first ?? ""
         try? FileManager.default.removeItem(at: URL(fileURLWithPath: path).appendingPathComponent(subfolder))
     }
 

@@ -10,54 +10,6 @@ class ProductLandingModuleWorker {
     // let networkLayer = NetworkLayer() // Uncomment this in case do request using URLsession
     var presenter: ProductLandingModulePresentationLogic?
 
-     func postRequestAddToWishList(request: HairTreatmentModule.Something.AddToWishListRequest, accessToken: String) {
-        // *********** NETWORK CONNECTION
-        let errorHandler: (String) -> Void = { (error) in
-            print(error)
-            self.presenter?.presentSomethingError(responseError: error)
-        }
-        let successHandler: (HairTreatmentModule.Something.AddToWishListResponse) -> Void = { (responseModel) in
-            print(responseModel)
-
-            if(responseModel.status == false) {
-                self.presenter?.presentSomethingError(responseError: responseModel.message)
-                EZLoadingActivity.hide(true, animated: false)
-                return
-            }
-
-            let response = responseModel
-            self.presenter?.presentSomethingSuccess(response: response)
-        }
-        self.networkLayer.post(urlString: ConstantAPINames.addWishList.rawValue,
-                               body: request, headers: ["Authorization": "Bearer \(accessToken)"], successHandler: successHandler,
-                               errorHandler: errorHandler, method: .post)
-
-    }
-
-    func postRequestRemovefromWishList(request: HairTreatmentModule.Something.RemoveFromWishListRequest, accessToken: String) {
-        // *********** NETWORK CONNECTION
-        let errorHandler: (String) -> Void = { (error) in
-            print(error)
-            self.presenter?.presentSomethingError(responseError: error)
-        }
-        let successHandler: (HairTreatmentModule.Something.RemoveFromWishListResponse) -> Void = { (responseModel) in
-            print(responseModel)
-
-            if(responseModel.status == false) {
-                self.presenter?.presentSomethingError(responseError: responseModel.message)
-                EZLoadingActivity.hide(true, animated: false)
-                return
-            }
-
-            let response = responseModel
-            self.presenter?.presentSomethingSuccess(response: response)
-        }
-        self.networkLayer.post(urlString: ConstantAPINames.removeFromWishList.rawValue,
-                               body: request, headers: ["Authorization": "Bearer \(accessToken)"], successHandler: successHandler,
-                               errorHandler: errorHandler, method: .post)
-
-    }
-
     func postRequest(request: ProductLandingModule.Something.Request) {
         // *********** NETWORK CONNECTION
 
@@ -66,9 +18,11 @@ class ProductLandingModuleWorker {
             self.presenter?.presentSomethingError(responseError: error)
         }
         let successHandler: (ProductLandingModule.Something.Response) -> Void = { (employees) in
-            print(employees)
+
             let response = employees
             self.presenter?.presentSomethingSuccess(response: response)
+            print("postRequest")
+
         }
         self.networkLayer.post(urlString: ConstantAPINames.categorydetails.rawValue,
                                body: request, successHandler: successHandler,
@@ -85,6 +39,8 @@ class ProductLandingModuleWorker {
             print(responseBlogs)
             let response = responseBlogs
             self.parseBlogData(data: response)
+            print("postRequestBlogs")
+
         }
 
         self.networkLayer.post(urlString: ConstantAPINames.blogList.rawValue,
@@ -100,8 +56,10 @@ class ProductLandingModuleWorker {
             self.presenter?.presentSomethingError(responseError: error)
         }
         let successHandler: (ProductLandingModule.Something.ProductCategoryResponse) -> Void = { (employees) in
-            print(employees)
+
             let response = employees
+            print("postRequestProductCategory")
+
             self.presenter?.presentSomethingSuccess(response: response)
         }
 
@@ -116,13 +74,34 @@ class ProductLandingModuleWorker {
 
         if let dataObj = data.data, let blogs = dataObj.blogs {
             for model in blogs {
-                arrBlogsModel.append(GetInsightFulDetails(titleString: model.title!, date: model.publish_time!, imageURL: model.featured_img!, blogId: model.post_id!))
+                arrBlogsModel.append(GetInsightFulDetails(titleString: model.title!, date: model.publish_time!, imageURL: model.featured_img ?? "", blogId: model.post_id ?? ""))
             }
+            print("parseBlogData")
+
         }
 
         let dict: [String: Any] = ["data": data, "showmodel": arrBlogsModel]
         print("dict blogs : \(dict)")
         self.presenter?.presentSomethingSuccess(response: data)
+    }
+
+    // getRequestForSelectedServiceDetails
+    func getRequestForSelectedServiceDetails(request: HairTreatmentModule.Something.Request) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentSomethingError(responseError: error)
+        }
+        let successHandler: (HairTreatmentModule.Something.Response) -> Void = { (employees) in
+
+            self.presenter?.presentSomethingSuccess(response: employees)
+        }
+
+        var strURL: String = ConstantAPINames.productCategory.rawValue
+        strURL += request.queryString
+        strURL = strURL.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+        self.networkLayer.get(urlString: strURL, headers: AuthorizationHeaders, successHandler: successHandler, errorHandler: errorHandler)
+
     }
 
 }

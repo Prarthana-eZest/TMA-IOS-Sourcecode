@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="349" id="KGk-i7-Jjw" customClass="ProductivityListViewCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="438" height="349"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="438" height="349"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="B7t-CD-IWc">
+                        <rect key="frame" x="20" y="5" width="398" height="130"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Osl-w6-PRW">
+                                <rect key="frame" x="0.0" y="0.0" width="398" height="130"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="2fi-Ya-yI2">
+                                        <rect key="frame" x="15" y="15" width="368" height="100"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kfd-AM-HrC">
+                                                <rect key="frame" x="0.0" y="0.0" width="368" height="31"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Utilization" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Abe-4g-ulF">
+                                                        <rect key="frame" x="0.0" y="0.0" width="73" height="31"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="18"/>
+                                                        <color key="textColor" red="0.1764705882352941" green="0.18431372549019609" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="70%" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ViU-K3-wdD">
+                                                        <rect key="frame" x="83" y="0.0" width="285" height="31"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                                                        <color key="textColor" red="0.31764705882352939" green="0.40000000000000002" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="WYM-Kt-Zw9">
+                                                <rect key="frame" x="0.0" y="36" width="368" height="64"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2j0-i3-nyQ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="179" height="64"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Iwz-bD-lXy">
+                                                                <rect key="frame" x="20" y="10" width="139" height="44"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="180 Hrs" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSZ-EX-RPc">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="139" height="26"/>
+                                                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                                                        <color key="textColor" red="0.1764705882" green="0.1843137255" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Available Hours" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEt-gq-6da">
+                                                                        <rect key="frame" x="0.0" y="26" width="139" height="18"/>
+                                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="14"/>
+                                                                        <color key="textColor" red="0.1764705882" green="0.1843137255" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.88627450980392153" green="0.95686274509803915" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="Iwz-bD-lXy" firstAttribute="centerY" secondItem="2j0-i3-nyQ" secondAttribute="centerY" id="SMq-o3-W6P"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Iwz-bD-lXy" secondAttribute="trailing" constant="20" id="SOZ-5g-fGf"/>
+                                                            <constraint firstItem="Iwz-bD-lXy" firstAttribute="leading" secondItem="2j0-i3-nyQ" secondAttribute="leading" constant="20" id="hhb-Jc-Ezs"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mnN-fh-CYc">
+                                                        <rect key="frame" x="189" y="0.0" width="179" height="64"/>
+                                                        <subviews>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uUB-Gb-m7l">
+                                                                <rect key="frame" x="20" y="10" width="139" height="44"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="155 Hrs" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKK-qh-7qg">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="139" height="26"/>
+                                                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                                                        <color key="textColor" red="0.1764705882" green="0.1843137255" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Busy Hours" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Kq-yz-r9F">
+                                                                        <rect key="frame" x="0.0" y="26" width="139" height="18"/>
+                                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="14"/>
+                                                                        <color key="textColor" red="0.1764705882" green="0.1843137255" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                            </stackView>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.92156862745098034" green="0.90980392156862744" blue="0.98431372549019602" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="uUB-Gb-m7l" firstAttribute="centerY" secondItem="mnN-fh-CYc" secondAttribute="centerY" id="dwR-kK-N7j"/>
+                                                            <constraint firstItem="uUB-Gb-m7l" firstAttribute="leading" secondItem="mnN-fh-CYc" secondAttribute="leading" constant="20" id="vLN-Bc-M71"/>
+                                                            <constraint firstAttribute="trailing" secondItem="uUB-Gb-m7l" secondAttribute="trailing" constant="20" id="xZq-c8-f3d"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                                                <real key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="64" id="cs3-dn-znb"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Kfd-AM-HrC" firstAttribute="leading" secondItem="2fi-Ya-yI2" secondAttribute="leading" id="1j7-fQ-AJ4"/>
+                                            <constraint firstItem="WYM-Kt-Zw9" firstAttribute="leading" secondItem="2fi-Ya-yI2" secondAttribute="leading" id="Ks7-i3-KXe"/>
+                                            <constraint firstAttribute="trailing" secondItem="Kfd-AM-HrC" secondAttribute="trailing" id="OEv-aN-pzq"/>
+                                            <constraint firstAttribute="trailing" secondItem="WYM-Kt-Zw9" secondAttribute="trailing" id="P5r-Xr-tXn"/>
+                                        </constraints>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="2fi-Ya-yI2" firstAttribute="top" secondItem="Osl-w6-PRW" secondAttribute="top" constant="15" id="J2D-9o-oj5"/>
+                                    <constraint firstAttribute="trailing" secondItem="2fi-Ya-yI2" secondAttribute="trailing" constant="15" id="N4r-fC-jMm"/>
+                                    <constraint firstItem="2fi-Ya-yI2" firstAttribute="leading" secondItem="Osl-w6-PRW" secondAttribute="leading" constant="15" id="Qiw-f1-WD5"/>
+                                    <constraint firstAttribute="bottom" secondItem="2fi-Ya-yI2" secondAttribute="bottom" constant="15" id="tNV-5Y-EOe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="B7t-CD-IWc" secondAttribute="trailing" constant="20" id="J44-36-AUV"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="B7t-CD-IWc" secondAttribute="bottom" constant="10" id="Shw-w7-Fdo"/>
+                    <constraint firstItem="B7t-CD-IWc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="pbL-SR-Gt0"/>
+                    <constraint firstItem="B7t-CD-IWc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="wXB-yn-zj8"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="223.18840579710147" y="228.68303571428569"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -11,24 +11,25 @@ import Cosmos
 
 class EmployeeCell: UITableViewCell {
 
-    @IBOutlet weak var lblEmplyeeName: UILabel!
-    @IBOutlet weak var statusView: UIView!
-    @IBOutlet weak var lblLevel: UILabel!
-    @IBOutlet weak var ratingsView: CosmosView!
-    
-    
+    @IBOutlet weak private var lblEmplyeeName: UILabel!
+    @IBOutlet weak private var statusView: UIView!
+    @IBOutlet weak private var lblLevel: UILabel!
+    @IBOutlet weak private var ratingsView: CosmosView!
+    @IBOutlet weak private var lblStatus: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        ratingsView.isUserInteractionEnabled = false
+        ratingsView.settings.fillMode = .precise
     }
-    
-    
-    func configureCell(model:EmployeeModel){
-        lblEmplyeeName.text = model.name
-        lblLevel.text = model.level
+
+    func configureCell(model: EmployeeModel) {
+        lblEmplyeeName.text = model.name.capitalized
+        lblLevel.text = model.level.capitalized
         ratingsView.rating = model.ratings
-        statusView.backgroundColor = (model.status == .available) ? UIColor(red: 70/255, green: 196/255, blue: 91/255, alpha: 1) : (model.status == .unAvailable) ? UIColor(red: 238/255, green: 91/255, blue: 70/255, alpha: 1)  : UIColor(red: 83/255, green: 83/255, blue: 83/255, alpha: 1)
-        
+        //lblStatus.text = model.statusText
+        //statusView.backgroundColor = model.statusType.color
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -38,13 +39,11 @@ class EmployeeCell: UITableViewCell {
     }
 }
 
-enum EmployeeStatus{
-    case available,unAvailable,onLeave
-}
-
-struct EmployeeModel{
+struct EmployeeModel {
     let name: String
     let level: String
     let ratings: Double
-    let status: EmployeeStatus
+    let statusType: AvailableStatusColor
+    let statusText: String
+    let employeeId: Int64?
 }

@@ -12,29 +12,25 @@
 
 import UIKit
 
-protocol AppointmentFilterBusinessLogic
-{
+protocol AppointmentFilterBusinessLogic {
   func doSomething(request: AppointmentFilter.Something.Request)
 }
 
-protocol AppointmentFilterDataStore
-{
+protocol AppointmentFilterDataStore {
   //var name: String { get set }
 }
 
-class AppointmentFilterInteractor: AppointmentFilterBusinessLogic, AppointmentFilterDataStore
-{
+class AppointmentFilterInteractor: AppointmentFilterBusinessLogic, AppointmentFilterDataStore {
   var presenter: AppointmentFilterPresentationLogic?
   var worker: AppointmentFilterWorker?
   //var name: String = ""
-  
+
   // MARK: Do something
-  
-  func doSomething(request: AppointmentFilter.Something.Request)
-  {
+
+  func doSomething(request: AppointmentFilter.Something.Request) {
     worker = AppointmentFilterWorker()
     worker?.doSomeWork()
-    
+
     let response = AppointmentFilter.Something.Response()
     presenter?.presentSomething(response: response)
   }

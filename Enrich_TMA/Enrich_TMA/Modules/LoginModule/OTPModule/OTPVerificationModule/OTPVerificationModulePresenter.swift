@@ -10,26 +10,22 @@
 
 import UIKit
 
-protocol OTPVerificationModulePresentationLogic
-{
-    func presentSomethingSuccess<T:Decodable>(response: T)
+protocol OTPVerificationModulePresentationLogic {
+    func presentSomethingSuccess<T: Decodable>(response: T)
     func presentSomethingError(responseError: String?)
 }
 
-class OTPVerificationModulePresenter: OTPVerificationModulePresentationLogic
-{
-  weak var viewController: OTPVerificationModuleDisplayLogic?
-  
-  // MARK: Do something
-  
+class OTPVerificationModulePresenter: OTPVerificationModulePresentationLogic {
+    weak var viewController: OTPVerificationModuleDisplayLogic?
+
     // MARK: Do something
-    func presentSomethingSuccess<T:Decodable>(response: T)
-    {
+
+    // MARK: Do something
+    func presentSomethingSuccess<T: Decodable>(response: T) {
         viewController?.displaySuccess(viewModel: response)
     }
-    func presentSomethingError(responseError: String? )
-    {
+    func presentSomethingError(responseError: String? ) {
         viewController?.displayError(errorMessage: responseError)
     }
-   
+
 }

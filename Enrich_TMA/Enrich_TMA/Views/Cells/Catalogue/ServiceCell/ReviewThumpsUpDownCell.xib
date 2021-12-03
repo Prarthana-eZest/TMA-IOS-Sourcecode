@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="NotoSerif-Regular.ttf">
+            <string>NotoSerif</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReviewThumpsUpDownCell" rowHeight="180" id="KGk-i7-Jjw" customClass="ReviewThumpsUpDownCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="371" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="371" height="179.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wep-al-SD7">
+                        <rect key="frame" x="15" y="5" width="341" height="125.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="XJk-NM-dX6">
+                                <rect key="frame" x="10" y="15" width="321" height="95.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="iyR-ti-Flt">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pwG-7T-Nqg">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4/5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYf-62-dCD">
+                                                        <rect key="frame" x="5" y="14" width="40" height="22"/>
+                                                        <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="16"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="24"/>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="cYf-62-dCD" firstAttribute="leading" secondItem="pwG-7T-Nqg" secondAttribute="leading" constant="5" id="6mM-qx-GpL"/>
+                                                    <constraint firstAttribute="trailing" secondItem="cYf-62-dCD" secondAttribute="trailing" constant="5" id="KrT-GB-Ile"/>
+                                                    <constraint firstItem="cYf-62-dCD" firstAttribute="centerY" secondItem="pwG-7T-Nqg" secondAttribute="centerY" id="w1W-NI-eOe"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                                        <real key="value" value="25"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="pwG-7T-Nqg" firstAttribute="centerY" secondItem="iyR-ti-Flt" secondAttribute="centerY" id="KgP-5x-M15"/>
+                                            <constraint firstItem="pwG-7T-Nqg" firstAttribute="centerX" secondItem="iyR-ti-Flt" secondAttribute="centerX" id="RdW-Ex-6zG"/>
+                                            <constraint firstAttribute="height" constant="50" id="cxR-tY-ZdJ"/>
+                                            <constraint firstAttribute="width" constant="50" id="qpn-W8-OV6"/>
+                                        </constraints>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q4t-I7-OuU" userLabel="Stack View Description and Person name">
+                                        <rect key="frame" x="60" y="0.0" width="261" height="95.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Best quality in this money best wow awesome if you want to buy combo this is one of the best." lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DPm-Ed-mtN">
+                                                <rect key="frame" x="0.0" y="0.0" width="261" height="69.5"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="27"/>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- Neerja Mani | 20th sep 18" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fjD-mZ-f2H" userLabel="- Neerja Mani | 20th sep 18  - Neerja Mani | 20th sep 18">
+                                                <rect key="frame" x="0.0" y="74.5" width="261" height="21"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="XJk-NM-dX6" secondAttribute="bottom" constant="15" id="353-xv-Gvq">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="XJk-NM-dX6" firstAttribute="top" secondItem="Wep-al-SD7" secondAttribute="top" constant="15" id="4n5-Xe-7PQ">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="XJk-NM-dX6" secondAttribute="trailing" constant="10" id="Yxb-gf-IEo">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                            <constraint firstItem="XJk-NM-dX6" firstAttribute="leading" secondItem="Wep-al-SD7" secondAttribute="leading" constant="10" id="ak4-HB-rEr">
+                                <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                            </constraint>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="1.5" height="1.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Wep-al-SD7" secondAttribute="trailing" constant="15" id="Egp-ZM-fdS">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                    <constraint firstItem="Wep-al-SD7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="Vof-Uc-B6i"/>
+                    <constraint firstItem="Wep-al-SD7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="rKv-X9-WYO">
+                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                    </constraint>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Wep-al-SD7" secondAttribute="bottom" constant="10" id="xI8-yb-AyB">
+                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblCustomerComments" destination="DPm-Ed-mtN" id="O1I-ja-fyC"/>
+                <outlet property="lblRating" destination="cYf-62-dCD" id="yCx-6p-XiV"/>
+                <outlet property="lblcustomerName" destination="fjD-mZ-f2H" id="Q6n-BV-YZO"/>
+            </connections>
+            <point key="canvasLocation" x="178.40000000000001" y="215.8920539730135"/>
+        </tableViewCell>
+    </objects>
+</document>

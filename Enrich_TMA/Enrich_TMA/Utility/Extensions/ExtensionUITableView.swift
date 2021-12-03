@@ -26,7 +26,7 @@ extension UITableView {
         messageLabel.textColor = .black
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
-        messageLabel.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: is_iPAD ? 24.0 : 16.0)!
+        messageLabel.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: is_iPAD ? 24.0 : 16.0) ?? UIFont.systemFont(ofSize: is_iPAD ? 24.0 : 16.0)
         messageLabel.sizeToFit()
 
         self.backgroundView = messageLabel
@@ -47,6 +47,25 @@ extension UITableView {
         return IndexPath(row: row, section: section)
     }
 
+}
+
+extension UITableView {
+
+    func scrollToBottom() {
+
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: self.numberOfRows(inSection: self.numberOfSections - 1) - 1, section: self.numberOfSections - 1)
+            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+
+    func scrollToTop() {
+
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+    }
 }
 
 extension UITableView {

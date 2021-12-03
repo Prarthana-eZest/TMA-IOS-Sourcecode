@@ -11,11 +11,10 @@ enum LoginOTPModule {
   // MARK: Use cases
 
     enum OTP {
-        struct Request: Codable {
-            let mobile_number: String
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
 
+        struct Request: Codable {
+            let username: String
+            let is_custom: String = "1" // Custom API
         }
         struct Response: Codable {
             let message: String?

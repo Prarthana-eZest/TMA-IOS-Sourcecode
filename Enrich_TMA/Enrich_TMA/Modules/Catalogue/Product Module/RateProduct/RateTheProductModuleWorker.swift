@@ -29,7 +29,5 @@ class RateTheProductModuleWorker {
                                body: request, headers: ["Authorization": "Bearer \(accessToken)"], successHandler: successHandler,
                                errorHandler: errorHandler, method: .post)
     }
-    
-
 
 }

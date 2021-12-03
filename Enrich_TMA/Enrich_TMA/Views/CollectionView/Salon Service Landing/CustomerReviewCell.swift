@@ -10,9 +10,9 @@ import UIKit
 
 class CustomerReviewCell: UICollectionViewCell {
 
-    @IBOutlet weak var reviewText: UITextView!
-    @IBOutlet weak var customerName: UILabel!
-    @IBOutlet weak var profilePicture: UIImageView!
+    @IBOutlet weak private var reviewText: UITextView!
+    @IBOutlet weak private var customerName: UILabel!
+    @IBOutlet weak private var profilePicture: UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +25,8 @@ class CustomerReviewCell: UICollectionViewCell {
         profilePicture.kf.indicatorType = .activity
         if let imageurl = customerReviewModel.customerImage, !imageurl.isEmpty {
         profilePicture.kf.setImage(with: url, placeholder: UIImage(named: "reviewAavatarImg"), options: nil, progressBlock: nil, completionHandler: nil)
-        } else {
+        }
+        else {
         profilePicture.image = UIImage(named: "reviewAavatarImg")
         }
     }

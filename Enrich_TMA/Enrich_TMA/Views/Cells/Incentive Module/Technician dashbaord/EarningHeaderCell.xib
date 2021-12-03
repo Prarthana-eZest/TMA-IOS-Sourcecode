@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="578" id="KGk-i7-Jjw" customClass="EarningHeaderCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="426" height="578"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="426" height="578"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ThC-US-OpI">
+                        <rect key="frame" x="7.5" y="15" width="411" height="370"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="mpn-L6-skK">
+                                <rect key="frame" x="7.5" y="0.0" width="396" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OWg-9Q-P0f">
+                                        <rect key="frame" x="0.0" y="0.0" width="396" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cla-vm-d4e">
+                                                <rect key="frame" x="0.0" y="0.0" width="330" height="50"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                                <color key="textColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JaQ-rf-iyc">
+                                                <rect key="frame" x="335" y="22" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="28" id="2gk-gr-hEx"/>
+                                                    <constraint firstAttribute="height" constant="28" id="CzD-PL-pfd"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="ListInactive"/>
+                                                <state key="selected" image="ListActive"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionListView:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="0Oj-Xh-fwN"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPZ-EQ-9Bf">
+                                                <rect key="frame" x="368" y="22" width="28" height="28"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="28" id="oCC-vW-V3w"/>
+                                                    <constraint firstAttribute="width" constant="28" id="rih-gf-apf"/>
+                                                </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="GridInactive"/>
+                                                <state key="selected" image="GridActive"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionGridView:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lGN-KP-aiu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="hg6-aR-tJU">
+                                <rect key="frame" x="0.0" y="70" width="411" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="VAK-14-iVt"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="39b-Hd-wO5">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <connections>
+                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="lI3-Yg-Hts"/>
+                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="rxj-dy-OEh"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="hg6-aR-tJU" firstAttribute="leading" secondItem="ThC-US-OpI" secondAttribute="leading" id="JEw-rx-JRx"/>
+                            <constraint firstItem="mpn-L6-skK" firstAttribute="leading" secondItem="ThC-US-OpI" secondAttribute="leading" constant="7.5" id="QNe-w1-qXn"/>
+                            <constraint firstAttribute="trailing" secondItem="hg6-aR-tJU" secondAttribute="trailing" id="SDL-nk-vrh"/>
+                            <constraint firstAttribute="trailing" secondItem="mpn-L6-skK" secondAttribute="trailing" constant="7.5" id="mE9-uI-Azj"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="ThC-US-OpI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="7.5" id="UMn-fY-8pw"/>
+                    <constraint firstAttribute="trailing" secondItem="ThC-US-OpI" secondAttribute="trailing" constant="7.5" id="iBW-h6-zV7"/>
+                    <constraint firstItem="ThC-US-OpI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="rKH-dJ-r8O"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ThC-US-OpI" secondAttribute="bottom" constant="20" id="ynS-4t-gvX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="btnGrid" destination="WPZ-EQ-9Bf" id="jkh-te-uwY"/>
+                <outlet property="btnList" destination="JaQ-rf-iyc" id="KzA-Zv-7Mw"/>
+                <outlet property="collectionView" destination="hg6-aR-tJU" id="Ibh-jg-GmS"/>
+                <outlet property="collectionViewHeight" destination="VAK-14-iVt" id="Vhr-MN-cqU"/>
+            </connections>
+            <point key="canvasLocation" x="214.49275362318843" y="305.35714285714283"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="GridActive" width="20" height="20"/>
+        <image name="GridInactive" width="20" height="20"/>
+        <image name="ListActive" width="16" height="17"/>
+        <image name="ListInactive" width="16" height="17"/>
+    </resources>
+</document>

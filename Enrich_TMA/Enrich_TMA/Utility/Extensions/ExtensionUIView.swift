@@ -96,7 +96,8 @@ extension UIView {
         set {
             if let color = newValue {
                 layer.shadowColor = color.cgColor
-            } else {
+            }
+            else {
                 layer.shadowColor = nil
             }
         }
@@ -121,8 +122,55 @@ extension UIView {
     /** Loads instance from nib with the same name. */
     func loadNib() -> UIView {
         let bundle = Bundle(for: type(of: self))
-        let nibName = type(of: self).description().components(separatedBy: ".").last!
+        let nibName = type(of: self).description().components(separatedBy: ".").last ?? ""
         let nib = UINib(nibName: nibName, bundle: bundle)
-        return nib.instantiate(withOwner: self, options: nil).first as! UIView
+        if let view = nib.instantiate(withOwner: self, options: nil).first as? UIView {
+           return view
+        }
+        return UIView()
     }
+}
+
+@IBDesignable
+public class Gradient: UIView {
+    @IBInspectable var startColor:   UIColor = .black { didSet { updateColors() }}
+    @IBInspectable var endColor:     UIColor = .white { didSet { updateColors() }}
+    @IBInspectable var startLocation: Double =   0.05 { didSet { updateLocations() }}
+    @IBInspectable var endLocation:   Double =   0.95 { didSet { updateLocations() }}
+    @IBInspectable var horizontalMode:  Bool =  false { didSet { updatePoints() }}
+    @IBInspectable var diagonalMode:    Bool =  false { didSet { updatePoints() }}
+    @IBInspectable var crossMode:    Bool =  false { didSet { updateCrossMode() }}
+
+    override public class var layerClass: AnyClass { CAGradientLayer.self }
+
+    var gradientLayer: CAGradientLayer { layer as! CAGradientLayer }
+
+    func updatePoints() {
+        if horizontalMode {
+            gradientLayer.startPoint = diagonalMode ? .init(x: 1, y: 0) : .init(x: 0, y: 0.5)
+            gradientLayer.endPoint   = diagonalMode ? .init(x: 0, y: 1) : .init(x: 1, y: 0.5)
+        } else {
+            gradientLayer.startPoint = diagonalMode ? .init(x: 0, y: 0) : .init(x: 0.5, y: 0)
+            gradientLayer.endPoint   = diagonalMode ? .init(x: 1, y: 1) : .init(x: 0.5, y: 1)
+        }
+    }
+    
+    func updateCrossMode() {
+        gradientLayer.startPoint = .init(x: 0, y: 0)
+        gradientLayer.endPoint   = .init(x: 1, y: 1)
+    }
+    
+    func updateLocations() {
+        gradientLayer.locations = [startLocation as NSNumber, endLocation as NSNumber]
+    }
+    func updateColors() {
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+    }
+    override public func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        updatePoints()
+        updateLocations()
+        updateColors()
+    }
+
 }

@@ -12,36 +12,38 @@
 
 import UIKit
 
-protocol NotificationsDisplayLogic: class
-{
-    func displaySomething(viewModel: Notifications.Something.ViewModel)
+protocol NotificationsDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class NotificationsVC: UIViewController, NotificationsDisplayLogic
-{
+class NotificationsVC: UIViewController, NotificationsDisplayLogic {
     var interactor: NotificationsBusinessLogic?
-    
+
     @IBOutlet weak private var tableView: UITableView!
-    
-    
+    @IBOutlet weak private var cartCountView: UIView!
+    @IBOutlet weak private var lblMyCartCount: UILabel!
+    @IBOutlet weak private var btnBack: UIButton!
+    @IBOutlet weak private var btnSOS: UIButton!
+    @IBOutlet weak private var lblBackTitle: LabelButton!
+
+    private var arrNotificationList = [Notifications.MyNotificationList.MyNotificationListItems]()
+
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
-    private func setup()
-    {
+
+    private func setup() {
         let viewController = self
         let interactor = NotificationsInteractor()
         let presenter = NotificationsPresenter()
@@ -49,75 +51,111 @@ class NotificationsVC: UIViewController, NotificationsDisplayLogic
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            //      if let router = router, router.responds(to: selector) {
-            //        router.perform(selector, with: segue)
-            //      }
+
+    // MARK: View lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        callToGetNotificationList()
+        tableView.register(UINib(nibName: CellIdentifier.notificationDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.notificationDetailsCell)
+
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        btnSOS.isHidden = !showSOS
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.addCustomBackButton(title: "")
+        cartCountView.layer.cornerRadius = cartCountView.frame.size.height * 0.5
+        cartCountView.layer.masksToBounds = true
+
+        lblMyCartCount.text = "0"
+
+        lblBackTitle.onClick = {
+            self.navigationController?.popViewController(animated: true)
         }
     }
-    
-    // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        doSomething()
-        tableView.register(UINib(nibName: "NotificationDetailsCell", bundle: nil), forCellReuseIdentifier: "NotificationDetailsCell")
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.navigationBar.isHidden = false
-        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        self.navigationController?.addCustomBackButton(title: "Notifications")
+
+    @IBAction func actionBackButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
     }
-    
+
+    @IBAction func actionSOS(_ sender: UIButton) {
+        SOSFactory.shared.raiseSOSRequest()
+    }
+
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = Notifications.Something.Request()
-        interactor?.doSomething(request: request)
+
+    func callToGetNotificationList() {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser),
+            let employeeId = userData.employee_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            interactor?.getNotifications(employeeId: employeeId)
+        }
     }
-    
-    func displaySomething(viewModel: Notifications.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+
+}
+
+extension NotificationsVC {
+
+    func displaySuccess<T: Decodable>(viewModel: T) {
+        EZLoadingActivity.hide()
+        if let model = viewModel as? Notifications.MyNotificationList.Response {
+            if let status = model.status, status == true {
+                arrNotificationList.removeAll()
+                arrNotificationList = model.data ?? []
+                lblMyCartCount.text = arrNotificationList.isEmpty ? "0" : String(format: "%d", arrNotificationList.count)
+                if arrNotificationList.isEmpty {
+                    tableView.setEmptyMessage(TableViewNoData.tableViewNoNotificationsAvailable)
+                }
+                self.tableView.reloadData()
+            }
+            else // Failure
+            {
+                self.showToast(alertTitle: alertTitle, message: model.message ?? "", seconds: toastMessageDuration)
+            }
+        }
     }
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        self.showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "")
+    }
+
 }
 
 extension NotificationsVC: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        arrNotificationList.isEmpty ? 0 : 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return arrNotificationList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let notificationCell = tableView.dequeueReusableCell(withIdentifier: "NotificationDetailsCell", for: indexPath) as? NotificationDetailsCell else {
+
+        guard let notificationCell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.notificationDetailsCell, for: indexPath) as? NotificationDetailsCell else {
             return UITableViewCell()
         }
-        notificationCell.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+        notificationCell.separatorInset = UIEdgeInsets(top: 0, left: is_iPAD ? 30 : 20, bottom: 0, right: is_iPAD ? 30 : 20)
         notificationCell.selectionStyle = .none
-        
+        notificationCell.configureNotification(model: arrNotificationList[indexPath.row])
+
         return notificationCell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

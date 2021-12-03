@@ -14,7 +14,7 @@ class HeaderViewWithAdCell: UITableViewCell {
     @IBOutlet weak var viewAllButton: UIButton!
     @IBOutlet weak var addTextLabel: UILabel!
 
-    var delegate: HeaderDelegate?
+    weak var delegate: HeaderDelegate?
     var identifier: SectionIdentifier?
 
     override func awakeFromNib() {
@@ -40,7 +40,8 @@ class HeaderViewWithAdCell: UITableViewCell {
         let range = (text as NSString).range(of: rangeText)
         let attribute = NSMutableAttributedString(string: text)
         attribute.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.black, range: range)
-        attribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: FontName.FuturaPTDemi.rawValue, size: is_iPAD ? 24.0 : 16.0)!, range: range)
+        attribute.addAttribute(NSAttributedString.Key.font, value: UIFont(name: FontName.FuturaPTDemi.rawValue,
+                                                                          size: is_iPAD ? 24.0 : 16.0) ?? UIFont.systemFont(ofSize: is_iPAD ? 24.0 : 16.0), range: range)
         self.addTextLabel.attributedText = attribute
 
     }

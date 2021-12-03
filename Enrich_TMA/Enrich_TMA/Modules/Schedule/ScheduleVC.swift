@@ -12,9 +12,9 @@
 
 import UIKit
 
-protocol ScheduleDisplayLogic: class
-{
-    func displaySomething(viewModel: Schedule.Something.ViewModel)
+protocol ScheduleDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
 struct SelectAppointment {
@@ -25,44 +25,58 @@ struct SelectAppointment {
     let dateobj: Date
     let isLeaveOrHoliday: Bool
     let leaveHolidayReason: String
+    let isRosterCreated: Bool
+    let appointmentPresent: Bool
 }
 
-class ScheduleVC: UIViewController, ScheduleDisplayLogic
-{
+class ScheduleVC: UIViewController, ScheduleDisplayLogic {
     var interactor: ScheduleBusinessLogic?
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var datePickerStackView: UIStackView!
-    @IBOutlet weak var dividerLIne: UIView!
-    
-    @IBOutlet weak var lblMonthYear: UILabel!
-    @IBOutlet weak var lblDayDescription: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
-    
-    @IBOutlet weak var btnToday: UIButton!
-    
-    
+
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var datePickerStackView: UIStackView!
+    @IBOutlet weak private var dividerLIne: UIView!
+
+    @IBOutlet weak private var lblMonthYear: UILabel!
+    @IBOutlet weak private var lblDayDescription: UILabel!
+    @IBOutlet weak private var collectionView: UICollectionView!
+
+    @IBOutlet weak private var btnToday: UIButton!
+    @IBOutlet weak private var lblNoAppointments: UILabel!
+
+    // Appointment details
     var selectAppointment: SelectAppointment?
     var collectionViewData = [SelectAppointment]()
-    
+    var appointments = [Schedule.GetAppointnents.Data]()
+
+    // Calender details
+    var selectedDate: Date = Date()
+    let startDate = Calendar.current.date(byAdding: .day, value: -14, to: Date())
+    let endDate = Calendar.current.date(byAdding: .day,
+                                        value: 28,
+                                        to: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date())
+
+    let currentDateIndex = 14
+    var selectedDateIndex = 14
+
+    var page_no = 1
+    var limit = 10
+    var total_records = 0
+
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
-    private func setup()
-    {
+
+    private func setup() {
         let viewController = self
         let interactor = ScheduleInteractor()
         let presenter = SchedulePresenter()
@@ -70,247 +84,476 @@ class ScheduleVC: UIViewController, ScheduleDisplayLogic
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            //      if let router = router, router.responds(to: selector) {
-            //        router.perform(selector, with: segue)
-            //      }
-        }
-    }
-    
+
     // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
-        tableView.register(UINib(nibName: "AppointmentStatusCell", bundle: nil), forCellReuseIdentifier: "AppointmentStatusCell")
-        collectionView.register(UINib(nibName: "MonthCollectionCell", bundle: nil), forCellWithReuseIdentifier: "MonthCollectionCell")
-        
-        datePickerStackView.isHidden = true
-        dividerLIne.isHidden = true
-        showNavigationBarButtons()
-        setWeekMonthData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = Schedule.Something.Request()
-        interactor?.doSomething(request: request)
-    }
-    
-    func displaySomething(viewModel: Schedule.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
-    
-    // MARK: - Top Navigation Bar And  Actions
-    func showNavigationBarButtons() {
-        
-        self.navigationController?.navigationBar.isHidden = false
-        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        
-        guard let searchImg = UIImage(named: "searchImg"),
-            let filterImage = UIImage(named: "searchImg") else{
-                return
-        }
-        
-        let searchButton = UIBarButtonItem(image: searchImg, style: .plain, target: self, action: #selector(didTapSearchButton))
-        searchButton.tintColor = UIColor.black
-        
-        let filterButton = UIBarButtonItem(image: filterImage, style: .plain, target: self, action: #selector(didTapFilterButton))
-        filterButton.tintColor = UIColor.black
-        
-        let todaysAppointmentButton = UIBarButtonItem(title: "Today's Appointments \u{2304}", style: .plain, target: self, action: #selector(didTapTodaysAppointmentButton))
-        todaysAppointmentButton.tintColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1)
-        
-        navigationItem.title = ""
-        navigationItem.rightBarButtonItems = [searchButton,filterButton]
-        navigationItem.leftBarButtonItems = [todaysAppointmentButton]
-        
-        //self.navigationController?.addCustomBackButton(title: "Today's Appointments")
-    }
-    
-    @objc func didTapSearchButton() {
-        let vc = AddNewPettyCash.instantiate(fromAppStoryboard: .More)
-        self.view.alpha = screenPopUpAlpha
-        self.appDelegate.window?.rootViewController!.present(vc, animated: true, completion: nil)
-        
-        vc.viewDismissBlock = { [unowned self] result in
-            // Do something
-            self.view.alpha = 1.0
-        }
-    }
-    
-    @objc func didTapFilterButton() {
-        
-        let vc = AppointmentFilterVC.instantiate(fromAppStoryboard: .Schedule)
-        self.view.alpha = screenPopUpAlpha
-        self.appDelegate.window?.rootViewController!.present(vc, animated: true, completion: nil)
-        
-        vc.viewDismissBlock = { [unowned self] result in
-            // Do something
-            self.view.alpha = 1.0
-        }
-    }
-    
-    
-    @IBAction func actionToday(_ sender: UIButton) {
-        for(index, _) in self.collectionViewData.enumerated() {
-            self.collectionViewData[index].isSelected = false
-        }
-        self.collectionViewData[0].isSelected = true
-        lblDayDescription.isHidden = !self.collectionViewData[0].isLeaveOrHoliday
-        self.collectionView.reloadData()
-        self.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .right, animated: true)
-    }
-    
-    @objc func didTapTodaysAppointmentButton() {
-        datePickerStackView.isHidden = !datePickerStackView.isHidden
-        dividerLIne.isHidden = !dividerLIne.isHidden
-        navigationItem.leftBarButtonItem?.title = datePickerStackView.isHidden ? "Today's Appointments \u{2304}" : "Today's Appointments \u{2303}"
-    }
-    
-    // MARK: setWeekMonthData
-    func setWeekMonthData() {
-        
-        collectionViewData.removeAll()
-        if let date = Calendar.current.date(byAdding: .day, value: 31, to: Calendar.current.date(byAdding: .day, value: -1, to: Date())!) {
-            for(index, element) in Date().allDates(till: date).enumerated() {
-                let weekend = Calendar.current.isDateInWeekend(element)
-                let selectAppointment = SelectAppointment(isSelected: (index == 0 ? true : false), year: element.OnlyYear, displayWeekDate: String(format: "%@, %@ %@", element.weekdayName, element.dayDateName, element.monthName), displaytime: element.timeWithPeriod, dateobj: element, isLeaveOrHoliday: weekend, leaveHolidayReason: "On Leave/Holiday/Weekly Off")
-                collectionViewData.append(selectAppointment)
-            }
-        }
-        
+        tableView.register(UINib(nibName: CellIdentifier.appointmentStatusCell, bundle: nil),
+                           forCellReuseIdentifier: CellIdentifier.appointmentStatusCell)
+        collectionView.register(UINib(nibName: CellIdentifier.monthCollectionCell, bundle: nil),
+                                forCellWithReuseIdentifier: CellIdentifier.monthCollectionCell)
+        tableView.separatorColor = .clear
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.reloadData()
-        
-        let MonthName: String = (collectionViewData.first?.dateobj.monthName)!
-        let Year: String = (collectionViewData.first?.dateobj.OnlyYear)!
-        self.lblMonthYear.text = String(format: "%@ %@", MonthName, Year)
-        //self.datePicker.minimumDate = collectionViewData.first?.dateobj
-        lblDayDescription.isHidden = !(collectionViewData.first?.isLeaveOrHoliday ?? false)
+
+        datePickerStackView.isHidden = true
+        dividerLIne.isHidden = true
+        lblNoAppointments.isHidden = true
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UserFactory.shared.checkForSignOut()
+        self.navigationController?.navigationBar.isHidden = false
+        btnToday.isHidden = datePickerStackView.isHidden ? true : (selectedDateIndex == currentDateIndex)
+        page_no = 1
+        total_records = 0
+        getRosterDetails()
+        showNavigationBarButtons()
+        setScreenTitle()
+    }
+
+    // MARK: API calls
+
+    func getRosterDetails() {
+
+        if let startDate = startDate, let endDate = endDate {
+
+            if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self,
+                                                          forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+
+                EZLoadingActivity.show("Loading...", disableUI: true)
+
+                let request = MyProfile.GetRosterDetails.Request(
+                    salon_code: userData.base_salon_code ?? "",
+                    fromDate: startDate.dayYearMonthDate,
+                    toDate: endDate.dayYearMonthDate,
+                    employee_id: userData.employee_id ?? "")
+                interactor?.doGetRosterData(request: request, method: .post)
+
+            }
+        }
+
+    }
+
+    func getAppointmentsForDate(date: String) {
+
+        if let userData = UserDefaults.standard.value(
+            MyProfile.GetUserProfile.UserData.self,
+            forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+
+            EZLoadingActivity.show("Loading...", disableUI: true)
+
+            print("Request Page Index: \(page_no)")
+
+            lblNoAppointments.isHidden = true
+
+            let request = Schedule.GetAppointnents.Request(
+                date: date, salon_code: userData.base_salon_code ?? "",
+                employee_code: userData.employee_code ??  "",
+                limit: limit, page_no: page_no)
+            interactor?.doGetAppointmentList(request: request, method: .post)
+        }
+    }
+
+    // MARK: - Top Navigation Bar And  Actions
+    func showNavigationBarButtons() {
+
+        self.navigationController?.navigationBar.isHidden = false
+        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+
+        guard let sosImg = UIImage(named: "SOS") else {
+            return
+        }
+
+        let todaysAppointmentButton = UIBarButtonItem(title: "Today's Appointments \u{2304}", style: .plain, target: self, action: #selector(didTapTodaysAppointmentButton))
+        todaysAppointmentButton.tintColor = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1)
+
+        let sosButton = UIBarButtonItem(image: sosImg, style: .plain, target: self, action: #selector(didTapSOSButton))
+        sosButton.tintColor = UIColor.black
+
+        navigationItem.title = ""
+        // navigationItem.rightBarButtonItems = [filterButton,searchButton]
+        navigationItem.leftBarButtonItems = [todaysAppointmentButton]
+        if showSOS {
+            navigationItem.rightBarButtonItems = [sosButton]
+        }
+
+        lblMonthYear.text = String(format: "%@ %@", selectedDate.monthName, selectedDate.OnlyYear)
+        lblDayDescription.text = "Roster not generated"
+
+    }
+
+    @objc func didTapSOSButton() {
+        SOSFactory.shared.raiseSOSRequest()
+    }
+
+    @objc func didTapSearchButton() {
+
+    }
+
+    @objc func didTapFilterButton() {
+
+        let vc = AppointmentFilterVC.instantiate(fromAppStoryboard: .Schedule)
+        self.view.alpha = screenPopUpAlpha
+        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+
+        vc.viewDismissBlock = { [unowned self] result in
+            // Do something
+            self.view.alpha = 1.0
+        }
+    }
+
+    @IBAction func actionToday(_ sender: UIButton) {
+        for index in self.collectionViewData.indices {
+            self.collectionViewData[index].isSelected = false
+        }
+        self.collectionViewData[currentDateIndex].isSelected = true
+        lblDayDescription.isHidden = !self.collectionViewData[currentDateIndex].isLeaveOrHoliday
+        self.collectionView.reloadData()
+        self.collectionView.scrollToItem(at: IndexPath(row: currentDateIndex, section: 0),
+                                         at: .centeredHorizontally, animated: true)
+        let MonthName: String = (Date().monthName)
+        let Year: String = (Date().OnlyYear)
+        lblMonthYear.text = String(format: "%@ %@", MonthName, Year)
+        selectedDate = Date()
+        setScreenTitle()
+        selectedDateIndex = currentDateIndex
+        btnToday.isHidden = true
+        lblDayDescription.text = collectionViewData[selectedDateIndex].leaveHolidayReason
+        page_no = 1
+        total_records = 0
+        getAppointmentsForDate(date: selectedDate.dayYearMonthDate)
+    }
+
+    @objc func didTapTodaysAppointmentButton() {
+        datePickerStackView.isHidden = !datePickerStackView.isHidden
+        btnToday.isHidden = (selectedDate.dayDateMonthYear == Date().dayDateMonthYear) ? true : datePickerStackView.isHidden
+        dividerLIne.isHidden = !dividerLIne.isHidden
+        //navigationItem.leftBarButtonItem?.title = datePickerStackView.isHidden ? "Today's Appointments \u{2304}" : "Today's Appointments \u{2303}"
+        setScreenTitle()
+    }
+
+    func setScreenTitle() {
+        if selectedDate.dayYearMonthDate == Date().dayYearMonthDate {
+            navigationItem.leftBarButtonItem?.title = datePickerStackView.isHidden ? "Today's Appointments \u{2304}" : "Today's Appointments \u{2303}"
+        }
+        else {
+            navigationItem.leftBarButtonItem?.title = datePickerStackView.isHidden ? "\(selectedDate.dayMonthYearDate) Appointments \u{2304}" : "\(selectedDate.dayMonthYearDate) Appointments \u{2303}"
+        }
+
+    }
+
 }
 
-extension ScheduleVC:AppointmentDelegate{
-    
+extension ScheduleVC {
+
+    func displaySuccess<T>(viewModel: T) where T: Decodable {
+        print("Response: \(viewModel)")
+
+        if let model = viewModel as? MyProfile.GetRosterDetails.Response, model.status == true {
+            ganerateRosterForMonth(rosterList: model.data ?? [])
+            getAppointmentsForDate(date: selectedDate.dayYearMonthDate)
+        }
+        else if let model = viewModel as? Schedule.GetAppointnents.Response {
+            EZLoadingActivity.hide()
+            total_records = model.total_records ?? 0
+            if page_no == 1 {
+                self.appointments.removeAll()
+            }
+            self.appointments.append(contentsOf: model.data ?? [])
+            self.tableView.reloadData()
+//            if !appointments.isEmpty {
+//                self.tableView.scrollToTop()
+//            }
+            lblNoAppointments.isHidden = !appointments.isEmpty
+        }
+        else if let model = viewModel as? JobCard.ChangeAppointmentStatus.Response {
+            EZLoadingActivity.hide()
+            showAlert(alertTitle: alertTitle, alertMessage: model.message)
+        }
+    }
+
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        self.appointments.removeAll()
+        self.tableView.reloadData()
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
+}
+
+extension ScheduleVC: AppointmentDelegate {
+
+    func appointmentAction(actionType: AppointmentAction, indexPath: IndexPath) {
+        print("Action:\(actionType)")
+
+        let appointment = appointments[indexPath.row]
+
+        switch actionType {
+
+        case .RateTheCustomer:
+
+            let vc = RateTheCustomerVC.instantiate(fromAppStoryboard: .Schedule)
+            self.view.alpha = screenPopUpAlpha
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.appointmentDetails = appointment
+            vc.viewDismissBlock = { [unowned self] result in
+                // Do something
+                self.view.alpha = 1.0
+                self.getAppointmentsForDate(date: self.selectedDate.dayYearMonthDate)
+            }
+
+        case .LeavingNow:
+
+            let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.isPresented = false
+            vc.markAsLeaveNow = true
+            vc.showOTPScreen = false
+            vc.appointmentDetails = appointments[indexPath.row]
+            vc.selectedDate = selectedDate
+            self.navigationController?.pushViewController(vc, animated: true)
+
+            if let latitude = appointment.customer_latitude,
+                let longitude = appointment.customer_longitude {
+                ApplicationFactory.shared.openGoogleMaps(lat: latitude, long: longitude)
+            }
+            else {
+                showAlert(alertTitle: "Alert", alertMessage: "Customer location details are missing")
+            }
+
+        case .ShowOTPScreen:
+
+            let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.isPresented = false
+            vc.markAsLeaveNow = false
+            vc.showOTPScreen = true
+            vc.appointmentDetails = appointments[indexPath.row]
+            vc.selectedDate = selectedDate
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        case .ServiceListing:
+
+            let vc = ListingVC.instantiate(fromAppStoryboard: .More)
+            self.view.alpha = screenPopUpAlpha
+            vc.services = appointment.services?.compactMap { ServiceListingModel(name: $0.service_name ?? "", price: "\($0.price ?? 0)") } ?? []
+            vc.screenTitle = "Services"
+            vc.listingType = .appointmentServices
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.viewDismissBlock = { [unowned self] result in
+                // Do something
+                self.view.alpha = 1.0
+            }
+
+        case .Modify:
+            let vc = ModifyAppointmentVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.selectedDate = selectedDate
+            vc.appointmentDetails = appointments[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+
+        case .Delete:
+
+            let alertController = UIAlertController(title: alertTitle, message: AlertMessagesToAsk.cancelAppointment, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: AlertButtonTitle.no, style: UIAlertAction.Style.cancel) { _ -> Void in
+                alertController.dismiss(animated: true, completion: nil)
+            })
+            alertController.addAction(UIAlertAction(title: AlertButtonTitle.yes, style: UIAlertAction.Style.default) { _ -> Void in
+                self.deleteAppointmentReason(indexPath: indexPath)
+            })
+            self.present(alertController, animated: true, completion: nil)
+
+        }
+    }
+
+    func deleteAppointmentReason(indexPath: IndexPath) {
+        let vc = DeleteReasonVC.instantiate(fromAppStoryboard: .Schedule)
+        self.view.alpha = screenPopUpAlpha
+        self.present(vc, animated: true, completion: nil)
+
+        vc.onDoneBlock = { [unowned self] (result, reason) in
+            // Do something
+            if result {
+                self.cancelAppointmentAPICall(reason: reason, indexPath: indexPath)
+            }
+            self.view.alpha = 1.0
+        }
+    }
+
+    func cancelAppointmentAPICall(reason: String, indexPath: IndexPath) {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser),
+            let id = self.appointments[indexPath.row].appointment_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let request = JobCard.ChangeAppointmentStatus.Request(
+                status: AppointmentStatus.cancelled.rawValue,
+                employee_id: userData.employee_id,
+                reason: reason, is_custom: true)
+            interactor?.doPostUpdateAppointmentStatus(appointmentId: "\(id)", request: request)
+        }
+    }
+
     func actionViewAllAppointments() {
         print("View All")
     }
-    
-    func actionDelete(indexPath: IndexPath) {
-        print("Delete:\(indexPath.row)")
-    }
-    
-    func actionModify(indexPath: IndexPath) {
-        print("Modify:\(indexPath.row)")
-    }
+
 }
 
 extension ScheduleVC: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return appointments.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentStatusCell", for: indexPath) as? AppointmentStatusCell else {
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.appointmentStatusCell, for: indexPath) as? AppointmentStatusCell else {
             return UITableViewCell()
         }
         cell.delegate = self
         cell.indexPath = indexPath
+        cell.selectedDate = selectedDate
+        cell.hideOptions = ((selectedDate < Date()) && (selectedDate.dayYearMonthDate != Date().dayYearMonthDate))
+        cell.configureCell(model: appointments[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selection")
+        let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+        vc.isPresented = false
+        vc.appointmentDetails = appointments[indexPath.row]
+        vc.selectedDate = selectedDate
+        vc.markAsLeaveNow = false
+        vc.showOTPScreen = false
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("Row index: \(indexPath.row)")
+        if indexPath.row == (appointments.count - 1) &&
+            appointments.count < total_records {
+            page_no += 1
+            self.getAppointmentsForDate(date: selectedDate.dayYearMonthDate)
+        }
     }
 }
 
-
 extension ScheduleVC: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-    
+
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.collectionViewData.count
     }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MonthCollectionCell", for: indexPath) as? MonthCollectionCell else {
-            return UICollectionViewCell()
-        }
-        let dateObj = self.collectionViewData[indexPath.row].dateobj
-        let date: String = dateObj.dayDateName
-        let weekName: String = dateObj.weekdayName
-        cell.lblWeek.text = weekName
-        cell.lblDate.text = date
-        cell.indexPath = indexPath
-        cell.lblDate.backgroundColor = .white
-        cell.lblDate.textColor = UIColor.darkGray
-        cell.lblDate.layer.borderColor = self.collectionViewData[indexPath.row].isSelected ? UIColor.red.cgColor : UIColor.clear.cgColor
-        cell.selectionView.isHidden = true
-        cell.lblDate.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: 17)
-        lblDayDescription.text = self.collectionViewData[indexPath.row].leaveHolidayReason
-        btnToday.isHidden = self.collectionViewData[0].isSelected
-        cell.cornerDotView.backgroundColor = UIColor(red: 70/255, green: 196/255, blue: 91/255, alpha: 1)
 
-        cell.lblDate.textColor = self.collectionViewData[indexPath.row].isLeaveOrHoliday ? UIColor(red: 232/255, green: 34/255, blue: 25/255, alpha: 1) : UIColor.init(red: 35/255, green:  35/255, blue:  35/255, alpha: 1)
-        
-        if(self.collectionViewData[indexPath.row].isSelected) {
-            cell.selectionView.isHidden = false
-            cell.lblDate.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 17)
-            
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.monthCollectionCell,
+                                                            for: indexPath) as? MonthCollectionCell else {
+                                                                return UICollectionViewCell()
         }
+
+        let obj = self.collectionViewData[indexPath.row]
+        cell.configureCell(model: obj, indexPath: indexPath)
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 40, height: 70)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let MonthName: String = self.collectionViewData[indexPath.row].dateobj.monthName
-        let Year: String = self.collectionViewData[indexPath.row].dateobj.OnlyYear
+
+        let obj = self.collectionViewData[indexPath.row]
+
+        let MonthName: String = obj.dateobj.monthName
+        let Year: String = obj.dateobj.OnlyYear
         self.lblMonthYear.text = String(format: "%@ %@", MonthName, Year)
-        lblDayDescription.isHidden = !self.collectionViewData[indexPath.row].isLeaveOrHoliday
-        
-        for(index, _) in self.collectionViewData.enumerated() {
+        lblDayDescription.isHidden = !obj.isLeaveOrHoliday
+        lblDayDescription.text = obj.leaveHolidayReason
+        for index in self.collectionViewData.indices {
             self.collectionViewData[index].isSelected = false
         }
         self.collectionViewData[indexPath.row].isSelected = true
+        self.selectedDate = obj.dateobj
+        setScreenTitle()
+        page_no = 1
+        total_records = 0
+        getAppointmentsForDate(date: obj.dateobj.dayYearMonthDate)
+        selectedDateIndex = indexPath.row
+        btnToday.isHidden = (selectedDateIndex == currentDateIndex)
         self.collectionView.reloadData()
-        //dateChange(datePicker)
     }
+}
+
+extension ScheduleVC {
+
+    // MARK: setWeekMonthData
+
+    func getRosterForDate(date: Date, rosterList: [MyProfile.GetRosterDetails.EmployeeData]) -> SelectAppointment {
+        //let weekend = Calendar.current.isDateInWeekend(date)
+        let isWeekEnd: Bool
+        let reason: String
+        let isRosterCreated: Bool
+        let appointmentsPresent: Bool
+
+        let rosterDates = rosterList.filter({ $0.date == date.dayYearMonthDate })
+        if !rosterDates.isEmpty {
+            isWeekEnd = (rosterDates.first?.is_leave == 1) ? true : false
+            reason = rosterDates.first?.leave_type ?? "Unknown"
+            isRosterCreated = true
+            appointmentsPresent = rosterDates.first?.appointments ?? false
+            print("Roster: \(date.dayYearMonthDate) Found")
+        }
+        else {
+            reason = "Roster not generated"
+            isWeekEnd = true
+            isRosterCreated = false
+            appointmentsPresent = false
+            print("Roster: \(date.dayYearMonthDate) Not Found")
+        }
+
+        let selectAppointment = SelectAppointment(isSelected: (selectedDate.dayYearMonthDate == date.dayYearMonthDate),
+                                                  year: date.OnlyYear,
+                                                  displayWeekDate: "\(date.dayDateName), \(date.monthName)",
+            displaytime: date.timeWithPeriod,
+            dateobj: date, isLeaveOrHoliday: isWeekEnd,
+            leaveHolidayReason: reason, isRosterCreated: isRosterCreated,
+            appointmentPresent: appointmentsPresent)
+
+        return selectAppointment
+    }
+
+    func ganerateRosterForMonth(rosterList: [MyProfile.GetRosterDetails.EmployeeData]) {
+        collectionViewData.removeAll()
+
+        guard let startDate = startDate,
+            let endDate = endDate else {
+                return
+        }
+
+        startDate.allDates(till: endDate).forEach {
+            collectionViewData.append(getRosterForDate(date: $0, rosterList: rosterList))
+        }
+
+        collectionView.reloadData()
+        collectionView.scrollToItem(at: IndexPath(row: selectedDateIndex, section: 0), at: .centeredHorizontally, animated: true)
+        let MonthName: String = (collectionViewData[selectedDateIndex].dateobj.monthName)
+        let Year: String = (collectionViewData[selectedDateIndex].dateobj.OnlyYear)
+        lblMonthYear.text = String(format: "%@ %@", MonthName, Year)
+        lblDayDescription.isHidden = !(collectionViewData[selectedDateIndex].isLeaveOrHoliday)
+        lblDayDescription.text = collectionViewData[selectedDateIndex].leaveHolidayReason
+    }
+
 }

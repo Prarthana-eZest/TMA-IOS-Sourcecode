@@ -13,6 +13,7 @@ enum SubProdListModule {
             let category_type: String?
             let is_custom: Bool = true // Custom API
             let platform: String = "mobile"
+            let category_id: Int64?
         }
 
         struct ResponseTypes: Codable {
@@ -28,7 +29,7 @@ enum SubProdListModule {
 
         struct SubCatTypeModel: Codable {
             let label: String?
-            let value: String?
+            let value: AnyCodable?
             let swatch_image_url: String?
         }
     }

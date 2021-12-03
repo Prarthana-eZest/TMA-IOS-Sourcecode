@@ -12,34 +12,48 @@
 
 import UIKit
 
-protocol GenericCustomerConsulationDisplayLogic: class
-{
-    func displaySomething(viewModel: GenericCustomerConsulation.Something.ViewModel)
+protocol GenericCustomerConsulationDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class GenericCustomerConsulationVC: UIViewController, GenericCustomerConsulationDisplayLogic
-{
+class GenericCustomerConsulationVC: UIViewController, GenericCustomerConsulationDisplayLogic {
+
     var interactor: GenericCustomerConsulationBusinessLogic?
+
     @IBOutlet weak private var tableView: UITableView!
-    
+    @IBOutlet weak private var btnSubmit: UIButton!
+
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+
+    var consulationData = [TagViewModel]()
+
+    var customer_id: String?
+    var form_id: String?
+    var signatureImage: UIImage?
+    var singatureCaptured = false
+
+    var gender = 1
+
+    var appointmentDetails: Schedule.GetAppointnents.Data?
+
+    var screenTitle = ""
+
+    var viewDismissBlock: ((Bool) -> Void)?
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
-    private func setup()
-    {
+
+    private func setup() {
         let viewController = self
         let interactor = GenericCustomerConsulationInteractor()
         let presenter = GenericCustomerConsulationPresenter()
@@ -47,99 +61,269 @@ class GenericCustomerConsulationVC: UIViewController, GenericCustomerConsulation
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        if let scene = segue.identifier {
-            //      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-            //      if let router = router, router.responds(to: selector) {
-            //        router.perform(selector, with: segue)
-            //      }
-        }
-    }
-    
-    // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        doSomething()
-        
-        tableView.register(UINib(nibName: "SelectGenderCell", bundle: nil), forCellReuseIdentifier: "SelectGenderCell")
 
+    // MARK: View lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.register(UINib(nibName: CellIdentifier.selectGenderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.selectGenderCell)
+        tableView.register(UINib(nibName: CellIdentifier.tagViewCell, bundle: nil),
+                           forCellReuseIdentifier: CellIdentifier.tagViewCell)
+        tableView.register(UINib(nibName: CellIdentifier.addNotesCell, bundle: nil),
+                           forCellReuseIdentifier: CellIdentifier.addNotesCell)
+        tableView.register(UINib(nibName: CellIdentifier.signatureCell, bundle: nil),
+        forCellReuseIdentifier: CellIdentifier.signatureCell)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        btnSubmit.isEnabled = false
+        addSOSButton()
+        getServiceSpecificFormData()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        self.navigationController?.addCustomBackButton(title: "Generic Customer Consulation")
-        
+        self.navigationController?.addCustomBackButton(title: screenTitle)
+
     }
-    
+
+    func addSOSButton() {
+        guard let sosImg = UIImage(named: "SOS") else {
+            return
+        }
+        let sosButton = UIBarButtonItem(image: sosImg, style: .plain, target: self, action: #selector(didTapSOSButton))
+        sosButton.tintColor = UIColor.black
+        navigationItem.title = ""
+        if showSOS {
+            navigationItem.rightBarButtonItems = [sosButton]
+        }
+    }
+
+    @objc func didTapSOSButton() {
+        SOSFactory.shared.raiseSOSRequest()
+    }
+
+    @IBAction func actionSubmitForm(_ sender: UIButton) {
+        if signatureImage == nil {
+            if singatureCaptured {
+                self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.saveCustomerSignature, seconds: toastMessageDuration)
+            }
+            else {
+                self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.takeCustomerSignature, seconds: toastMessageDuration)
+            }
+            return
+        }
+        else {
+            submitSpecificForm()
+        }
+    }
+
     func reloadData() {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
-    
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = GenericCustomerConsulation.Something.Request()
-        interactor?.doSomething(request: request)
+
+    func convertImageToBase64(image: UIImage) -> String {
+        let imageData = image.jpegData(compressionQuality: 0.5)!
+        return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
     }
-    
-    func displaySomething(viewModel: GenericCustomerConsulation.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+
+    func submitSpecificForm() {
+        if let customerId = customer_id,
+            let signature = signatureImage,
+            let form_id = form_id {
+            var fields = [GenericCustomerConsulation.SubmitFormData.Data]()
+
+            var showValidationAlert = false
+
+            consulationData.forEach {
+
+                let value: [String]
+
+                if $0.field_type == .signature {
+                    value = [convertImageToBase64(image: signature)]
+                }
+                else if $0.field_type == .commentBox {
+                    value = [$0.value]
+                }
+                else {
+                    value = $0.tagView.compactMap {
+                        if $0.isSelected {
+                            return $0.text
+                        }
+                        return nil
+                    }
+                }
+
+                if !showValidationAlert {
+                    showValidationAlert = ($0.isRequired && value.isEmpty)
+                }
+
+                if !value.isEmpty {
+                    fields.append(GenericCustomerConsulation.SubmitFormData.Data(id: $0.id, value: value, size: $0.size, field_type: $0.field_type.rawValue))
+                }
+            }
+
+            if showValidationAlert {
+                self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.formValidation, seconds: toastMessageDuration)
+                return
+            }
+
+            EZLoadingActivity.show("Loading...", disableUI: true)
+
+            let bookingNo = appointmentDetails?.booking_number ?? ""
+            let customerName = appointmentDetails?.services?.first?.booked_for ?? ""
+
+            let formData = GenericCustomerConsulation.SubmitFormData.FormDataRequest(form_id: form_id, customer_id: "\(customerId)", booking_number: bookingNo, customer_name: customerName, data: fields)
+            let request = GenericCustomerConsulation.SubmitFormData.Request(formData: formData, is_custom: true)
+            interactor?.doPostSpcificFormData(request: request, method: .post)
+        }
+    }
+
+    func mapFormData(fields: [GenericCustomerConsulation.FormData.Data]) {
+        consulationData.removeAll()
+        fields.forEach {
+            var options = [TagViewString]()
+            $0.field_options?.forEach { option in
+                options.append(TagViewString(text: option.label ?? "", isSelected: option.checked ?? false))
+            }
+            if let fieldType = FieldType(rawValue: $0.field_type ?? "") {
+                consulationData.append(TagViewModel(title: $0.label ?? "", tagView: options, value: $0.value ?? "", id: $0.cid ?? "", size: "", field_type: fieldType, isRequired: $0.required ?? false))
+            }
+
+        }
+        btnSubmit.isEnabled = !consulationData.isEmpty
+        tableView.reloadData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {     self.tableView.reloadData()
+        }
     }
 }
 
-extension GenericCustomerConsulationVC: SelectGenderDelegate{
-    
+extension GenericCustomerConsulationVC: SelectGenderDelegate {
+
     func actionGender(gender: Gender) {
         print("Selected Gender: \(gender)")
         tableView.reloadData()
     }
 }
 
+extension GenericCustomerConsulationVC {
+
+    func getServiceSpecificFormData() {
+        if let customer_id = customer_id,
+            let form_id = form_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let request = GenericCustomerConsulation.FormData.Request(customer_id: customer_id, form_id: form_id, is_custom: true)
+            interactor?.doGetServiceSpcificFormData(request: request, method: .post)
+        }
+    }
+
+    func displaySuccess<T>(viewModel: T) where T: Decodable {
+        EZLoadingActivity.hide()
+        if let model = viewModel as? GenericCustomerConsulation.FormData.Response, model.status == true {
+            mapFormData(fields: model.data ?? [])
+        }
+        else if let model = viewModel as? GenericCustomerConsulation.SubmitFormData.Response {
+            self.showToast(alertTitle: alertTitle, message: model.message, seconds: toastMessageDuration)
+
+            if model.status == true {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                    self.viewDismissBlock?(true)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        }
+    }
+
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
+}
+
+extension GenericCustomerConsulationVC: SingatureCellDelegate {
+
+    func actionClearSignature() {
+        signatureImage = nil
+        singatureCaptured = false
+    }
+
+    func actionSaveSignature(image: UIImage) {
+        self.showToast(alertTitle: alertTitle, message: AlertMessagesSuccess.savedCustomerSignature, seconds: toastMessageDuration)
+        signatureImage = image
+    }
+
+    func actionCaptureSignature() {
+        singatureCaptured = true
+    }
+
+}
+
 extension GenericCustomerConsulationVC: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return section == 0 ? 1 : consulationData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.row {
-        case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SelectGenderCell", for: indexPath) as? SelectGenderCell else {
+
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.selectGenderCell, for: indexPath) as? SelectGenderCell else {
                 return UITableViewCell()
             }
             cell.delegate = self
-            cell.updateConstraints()
-            cell.setNeedsDisplay()
-            cell.setNeedsLayout()
+            let inclined: Gender = appointmentDetails?.inclined_other_gender?.lowercased() == "female" ? .otherFemale : .otherMale
+            let genderType: Gender = gender == 1 ? .male : gender == 2 ? .female : inclined
+            cell.configureCell(isEditable: false, selectedGender: genderType)
             cell.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
             cell.selectionStyle = .none
             return cell
-            
-        default:
-            return UITableViewCell()
         }
-        
+        else {
+
+            let formData = consulationData[indexPath.row]
+
+            if formData.field_type == .commentBox {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.addNotesCell) as? AddNotesCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell(model: formData)
+                cell.selectionStyle = .none
+                cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.frame.size.width, bottom: 0, right: 0)
+                return cell
+            }
+            else if formData.field_type == .signature {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.signatureCell) as? SignatureCell else {
+                    return UITableViewCell()
+                }
+                cell.delegate = self
+                cell.selectionStyle = .none
+                cell.separatorInset = UIEdgeInsets(top: 0, left: tableView.frame.size.width, bottom: 0, right: 0)
+                return cell
+            }
+            else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.tagViewCell,
+                                                               for: indexPath) as? TagViewCell else {
+                                                                return UITableViewCell()
+                }
+
+                cell.indexPath = indexPath
+                cell.configureCell(model: formData)
+                cell.separatorInset = UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
+                cell.selectionStyle = .none
+                return cell
+            }
+        }
+
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }

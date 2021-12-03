@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+        <array key="NotoSans-Regular.ttf">
+            <string>NotoSans-Regular</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="587" id="KGk-i7-Jjw" customClass="ServiceDescriptionCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="457" height="597"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="457" height="596.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tc0-4k-tSU">
+                        <rect key="frame" x="0.0" y="0.0" width="457" height="596.5"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Servicelisting-card-default" translatesAutoresizingMaskIntoConstraints="NO" id="pxz-EB-JKN">
+                                <rect key="frame" x="0.0" y="0.0" width="457" height="188"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="188" id="jwg-mw-2IP">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="288"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vzl-s4-Njp">
+                                <rect key="frame" x="0.0" y="188" width="457" height="408.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="0fk-e9-D5h">
+                                        <rect key="frame" x="30" y="15" width="397" height="378.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="OMg-uC-uAu">
+                                                <rect key="frame" x="0.0" y="0.0" width="397" height="0.0"/>
+                                                <subviews>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQi-GL-0dD" userLabel="memberOffer">
+                                                        <rect key="frame" x="0.0" y="0.0" width="111" height="40"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NVL-p8-Og9" userLabel="View offer percentage">
+                                                                <rect key="frame" x="10" y="5" width="40" height="30"/>
+                                                                <subviews>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="oval" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZE3-ir-Ko0">
+                                                                        <rect key="frame" x="3" y="1.5" width="34" height="27"/>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZHQ-Iv-0zk">
+                                                                        <rect key="frame" x="7" y="6.5" width="27" height="18"/>
+                                                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="14"/>
+                                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                                                        </variation>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="ZHQ-Iv-0zk" firstAttribute="centerY" secondItem="NVL-p8-Og9" secondAttribute="centerY" constant="0.5" id="DFf-iE-Om3"/>
+                                                                    <constraint firstItem="ZE3-ir-Ko0" firstAttribute="centerX" secondItem="NVL-p8-Og9" secondAttribute="centerX" id="Ebo-R1-XDI"/>
+                                                                    <constraint firstItem="ZHQ-Iv-0zk" firstAttribute="centerX" secondItem="NVL-p8-Og9" secondAttribute="centerX" constant="0.5" id="W6Y-uT-frb"/>
+                                                                    <constraint firstItem="ZE3-ir-Ko0" firstAttribute="centerY" secondItem="NVL-p8-Og9" secondAttribute="centerY" id="eRa-hF-ybK"/>
+                                                                    <constraint firstAttribute="height" constant="30" id="hqU-Tz-rkR">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                                    </constraint>
+                                                                    <constraint firstAttribute="width" constant="40" id="jeQ-Eq-GWt">
+                                                                        <variation key="heightClass=regular-widthClass=regular" constant="55"/>
+                                                                    </constraint>
+                                                                </constraints>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="off" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4MD-H6-KJd">
+                                                                <rect key="frame" x="53" y="10" width="48" height="21"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                                <variation key="heightClass=regular-widthClass=regular">
+                                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="22"/>
+                                                                </variation>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" red="0.1058823529" green="0.098039215690000001" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstItem="NVL-p8-Og9" firstAttribute="leading" secondItem="CQi-GL-0dD" secondAttribute="leading" constant="10" id="11e-tC-wnh"/>
+                                                            <constraint firstAttribute="height" constant="40" id="8Co-5N-eSj"/>
+                                                            <constraint firstItem="NVL-p8-Og9" firstAttribute="centerY" secondItem="CQi-GL-0dD" secondAttribute="centerY" id="C2b-Fb-oIH"/>
+                                                            <constraint firstAttribute="trailing" secondItem="4MD-H6-KJd" secondAttribute="trailing" constant="10" id="Yr3-QO-CLC"/>
+                                                            <constraint firstItem="4MD-H6-KJd" firstAttribute="centerY" secondItem="NVL-p8-Og9" secondAttribute="centerY" constant="0.5" id="uqp-ts-4TU"/>
+                                                            <constraint firstItem="4MD-H6-KJd" firstAttribute="leading" secondItem="NVL-p8-Og9" secondAttribute="trailing" constant="3" id="zjX-7b-6EF"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="CQi-GL-0dD" firstAttribute="width" secondItem="OMg-uC-uAu" secondAttribute="width" multiplier="0.28" id="8Xc-Hu-3Ck"/>
+                                                </constraints>
+                                                <variation key="heightClass=regular-widthClass=regular" spacing="15"/>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yRJ-1F-jDk">
+                                                <rect key="frame" x="0.0" y="15" width="397" height="0.0"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="20"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="28"/>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" text="Description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KFi-w4-VyZ">
+                                                <rect key="frame" x="0.0" y="30" width="397" height="21"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                                </variation>
+                                            </label>
+                                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   Service add-ons to avail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L7T-N7-ByT" customClass="LabelButton" customModule="enrich" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="66" width="397" height="35"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="RKl-D7-3Ov">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="50"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="15.460000038146973"/>
+                                                <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="23.190000534057617"/>
+                                                </variation>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="wDK-bV-2Gl" userLabel="Stack View Rating">
+                                                <rect key="frame" x="0.0" y="116" width="397" height="50"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0zK-m4-uby" customClass="CosmosView" customModule="Cosmos">
+                                                        <rect key="frame" x="0.0" y="17.5" width="100" height="15"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="2do-yB-3mm">
+                                                                <variation key="heightClass=regular-widthClass=regular" constant="22.5"/>
+                                                            </constraint>
+                                                            <constraint firstAttribute="width" constant="100" id="o35-M7-7is"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                                                <real key="value" value="15"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                                                <color key="value" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                                                <color key="value" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="updateOnTouch" value="NO"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="starEnabled"/>
+                                                            <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="starDisabled"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" text="0 reviews" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVr-Gu-RSd" customClass="LabelButton" customModule="enrich" customModuleProvider="target">
+                                                        <rect key="frame" x="110" y="13.5" width="67" height="23.5"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                                        </variation>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RYQ-Vx-avd">
+                                                        <rect key="frame" x="187" y="0.0" width="210" height="50"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                                <variation key="heightClass=regular-widthClass=regular" spacing="15"/>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7Qe-EW-2WH" userLabel="Stack View ServiceTime">
+                                                <rect key="frame" x="0.0" y="181" width="397" height="21"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rwM-jF-7MJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="82.5" height="21"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" red="0.75406885150000003" green="0.75408679249999999" blue="0.75407713649999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="0 min" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="61G-J7-dC4">
+                                                        <rect key="frame" x="87.5" y="0.0" width="309.5" height="21"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                                        </variation>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="bzj-Ta-C4G" userLabel="Stack View Price">
+                                                <rect key="frame" x="0.0" y="217" width="397" height="35.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ₹ 100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUR-gC-UnZ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="56.5" height="35.5"/>
+                                                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="30"/>
+                                                        </variation>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" ₹ 0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cjP-ac-j3K">
+                                                        <rect key="frame" x="71.5" y="0.0" width="30" height="35.5"/>
+                                                        <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="18"/>
+                                                        <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" name="NotoSans-Regular" family="Noto Sans" pointSize="28"/>
+                                                        </variation>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MJx-LF-dlB">
+                                                        <rect key="frame" x="116.5" y="0.0" width="280.5" height="35.5"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Recommended For" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZr-3u-8pa">
+                                                <rect key="frame" x="0.0" y="267.5" width="397" height="26"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="heightClass=regular-widthClass=regular">
+                                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="30"/>
+                                                </variation>
+                                            </label>
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Bss-gC-VlX">
+                                                <rect key="frame" x="0.0" y="308.5" width="397" height="70"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="70" id="uN2-Wq-Yok">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="120"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="CXt-mP-1Ot">
+                                                    <size key="itemSize" width="50" height="50"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                </collectionViewFlowLayout>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="KGk-i7-Jjw" id="Pkx-rp-pGZ"/>
+                                                    <outlet property="delegate" destination="KGk-i7-Jjw" id="IIj-dN-ChO"/>
+                                                </connections>
+                                            </collectionView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="L7T-N7-ByT" secondAttribute="trailing" id="fgf-9t-XQX"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rzn-Ln-h4M">
+                                        <rect key="frame" x="140" y="168" width="67" height="2"/>
+                                        <color key="backgroundColor" red="1" green="0.3210160312" blue="0.19283141039999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="ROj-lN-jsa"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xYA-NM-n2e">
+                                        <rect key="frame" x="392" y="81" width="35" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="xYA-NM-n2e" secondAttribute="height" multiplier="1:1" id="v0q-G2-WTo"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                        <state key="normal" title="+">
+                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="plusButtonAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="aiB-Tx-iQU"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="xYA-NM-n2e" firstAttribute="bottom" secondItem="L7T-N7-ByT" secondAttribute="bottom" id="K1D-VZ-TkG"/>
+                                    <constraint firstItem="xYA-NM-n2e" firstAttribute="top" secondItem="L7T-N7-ByT" secondAttribute="top" id="Noc-kb-PnM"/>
+                                    <constraint firstItem="Rzn-Ln-h4M" firstAttribute="bottom" secondItem="lVr-Gu-RSd" secondAttribute="bottom" constant="2" id="O6O-wj-ptH"/>
+                                    <constraint firstItem="Rzn-Ln-h4M" firstAttribute="leading" secondItem="lVr-Gu-RSd" secondAttribute="leading" id="W2D-6q-fv1"/>
+                                    <constraint firstItem="0fk-e9-D5h" firstAttribute="leading" secondItem="Vzl-s4-Njp" secondAttribute="leading" constant="30" id="ZX5-iO-giW">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                    </constraint>
+                                    <constraint firstItem="xYA-NM-n2e" firstAttribute="trailing" secondItem="L7T-N7-ByT" secondAttribute="trailing" id="dXT-Jv-N1U"/>
+                                    <constraint firstItem="0fk-e9-D5h" firstAttribute="top" secondItem="Vzl-s4-Njp" secondAttribute="top" constant="15" id="eRe-Kj-Re3">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                    </constraint>
+                                    <constraint firstItem="xYA-NM-n2e" firstAttribute="centerY" secondItem="L7T-N7-ByT" secondAttribute="centerY" id="ffr-pk-jAZ"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="0fk-e9-D5h" secondAttribute="bottom" constant="15" id="kmC-aH-fpS">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                                    </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="0fk-e9-D5h" secondAttribute="trailing" constant="30" id="tEU-CV-RpJ">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                    </constraint>
+                                    <constraint firstItem="Rzn-Ln-h4M" firstAttribute="trailing" secondItem="lVr-Gu-RSd" secondAttribute="trailing" id="teb-4E-Ud9"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Vzl-s4-Njp" secondAttribute="bottom" id="DJJ-ea-l2Z"/>
+                            <constraint firstItem="pxz-EB-JKN" firstAttribute="leading" secondItem="Tc0-4k-tSU" secondAttribute="leading" id="IZj-Ox-9X1"/>
+                            <constraint firstItem="pxz-EB-JKN" firstAttribute="top" secondItem="Tc0-4k-tSU" secondAttribute="top" id="UhZ-YC-T2d"/>
+                            <constraint firstItem="Vzl-s4-Njp" firstAttribute="top" secondItem="pxz-EB-JKN" secondAttribute="bottom" id="fXU-ip-l52"/>
+                            <constraint firstItem="Vzl-s4-Njp" firstAttribute="leading" secondItem="Tc0-4k-tSU" secondAttribute="leading" id="uOr-9C-t91">
+                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="pxz-EB-JKN" secondAttribute="trailing" id="w4M-HD-8pO"/>
+                            <constraint firstAttribute="trailing" secondItem="Vzl-s4-Njp" secondAttribute="trailing" id="xJT-TI-12z">
+                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                            </constraint>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Tc0-4k-tSU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="gp9-KS-HTC"/>
+                    <constraint firstAttribute="trailing" secondItem="Tc0-4k-tSU" secondAttribute="trailing" id="mnh-A6-z5Q"/>
+                    <constraint firstItem="Tc0-4k-tSU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oWb-du-Znq"/>
+                    <constraint firstAttribute="bottom" secondItem="Tc0-4k-tSU" secondAttribute="bottom" id="qVL-0c-2QI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnPlus" destination="xYA-NM-n2e" id="e2p-aV-9sC"/>
+                <outlet property="collectionView" destination="Bss-gC-VlX" id="cR7-oe-cig"/>
+                <outlet property="descriptionText" destination="KFi-w4-VyZ" id="iAP-Ol-6VA"/>
+                <outlet property="dropdownText" destination="L7T-N7-ByT" id="CYf-gR-rZv"/>
+                <outlet property="lblDiscount" destination="ZHQ-Iv-0zk" id="9Fz-gR-1XE"/>
+                <outlet property="lblOldPrice" destination="cjP-ac-j3K" id="dpL-kC-ez7"/>
+                <outlet property="lblRecommendedFor" destination="KZr-3u-8pa" id="JvD-6R-rsF"/>
+                <outlet property="lblReviews" destination="lVr-Gu-RSd" id="2wE-xD-U0Y"/>
+                <outlet property="lblServiceHours" destination="61G-J7-dC4" id="LEr-4m-V6d"/>
+                <outlet property="lblServiceTitle" destination="yRJ-1F-jDk" id="gnD-bN-mrm"/>
+                <outlet property="offerView" destination="CQi-GL-0dD" id="Kmn-BR-KJg"/>
+                <outlet property="priceLabel" destination="pUR-gC-UnZ" id="Ykd-rt-6rg"/>
+                <outlet property="ratingsView" destination="0zK-m4-uby" id="h1S-T6-AtX"/>
+                <outlet property="serviceImageView" destination="pxz-EB-JKN" id="u1W-fG-4bc"/>
+                <outlet property="viewUnderline" destination="Rzn-Ln-h4M" id="Vwa-DX-kO9"/>
+            </connections>
+            <point key="canvasLocation" x="52" y="228.03598200899552"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Servicelisting-card-default" width="334" height="138"/>
+        <image name="oval" width="34" height="27"/>
+        <image name="starDisabled" width="17" height="17"/>
+        <image name="starEnabled" width="15" height="17"/>
+    </resources>
+</document>

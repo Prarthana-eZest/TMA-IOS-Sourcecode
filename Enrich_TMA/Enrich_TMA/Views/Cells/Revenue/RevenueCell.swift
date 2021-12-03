@@ -10,18 +10,16 @@ import UIKit
 
 class RevenueCell: UITableViewCell {
 
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var lblSubTitle: UILabel!
-    @IBOutlet weak var lblValue: UILabel!
-    
-    
+    @IBOutlet weak private var lblTitle: UILabel!
+    @IBOutlet weak private var lblSubTitle: UILabel!
+    @IBOutlet weak private var lblValue: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    
-    func configureCell(model:RevenueCellModel){
+
+    func configureCell(model: RevenueCellModel) {
         lblTitle.text = model.title
         lblSubTitle.text = model.subTitle
         lblValue.text = model.value
@@ -33,10 +31,10 @@ class RevenueCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }
 
-struct RevenueCellModel{
+struct RevenueCellModel {
     let title: String
     let subTitle: String
     let value: String

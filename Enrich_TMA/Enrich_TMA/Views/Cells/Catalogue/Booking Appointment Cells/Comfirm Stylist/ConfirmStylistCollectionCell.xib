@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ConfirmStylistCollectionCell" id="gTV-IL-0wX" customClass="ConfirmStylistCollectionCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="260" height="95"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="260" height="95"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yEo-lE-qfK">
+                        <rect key="frame" x="0.0" y="0.0" width="260" height="95"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3rL-Pt-hzw">
+                                <rect key="frame" x="105" y="90" width="50" height="5"/>
+                                <color key="backgroundColor" red="0.90980392160000001" green="0.1333333333" blue="0.098039215690000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="RZA-IZ-vtn"/>
+                                    <constraint firstAttribute="height" constant="5" id="b9h-Zf-7Ps"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-J5-vcX">
+                                <rect key="frame" x="10" y="15" width="240" height="65.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Label Label Label Label Label Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QKF-aM-HR6">
+                                        <rect key="frame" x="36" y="0.0" width="168" height="41.5"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16"/>
+                                        <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2c-3q-8Pg">
+                                        <rect key="frame" x="0.0" y="45.5" width="240" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="Rny-Vn-MW7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="12"/>
+                                        <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="15"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="G2c-3q-8Pg" secondAttribute="trailing" id="acR-Ta-s5w"/>
+                                    <constraint firstItem="G2c-3q-8Pg" firstAttribute="leading" secondItem="5o2-J5-vcX" secondAttribute="leading" id="pH1-xK-agS"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3rL-Pt-hzw" firstAttribute="centerX" secondItem="yEo-lE-qfK" secondAttribute="centerX" id="1cK-gq-oG1"/>
+                            <constraint firstItem="5o2-J5-vcX" firstAttribute="centerX" secondItem="yEo-lE-qfK" secondAttribute="centerX" id="DGp-Cu-NBN"/>
+                            <constraint firstAttribute="bottom" secondItem="3rL-Pt-hzw" secondAttribute="bottom" id="Dq4-c2-9qH"/>
+                            <constraint firstItem="5o2-J5-vcX" firstAttribute="centerY" secondItem="yEo-lE-qfK" secondAttribute="centerY" id="FDS-0y-XO3"/>
+                            <constraint firstItem="5o2-J5-vcX" firstAttribute="leading" secondItem="yEo-lE-qfK" secondAttribute="leading" constant="10" id="da4-vF-53Y"/>
+                            <constraint firstAttribute="trailing" secondItem="5o2-J5-vcX" secondAttribute="trailing" constant="10" id="hit-Cu-rKZ"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="yEo-lE-qfK" secondAttribute="bottom" id="BRA-Ic-KEn"/>
+                <constraint firstItem="yEo-lE-qfK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Otq-VK-HYj"/>
+                <constraint firstAttribute="trailing" secondItem="yEo-lE-qfK" secondAttribute="trailing" id="Ydd-oa-6hp"/>
+                <constraint firstItem="yEo-lE-qfK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oXA-2U-jCl"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="260" height="95"/>
+            <connections>
+                <outlet property="lblSubTitle" destination="G2c-3q-8Pg" id="hXc-Hv-KHT"/>
+                <outlet property="lblTitle" destination="QKF-aM-HR6" id="Imi-S9-Bx9"/>
+                <outlet property="selectionView" destination="3rL-Pt-hzw" id="ZaQ-qd-bNj"/>
+            </connections>
+            <point key="canvasLocation" x="-67" y="107"/>
+        </collectionViewCell>
+    </objects>
+</document>

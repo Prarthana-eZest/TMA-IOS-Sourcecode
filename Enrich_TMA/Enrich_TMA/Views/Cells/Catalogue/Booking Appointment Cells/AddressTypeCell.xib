@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddressTypeCell" rowHeight="240" id="KGk-i7-Jjw" customClass="AddressTypeCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="461" height="240"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="461" height="239.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7N5-u9-rom">
+                        <rect key="frame" x="20" y="105" width="421" height="1"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="SJc-9y-lqW"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="rA6-Lq-Ggx" userLabel="Stack View Mark This Address">
+                        <rect key="frame" x="20" y="10" width="421" height="66"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Type of Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mX-E1-WPM">
+                                <rect key="frame" x="0.0" y="0.0" width="421" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="D0a-n8-mI9">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="26"/>
+                                    </constraint>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                <color key="textColor" red="0.15294117647058825" green="0.14509803921568626" blue="0.14509803921568626" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="25"/>
+                                </variation>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="hmr-if-7eZ" userLabel="Stack View Options">
+                                <rect key="frame" x="0.0" y="36" width="421" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFit" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kYn-Ai-yod" userLabel="Button Home">
+                                        <rect key="frame" x="0.0" y="0.0" width="133.5" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="B0C-gT-CFD">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                        <state key="normal" backgroundImage="homeplaceunselected">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" backgroundImage="homeplaceselected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="actionAddressType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="c1Z-zT-Jan"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S8p-wQ-81B" userLabel="Button Work Place">
+                                        <rect key="frame" x="143.5" y="0.0" width="134" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="QuS-cx-cfM">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                        <state key="normal" backgroundImage="workplaceunselected">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" backgroundImage="workplaceselected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="actionAddressType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g2d-ha-wxl"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QH0-4j-EME" userLabel="Button Other">
+                                        <rect key="frame" x="287.5" y="0.0" width="133.5" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Ddy-Fl-Yms">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                        <state key="normal" backgroundImage="otherplaceunselected">
+                                            <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" backgroundImage="otherplaceselected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="actionAddressType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="dBN-mx-ggt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <variation key="heightClass=regular-widthClass=regular" spacing="30"/>
+                            </stackView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="pa1-RE-GLX">
+                                <rect key="frame" x="0.0" y="66" width="421" height="66"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Tag your &quot;other&quot; place" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2du-4c-hMc">
+                                        <rect key="frame" x="0.0" y="0.0" width="421" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="CcT-Te-d5i">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                        </constraints>
+                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                        </variation>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="eg. Mom's Place" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GZ7-pp-WR8">
+                                        <rect key="frame" x="0.0" y="40" width="421" height="26"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="26" id="76P-oU-DtM">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                        <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <variation key="heightClass=regular-widthClass=regular" spacing="15"/>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="7N5-u9-rom" firstAttribute="bottom" secondItem="2du-4c-hMc" secondAttribute="bottom" id="62E-2T-ayb"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rA6-Lq-Ggx" secondAttribute="bottom" constant="20" id="A2q-rc-u34">
+                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                    </constraint>
+                    <constraint firstItem="7N5-u9-rom" firstAttribute="trailing" secondItem="2du-4c-hMc" secondAttribute="trailing" id="K9b-Iz-IwB"/>
+                    <constraint firstItem="7N5-u9-rom" firstAttribute="leading" secondItem="2du-4c-hMc" secondAttribute="leading" id="VA6-q9-OyY"/>
+                    <constraint firstAttribute="trailing" secondItem="rA6-Lq-Ggx" secondAttribute="trailing" constant="20" id="kYA-DZ-LNL">
+                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                    </constraint>
+                    <constraint firstItem="rA6-Lq-Ggx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="uXI-EW-Yw8">
+                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                    </constraint>
+                    <constraint firstItem="rA6-Lq-Ggx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="xPp-c1-ZlG">
+                        <variation key="heightClass=regular-widthClass=regular" constant="15"/>
+                    </constraint>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnHome" destination="kYn-Ai-yod" id="kSz-23-XaL"/>
+                <outlet property="btnOther" destination="QH0-4j-EME" id="01V-X4-CpC"/>
+                <outlet property="btnWork" destination="S8p-wQ-81B" id="Z3e-tv-06w"/>
+                <outlet property="dividerLineView" destination="7N5-u9-rom" id="4XU-2k-4AQ"/>
+                <outlet property="otherStackView" destination="pa1-RE-GLX" id="F68-OL-RPv"/>
+                <outlet property="txtfOthePlace" destination="2du-4c-hMc" id="dDy-js-0zH"/>
+                <outletCollection property="buttons" destination="kYn-Ai-yod" collectionClass="NSMutableArray" id="ceU-NN-rrR"/>
+                <outletCollection property="buttons" destination="S8p-wQ-81B" collectionClass="NSMutableArray" id="GTM-5d-TtS"/>
+                <outletCollection property="buttons" destination="QH0-4j-EME" collectionClass="NSMutableArray" id="QDg-Xd-T2v"/>
+            </connections>
+            <point key="canvasLocation" x="245.59999999999999" y="242.87856071964021"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="homeplaceselected" width="110" height="30"/>
+        <image name="homeplaceunselected" width="110" height="30"/>
+        <image name="otherplaceselected" width="110" height="30"/>
+        <image name="otherplaceunselected" width="110" height="30"/>
+        <image name="workplaceselected" width="111" height="30"/>
+        <image name="workplaceunselected" width="111" height="31"/>
+    </resources>
+</document>

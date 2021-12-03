@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol TrendingServiceDelegates {
+protocol TrendingServiceDelegates: class {
     func selectedService(indexPath: IndexPath)
 }
 
@@ -16,7 +16,7 @@ class TrendingServiceCollectionView: NSObject, UICollectionViewDelegate, UIColle
 
     var collectionView: UICollectionView!
     var services = [TrendingService]()
-    var trendingServiceDelegate: TrendingServiceDelegates?
+    weak var trendingServiceDelegate: TrendingServiceDelegates?
 
     init(parentView: UIView, services: [TrendingService]) {
         super.init()
@@ -35,7 +35,7 @@ class TrendingServiceCollectionView: NSObject, UICollectionViewDelegate, UIColle
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(UINib(nibName: "TrendingServicesCell", bundle: nil), forCellWithReuseIdentifier: "TrendingServicesCell")
+        collectionView.register(UINib(nibName: CellIdentifier.trendingServicesCell, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.trendingServicesCell)
         parentView.addSubview(collectionView)
 
     }
@@ -53,7 +53,12 @@ class TrendingServiceCollectionView: NSObject, UICollectionViewDelegate, UIColle
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: TrendingServicesCell = collectionView.dequeueReusableCell(withReuseIdentifier: "TrendingServicesCell", for: indexPath) as! TrendingServicesCell
+//        let cell: TrendingServicesCell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.trendingServicesCell, for: indexPath) as! TrendingServicesCell
+
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.trendingServicesCell, for: indexPath) as? TrendingServicesCell else {
+            return UICollectionViewCell()
+        }
+
         cell.configureCell(serviceDetails: services[indexPath.row])
         return cell
     }

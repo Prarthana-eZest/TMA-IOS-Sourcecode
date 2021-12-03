@@ -8,21 +8,30 @@
 
 import UIKit
 
-protocol HeaderDelegate {
+protocol HeaderDelegate: class {
     func actionViewAll(identifier: SectionIdentifier)
 }
 
 class HeaderViewWithTitleCell: UITableViewCell {
 
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var viewAllButton: UIButton!
+    @IBOutlet weak private var titleLabel: UILabel!
+    @IBOutlet weak private var viewAllButton: UIButton!
 
-    var delegate: HeaderDelegate?
+    weak var delegate: HeaderDelegate?
     var identifier: SectionIdentifier?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+
+    func configureHeader(title: String, hideAllButton: Bool) {
+        titleLabel.text = title
+        viewAllButton.isHidden = hideAllButton
+    }
+
+    func setFont(font: UIFont) {
+        titleLabel.font = font
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

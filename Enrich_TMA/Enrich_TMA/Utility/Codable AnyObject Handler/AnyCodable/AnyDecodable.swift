@@ -49,21 +49,29 @@ extension _AnyDecodable {
 
         if container.decodeNil() {
             self.init(NSNull())
-        } else if let bool = try? container.decode(Bool.self) {
+        }
+        else if let bool = try? container.decode(Bool.self) {
             self.init(bool)
-        } else if let int = try? container.decode(Int.self) {
+        }
+        else if let int = try? container.decode(Int.self) {
             self.init(int)
-        } else if let uint = try? container.decode(UInt.self) {
+        }
+        else if let uint = try? container.decode(UInt.self) {
             self.init(uint)
-        } else if let double = try? container.decode(Double.self) {
+        }
+        else if let double = try? container.decode(Double.self) {
             self.init(double)
-        } else if let string = try? container.decode(String.self) {
+        }
+        else if let string = try? container.decode(String.self) {
             self.init(string)
-        } else if let array = try? container.decode([AnyCodable].self) {
+        }
+        else if let array = try? container.decode([AnyCodable].self) {
             self.init(array.map { $0.value })
-        } else if let dictionary = try? container.decode([String: AnyCodable].self) {
+        }
+        else if let dictionary = try? container.decode([String: AnyCodable].self) {
             self.init(dictionary.mapValues { $0.value })
-        } else {
+        }
+        else {
             throw DecodingError.dataCorruptedError(in: container, debugDescription: "AnyCodable value cannot be decoded")
         }
     }

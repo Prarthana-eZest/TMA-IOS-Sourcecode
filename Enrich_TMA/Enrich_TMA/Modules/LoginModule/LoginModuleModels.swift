@@ -11,34 +11,55 @@
 import UIKit
 
 enum LoginModule {
-  // MARK: Use cases
+    // MARK: Use cases
 
-  enum UserLogin {
-    
-    struct Request: Codable {
-        let username: String
-        let password: String
-        let is_custom: Bool
+    enum UserLogin {
+
+        struct Request: Codable {
+            let username: String
+            let password: String
+            let device_id: String
+            let is_custom: Bool
+            let accept_terms: Bool
+        }
+        struct Response: Codable {
+            var status: Bool = false
+            let authenticated_device: Bool?
+            var message: String = ""
+            var data: UserData?
+        }
+
+        struct UserData: Codable {
+            let access_token: String?
+            let refresh_token: String?
+            let username: String?
+            let employee_id: String?
+            let firstname: String?
+            let middlename: String?
+            let lastname: String?
+            let nickname: String?
+            let employee_code: String?
+            let birthdate: String?
+            let designation: String?
+            let base_salon_code: String?
+            let base_salon_name: String?
+            let salon_id: String?
+            let gender: String?
+            let profile_image: String?
+            let rating: AnyCodable?
+        }
     }
-    struct Response: Codable {
-        var status: Bool = false
-        var message: String = ""
-        var data: UserData?
+
+    enum AuthenticateDevice {
+
+        struct Request: Codable {
+            let employee_id: String
+            let device_id: String
+            let is_custom: Bool
+        }
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+        }
     }
-    
-    struct UserData: Codable {
-        var access_token: String?
-        var username: String?
-        var admin_id: String?
-        var firstname: String?
-        var middlename: String?
-        var lastname: String?
-        var nickname: String?
-        var employee_code: String?
-        var birthdate: String?
-        var designation: String?
-        var base_salon_code: String?
-        var base_salon_name: String?
-    }
-  }
 }

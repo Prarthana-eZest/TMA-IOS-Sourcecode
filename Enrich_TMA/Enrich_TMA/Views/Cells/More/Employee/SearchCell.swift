@@ -10,22 +10,22 @@ import UIKit
 
 class SearchCell: UITableViewCell {
 
-    @IBOutlet weak var btnCheckbox: UIButton!
-    @IBOutlet weak var lblUserName: UILabel!
-    @IBOutlet weak var lblEmailAddress: UILabel!
-    @IBOutlet weak var lblContactNo: UILabel!
-    
-    
+    @IBOutlet weak private var btnCheckbox: UIButton!
+    @IBOutlet weak private var lblUserName: UILabel!
+    @IBOutlet weak private var lblEmailAddress: UILabel!
+    @IBOutlet weak private var lblContactNo: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    func configureCell(model:SearchCellModel){
-        btnCheckbox.isSelected = model.isSelected
-        lblUserName.text = model.userName
+
+    func configureCell(model: MyCustomers.GetCustomers.Customer, isSelected: Bool) {
+        btnCheckbox.isSelected = isSelected
+        let name = "\(model.firstname) \(model.lastname)"
+        lblUserName.text = name
         lblEmailAddress.text = model.email
-        lblContactNo.text = model.contactNo
+        lblContactNo.text = model.mobile_number.masked(6)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,10 +33,10 @@ class SearchCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }
 
-struct SearchCellModel{
+struct SearchCellModel {
     let userName: String
     let contactNo: String
     let email: String

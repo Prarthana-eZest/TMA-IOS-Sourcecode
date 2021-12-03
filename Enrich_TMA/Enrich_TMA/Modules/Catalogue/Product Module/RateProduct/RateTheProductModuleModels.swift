@@ -16,10 +16,10 @@ enum RateTheProductModule {
     struct Request: Codable {
         let is_custom: Bool = true // Custom API
         let platform: String = "mobile"
-        let product_id : Int64?
-        let rating : Double?
-        let summary : String?
-        let message : String?
+        let product_id: Int64?
+        let rating: Double?
+        let summary: String?
+        let message: String?
 
     }
     struct Response: Codable {

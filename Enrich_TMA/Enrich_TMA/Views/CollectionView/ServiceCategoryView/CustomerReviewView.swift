@@ -20,7 +20,7 @@ class CustomerReviewView: UIView {
     }
 
     public func setupUIInit(arrReviewsData: [SalonServiceModule.Something.TestimonialModel], frameObj: CGRect ) {
-        collectionObj.register(UINib(nibName: "CustomerReviewCell", bundle: nil), forCellWithReuseIdentifier: "CustomerReviewCell")
+        collectionObj.register(UINib(nibName: CellIdentifier.customerReviewCell, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.customerReviewCell)
         paginationObj.tintColor = UIColor.lightGray
         paginationObj.numberOfPages = arrReviewsData.count
         self.arrReviewsData = arrReviewsData
@@ -43,17 +43,11 @@ extension CustomerReviewView: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let model = arrReviewsData[indexPath.row]
-        let cell: CustomerReviewCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomerReviewCell", for: indexPath) as! CustomerReviewCell
-        cell.customerName.text = model.name
-        cell.reviewText.text = model.desc
-        let url = URL(string: model.profile_img ?? "")
-        cell.profilePicture.kf.indicatorType = .activity
-
-        if let imageurl = model.profile_img, !imageurl.isEmpty {
-            cell.profilePicture.kf.setImage(with: url, placeholder: UIImage(named: "reviewAavatarImg"), options: nil, progressBlock: nil, completionHandler: nil)
-        } else {
-            cell.profilePicture.image = UIImage(named: "reviewAavatarImg")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.customerReviewCell, for: indexPath) as? CustomerReviewCell else {
+            return UICollectionViewCell()
         }
+
+        cell.configureCell(customerReviewModel: CustomerReviewCellModel(customerName: model.name, customerImage: model.profile_img, customerComments: model.desc, id: model.id))
 
         return cell
     }

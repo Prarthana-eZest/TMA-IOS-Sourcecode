@@ -12,9 +12,7 @@
 
 import UIKit
 
-class AppointmentFilterWorker
-{
-  func doSomeWork()
-  {
+class AppointmentFilterWorker {
+  func doSomeWork() {
   }
 }

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EarningGridViewCell" id="gTV-IL-0wX" customClass="EarningGridViewCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="177" height="195"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="177" height="195"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ahm-0H-KIE">
+                        <rect key="frame" x="7.5" y="0.0" width="162" height="180"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q5E-kc-qLD">
+                                <rect key="frame" x="15" y="15" width="132" height="139"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wLg-bm-Hdt">
+                                        <rect key="frame" x="30" y="0.0" width="72" height="72"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="72" id="cIn-ew-6cF"/>
+                                            <constraint firstAttribute="width" constant="72" id="kDj-hb-nRA"/>
+                                        </constraints>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="oM9-Zs-VEb">
+                                        <rect key="frame" x="20" y="82" width="92" height="57"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9K" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBl-S1-wXJ">
+                                                <rect key="frame" x="31.5" y="0.0" width="29" height="31"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="24"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fixed Pay-Out" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0pf-I6-C1D">
+                                                <rect key="frame" x="0.0" y="36" width="92" height="21"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" red="0.16862745098039217" green="0.16470588235294117" blue="0.16078431372549018" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Q5E-kc-qLD" secondAttribute="bottom" constant="15" id="5jh-4F-VUW"/>
+                            <constraint firstAttribute="trailing" secondItem="Q5E-kc-qLD" secondAttribute="trailing" constant="15" id="NGT-T2-Uiu"/>
+                            <constraint firstItem="Q5E-kc-qLD" firstAttribute="centerX" secondItem="Ahm-0H-KIE" secondAttribute="centerX" id="PhF-CC-dOq"/>
+                            <constraint firstItem="Q5E-kc-qLD" firstAttribute="leading" secondItem="Ahm-0H-KIE" secondAttribute="leading" constant="15" id="Yoc-w5-nAz"/>
+                            <constraint firstItem="Q5E-kc-qLD" firstAttribute="top" secondItem="Ahm-0H-KIE" secondAttribute="top" constant="15" id="idN-KE-kbt"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Ahm-0H-KIE" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hrk-8g-xKq"/>
+                <constraint firstAttribute="bottom" secondItem="Ahm-0H-KIE" secondAttribute="bottom" constant="15" id="tco-dN-ELF"/>
+                <constraint firstAttribute="trailing" secondItem="Ahm-0H-KIE" secondAttribute="trailing" constant="7.5" id="vys-oZ-bcd"/>
+                <constraint firstItem="Ahm-0H-KIE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="7.5" id="yf8-B0-NdE"/>
+            </constraints>
+            <size key="customSize" width="177" height="193"/>
+            <connections>
+                <outlet property="backView" destination="Ahm-0H-KIE" id="dS6-ol-hS4"/>
+                <outlet property="icon" destination="wLg-bm-Hdt" id="n4U-st-0HK"/>
+                <outlet property="lblPrice" destination="yBl-S1-wXJ" id="hd3-u7-Ebp"/>
+                <outlet property="lblTitle" destination="0pf-I6-C1D" id="XoL-HB-T69"/>
+            </connections>
+            <point key="canvasLocation" x="229.71014492753625" y="174.44196428571428"/>
+        </collectionViewCell>
+    </objects>
+</document>

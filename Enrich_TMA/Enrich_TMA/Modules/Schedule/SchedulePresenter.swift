@@ -12,20 +12,21 @@
 
 import UIKit
 
-protocol SchedulePresentationLogic
-{
-  func presentSomething(response: Schedule.Something.Response)
+protocol SchedulePresentationLogic {
+    func presentSuccess<T: Decodable>(response: T)
+    func presentError(responseError: String?)
 }
 
-class SchedulePresenter: SchedulePresentationLogic
-{
+class SchedulePresenter: SchedulePresentationLogic {
   weak var viewController: ScheduleDisplayLogic?
-  
+
   // MARK: Do something
-  
-  func presentSomething(response: Schedule.Something.Response)
-  {
-    let viewModel = Schedule.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+
+    func presentSuccess<T>(response: T) where T: Decodable {
+        viewController?.displaySuccess(viewModel: response)
+    }
+
+    func presentError(responseError: String?) {
+        viewController?.displayError(errorMessage: responseError)
+    }
 }

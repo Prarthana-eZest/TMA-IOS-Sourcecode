@@ -32,7 +32,8 @@ class ProductFullCell: UITableViewCell {
                 let url = URL(string: model.imageUrl)
 
                 productImageView.kf.setImage(with: url, placeholder: UIImage(named: "productDefault"), options: nil, progressBlock: nil, completionHandler: nil)
-            } else {
+            }
+            else {
             productImageView.image = UIImage(named: "productDefault")
         }
         }

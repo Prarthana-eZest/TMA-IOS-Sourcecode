@@ -45,7 +45,7 @@ extension UICollectionViewCell {
             }
         }
 
-        if(isSubViewPresent == false) {
+        if isSubViewPresent == false {
             self.contentView.addSubview(Screen)
         }
     }

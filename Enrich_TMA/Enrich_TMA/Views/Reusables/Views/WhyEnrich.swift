@@ -17,8 +17,8 @@ class WhyEnrich: UIView {
     }
 
     func setupUIInit(model: SalonServiceModule.Something.WhyEnrichModel) {
-        lblHolistic.text = (model.holistic_services ?? "NA") + "+"
-        lblCertified.text = (model.certified_professional ?? "NA") + "+"
-        lblLatestProduct.text = (model.latest_products ?? "NA") + "+"
+        lblHolistic.text = (model.holistic_services ?? "") + "+"
+        lblCertified.text = (model.certified_professional ?? "") + "+"
+        lblLatestProduct.text = (model.latest_products ?? "") + "+"
     }
 }

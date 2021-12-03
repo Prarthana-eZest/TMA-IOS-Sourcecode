@@ -13,39 +13,38 @@
 import UIKit
 import Cosmos
 
-protocol RateTheCustomerDisplayLogic: class
-{
-    func displaySomething(viewModel: RateTheCustomer.Something.ViewModel)
+protocol RateTheCustomerDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class RateTheCustomerVC: UIViewController, RateTheCustomerDisplayLogic
-{
+class RateTheCustomerVC: UIViewController, RateTheCustomerDisplayLogic {
     var interactor: RateTheCustomerBusinessLogic?
-    
+
     @IBOutlet weak private var btnSubmit: UIButton!
     @IBOutlet weak private var ratingsView: CosmosView!
     @IBOutlet weak private var txtfAddComment: UITextField!
     @IBOutlet weak private var txtfSuggestion: UITextField!
-    
-    
+
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+
+    var appointmentDetails: Schedule.GetAppointnents.Data?
+
+    var viewDismissBlock: ((Bool) -> Void)?
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
-    private func setup()
-    {
+
+    private func setup() {
         let viewController = self
         let interactor = RateTheCustomerInteractor()
         let presenter = RateTheCustomerPresenter()
@@ -53,43 +52,124 @@ class RateTheCustomerVC: UIViewController, RateTheCustomerDisplayLogic
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        //            if let scene = segue.identifier {
-        //                let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-        //                if let router = router, router.responds(to: selector) {
-        //                    router.perform(selector, with: segue)
-        //                }
-        //            }
-    }
-    
+
     // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
+        txtfAddComment.delegate = self
+        txtfSuggestion.delegate = self
+        ratingsView.rating = 0.0
+        ratingsView.settings.fillMode = .full
+        [txtfAddComment, txtfSuggestion].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingChanged) })
+
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UserFactory.shared.checkForSignOut()
+        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait,
+                                         andRotateTo: UIInterfaceOrientation.portrait)
+        KeyboardAnimation.sharedInstance.beginKeyboardObservation(self.view)
+        KeyboardAnimation.sharedInstance.extraBottomSpace = 70
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        KeyboardAnimation.sharedInstance.endKeyboardObservation()
+    }
+
     // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = RateTheCustomer.Something.Request()
-        interactor?.doSomething(request: request)
+
+    func addRating() {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self,
+                                                      forKey: UserDefauiltsKeys.k_Key_LoginUser),
+            let customerId = appointmentDetails?.services?.first?.booked_for_id {
+
+            let userName = "\(userData.firstname ?? "") \(userData.lastname ?? "")"
+
+            let data = AddNewNote.ObserveNote.Data(customer_id: "\(customerId)",
+                note_type: "ratings", note: txtfSuggestion.text ?? "",
+                updated_by: userName, customer_rating: "\(ratingsView.rating)",
+                customer_rating_comment: txtfAddComment.text ?? "",
+                appointment_id: "\(appointmentDetails?.appointment_id ?? 0)")
+
+            let request = AddNewNote.ObserveNote.Request(noteData: data, is_custom: true)
+            interactor?.doPostRating(request: request, method: .post)
+        }
+
     }
-    
-    func displaySomething(viewModel: RateTheCustomer.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
-    
+
     @IBAction func actionSubmit(_ sender: UIButton) {
+        if ratingsView.rating > 0 {
+            addRating()
+        }
+        else {
+             self.showToast(alertTitle: alertTitle, message: AlertToWarn.rateTheCustomer, seconds: toastMessageDuration)
+            return
+        }
     }
-    
+
+    @IBAction func actionClose(_ sender: UIButton) {
+        self.dismiss(animated: true) {
+            self.viewDismissBlock?(false)
+        }
+    }
+
+}
+
+extension RateTheCustomerVC {
+
+    func displaySuccess<T>(viewModel: T) where T: Decodable {
+        EZLoadingActivity.hide()
+        print("Response: \(viewModel)")
+
+        if let model = viewModel as? AddNewNote.ObserveNote.Response {
+
+            if model.status == true {
+                self.showToast(alertTitle: alertTitle, message: AlertMessagesSuccess.feedbackSuccess, seconds: toastMessageDuration)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                    self.dismiss(animated: true) {
+                        self.viewDismissBlock?(true)
+                    }
+                }
+            }
+            else {
+                self.showToast(alertTitle: alertTitle, message: model.message, seconds: toastMessageDuration)
+            }
+        }
+    }
+
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
+}
+
+extension RateTheCustomerVC: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension RateTheCustomerVC {
+
+    @objc func editingChanged(_ textField: UITextField) {
+        btnSubmit.isEnabled = false
+        let comment = (txtfAddComment.text ?? "").trim()
+        let suggestion = (txtfSuggestion.text ?? "").trim()
+        if !comment.isEmpty,
+            !suggestion.isEmpty {
+            self.btnSubmit.isEnabled = true
+        }
+    }
 }

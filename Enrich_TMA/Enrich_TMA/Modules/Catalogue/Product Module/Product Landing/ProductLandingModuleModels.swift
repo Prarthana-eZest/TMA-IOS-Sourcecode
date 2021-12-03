@@ -20,6 +20,7 @@ enum ProductLandingModule {
         let category_id: String?
         let customer_id: String?
         let limit: Int64?
+        var salon_id: Double?
         let is_custom: Bool = true // Custom API
         let platform: String = "mobile"
 
@@ -54,7 +55,7 @@ enum ProductLandingModule {
             case trending_products
             case new_products
             case brands
-            case recentlyViewedProducts
+            case recentlyViewedProducts = "recently_viewed_products"
             case filters
         }
     }
@@ -88,6 +89,7 @@ enum ProductLandingModule {
         let total_reviews, rating_percentage: Double?
         let wishlist_flag: Bool?
         let type_id: String?
+        let configurable_subproduct_options: [HairTreatmentModule.Something.Configurable_subproduct_options]?
 
         enum CodingKeys: String, CodingKey {
             case id, name, image, price, sku, special_to_date, special_from_date
@@ -96,6 +98,7 @@ enum ProductLandingModule {
             case rating_percentage
             case wishlist_flag
             case type_id
+            case configurable_subproduct_options
         }
     }
 
@@ -126,6 +129,7 @@ enum ProductLandingModule {
         var category_type: String?
         var is_filter_available: Bool? = false
         var filters: [HairServiceModule.Something.Filters]?
+        let brands: [Brand]?
     }
 
     struct CategoryModel: Codable {
@@ -152,97 +156,4 @@ enum ProductLandingModule {
     }
 
   }
-}
-
-
-enum SalonServiceModule {
-    // MARK: Use cases
-    
-    enum Something {
-        struct Request: Codable {
-            let category_id: String
-            let salon_id: String
-            let gender: String
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
-        }
-        
-        //*************** CATEGORY ****************
-        struct Response: Codable {
-            var status: Bool = false
-            var message: String = ""
-            var data: SalonCategoryModel?
-        }
-        
-        struct SalonCategoryModel: Codable {
-            var id: String?
-            var name: String?
-            var male_img: String?
-            var female_img: String?
-            var url: String?
-            var category_type: String?
-            var children: [CategoryModel]?
-            var why_enrich: WhyEnrichModel?
-            var gender_id: String?
-            var is_combo: Bool?
-            var is_filter_available: Bool?
-            
-        }
-        
-        struct CategoryModel: Codable {
-            var id: String?
-            var name: String?
-            var desc: String?
-            var male_img: String?
-            var female_img: String?
-            var url: String?
-            var is_combo: Bool?
-            var filters: [Filters]?
-            
-        }
-        struct Filters: Codable {
-            let title: String?
-            var values: [Values]?
-            var isParentSelected: Bool? = false
-            
-        }
-        struct Values: Codable {
-            let attr_code: String?
-            let display: String?
-            let value: AnyCodable?
-            let count: String?
-            var isChildSelected: Bool? = false
-        }
-        struct WhyEnrichModel: Codable {
-            var holistic_services: String?
-            var certified_professional: String?
-            var latest_products: String?
-            
-        }
-        
-        //*************** TESTIMONIALS ****************
-        struct TestimonialRequest: Codable {
-            let limit: String
-            let is_custom: Bool = true // Custom API
-            let platform: String = "mobile"
-            
-        }
-        struct TestimonialResponse: Codable {
-            var status: Bool = false
-            var message: String = ""
-            var data: TestimonialData?
-        }
-        struct TestimonialData: Codable {
-            var testimonials: [TestimonialModel]?
-        }
-        
-        struct TestimonialModel: Codable {
-            var title: String?
-            var desc: String?
-            var profile_img: String?
-            var name: String?
-            var id: String
-        }
-        
-    }
 }

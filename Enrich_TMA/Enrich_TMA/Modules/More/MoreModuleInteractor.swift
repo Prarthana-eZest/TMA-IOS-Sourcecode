@@ -11,37 +11,39 @@
 import UIKit
 
 protocol MoreModuleBusinessLogic {
-    func doPostRequest(request: MoreModule.Something.Request, method: HTTPMethod)
-    func doGetRequestWithoutParameter(method: HTTPMethod)
-    func doGetRequestWithParameter(request: MoreModule.Something.Request, method: HTTPMethod)
-
+    func doPostGetStatusRequest(request: MoreModule.GetCheckInStatus.Request, method: HTTPMethod)
+    func doPostMarkCheckInOutRequest(request: MoreModule.MarkCheckInOut.Request, method: HTTPMethod)
+    func doPostCheckInOutDetailsRequest(request: MoreModule.CheckInOutDetails.Request, method: HTTPMethod)
 }
 
 protocol MoreModuleDataStore {
-  //var name: String { get set }
+    //var name: String { get set }
 }
 
 class MoreModuleInteractor: MoreModuleBusinessLogic, MoreModuleDataStore {
-  var presenter: MoreModulePresentationLogic?
-  var worker: MoreModuleWorker?
-  //var name: String = ""
-
-  // MARK: Do something
+    var presenter: MoreModulePresentationLogic?
+    var worker: MoreModuleWorker?
+    //var name: String = ""
 
     // MARK: Do something
-    func doPostRequest(request: MoreModule.Something.Request, method: HTTPMethod) {
+
+    // MARK: Do something
+    func doPostGetStatusRequest(request: MoreModule.GetCheckInStatus.Request, method: HTTPMethod) {
         worker = MoreModuleWorker()
         worker?.presenter = self.presenter
-        worker?.postRequest(request: request)
+        worker?.postRequestForCheckInStatus(request: request, method: method)
     }
-    func doGetRequestWithoutParameter(method: HTTPMethod) {
+
+    func doPostMarkCheckInOutRequest(request: MoreModule.MarkCheckInOut.Request, method: HTTPMethod) {
         worker = MoreModuleWorker()
         worker?.presenter = self.presenter
-        worker?.getRequestWithoutParameter()
+        worker?.postRequestForMarkCheckInOut(request: request, method: method)
     }
-    func doGetRequestWithParameter(request: MoreModule.Something.Request, method: HTTPMethod) {
+
+    func doPostCheckInOutDetailsRequest(request: MoreModule.CheckInOutDetails.Request, method: HTTPMethod) {
         worker = MoreModuleWorker()
         worker?.presenter = self.presenter
-        worker?.getRequestWithParameter(request: request)
+        worker?.postRequestForCheckInOutDetails(request: request, method: method)
     }
+
 }

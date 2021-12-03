@@ -19,4 +19,9 @@ class MonthCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
 
+    func configureCell(week: String, date: String) {
+        lblWeek.text = week
+        lblDate.text = date
+    }
+
 }

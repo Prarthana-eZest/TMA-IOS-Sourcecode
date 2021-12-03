@@ -12,20 +12,66 @@
 
 import UIKit
 
-enum MyCustomers
-{
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+enum MyCustomers {
+    // MARK: Use cases
+
+    enum GetCustomers {
+
+        struct Request: Codable {
+            let filter: RequestFilter
+        }
+
+        struct RequestFilter: Codable {
+            let mobile_number: String
+            let firstname: String
+            let lastname: String
+            let technician_id: String
+            let email: String
+            let limit: Int
+            let page: Int
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            var total_records: Int?
+            var data: [Customer]?
+        }
+
+        struct Customer: Codable {
+            let email: String?
+            let id: String?
+            var firstname: String = ""
+            let label: String?
+            var mobile_number: String = ""
+            var lastname: String = ""
+            let gender: String?
+            var inclined_other_gender: String?
+            let planet_enrich_id: String?
+            let high_expensive: Bool?
+            let membership: String?
+            let membership_image: String?
+            let membership_default_image: String?
+            let membership_completed_image: String?
+            let ratings: AnyCodable?
+            let address: Address?
+            var location: String = ""
+            var profile_pic: String?
+        }
+
+        struct Address: Codable {
+            let city: String?
+            let country_id: String?
+            let company: String?
+            let firstname: String?
+            let lastname: String?
+            let middlename: String?
+            let postcode: String?
+            let region: String?
+            let region_id: String?
+            let street: String?
+            let telephone: String?
+            let country: String?
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

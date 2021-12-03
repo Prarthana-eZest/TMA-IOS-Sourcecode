@@ -1,0 +1,54 @@
+opt_in_rules:
+- closure_end_indentation
+- empty_count
+- explicit_init
+- force_unwrapping
+- first_where
+- nimble_operator
+- operator_usage_whitespace
+- overridden_super_call
+- private_outlet
+- prohibited_super_call
+- switch_case_on_newline
+- redundant_nil_coalescing
+
+line_length: 200
+type_name:
+max_length: 60
+
+variable_name:
+min_length: 2
+warning_threshold: 1000
+
+file_length: 600
+warning: 600
+error: 700
+ignores_comments: true
+
+nesting:
+  type_level:
+    warning: 5
+    error: 10
+  statement_level:
+    warning: 5
+    error: 10
+
+statement_position:
+  statement_mode: uncuddled_else
+
+disabled_rules:
+  - identifier_name
+  - type_name
+  - function_body_length
+
+cyclomatic_complexity:
+  ignores_case_statements: true
+
+excluded:
+  - Carthage
+  - Pods
+  - Source/ExcludedFolder
+  - Source/ExcludedFile.swift
+  - Source/*/ExcludedFile.swift
+  - ProjectTests
+  - ProjectUITests

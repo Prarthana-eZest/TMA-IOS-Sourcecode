@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol ProductDelegates:class {
+protocol ProductDelegates: class {
     func selectedProduct(indexPath: IndexPath)
     func optionsBeTheFirstToReview()
-    func actionColorSelection(indexPath: IndexPath,color:ProductConfigurableColorQuanity)
-    func actionQuantitySelection(indexPath: IndexPath,quantity:ProductConfigurableColorQuanity)
+    func actionColorSelection(indexPath: IndexPath, color: ProductConfigurableColorQuanity)
+    func actionQuantitySelection(indexPath: IndexPath, quantity: ProductConfigurableColorQuanity)
 }
 
 class ProductCollectionView: NSObject, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -38,7 +38,7 @@ class ProductCollectionView: NSObject, UICollectionViewDelegate, UICollectionVie
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(UINib(nibName: "ProductCell", bundle: nil), forCellWithReuseIdentifier: "ProductCell")
+        collectionView.register(UINib(nibName: CellIdentifier.productCell, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.productCell)
 
         parentView.addSubview(collectionView)
     }
@@ -56,7 +56,9 @@ class ProductCollectionView: NSObject, UICollectionViewDelegate, UICollectionVie
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: ProductCell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCell", for: indexPath) as! ProductCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.productCell, for: indexPath) as? ProductCell else {
+            return UICollectionViewCell()
+        }
         cell.configureCell(productDetails: products[indexPath.row])
         return cell
     }

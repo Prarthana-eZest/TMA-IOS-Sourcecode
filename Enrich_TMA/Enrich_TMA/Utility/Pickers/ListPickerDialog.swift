@@ -50,18 +50,18 @@ open class ListPickerDialog: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
     func setupView() {
         self.dialogView = createContainerView()
 
-        self.dialogView!.layer.shouldRasterize = true
-        self.dialogView!.layer.rasterizationScale = UIScreen.main.scale
+        self.dialogView?.layer.shouldRasterize = true
+        self.dialogView?.layer.rasterizationScale = UIScreen.main.scale
 
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.main.scale
 
-        self.dialogView!.layer.opacity = 0.5
-        self.dialogView!.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
+        self.dialogView?.layer.opacity = 0.5
+        self.dialogView?.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
 
         self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
 
-        self.addSubview(self.dialogView!)
+        self.addSubview(self.dialogView ?? UIView())
     }
 
     /// Handle device orientation changes
@@ -73,7 +73,7 @@ open class ListPickerDialog: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
     //    }
 
     /// Create the dialog view, and animate opening the dialog
-    open func show(_ title: String, sourceList: [String], doneButtonTitle: String = "Done", cancelButtonTitle: String = "Cancel", callback: @escaping ListPickerCallback) {
+    open func show(_ title: String, sourceList: [String], doneButtonTitle: String = "Done", cancelButtonTitle: String = "Cancel", selectedItem: String, callback: @escaping ListPickerCallback) {
         self.titleLabel.text = title
         self.doneButton.setTitle(doneButtonTitle, for: .normal)
 
@@ -82,7 +82,11 @@ open class ListPickerDialog: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         }
         self.callback = callback
         self.sourceList = sourceList
-        self.selectedItem = self.sourceList?.first
+        self.selectedItem = selectedItem//self.sourceList?.last
+        
+        if let row = (self.sourceList ?? []).index(of: selectedItem) {
+            self.listPicker.selectRow(row, inComponent: 0, animated: false)
+        }
 
         if let font = UIFont(name: "SFUIDisplay-Regular", size: 15) {
             self.titleLabel.font = font
@@ -106,15 +110,17 @@ open class ListPickerDialog: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
             options: .curveEaseInOut,
             animations: {
                 self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.4)
-                self.dialogView!.layer.opacity = 1
-                self.dialogView!.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                self.dialogView?.layer.opacity = 1
+                self.dialogView?.layer.transform = CATransform3DMakeScale(1, 1, 1)
             }
         )
+    }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     /// Dialog close animation then cleaning and removing the view from the parent
     private func close() {
-        NotificationCenter.default.removeObserver(self)
 
         let currentTransform = self.dialogView.layer.transform
 
@@ -180,7 +186,9 @@ open class ListPickerDialog: UIView, UIPickerViewDelegate, UIPickerViewDataSourc
         dialogContainer.layer.shadowPath = UIBezierPath(roundedRect: dialogContainer.bounds, cornerRadius: dialogContainer.layer.cornerRadius).cgPath
 
         // There is a line above the button
-        let lineView = UIView(frame: CGRect(x: 0, y: kDatePickerDialogDefaultButtonHeight - kDatePickerDialogDefaultButtonSpacerHeight, width: dialogContainer.bounds.size.width, height: kDatePickerDialogDefaultButtonSpacerHeight))
+        let lineView = UIView(frame: CGRect(x: 0, y: kDatePickerDialogDefaultButtonHeight - kDatePickerDialogDefaultButtonSpacerHeight,
+                                            width: dialogContainer.bounds.size.width,
+                                            height: kDatePickerDialogDefaultButtonSpacerHeight))
         lineView.backgroundColor = UIColor(red: 198 / 255, green: 198 / 255, blue: 198 / 255, alpha: 1)
         dialogContainer.addSubview(lineView)
 

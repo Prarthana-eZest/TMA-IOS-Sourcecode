@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+        <array key="NotoSerif-Regular.ttf">
+            <string>NotoSerif</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SelectGenderCell" rowHeight="322" id="KGk-i7-Jjw" customClass="SelectGenderCell" customModule="Enrich_TMA" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="398" height="322"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="398" height="321.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="929-D0-CEm">
+                        <rect key="frame" x="30" y="15" width="338" height="188"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" text="Select the Gender" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nkd-CJ-kJZ">
+                                <rect key="frame" x="61" y="0.0" width="216.5" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38" id="hlO-h5-phv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="26"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nUr-bV-RZV">
+                                <rect key="frame" x="0.0" y="53" width="338" height="90"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ChB-PU-kVL">
+                                        <rect key="frame" x="0.0" y="5" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="F9o-Mb-pce"/>
+                                            <constraint firstAttribute="width" constant="80" id="izx-PY-DnA"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="male-unselected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" backgroundImage="male-selected"/>
+                                        <connections>
+                                            <action selector="actionMale:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wf3-Gt-HmA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OR-Yc-eql">
+                                        <rect key="frame" x="129" y="5" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Wq8-JX-7MY"/>
+                                            <constraint firstAttribute="height" constant="80" id="s1O-Hz-yWd"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="female-unselected"/>
+                                        <state key="selected" backgroundImage="female-selected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="actionFemale:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="wOF-ZE-Ge1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vL6-hH-hbq">
+                                        <rect key="frame" x="258" y="5" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="FQI-50-5MO"/>
+                                            <constraint firstAttribute="height" constant="80" id="rHf-PR-CE2"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="other-unselected">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <state key="selected" backgroundImage="other-selected"/>
+                                        <connections>
+                                            <action selector="actionOther:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Bud-F7-Eyl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="w5A-TM-33j">
+                                <rect key="frame" x="0.0" y="158" width="338" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M2s-yU-pIb">
+                                        <rect key="frame" x="0.0" y="0.0" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="mUQ-x2-V1e">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                        <state key="normal" title="Male">
+                                            <color key="titleColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                        </variation>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KB3-x2-WLS">
+                                        <rect key="frame" x="129" y="0.0" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="j5w-1e-FGJ">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                        <state key="normal" title="Female">
+                                            <color key="titleColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                        </variation>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3P5-Vj-zq4">
+                                        <rect key="frame" x="258" y="0.0" width="80" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="b2X-cB-Nso">
+                                                <variation key="heightClass=regular-widthClass=regular" constant="100"/>
+                                            </constraint>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                        <state key="normal" title="Other">
+                                            <color key="titleColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="25"/>
+                                        </variation>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="apb-VQ-ssy"/>
+                                </constraints>
+                            </stackView>
+                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Ipn-TT-tYN">
+                                <rect key="frame" x="0.0" y="188" width="338" height="57"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="What are you more inclined towards?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHt-1B-6lx">
+                                        <rect key="frame" x="21" y="0.0" width="296" height="0.0"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="30"/>
+                                        </variation>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="jpR-GR-LY5" userLabel="Stack View Options Others">
+                                        <rect key="frame" x="46.5" y="15" width="245" height="42"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SEC-JN-Me8" userLabel="Male">
+                                                <rect key="frame" x="0.0" y="0.0" width="110" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="42" id="KkW-hw-wJb">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="63"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="width" constant="110" id="UOF-6L-Eqj">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="165"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="othermale-unselected"/>
+                                                <state key="selected" backgroundImage="othermale-selected"/>
+                                                <connections>
+                                                    <action selector="clickOtherMale:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="b5f-nd-zig"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHP-Fo-vR2" userLabel="Female">
+                                                <rect key="frame" x="135" y="0.0" width="110" height="42"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="110" id="SgX-MF-h9f">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="165"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="height" constant="42" id="ZwW-IW-mTZ">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="63"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <state key="normal" backgroundImage="otherfemale-unselected"/>
+                                                <state key="selected" backgroundImage="otherfemale-selected"/>
+                                                <connections>
+                                                    <action selector="clickOtherFemale:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VCF-0V-Hmj"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <variation key="heightClass=regular-widthClass=regular" spacing="25"/>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="Ipn-TT-tYN" firstAttribute="leading" secondItem="929-D0-CEm" secondAttribute="leading" id="2Nx-YE-Iix"/>
+                            <constraint firstAttribute="trailing" secondItem="nUr-bV-RZV" secondAttribute="trailing" id="ayy-TS-xiq"/>
+                            <constraint firstAttribute="trailing" secondItem="w5A-TM-33j" secondAttribute="trailing" id="fSH-u7-m4l"/>
+                            <constraint firstItem="w5A-TM-33j" firstAttribute="leading" secondItem="929-D0-CEm" secondAttribute="leading" id="grq-f2-04I"/>
+                            <constraint firstAttribute="trailing" secondItem="Ipn-TT-tYN" secondAttribute="trailing" id="yc6-EC-37p"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="929-D0-CEm" secondAttribute="bottom" constant="20" id="3pq-4J-LnO"/>
+                    <constraint firstItem="929-D0-CEm" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="8bf-aq-Wla"/>
+                    <constraint firstAttribute="trailing" secondItem="929-D0-CEm" secondAttribute="trailing" constant="30" id="9jN-Ml-LGx"/>
+                    <constraint firstItem="929-D0-CEm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="BN3-DI-ydg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btnFemaleIcon" destination="1OR-Yc-eql" id="G1H-pZ-rI0"/>
+                <outlet property="btnFemaleTitle" destination="KB3-x2-WLS" id="Kic-Wy-3af"/>
+                <outlet property="btnMaleIcon" destination="ChB-PU-kVL" id="cea-lR-hiP"/>
+                <outlet property="btnMaleTitle" destination="M2s-yU-pIb" id="5r0-MO-xhc"/>
+                <outlet property="btnOtherIcon" destination="vL6-hH-hbq" id="hxB-Pk-apv"/>
+                <outlet property="btnOtherInclinedFemale" destination="rHP-Fo-vR2" id="i4h-UG-rnF"/>
+                <outlet property="btnOtherInclinedMale" destination="SEC-JN-Me8" id="0hS-eG-twX"/>
+                <outlet property="btnOtherTitle" destination="3P5-Vj-zq4" id="3pY-F0-wVk"/>
+                <outlet property="lblTitle" destination="Nkd-CJ-kJZ" id="Frc-np-wlj"/>
+                <outlet property="otherGenderStackView" destination="Ipn-TT-tYN" id="P1p-p1-YKx"/>
+                <outletCollection property="iconButtons" destination="ChB-PU-kVL" collectionClass="NSMutableArray" id="oOo-t1-pKa"/>
+                <outletCollection property="iconButtons" destination="1OR-Yc-eql" collectionClass="NSMutableArray" id="opn-SV-fTe"/>
+                <outletCollection property="iconButtons" destination="vL6-hH-hbq" collectionClass="NSMutableArray" id="hgn-ah-6m2"/>
+                <outletCollection property="titleButtons" destination="M2s-yU-pIb" collectionClass="NSMutableArray" id="aAT-8o-707"/>
+                <outletCollection property="titleButtons" destination="KB3-x2-WLS" collectionClass="NSMutableArray" id="kYO-47-7zQ"/>
+                <outletCollection property="titleButtons" destination="3P5-Vj-zq4" collectionClass="NSMutableArray" id="GV9-8N-7lt"/>
+            </connections>
+            <point key="canvasLocation" x="108.8" y="134.03298350824588"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="female-selected" width="77" height="76"/>
+        <image name="female-unselected" width="77" height="76"/>
+        <image name="male-selected" width="76" height="76"/>
+        <image name="male-unselected" width="76" height="76"/>
+        <image name="other-selected" width="76" height="76"/>
+        <image name="other-unselected" width="77" height="76"/>
+        <image name="otherfemale-selected" width="110" height="42"/>
+        <image name="otherfemale-unselected" width="110" height="42"/>
+        <image name="othermale-selected" width="110" height="42"/>
+        <image name="othermale-unselected" width="110" height="42"/>
+    </resources>
+</document>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="NotoSerif-Bold.ttf">
+            <string>NotoSerif-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="CustomerRatingsAndReviewsView" id="iN0-l3-epB" customClass="CustomerRatingsAndReviewsView" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="316"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="VO6-aY-jRc">
+                    <rect key="frame" x="0.0" y="10" width="338" height="296"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="022-BG-dDu" userLabel="Stack View Star">
+                            <rect key="frame" x="158" y="0.0" width="22" height="25"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="customerReviewStar" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dff-DV-Nrp">
+                                    <rect key="frame" x="0.0" y="0.0" width="22" height="25"/>
+                                </imageView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="pUV-kZ-iQh" userLabel="Stack View Rating4/5">
+                            <rect key="frame" x="140.5" y="31" width="57" height="34"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4.5/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ooO-sh-aDu">
+                                    <rect key="frame" x="0.0" y="0.0" width="57" height="34"/>
+                                    <fontDescription key="fontDescription" name="NotoSerif-Bold" family="Noto Serif" pointSize="25"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="g9q-9n-hSl" userLabel="Stack View RatingAndReviewsCount">
+                            <rect key="frame" x="80" y="71" width="178" height="49"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40 Ratings &amp; 50 Reviews" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdr-1Y-AtP">
+                                    <rect key="frame" x="0.0" y="0.0" width="178" height="49"/>
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                    <color key="textColor" red="0.11" green="0.098039215686274508" blue="0.098039215686274508" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                    <variation key="heightClass=regular-widthClass=regular">
+                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                    </variation>
+                                </label>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NLb-WC-0Zb" userLabel="Stack View 5 Rating">
+                            <rect key="frame" x="111.5" y="126" width="115.5" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XyS-qx-sBx">
+                                    <rect key="frame" x="0.0" y="0.0" width="10.5" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="hXz-Ua-rpL"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="PLf-UJ-Wop">
+                                    <rect key="frame" x="15.5" y="0.0" width="100" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="tgE-Mr-2CS"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressBarHeight">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </progressView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="vdJ-lQ-yzj" userLabel="Stack View 4 Rating">
+                            <rect key="frame" x="111" y="153" width="116" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tmf-HJ-X1e">
+                                    <rect key="frame" x="0.0" y="0.0" width="11" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="baZ-3n-7nx"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-Fc-Gwy">
+                                    <rect key="frame" x="16" y="0.0" width="100" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="hAS-7J-rLt"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressBarHeight">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </progressView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="1DT-Re-btB" userLabel="Stack View 3 Rating">
+                            <rect key="frame" x="111.5" y="180" width="115.5" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UsH-Ub-J2f">
+                                    <rect key="frame" x="0.0" y="0.0" width="10.5" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="hOH-HG-RvO"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="6O9-h3-8Fs">
+                                    <rect key="frame" x="15.5" y="0.0" width="100" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="j1z-0j-9fQ"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressBarHeight">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </progressView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="bo4-cY-yv4" userLabel="Stack View 2 Rating">
+                            <rect key="frame" x="111.5" y="207" width="115" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kl-A6-PzJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="10" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="LwN-eV-gPY"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="wJa-pN-qvW">
+                                    <rect key="frame" x="15" y="0.0" width="100" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="Icw-C0-8ch"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressBarHeight">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </progressView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="RgQ-Fn-HSi" userLabel="Stack View 1 Rating">
+                            <rect key="frame" x="112.5" y="234" width="113" height="21"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9aj-xL-EhC">
+                                    <rect key="frame" x="0.0" y="0.0" width="8" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="21" id="jeN-hG-9b3"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="RvK-nt-RcX">
+                                    <rect key="frame" x="13" y="0.0" width="100" height="21"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="100" id="UdB-2U-QkU"/>
+                                    </constraints>
+                                    <color key="progressTintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="progressBarHeight">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </progressView>
+                            </subviews>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="7s3-0l-UeH" userLabel="Stack View RATE SERVICE">
+                            <rect key="frame" x="59" y="261" width="220" height="35"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8Y-df-0K7">
+                                    <rect key="frame" x="0.0" y="0.0" width="220" height="35"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="220" id="N3g-Z3-a3c"/>
+                                        <constraint firstAttribute="height" constant="35" id="e6l-7h-SUv"/>
+                                    </constraints>
+                                    <state key="normal" title="RATE SERVICE" backgroundImage="enabledButton">
+                                        <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="VO6-aY-jRc" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="DpT-T3-n5h"/>
+                <constraint firstItem="VO6-aY-jRc" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="IGN-0Q-uGo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="VO6-aY-jRc" secondAttribute="bottom" constant="10" id="Jh0-fI-Bk3"/>
+                <constraint firstAttribute="trailing" secondItem="VO6-aY-jRc" secondAttribute="trailing" id="rra-QK-gP8"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="lblRating" destination="ooO-sh-aDu" id="pdb-bH-UC9"/>
+                <outlet property="lblRatingAndReviews" destination="Fdr-1Y-AtP" id="oAx-UG-SYQ"/>
+                <outlet property="progressViewFifth" destination="PLf-UJ-Wop" id="Vjp-VA-VXd"/>
+                <outlet property="progressViewFirst" destination="RvK-nt-RcX" id="Fpl-Sq-y29"/>
+                <outlet property="progressViewFourth" destination="M3c-Fc-Gwy" id="BAm-Eb-xW3"/>
+                <outlet property="progressViewSecond" destination="wJa-pN-qvW" id="dpS-J7-hwx"/>
+                <outlet property="progressViewThird" destination="6O9-h3-8Fs" id="fqV-KM-mX2"/>
+            </connections>
+            <point key="canvasLocation" x="538" y="298"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="customerReviewStar" width="22" height="22"/>
+        <image name="enabledButton" width="330" height="48"/>
+    </resources>
+</document>

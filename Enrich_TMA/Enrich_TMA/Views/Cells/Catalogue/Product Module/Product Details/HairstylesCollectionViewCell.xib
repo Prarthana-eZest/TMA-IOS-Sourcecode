@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,36 +17,47 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HairstylesCollectionViewCell" reuseIdentifier="HairstylesCollectionViewCell" id="gTV-IL-0wX" customClass="HairstylesCollectionViewCell" customModule="EnrichSalon" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HairstylesCollectionViewCell" reuseIdentifier="HairstylesCollectionViewCell" id="gTV-IL-0wX" customClass="HairstylesCollectionViewCell" customModule="enrich" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="133" height="120"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="133" height="120"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="female-selected" translatesAutoresizingMaskIntoConstraints="NO" id="Qc8-hn-J3I">
-                        <rect key="frame" x="28" y="11.5" width="77" height="77"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="77" id="IK0-03-DyM"/>
-                            <constraint firstAttribute="width" constant="77" id="yMS-WQ-Vwc"/>
-                        </constraints>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Qc8-hn-J3I">
+                        <rect key="frame" x="5" y="10" width="123" height="100"/>
+                        <color key="backgroundColor" red="0.80121290700000003" green="0.97533919820000003" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjR-Wb-WZp">
-                        <rect key="frame" x="32" y="95.5" width="69.5" height="21"/>
-                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabel" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LjR-Wb-WZp">
+                        <rect key="frame" x="10" y="52.5" width="113" height="15.5"/>
+                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="12"/>
                         <nil key="highlightedColor"/>
                         <variation key="heightClass=regular-widthClass=regular">
-                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="20"/>
+                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="14"/>
                         </variation>
                     </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="LjR-Wb-WZp" firstAttribute="top" secondItem="Qc8-hn-J3I" secondAttribute="bottom" constant="7" id="DpE-nQ-9fq"/>
-                <constraint firstItem="LjR-Wb-WZp" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Ot6-3T-iQ7"/>
+                <constraint firstItem="Qc8-hn-J3I" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="Adf-VI-qVx"/>
+                <constraint firstItem="LjR-Wb-WZp" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="BQ1-AU-Ihq"/>
+                <constraint firstItem="Qc8-hn-J3I" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="DCH-c4-ySE"/>
+                <constraint firstItem="LjR-Wb-WZp" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="DdT-38-vbG"/>
+                <constraint firstAttribute="trailing" secondItem="LjR-Wb-WZp" secondAttribute="trailing" constant="10" id="GE9-2P-W8G"/>
+                <constraint firstItem="LjR-Wb-WZp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="K1C-ag-snT"/>
+                <constraint firstAttribute="trailing" secondItem="Qc8-hn-J3I" secondAttribute="trailing" constant="5" id="Pgw-Aq-RQB"/>
                 <constraint firstItem="Qc8-hn-J3I" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="kSR-ZR-XFM"/>
-                <constraint firstItem="Qc8-hn-J3I" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" constant="-10" id="uCD-NI-v05"/>
+                <constraint firstAttribute="bottom" secondItem="Qc8-hn-J3I" secondAttribute="bottom" constant="10" id="tZ9-zK-MW5"/>
+                <constraint firstItem="Qc8-hn-J3I" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="uCD-NI-v05"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="133" height="120"/>
@@ -54,10 +65,7 @@
                 <outlet property="imgHairStyle" destination="Qc8-hn-J3I" id="1gL-Gk-7Vn"/>
                 <outlet property="lblName" destination="LjR-Wb-WZp" id="P0T-aO-eIx"/>
             </connections>
-            <point key="canvasLocation" x="-106.40000000000001" y="75.562218890554732"/>
+            <point key="canvasLocation" x="-210" y="-613"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="female-selected" width="77" height="76"/>
-    </resources>
 </document>

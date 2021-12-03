@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BookingDetailServiceCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="BookingDetailServiceCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="323" id="4e4-dp-07q" customClass="BookingDetailServiceCell" customModule="EnrichSalon" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="323"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4e4-dp-07q" id="u47-Jv-BWP">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="322.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="nzq-Xf-APr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="322.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vxj-gG-vu1">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <connections>
+                            <outlet property="dataSource" destination="-1" id="MpK-jj-P2r"/>
+                            <outlet property="delegate" destination="-1" id="NFF-Yw-OcJ"/>
+                        </connections>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="nzq-Xf-APr" secondAttribute="bottom" id="PRS-nP-3bK"/>
+                    <constraint firstItem="nzq-Xf-APr" firstAttribute="top" secondItem="u47-Jv-BWP" secondAttribute="top" id="bfV-lc-52V"/>
+                    <constraint firstItem="nzq-Xf-APr" firstAttribute="leading" secondItem="u47-Jv-BWP" secondAttribute="leading" id="fif-Oh-qzo"/>
+                    <constraint firstAttribute="trailing" secondItem="nzq-Xf-APr" secondAttribute="trailing" id="oKi-AM-JpD"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionViewService" destination="nzq-Xf-APr" id="BhO-Nh-cn4"/>
+            </connections>
+            <point key="canvasLocation" x="-537" y="-703"/>
+        </tableViewCell>
+    </objects>
+</document>

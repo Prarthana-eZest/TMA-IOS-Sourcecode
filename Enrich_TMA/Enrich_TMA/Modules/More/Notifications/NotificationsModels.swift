@@ -12,20 +12,29 @@
 
 import UIKit
 
-enum Notifications
-{
+enum Notifications {
   // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+
+    enum MyNotificationList {
+        struct Response: Codable {
+            let status: Bool?
+            let data: [MyNotificationListItems]?
+            let message: String?
+        }
+        struct MyNotificationListItems: Codable {
+            let notification_id: String?
+            let type: String?
+            let device_id: String?
+            let customer_id: String?
+            let message: String?
+            let module: String?
+            let category: String?
+            let is_active: String?
+            let status: String?
+            let created_at: String?
+            let updated_at: String?
+            let subject: String?
+        }
+
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

@@ -12,30 +12,70 @@
 
 import UIKit
 
-protocol DashboardBusinessLogic
-{
-  func doSomething(request: Dashboard.Something.Request)
+protocol DashboardBusinessLogic {
+    func doGetAppointmentList(request: Schedule.GetAppointnents.Request, method: HTTPMethod)
+    func doGetMyProfileData(accessToken: String, method: HTTPMethod)
+    func doGetDashboardData(request: Dashboard.GetDashboardData.Request, method: HTTPMethod)
+    func doGetForceUpdateInfo()
+    func doPostDeleteAppointmentRequest(request: ModifyAppointment.DeleteAppointment.Request, appointmentId: String)
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request)
+    func getIncentiveDashboard(request: Dashboard.GetIncentiveDashboard.Request)
+    func getRevenueDashboard(request: Dashboard.GetRevenueDashboard.Request)
 }
 
-protocol DashboardDataStore
-{
-  //var name: String { get set }
-}
-
-class DashboardInteractor: DashboardBusinessLogic, DashboardDataStore
-{
-  var presenter: DashboardPresentationLogic?
-  var worker: DashboardWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: Dashboard.Something.Request)
-  {
-    worker = DashboardWorker()
-    worker?.doSomeWork()
+class DashboardInteractor: DashboardBusinessLogic {
     
-    let response = Dashboard.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: DashboardPresentationLogic?
+    var worker: DashboardWorker?
+    //var name: String = ""
+
+    // MARK: Do something
+
+    func doGetMyProfileData(accessToken: String, method: HTTPMethod) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.getRequestForUserProfile(accessToken: accessToken, method: method)
+    }
+
+    func doGetAppointmentList(request: Schedule.GetAppointnents.Request, method: HTTPMethod) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForAppointments(request: request, method: method)
+    }
+
+    func doGetDashboardData(request: Dashboard.GetDashboardData.Request, method: HTTPMethod) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postGetDashboardData(request: request, method: method)
+    }
+
+    func doGetForceUpdateInfo() {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.getForceUpdateInfo()
+    }
+
+    func doPostDeleteAppointmentRequest(request: ModifyAppointment.DeleteAppointment.Request, appointmentId: String) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.deleteRequestForAppointment(request: request, appointmentId: appointmentId)
+    }
+
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForChangeAppointmentStatus(appointmentId: appointmentId, request: request)
+    }
+    
+    func getIncentiveDashboard(request: Dashboard.GetIncentiveDashboard.Request) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestGetIncentiveDashboard(request: request)
+    }
+    
+    func getRevenueDashboard(request: Dashboard.GetRevenueDashboard.Request) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestGetRevenueDashboard(request: request)
+    }
 }

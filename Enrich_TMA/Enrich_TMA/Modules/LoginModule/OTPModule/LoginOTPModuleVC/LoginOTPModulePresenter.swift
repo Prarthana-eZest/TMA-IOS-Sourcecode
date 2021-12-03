@@ -13,9 +13,8 @@ protocol LoginOTPModulePresentationLogic {
 }
 
 class LoginOTPModulePresenter: LoginOTPModulePresentationLogic {
-  weak var viewController: LoginOTPModuleDisplayLogic?
 
-  // MARK: Do something
+    weak var viewController: LoginOTPModuleDisplayLogic?
 
     // MARK: Do something
     func presentSomethingSuccess<T: Decodable>(response: T) {

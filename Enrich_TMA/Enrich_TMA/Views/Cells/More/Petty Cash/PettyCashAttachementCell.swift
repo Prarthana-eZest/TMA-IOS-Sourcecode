@@ -11,20 +11,25 @@ import Kingfisher
 
 class PettyCashAttachementCell: UITableViewCell {
 
-    @IBOutlet weak var lblTitle: UILabel!
-    @IBOutlet weak var attachmentImage: UIImageView!
-    
+    @IBOutlet weak private var lblTitle: UILabel!
+    @IBOutlet weak private var attachmentImage: UIImageView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-    
-    func configureCell(model:PettyCashCellModel){
-        lblTitle.text = model.title
-        if !model.imageURL.isEmpty {
-            let url = URL(string: model.imageURL)
-            
-            self.attachmentImage.kf.setImage(with: url, placeholder: UIImage(named: ""), options: nil, progressBlock: nil, completionHandler: nil)
+
+    func configureCell(attachementURL: String) {
+        lblTitle.text = "Attachement"
+        if !attachementURL.isEmpty ,
+            let url = URL(string: attachementURL) {
+            self.attachmentImage.isHidden = false
+            self.attachmentImage.kf.setImage(with: url, placeholder: UIImage(named: ""),
+                                             options: nil, progressBlock: nil,
+                                             completionHandler: nil)
+        }
+        else {
+            self.attachmentImage.isHidden = true
         }
     }
 
@@ -33,5 +38,5 @@ class PettyCashAttachementCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
 }

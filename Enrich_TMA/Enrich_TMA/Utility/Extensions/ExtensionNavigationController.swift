@@ -29,15 +29,15 @@ extension UINavigationController {
 extension UINavigationController {
     func addCustomBackButton(title: String = "") {
 
-        var backButtonTitle:String = ""
-        if (title.count <= navigationBarTitleTrimTo) {
+        var backButtonTitle: String = ""
+        if title.count <= navigationBarTitleTrimTo {
             backButtonTitle = title
         }
-        else  {
+        else {
             backButtonTitle = String(title.prefix(navigationBarTitleTrimTo)) + "..."
         }
 
-       // let shortString = String(title.prefix(navigationBarTitleTrimTo))
+        // let shortString = String(title.prefix(navigationBarTitleTrimTo))
         let imgBackArrow = UIImage(named: "navigationBackButton")
 
         navigationController?.navigationBar.backIndicatorImage = imgBackArrow
@@ -45,6 +45,5 @@ extension UINavigationController {
 
         navigationItem.leftItemsSupplementBackButton = true
         navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: backButtonTitle, style: .plain, target: self, action: nil)
-
     }
 }

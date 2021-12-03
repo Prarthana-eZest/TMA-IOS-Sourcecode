@@ -12,30 +12,29 @@
 
 import UIKit
 
-protocol GenericCustomerConsulationBusinessLogic
-{
-  func doSomething(request: GenericCustomerConsulation.Something.Request)
+protocol GenericCustomerConsulationBusinessLogic {
+    func doGetServiceSpcificFormData(request: GenericCustomerConsulation.FormData.Request, method: HTTPMethod)
+    func doPostSpcificFormData(request: GenericCustomerConsulation.SubmitFormData.Request, method: HTTPMethod)
 }
 
-protocol GenericCustomerConsulationDataStore
-{
-  //var name: String { get set }
-}
+class GenericCustomerConsulationInteractor: GenericCustomerConsulationBusinessLogic {
 
-class GenericCustomerConsulationInteractor: GenericCustomerConsulationBusinessLogic, GenericCustomerConsulationDataStore
-{
-  var presenter: GenericCustomerConsulationPresentationLogic?
-  var worker: GenericCustomerConsulationWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: GenericCustomerConsulation.Something.Request)
-  {
-    worker = GenericCustomerConsulationWorker()
-    worker?.doSomeWork()
-    
-    let response = GenericCustomerConsulation.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: GenericCustomerConsulationPresentationLogic?
+    var worker: GenericCustomerConsulationWorker?
+    //var name: String = ""
+
+    // MARK: Do something
+
+    func doGetServiceSpcificFormData(request: GenericCustomerConsulation.FormData.Request, method: HTTPMethod) {
+        worker = GenericCustomerConsulationWorker()
+        worker?.presenter = self.presenter
+        worker?.getServiceSpecificConsultationForm(request: request, method: method)
+    }
+
+    func doPostSpcificFormData(request: GenericCustomerConsulation.SubmitFormData.Request, method: HTTPMethod) {
+        worker = GenericCustomerConsulationWorker()
+        worker?.presenter = self.presenter
+        worker?.postSubmitSpecificConsultationForm(request: request, method: method)
+    }
+
 }

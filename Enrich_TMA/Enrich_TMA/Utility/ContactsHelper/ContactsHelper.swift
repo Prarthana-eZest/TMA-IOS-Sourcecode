@@ -23,7 +23,7 @@ class ContactsHelper: NSObject {
     func getContactList() {
         let cnPicker = CNContactPickerViewController()
         cnPicker.delegate = self
-        viewController!.present(cnPicker, animated: true, completion: nil)
+        viewController?.present(cnPicker, animated: true, completion: nil)
     }
 
 }

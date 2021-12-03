@@ -11,81 +11,80 @@ import UIKit
 protocol DashboardHeaderCellDelegate: class {
     func locationUpdateAction()
     func locationDetailViewUpdate()
+    func actionCustomerCount()
 }
 
 class DashboardProfileCell: UITableViewCell {
-    
-    
-    @IBOutlet weak private var enableLocationView: UIView!
-    @IBOutlet weak private var btnEnableLocation: UIButton!
-    @IBOutlet weak var btnSelectALocation: UIButton!
+
+    @IBOutlet weak private var btnSelectALocation: UIButton!
     @IBOutlet weak private var locationNameView: UIStackView!
-    @IBOutlet weak private var locationDetailsView: UIView!
-    @IBOutlet weak private var locationDetailsbtnLocation: UIButton!
-    @IBOutlet weak private var locationDetailsbtnSalonLocation: UIButton!
-    
+    @IBOutlet weak private var lblUserName: UILabel!
+    @IBOutlet weak private var lblDesignation: UILabel!
+    @IBOutlet weak var btnCustomerCount: UIButton!
+    @IBOutlet weak private var profilePicture: UIImageView!
+    @IBOutlet weak private var lblRating: UILabel!
+    @IBOutlet weak private var btnSOS: UIButton!
+
     weak var delegate: DashboardHeaderCellDelegate?
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-    
-        locationNameViewShowHide(status: false)
-        locationDetailViewShowHide(status: true)
-        enableLocationShowHide(status: true)
-        
+
     }
-    
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
-    
+
     func configureCell() {
-//        if  let dummy = UserDefaults.standard.value( LocationModule.Something.SalonParamModel.self, forKey: UserDefauiltsKeys.k_Key_SelectedSalon) {
-//            self.btnSelectALocation.setTitle(dummy.current_city_area, for: .normal)
-//            self.locationDetailsbtnLocation.setTitle(dummy.current_city_area, for: .normal)
-//            let salonAddress = String(format: "%@ (%@)", dummy.salon_name ?? "", "\(dummy.distance.rounded(toPlaces: 2))" + " km")
-//            self.locationDetailsbtnSalonLocation.setTitle(salonAddress, for: .normal)
-//        } else {
-            self.btnSelectALocation.setTitle("Select a Location", for: .normal)
-       // }
+
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+            lblUserName.text = ("\(userData.firstname ?? "") \(userData.lastname ?? "")").capitalized
+            lblDesignation.text = userData.designation ?? ""
+            btnSelectALocation.setTitle(userData.base_salon_name ?? "", for: .normal)
+
+            let ratingTest = userData.rating?.description ?? "0"
+            let rating = Double(ratingTest)?.cleanForRating
+            lblRating.text = "\(rating ?? "0")/5"
+
+            let count = userData.customer_count ?? "0"
+
+            btnCustomerCount.setTitle("\(count.isEmpty ? "0" : count) Customers", for: .normal)
+            btnSOS.isHidden = !showSOS
+
+            profilePicture.layer.cornerRadius = profilePicture.frame.size.height * 0.5
+            profilePicture.kf.indicatorType = .activity
+
+            let defaultImage = UIImage(named: "defaultProfile")
+            if let url = userData.profile_pic,
+                let imageurl = URL(string: url) {
+                profilePicture.kf.setImage(with: imageurl, placeholder: defaultImage, options: nil, progressBlock: nil, completionHandler: nil)
+            } else {
+                profilePicture.image = defaultImage
+            }
+        }
+        contentView.layer.cornerRadius = 15
+        contentView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    }
+
+    @IBAction func actionSOS(_ sender: UIButton) {
+        SOSFactory.shared.raiseSOSRequest()
     }
     
-    @IBAction func actionEnableLocation(_ sender: UIButton) {
-        delegate?.locationUpdateAction()
+    @IBAction func actionCustomerCount(_ sender: UIButton) {
+        delegate?.actionCustomerCount()
     }
     
-    @IBAction func actionCloseEnableLocationView(_ sender: UIButton) {
-        enableLocationShowHide(status: true)
-    }
-    
-    @IBAction func actionCloseCurrentLocationView(_ sender: UIButton) {
-        locationDetailViewShowHide(status: true)
-        locationNameViewShowHide(status: false)
-    }
-    
-    @IBAction func actionChangeLocation(_ sender: UIButton) {
-    }
-    
-    @IBAction func actionChangeLocationDetailsView(_ sender: UIButton) {
-    }
-    
-    @IBAction func actionPinnedEnrichNearYouLocationDetailsView(_ sender: UIButton) {
-        delegate?.locationDetailViewUpdate()
-    }
-    
-    func enableLocationShowHide(status: Bool) {
-        enableLocationView.isHidden = status
-    }
-    
-    func locationNameViewShowHide(status: Bool) {
-        locationNameView.isHidden = status
-    }
-    
-    func locationDetailViewShowHide(status: Bool) {
-        locationDetailsView.isHidden = status
-    }
-    
+
+}
+
+struct DashboardProfileCellModel {
+    let userName: String
+    let location: String
+    let profilePictureURL: String
+    let rating: Double
+    let customerCount: Int
 }

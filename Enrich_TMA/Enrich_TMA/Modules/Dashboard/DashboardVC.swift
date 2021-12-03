@@ -12,35 +12,42 @@
 
 import UIKit
 
-protocol DashboardDisplayLogic: class
-{
-    func displaySomething(viewModel: Dashboard.Something.ViewModel)
+protocol DashboardDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class DashboardVC: UIViewController, DashboardDisplayLogic
-{
+
+class DashboardVC: UIViewController, DashboardDisplayLogic {
     var interactor: DashboardBusinessLogic?
-    @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak private var tableView: UITableView!
+    
+    var sections = [SectionConfiguration]()
+    
+    var appointments = [Schedule.GetAppointnents.Data]()
+            
+    var forceUpdateData: Dashboard.GetForceUpadateInfo.Response?
+    
+    var viewType:EarningViewType = .list
+    
+    var showIncentiveOption = false
     
     // MARK: Object lifecycle
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
     // MARK: Setup
     
-    private func setup()
-    {
+    private func setup() {
         let viewController = self
         let interactor = DashboardInteractor()
         let presenter = DashboardPresenter()
@@ -49,144 +56,697 @@ class DashboardVC: UIViewController, DashboardDisplayLogic
         presenter.viewController = viewController
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        //    if let scene = segue.identifier {
-        //      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-        //      if let router = router, router.responds(to: selector) {
-        //        router.perform(selector, with: segue)
-        //      }
-        //    }
-    }
-    
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
-        tableView.register(UINib(nibName: "DashboardProfileCell", bundle: nil), forCellReuseIdentifier: "DashboardProfileCell")
-        tableView.register(UINib(nibName: "TodaysAppointmentHeaderCell", bundle: nil), forCellReuseIdentifier: "TodaysAppointmentHeaderCell")
-        tableView.register(UINib(nibName: "YourTargetRevenueCell", bundle: nil), forCellReuseIdentifier: "YourTargetRevenueCell")
-        tableView.register(UINib(nibName: "AppointmentStatusCell", bundle: nil), forCellReuseIdentifier: "AppointmentStatusCell")
+       
+        tableView.register(UINib(nibName: CellIdentifier.dashboardProfileCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.dashboardProfileCell)
+        tableView.register(UINib(nibName: CellIdentifier.todaysAppointmentHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.todaysAppointmentHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.incentiveDashboardCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.incentiveDashboardCell)
         
-        tableView.contentInset =  UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
+        
+        tableView.register(UINib(nibName: CellIdentifier.yourTargetRevenueCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.yourTargetRevenueCell)
+        tableView.register(UINib(nibName: CellIdentifier.appointmentStatusCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.appointmentStatusCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.incentiveCommonHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.incentiveCommonHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.revenueTrendListCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.revenueTrendListCell)
+        tableView.register(UINib(nibName: CellIdentifier.revenueTrendGridCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.revenueTrendGridCell)
+        tableView.register(UINib(nibName: CellIdentifier.productivityHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.productivityHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.productivityListViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.productivityListViewCell)
+        tableView.register(UINib(nibName: CellIdentifier.productivityGridViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.productivityGridViewCell)
+        tableView.register(UINib(nibName: CellIdentifier.customerServedCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.customerServedCell)
+        tableView.register(UINib(nibName: CellIdentifier.incentiveMyDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.incentiveMyDetailsCell)
+        
+        
+        tableView.contentInset = UIEdgeInsets(top: -44, left: 0, bottom: 0, right: 0)
         tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        UserFactory.shared.checkForSignOut()
         self.navigationController?.navigationBar.isHidden = true
         AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
+        getProfileData()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = Dashboard.Something.Request()
-        interactor?.doSomething(request: request)
+    func showAppUpdateAlert() {
+        
+        if let response = forceUpdateData,
+            let appInfo = response.data?.force_update_info, let iOSAppInfo = appInfo.tma_ios, let forceUpdate = iOSAppInfo.force_update, let appVersion = iOSAppInfo.latest_version {
+            if appVersion != Bundle.main.versionNumber {
+                if forceUpdate {
+                    alertForAppUpdate(
+                        alertTitle: alertTitle,
+                        messageTo: AlertMessagesSuccess.newAppVersion,
+                        buttonTitleYes: AlertButtonTitle.update,
+                        buttonTitleNo: AlertButtonTitle.updateNotNow,
+                        isForceUpdate: forceUpdate,
+                        newAppLink: iOSAppInfo.app_link ?? "")
+                    
+                }
+                else // Not Force Update
+                {
+                    if let notNowDate = UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_ForceUpdateNotNow) as? Date {
+                        
+                        if notNowDate < Date() {
+                            UserDefaults.standard.removeObject(forKey: UserDefauiltsKeys.k_key_ForceUpdateNotNow)
+                            alertForAppUpdate(
+                                alertTitle: alertTitle,
+                                messageTo: AlertMessagesSuccess.newAppVersion,
+                                buttonTitleYes: AlertButtonTitle.update,
+                                buttonTitleNo: AlertButtonTitle.updateNotNow,
+                                isForceUpdate: forceUpdate,
+                                newAppLink: iOSAppInfo.app_link ?? "")
+                        }
+                        
+                    }
+                    else {
+                        alertForAppUpdate(
+                            alertTitle: alertTitle,
+                            messageTo: AlertMessagesSuccess.newAppVersion,
+                            buttonTitleYes: AlertButtonTitle.update,
+                            buttonTitleNo: AlertButtonTitle.updateNotNow,
+                            isForceUpdate: forceUpdate,
+                            newAppLink: iOSAppInfo.app_link ?? "")
+                        
+                    }
+                    
+                }
+            }
+        }
+        
     }
     
-    func displaySomething(viewModel: Dashboard.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    
+//    func revenueScreenData(objRevenueData: Dashboard.GetRevenueDashboard.Response){
+//        print("Data from function of sucess : \(objRevenueData)")
+//    }
+}
+
+extension DashboardVC {
+    
+    func getIncentiveDashboard() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        let request = Dashboard.GetIncentiveDashboard.Request()
+        interactor?.getIncentiveDashboard(request: request)
+    }
+    
+    func getRevenueDashboard() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        let request = Dashboard.GetRevenueDashboard.Request()
+        interactor?.getRevenueDashboard(request: request)
+    }
+    
+    func getForceUpadateInfo() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        interactor?.doGetForceUpdateInfo()
+    }
+    
+    func getProfileData() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        interactor?.doGetMyProfileData(accessToken: self.getAccessToken(), method: .get)
+    }
+    
+    func getAppointmentsForDate(date: String) {
+        
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+            
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            
+            let request = Schedule.GetAppointnents.Request(date: date, salon_code: userData.base_salon_code ?? "", employee_code: userData.employee_code ?? "", limit: 5, page_no: 1)
+            interactor?.doGetAppointmentList(request: request, method: .post)
+        }
+    }
+    
+    func configureSections() {
+        sections.removeAll()
+        sections.append(configureSection(idetifier: .dashboardProfile, items: 1, data: []))
+        if showIncentiveOption {
+            sections.append(configureSection(idetifier: .technicianDashboard, items: 1, data: []))
+        }
+        if !appointments.isEmpty {
+            sections.append(configureSection(idetifier: .appointmentHeader, items: 1, data: []))
+            sections.append(configureSection(idetifier: .appointmentCollection, items: appointments.count, data: appointments))
+        }
+        //sections.append(configureSection(idetifier: .incentiveEarnings, items: 1, data: []))
+        //sections.append(configureSection(idetifier: .targetRevenue, items: 1, data: []))
+        //sections.append(configureSection(idetifier: .revenueTrend, items: 4, data: []))
+        //sections.append(configureSection(idetifier: .productivity, items: 2, data: []))
+        //sections.append(configureSection(idetifier: .customerServed, items: 1, data: []))
+        //sections.append(configureSection(idetifier: .myDetails, items: 1, data: []))
+        tableView.reloadData()
+        tableView.scrollToTop()
+        print("Reload tableview")
+    }
+    
+    func displaySuccess<T>(viewModel: T) where T: Decodable {
+        EZLoadingActivity.hide()
+        print("Response: \(viewModel)")
+        
+        if let model = viewModel as? MyProfile.GetUserProfile.Response, model.status == true {
+            if let data = model.data {
+                let userDefaults = UserDefaults.standard
+                userDefaults.set(encodable: data, forKey: UserDefauiltsKeys.k_Key_LoginUser)
+                userDefaults.synchronize()
+                showIncentiveOption = data.incentive_dashboard_enabled ?? false
+                getForceUpadateInfo()
+                
+                if let techicianFlag = data.is_belita_technician, techicianFlag == "1" {
+                    showSOS = true
+                }
+                else {
+                    showSOS = false
+                }
+                FirebaseTopicFactory.shared.firebaseTopicSubscribe(employeeId: data.employee_id ?? "")
+            }
+            getAppointmentsForDate(date: Date().dayYearMonthDate)
+        }
+        else if let model = viewModel as? Schedule.GetAppointnents.Response {
+            self.appointments.removeAll()
+            self.appointments.append(contentsOf: model.data ?? [])
+            configureSections()
+        }
+        else if let model = viewModel as? Dashboard.GetForceUpadateInfo.Response {
+            if model.status == true {
+//                self.forceUpdateData = model
+//                showAppUpdateAlert()
+            }
+            else {
+                showAlert(alertTitle: alertTitle, alertMessage: model.message)
+            }
+        }
+        else if let model = viewModel as? JobCard.ChangeAppointmentStatus.Response {
+            EZLoadingActivity.hide()
+            showAlert(alertTitle: alertTitle, alertMessage: model.message)
+        }
+        else if let model = viewModel as? Dashboard.GetRevenueDashboard.Response {
+            EZLoadingActivity.hide()
+            print("Dashboard data shown above")
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(encodable: model, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            userDefaults.synchronize()
+            
+            let vc = TechnicianDashboardVC.instantiate(fromAppStoryboard: .Incentive)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+           /* if model.status, let details = model.data?.first?.incentive_dashboard {
+                let vc = PowerBIReportVC.instantiate(fromAppStoryboard: .Dashboard)
+                vc.details = details
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else {
+                showAlert(alertTitle: alertTitle, alertMessage: model.message)
+            }*/
+            
+        }
+    }
+    
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
     }
 }
 
-extension DashboardVC:AppointmentDelegate{
+extension DashboardVC: AppointmentDelegate {
     
     func actionViewAllAppointments() {
         print("View All")
-        self.tabBarController?.selectedIndex = 2
+        self.tabBarController?.selectedIndex = 1
     }
     
-    func actionDelete(indexPath: IndexPath) {
-        print("Delete:\(indexPath.row)")
+    func appointmentAction(actionType: AppointmentAction, indexPath: IndexPath) {
+        print("Action:\(actionType)")
+        
+        let appointment = appointments[indexPath.row]
+        
+        switch actionType {
+            
+        case .RateTheCustomer:
+            
+            let vc = RateTheCustomerVC.instantiate(fromAppStoryboard: .Schedule)
+            self.view.alpha = screenPopUpAlpha
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.appointmentDetails = appointment
+            vc.viewDismissBlock = { [unowned self] result in
+                // Do something
+                self.view.alpha = 1.0
+                self.getAppointmentsForDate(date: Date().dayYearMonthDate)
+            }
+            
+        case .LeavingNow:
+            
+            let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.isPresented = false
+            vc.markAsLeaveNow = true
+            vc.showOTPScreen = false
+            vc.appointmentDetails = appointments[indexPath.row]
+            vc.selectedDate = Date()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+            if let latitude = appointment.customer_latitude,
+                let longitude = appointment.customer_longitude {
+                ApplicationFactory.shared.openGoogleMaps(lat: latitude, long: longitude)
+            }
+            else {
+                showAlert(alertTitle: "Alert", alertMessage: "Customer location details are missing")
+            }
+            
+        case .ShowOTPScreen:
+            
+            let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.isPresented = false
+            vc.markAsLeaveNow = false
+            vc.showOTPScreen = true
+            vc.appointmentDetails = appointments[indexPath.row]
+            vc.selectedDate = Date()
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .ServiceListing:
+            
+            let vc = ListingVC.instantiate(fromAppStoryboard: .More)
+            self.view.alpha = screenPopUpAlpha
+            vc.services = appointment.services?.compactMap { ServiceListingModel(name: $0.service_name ?? "", price: "\($0.price ?? 0)") } ?? []
+            vc.screenTitle = "Services"
+            vc.listingType = .appointmentServices
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.viewDismissBlock = { [unowned self] result in
+                // Do something
+                self.view.alpha = 1.0
+            }
+            
+        case .Modify:
+            let vc = ModifyAppointmentVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.appointmentDetails = appointments[indexPath.row]
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Delete:
+            let alertController = UIAlertController(title: alertTitle, message: AlertMessagesToAsk.cancelAppointment, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: AlertButtonTitle.no, style: UIAlertAction.Style.cancel) { _ -> Void in
+                alertController.dismiss(animated: true, completion: nil)
+            })
+            alertController.addAction(UIAlertAction(title: AlertButtonTitle.yes, style: UIAlertAction.Style.default) { _ -> Void in
+                self.deleteAppointmentReason(indexPath: indexPath)
+            })
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
-    func actionModify(indexPath: IndexPath) {
-        print("Modify:\(indexPath.row)")
+    func deleteAppointmentReason(indexPath: IndexPath) {
+        let vc = DeleteReasonVC.instantiate(fromAppStoryboard: .Schedule)
+        self.view.alpha = screenPopUpAlpha
+        self.present(vc, animated: true, completion: nil)
+        
+        vc.onDoneBlock = { [unowned self] (result, reason) in
+            // Do something
+            if result {
+                self.cancelAppointmentAPICall(reason: reason, indexPath: indexPath)
+            }
+            self.view.alpha = 1.0
+        }
+    }
+    
+    func cancelAppointmentAPICall(reason: String, indexPath: IndexPath) {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser),
+            let id = self.appointments[indexPath.row].appointment_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let request = JobCard.ChangeAppointmentStatus.Request(
+                status: AppointmentStatus.cancelled.rawValue,
+                employee_id: userData.employee_id,
+                reason: reason, is_custom: true)
+            interactor?.doPostUpdateAppointmentStatus(appointmentId: "\(id)", request: request)
+        }
+    }
+    
+}
+
+extension DashboardVC: ProductSelectionDelegate {
+    
+    func actionAddOnsBundle(indexPath: IndexPath) {
+        
+    }
+    
+    func moveToCart(indexPath: IndexPath) {
+        
+    }
+    
+    func selectedItem(indexpath: IndexPath, identifier: SectionIdentifier) {
+        print("Selected:\(indexpath.row) || \(identifier)")
+        if identifier == .appointmentCollection {
+            let vc = AppointmentDetailsVC.instantiate(fromAppStoryboard: .Schedule)
+            vc.appointmentDetails = appointments[indexpath.row]
+            vc.selectedDate = Date()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+    
+}
+
+extension DashboardVC: DashboardHeaderCellDelegate {
+    
+    func locationUpdateAction() {
+    }
+    
+    func locationDetailViewUpdate() {
+    }
+    
+    func actionCustomerCount() {
+        
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser), let countDetails = userData.customers {
+            
+            var listing = [String]()
+            listing.append("Male : \(countDetails.male?.description ?? "0")")
+            listing.append("Female : \(countDetails.female?.description ?? "0")")
+            listing.append("Other : \(countDetails.other?.description ?? "0")")
+            
+            let vc = ListingVC.instantiate(fromAppStoryboard: .More)
+            self.view.alpha = screenPopUpAlpha
+            vc.listingType = .customerCount
+            vc.listing = listing
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.viewDismissBlock = { [unowned self] result in
+                // Do something
+                self.view.alpha = 1.0
+            }
+        }
     }
 }
 
-extension DashboardVC:TargetRevenueDelegate{
+extension DashboardVC: IncentiveDashboardDelegate {
     
-    func actionDaily() {
-        print("Daily")
+    func actionTechnicianNext() {
+        getRevenueDashboard()
+        
+        
     }
     
-    func actionMonthly() {
-        print("Monthly")
-    }
-    
-    func actionViewAllRevenue() {
-        print("View All")
-        self.tabBarController?.selectedIndex = 1
+    func actionEarningsNext() {
+        
     }
 }
-    
 
 extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        let data = sections[section]
+        if data.identifier == .revenueTrend && viewType == .list {
+            return data.items
+        }
+        else if data.identifier == .productivity {
+            return data.items
+        }
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch indexPath.row {
-        case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "DashboardProfileCell", for: indexPath) as? DashboardProfileCell else {
+        let data = sections[indexPath.section]
+        
+        switch data.identifier {
+        case .dashboardProfile:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.dashboardProfileCell, for: indexPath) as? DashboardProfileCell else {
                 return UITableViewCell()
             }
             cell.configureCell()
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "TodaysAppointmentHeaderCell", for: indexPath) as? TodaysAppointmentHeaderCell else {
+        case .appointmentHeader:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.todaysAppointmentHeaderCell, for: indexPath) as? TodaysAppointmentHeaderCell else {
                 return UITableViewCell()
             }
             cell.delegate = self
             cell.selectionStyle = .none
             return cell
             
-        case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AppointmentStatusCell", for: indexPath) as? AppointmentStatusCell else {
+        case .appointmentCollection:
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.productsCollectionCell, for: indexPath) as? ProductsCollectionCell else {
                 return UITableViewCell()
             }
-            cell.delegate = self
-            cell.indexPath = indexPath
+            cell.appointmentDelegate = self
+            cell.selectionDelegate = self
+            cell.configureCollectionView(configuration: data, scrollDirection: .horizontal)
             cell.selectionStyle = .none
             return cell
             
-        case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "YourTargetRevenueCell", for: indexPath) as? YourTargetRevenueCell else {
+        case .technicianDashboard:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.incentiveDashboardCell, for: indexPath) as? IncentiveDashboardCell else {
                 return UITableViewCell()
             }
             cell.delegate = self
+            cell.viewType = .listView
+            cell.configureCell()
             cell.selectionStyle = .none
             return cell
+            
+        case .incentiveEarnings:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningHeaderCell, for: indexPath) as? EarningHeaderCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            cell.configureCell(viewType: viewType, value: 0.0)
+            cell.selectionStyle = .none
+            return cell
+            
+        case .revenueTrend:
+            if viewType == .grid {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.revenueTrendGridCell, for: indexPath) as? RevenueTrendGridCell else {
+                    return UITableViewCell()
+                }
+                cell.selectionStyle = .none
+                let values = [8000.0, 28000.0, 18000.0, 10000.0]
+                cell.drawGraph(dataEntries: [values])
+                return cell
+            }
+            else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.revenueTrendListCell, for: indexPath) as? RevenueTrendListCell else {
+                    return UITableViewCell()
+                }
+                cell.selectionStyle = .none
+                return cell
+            }
+            
+        case .productivity:
+            
+            if indexPath.row == 0 {
+                
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.productivityHeaderCell, for: indexPath) as? ProductivityHeaderCell else {
+                    return UITableViewCell()
+                }
+                cell.configureCell()
+                cell.selectionStyle = .none
+                return cell
+            }
+            else {
+                
+                if viewType == .grid {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.productivityGridViewCell, for: indexPath) as? ProductivityGridViewCell else {
+                        return UITableViewCell()
+                    }
+                    cell.selectionStyle = .none
+                    cell.drawGraph()
+                    return cell
+                }
+                else {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.productivityListViewCell, for: indexPath) as? ProductivityListViewCell else {
+                        return UITableViewCell()
+                    }
+                    cell.selectionStyle = .none
+                    return cell
+                }
+            }
+            
+        case .customerServed:
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.customerServedCell, for: indexPath) as? CustomerServedCell else {
+                return UITableViewCell()
+            }
+            cell.selectionStyle = .none
+            return cell
+            
+        case .myDetails:
+            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.incentiveMyDetailsCell, for: indexPath) as? IncentiveMyDetailsCell else {
+                return UITableViewCell()
+            }
+            cell.configureCell(showGradientView: true, showCurrentMonthLabel: true)
+            cell.selectionStyle = .none
+            return cell
+            
         default:
             return UITableViewCell()
-            
         }
         
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        let data = sections[indexPath.section]
+        switch data.identifier {
+        case .technicianDashboard:
+            return 150
+        case .appointmentCollection:
+            return data.cellHeight
+        case .revenueTrend:
+            return viewType == .grid ? data.cellHeight : UITableView.automaticDimension
+        case .productivity:
+            return (viewType == .grid && indexPath.row != 0) ? data.cellHeight : UITableView.automaticDimension
+        default:
+            return UITableView.automaticDimension
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let data = sections[section]
+        if data.showHeader {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.incentiveCommonHeaderCell) as? IncentiveCommonHeaderCell else {
+                return UITableViewCell()
+            }
+            cell.delegate = self
+            cell.setTitle(title: data.title, identifier: data.identifier, showViewAll: true)
+            cell.selectionStyle = .none
+            return cell
+        }
+        else {
+            return UIView()
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        let data = sections[section]
+        return data.headerHeight
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selection")
+        
+        let data = sections[indexPath.section]
+        
+        switch data.identifier {
+        case .dashboardProfile:
+            let vc = MyProfileVC.instantiate(fromAppStoryboard: .More)
+            vc.profileType = .selfUser
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .incentiveEarnings:
+            getIncentiveDashboard()
+        
+        case .technicianDashboard:
+            getRevenueDashboard()
+        default:
+            break
+        }
     }
+}
+
+extension DashboardVC: IncentiveHeaderDelegate {
+    
+    func actionViewAll(identifier: SectionIdentifier) {
+        
+        switch identifier {
+        case .revenueTrend:
+            let vc = RevenueTrendVC.instantiate(fromAppStoryboard: .Incentive)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .productivity:
+            let vc = AchievementVC.instantiate(fromAppStoryboard: .Incentive)
+            //let vc = ProductivityDetailsVC.instantiate(fromAppStoryboard: .Incentive)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .myDetails:
+            let vc = MyDetailsVC.instantiate(fromAppStoryboard: .Incentive)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        default:
+            break
+        }
+    }
+}
+
+extension DashboardVC: EnrningsDelegate {
+    
+    func actionChangeViewType(type: EarningViewType) {
+        self.viewType = type
+        self.tableView.reloadData()
+    }
+    
+    func actionSelectMenu(model: EarningsHeaderDataModel, indexPath: IndexPath) {
+    }
+}
+
+extension DashboardVC {
+    
+    func configureSection(idetifier: SectionIdentifier, items: Int, data: Any) -> SectionConfiguration {
+        
+        let headerHeight: CGFloat = 60
+        let cellWidth: CGFloat = (tableView.frame.size.width - 40)
+        let cellHeight: CGFloat = 320
+        let margin: CGFloat = 20
+        
+        switch idetifier {
+            
+        case .dashboardProfile:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
+                                        showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
+                                        leftMargin: margin, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .appointmentHeader:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
+                                        showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
+                                        leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .appointmentCollection:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
+                                        showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
+                                        leftMargin: margin, rightMarging: margin, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .technicianDashboard, .incentiveEarnings, .customerServed:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
+                                        showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
+                                        leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .revenueTrend:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 350, cellWidth: cellWidth,
+                                        showHeader: true, showFooter: false, headerHeight: headerHeight, footerHeight: 0,
+                                        leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .productivity, .myDetails:
+            
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 600, cellWidth: cellWidth,
+                                        showHeader: true, showFooter: false, headerHeight: headerHeight, footerHeight: 0,
+                                        leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        default :
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 0, cellWidth: cellWidth,
+                                        showHeader: false, showFooter: false, headerHeight: headerHeight, footerHeight: 0,
+                                        leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                        textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+        }
+    }
+    
 }

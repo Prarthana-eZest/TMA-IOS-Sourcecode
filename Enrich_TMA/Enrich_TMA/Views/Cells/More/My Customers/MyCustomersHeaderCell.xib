@@ -23,11 +23,11 @@
                 <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KwI-bw-njO">
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="KwI-bw-njO">
                         <rect key="frame" x="20" y="10" width="374" height="23.5"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRd-Tv-lum">
-                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="23.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="121.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="14"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Name">
@@ -41,7 +41,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9c-YD-EGx">
-                                <rect key="frame" x="98.5" y="0.0" width="112" height="23.5"/>
+                                <rect key="frame" x="126.5" y="0.0" width="121" height="23.5"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="14"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Location">
@@ -55,7 +55,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U6g-Hu-ho0">
-                                <rect key="frame" x="215.5" y="0.0" width="158.5" height="23.5"/>
+                                <rect key="frame" x="252.5" y="0.0" width="121.5" height="23.5"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="14"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Mobile Number">
@@ -69,10 +69,6 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="C9c-YD-EGx" firstAttribute="width" secondItem="KwI-bw-njO" secondAttribute="width" multiplier="0.3" id="NGe-Ur-oLL"/>
-                            <constraint firstItem="eRd-Tv-lum" firstAttribute="width" secondItem="KwI-bw-njO" secondAttribute="width" multiplier="0.25" id="RY2-VW-cZu"/>
-                        </constraints>
                     </stackView>
                 </subviews>
                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -88,6 +84,7 @@
                 <outlet property="btnMobileNo" destination="U6g-Hu-ho0" id="lNQ-9c-jIT"/>
                 <outlet property="btnName" destination="eRd-Tv-lum" id="ZqH-X6-pmq"/>
             </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="153.34821428571428"/>
         </tableViewCell>
     </objects>
 </document>

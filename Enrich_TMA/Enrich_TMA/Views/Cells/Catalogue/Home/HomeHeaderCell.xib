@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeHeaderCell" rowHeight="469" id="KGk-i7-Jjw" userLabel="HomeHeaderCell" customClass="HomeHeaderCell" customModule="TMA_Dev" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="386" height="469"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="386" height="469"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Home-screen-ladyphoto" translatesAutoresizingMaskIntoConstraints="NO" id="Erz-eP-hh7">
+                        <rect key="frame" x="0.0" y="0.0" width="386" height="469"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beauty services with beautiful experiences!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yQA-kr-mfC">
+                        <rect key="frame" x="38.5" y="241.5" width="309" height="56.5"/>
+                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="22"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enrichWhiteLogo" translatesAutoresizingMaskIntoConstraints="NO" id="bzd-U9-IiW">
+                        <rect key="frame" x="96.5" y="131.5" width="193" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="100" id="64F-oa-xkm"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WPp-gu-Pga">
+                        <rect key="frame" x="53" y="338" width="280" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="45" id="41d-hg-z8h">
+                                <variation key="heightClass=regular-widthClass=regular" constant="70"/>
+                            </constraint>
+                            <constraint firstAttribute="width" constant="280" id="XqX-g0-Lj0"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                        <state key="normal" title="BOOK AN APPOINTMENT" backgroundImage="enabledButton">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </state>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="24"/>
+                        </variation>
+                        <connections>
+                            <action selector="actionBookAppointment:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Bw7-KR-JvM"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="yQA-kr-mfC" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.8" id="2LN-vt-MKT"/>
+                    <constraint firstAttribute="bottom" secondItem="Erz-eP-hh7" secondAttribute="bottom" id="7GO-EU-9Yo"/>
+                    <constraint firstItem="yQA-kr-mfC" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="9Tk-pZ-hmn"/>
+                    <constraint firstItem="yQA-kr-mfC" firstAttribute="top" secondItem="bzd-U9-IiW" secondAttribute="bottom" constant="10" id="Csw-8k-m2j"/>
+                    <constraint firstItem="Erz-eP-hh7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HWW-bw-dlL"/>
+                    <constraint firstItem="yQA-kr-mfC" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" multiplier="1.15" id="IK4-er-2Ya"/>
+                    <constraint firstAttribute="trailing" secondItem="Erz-eP-hh7" secondAttribute="trailing" id="JXv-mA-6QG"/>
+                    <constraint firstItem="Erz-eP-hh7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="L6u-4a-Vpt"/>
+                    <constraint firstItem="bzd-U9-IiW" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="UWR-ks-Cpo"/>
+                    <constraint firstItem="bzd-U9-IiW" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.5" id="ig6-6A-P98"/>
+                    <constraint firstItem="WPp-gu-Pga" firstAttribute="top" secondItem="yQA-kr-mfC" secondAttribute="bottom" constant="40" id="j1K-lu-4I2"/>
+                    <constraint firstItem="WPp-gu-Pga" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="m6n-16-QC7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="VWq-qe-Ahg"/>
+            <connections>
+                <outlet property="backgroundImage" destination="Erz-eP-hh7" id="vrP-KA-nds"/>
+                <outlet property="lblTitle" destination="yQA-kr-mfC" id="Dhm-n7-kbq"/>
+            </connections>
+            <point key="canvasLocation" x="-108.8" y="88.605697151424295"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Home-screen-ladyphoto" width="414" height="464"/>
+        <image name="enabledButton" width="330" height="48"/>
+        <image name="enrichWhiteLogo" width="266" height="113"/>
+    </resources>
+</document>

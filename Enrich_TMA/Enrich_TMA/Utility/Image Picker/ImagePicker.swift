@@ -52,28 +52,27 @@ class ImagePicker: NSObject {
 
         if openMode == .camera {
             openCamera(viewControl)
-        } else if openMode == .gallery {
+        }
+        else if openMode == .gallery {
             openGallery(viewControl)
-        } else if openMode == .ask {
+        }
+        else if openMode == .ask {
 
             let alertDisplay = UIAlertController(title: "", message: "Select Option", preferredStyle: .alert)
 
-            let camera = UIAlertAction(title: "Camera", style: .default, handler: {
-                (_: UIAlertAction!) -> Void in
+            let camera = UIAlertAction(title: "Camera", style: .default, handler: {(_: UIAlertAction!) -> Void in
 
                 self.openCamera(viewControl)
 
             })
 
-            let gallery = UIAlertAction(title: "Open Gallery", style: .default, handler: {
-                (_: UIAlertAction!) -> Void in
+            let gallery = UIAlertAction(title: "Open Gallery", style: .default, handler: {(_: UIAlertAction!) -> Void in
 
                 self.openGallery(viewControl)
 
             })
 
-            let cancelAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: {
-                (_: UIAlertAction!) -> Void in
+            let cancelAction = UIAlertAction(title: "Dismiss", style: .cancel, handler: {(_: UIAlertAction!) -> Void in
                 print("Cancelled")
 
             })
@@ -84,8 +83,9 @@ class ImagePicker: NSObject {
 
             if let vc = viewControl {
                 vc.present(alertDisplay, animated: true, completion: nil)
-            } else {
-                UIApplication.shared.keyWindow?.rootViewController!.present(alertDisplay, animated: true, completion: nil)
+            }
+            else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertDisplay, animated: true, completion: nil)
             }
         }
     }
@@ -100,12 +100,12 @@ class ImagePicker: NSObject {
 //        }
 //
 //        let app = UIApplication.shared.delegate as! AppDelegate
-//        app.window?.rootViewController!.present(imagePickerController, animated: true, completion: nil)
+//        app.window?.rootViewController?.present(imagePickerController, animated: true, completion: nil)
 //    }
 
     func openGallery(_ viewControl: UIViewController?) {
 
-        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary)) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary) {
           //  picker.allowsEditing = true
             picker.modalPresentationStyle = .custom
             picker.sourceType = UIImagePickerController.SourceType.photoLibrary
@@ -113,11 +113,13 @@ class ImagePicker: NSObject {
 
             if let vc = viewControl {
                 vc.present(picker, animated: true, completion: nil)
-            } else {
-                UIApplication.shared.keyWindow?.rootViewController!.present(picker, animated: true, completion: nil)
+            }
+            else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(picker, animated: true, completion: nil)
             }
 
-        } else {
+        }
+        else {
             let alertMessage = UIAlertController(title: "Service", message: "Service is not available", preferredStyle: .alert)
 
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -125,14 +127,15 @@ class ImagePicker: NSObject {
 
             if let vc = viewControl {
                 vc.present(alertMessage, animated: true, completion: nil)
-            } else {
-                UIApplication.shared.keyWindow?.rootViewController!.present(alertMessage, animated: true, completion: nil)
+            }
+            else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertMessage, animated: true, completion: nil)
             }
         }
     }
 
     func openCamera(_ viewControl: UIViewController?) {
-        if(UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera)) {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
            // picker.allowsEditing = true
             picker.sourceType = UIImagePickerController.SourceType.camera
             picker.modalPresentationStyle = .custom
@@ -141,18 +144,21 @@ class ImagePicker: NSObject {
 
             if let vc = viewControl {
                 vc.present(picker, animated: true, completion: nil)
-            } else {
-                UIApplication.shared.keyWindow?.rootViewController!.present(picker, animated: true, completion: nil)
             }
-        } else {
+            else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(picker, animated: true, completion: nil)
+            }
+        }
+        else {
             let alertMessage = UIAlertController(title: "Service", message: "Service is not available", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertMessage.addAction(ok)
 
             if let vc = viewControl {
                 vc.present(alertMessage, animated: true, completion: nil)
-            } else {
-                UIApplication.shared.keyWindow?.rootViewController!.present(alertMessage, animated: true, completion: nil)
+            }
+            else {
+                UIApplication.shared.keyWindow?.rootViewController?.present(alertMessage, animated: true, completion: nil)
             }
 
         }
@@ -191,9 +197,11 @@ extension ImagePicker: UIImagePickerControllerDelegate {
 
         if let possibleImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             selectedImage = possibleImage
-        } else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+        }
+        else if let possibleImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             selectedImage = possibleImage
-        } else {
+        }
+        else {
             selectedImage = nil
         }
 

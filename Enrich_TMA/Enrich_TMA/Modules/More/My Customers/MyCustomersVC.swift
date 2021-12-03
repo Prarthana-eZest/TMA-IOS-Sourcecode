@@ -12,36 +12,42 @@
 
 import UIKit
 
-protocol MyCustomersDisplayLogic: class
-{
-    func displaySomething(viewModel: MyCustomers.Something.ViewModel)
+protocol MyCustomersDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class MyCustomersVC: UIViewController, MyCustomersDisplayLogic
-{
+class MyCustomersVC: UIViewController, MyCustomersDisplayLogic {
     var interactor: MyCustomersBusinessLogic?
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    
+
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var lblNoRecords: UILabel!
+
+    var myCustomers = [MyCustomers.GetCustomers.Customer]()
+
+    var activeSort: SortBy?
+    var sortOrder = 0
+
+    var limit = 20
+    var page_no = 1
+
+    var total_records = 0
+
     // MARK: Object lifecycle
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
-    
-    required init?(coder aDecoder: NSCoder)
-    {
+
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
-    
+
     // MARK: Setup
-    
-    private func setup()
-    {
+
+    private func setup() {
         let viewController = self
         let interactor = MyCustomersInteractor()
         let presenter = MyCustomersPresenter()
@@ -49,117 +55,195 @@ class MyCustomersVC: UIViewController, MyCustomersDisplayLogic
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
-    
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        //    if let scene = segue.identifier {
-        //      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-        //      if let router = router, router.responds(to: selector) {
-        //        router.perform(selector, with: segue)
-        //      }
-        //    }
-    }
-    
+
     // MARK: View lifecycle
-    
-    override func viewDidLoad()
-    {
+
+    override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
-        
-        tableView.register(UINib(nibName: "MyCustomersHeaderCell", bundle: nil), forCellReuseIdentifier: "MyCustomersHeaderCell")
-        tableView.register(UINib(nibName: "MyCustomerCell", bundle: nil), forCellReuseIdentifier: "MyCustomerCell")
-        
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: tableView.frame.size.width)
-        
+
+        tableView.register(UINib(nibName: CellIdentifier.myCustomersHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.myCustomersHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.myCustomerCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.myCustomerCell)
+
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+
+        lblNoRecords.isHidden = true
         showNavigationBarButtons()
+        getMyCustomer()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
         self.navigationController?.addCustomBackButton(title: "My Customers")
     }
-    
+
     // MARK: - Top Navigation Bar And  Actions
     func showNavigationBarButtons() {
-        
-        guard let searchImg = UIImage(named: "searchImg") else{
+
+        guard let searchImg = UIImage(named: "searchImg"),
+            let sosImg = UIImage(named: "SOS") else {
                 return
         }
-        
+
         let searchButton = UIBarButtonItem(image: searchImg, style: .plain, target: self, action: #selector(didTapSearchButton))
         searchButton.tintColor = UIColor.black
-        
+
+        let sosButton = UIBarButtonItem(image: sosImg, style: .plain, target: self, action: #selector(didTapSOSButton))
+        sosButton.tintColor = UIColor.black
+
         navigationItem.title = ""
-        navigationItem.rightBarButtonItems = [searchButton]
+        if showSOS {
+            navigationItem.rightBarButtonItems = [searchButton, sosButton]
+        }
+        else {
+            navigationItem.rightBarButtonItems = [searchButton]
+        }
     }
-    
+
+    @objc func didTapSOSButton() {
+        SOSFactory.shared.raiseSOSRequest()
+    }
+
     @objc func didTapSearchButton() {
         let vc = SearchByVC.instantiate(fromAppStoryboard: .More)
         self.navigationController?.pushViewController(vc, animated: true)
     }
+}
 
-    
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = MyCustomers.Something.Request()
-        interactor?.doSomething(request: request)
+extension MyCustomersVC: MyCustomersHeaderDelegate {
+
+    func actionSort(sortBy: SortBy, sortOrder: Int) {
+
+        self.activeSort = sortBy
+        self.sortOrder = sortOrder
+
+        switch sortBy {
+
+        case .name:
+            myCustomers.sort {
+                if sortOrder == 0 {
+                    return $0.firstname.lowercased() < $1.firstname.lowercased()
+                }
+                return $0.firstname.lowercased() > $1.firstname.lowercased()
+            }
+
+        case .mobileNo:
+            myCustomers.sort {
+                if sortOrder == 0 {
+                    return $0.mobile_number.lowercased() < $1.mobile_number.lowercased()
+                }
+                return $0.mobile_number.lowercased() > $1.mobile_number.lowercased()
+            }
+
+        case .location:
+            myCustomers.sort {
+                if sortOrder == 0 {
+                    return $0.location.lowercased() < $1.location.lowercased()
+                }
+                return $0.location.lowercased() > $1.location.lowercased()
+            }
+
+        default:
+            break
+        }
+
+        self.tableView.reloadData()
     }
-    
-    func displaySomething(viewModel: MyCustomers.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
-    }
+
 }
 
 extension MyCustomersVC: UITableViewDelegate, UITableViewDataSource {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return myCustomers.isEmpty ? 0 : 1
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : 15
+        return myCustomers.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        switch indexPath.section {
-            
-        case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCustomersHeaderCell", for: indexPath) as? MyCustomersHeaderCell else {
-                return UITableViewCell()
-            }
-            cell.selectionStyle = .none
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-            return cell
-            
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyCustomerCell", for: indexPath) as? MyCustomerCell else {
-                return UITableViewCell()
-            }
-            cell.selectionStyle = .none
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-            return cell
-            
-        default:
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.myCustomerCell, for: indexPath) as? MyCustomerCell else {
             return UITableViewCell()
         }
-        
+        cell.configureCustomerCell(model: myCustomers[indexPath.row])
+        cell.selectionStyle = .none
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        return cell
+
     }
-    
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.myCustomersHeaderCell) as? MyCustomersHeaderCell else {
+            return UITableViewCell()
+        }
+        cell.configureCell(headerType: .MyCustomer, activeSort: activeSort, sortOrder: sortOrder)
+        cell.delegate = self
+        cell.selectionStyle = .none
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selection")
+        let vc = CustomerDetailsVC.instantiate(fromAppStoryboard: .More)
+        vc.customerDetails = myCustomers[indexPath.row]
+        self.navigationController?.pushViewController(vc, animated: true)
     }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("Row index: \(indexPath.row)")
+        if indexPath.row == (myCustomers.count - 1) &&
+            myCustomers.count < total_records {
+            page_no += 1
+            self.getMyCustomer()
+        }
+    }
+}
+
+// MARK: Call Webservice
+extension MyCustomersVC {
+
+    func getMyCustomer() {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let filter = MyCustomers.GetCustomers.RequestFilter(
+                mobile_number: "", firstname: "", lastname: "",
+                technician_id: userData.employee_id ?? "",
+                email: "", limit: limit, page: page_no)
+            let request = MyCustomers.GetCustomers.Request(filter: filter)
+            interactor?.doPostGetMyCustomersRequest(request: request, method: .post)
+        }
+    }
+
+    func displaySuccess<T: Decodable>(viewModel: T) {
+        EZLoadingActivity.hide()
+        if let model = viewModel as? MyCustomers.GetCustomers.Response,
+            model.status == true {
+
+            total_records = model.total_records ?? 0
+            if page_no == 1 {
+                self.myCustomers.removeAll()
+            }
+            self.myCustomers.append(contentsOf: model.data ?? [])
+            lblNoRecords.isHidden = !myCustomers.isEmpty
+            self.tableView.reloadData()
+        }
+    }
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        DispatchQueue.main.async { [unowned self] in
+            self.showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "")
+        }
+    }
+
 }

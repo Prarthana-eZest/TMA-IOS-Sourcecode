@@ -20,7 +20,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProductCell" reuseIdentifier="ProductCell" id="gTV-IL-0wX" customClass="ProductCell" customModule="EnrichSalon" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProductCell" reuseIdentifier="ProductCell" id="gTV-IL-0wX" customClass="ProductCell" customModule="enrich" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="209" height="329"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -49,7 +49,7 @@
                                 </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="INR 100" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AE-8N-lKn">
-                                <rect key="frame" x="10" y="225.33333333333334" width="189" height="21.333333333333343"/>
+                                <rect key="frame" x="10" y="297.66666666666669" width="189" height="21.333333333333314"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="16.600000381469727"/>
                                 <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -60,7 +60,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="1AE-8N-lKn" firstAttribute="top" secondItem="7v7-qf-QGM" secondAttribute="bottom" constant="5" id="5Kh-yV-UwD">
+                            <constraint firstItem="1AE-8N-lKn" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7v7-qf-QGM" secondAttribute="bottom" constant="5" id="5Kh-yV-UwD">
                                 <variation key="heightClass=regular-widthClass=regular" constant="8"/>
                             </constraint>
                             <constraint firstItem="7v7-qf-QGM" firstAttribute="leading" secondItem="MED-ox-JHu" secondAttribute="leading" constant="10" id="7z5-Xe-c2D"/>
@@ -72,7 +72,7 @@
                             <constraint firstItem="1AE-8N-lKn" firstAttribute="leading" secondItem="7v7-qf-QGM" secondAttribute="leading" id="feZ-49-zFo"/>
                             <constraint firstItem="n8k-9K-JHi" firstAttribute="top" secondItem="MED-ox-JHu" secondAttribute="top" constant="5" id="hcD-Lf-SBV"/>
                             <constraint firstAttribute="trailing" secondItem="7v7-qf-QGM" secondAttribute="trailing" constant="10" id="hvj-SB-aeZ"/>
-                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1AE-8N-lKn" secondAttribute="bottom" constant="10" id="lrm-Uf-xcf"/>
+                            <constraint firstAttribute="bottom" secondItem="1AE-8N-lKn" secondAttribute="bottom" constant="10" id="lrm-Uf-xcf"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">

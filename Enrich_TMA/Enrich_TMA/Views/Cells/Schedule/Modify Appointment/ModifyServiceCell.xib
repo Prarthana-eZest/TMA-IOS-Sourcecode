@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ModifyServiceCell" rowHeight="360" id="KGk-i7-Jjw" customClass="ModifyServiceCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="540" height="360"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="540" height="360"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwM-ZS-UiH">
+                        <rect key="frame" x="20" y="0.0" width="500" height="327"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CAq-OP-PyB">
+                                <rect key="frame" x="15" y="15" width="470" height="297"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Aqc-K0-aeZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="470" height="35"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" translatesAutoresizingMaskIntoConstraints="NO" id="a7C-xR-Ic6">
+                                                <rect key="frame" x="0.0" y="0.0" width="85.5" height="35"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" text="Upcoming" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8b-Mu-5Ou">
+                                                        <rect key="frame" x="10" y="7" width="65.5" height="21"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.92941176469999998" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstItem="v8b-Mu-5Ou" firstAttribute="centerY" secondItem="a7C-xR-Ic6" secondAttribute="centerY" id="mMY-QB-b5X"/>
+                                                    <constraint firstAttribute="trailing" secondItem="v8b-Mu-5Ou" secondAttribute="trailing" constant="10" id="qlG-4X-JeP"/>
+                                                    <constraint firstItem="v8b-Mu-5Ou" firstAttribute="leading" secondItem="a7C-xR-Ic6" secondAttribute="leading" constant="10" id="vxx-EM-wHG"/>
+                                                    <constraint firstAttribute="height" constant="35" id="ynd-0W-PXL">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HmO-AG-giZ">
+                                                <rect key="frame" x="95.5" y="0.0" width="344.5" height="35"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="xxz-zX-Y1U"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VOe-1s-JGD" userLabel="delete">
+                                                <rect key="frame" x="450" y="7.5" width="20" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="8Nf-L3-Uof">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    </constraint>
+                                                    <constraint firstAttribute="width" constant="20" id="BB5-FY-UkH">
+                                                        <variation key="heightClass=regular-widthClass=regular" constant="40"/>
+                                                    </constraint>
+                                                </constraints>
+                                                <state key="normal" image="Delete"/>
+                                                <connections>
+                                                    <action selector="actionDelete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="h3x-fr-mmA"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uPZ-gR-srE">
+                                        <rect key="frame" x="0.0" y="50" width="313.5" height="50"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="999" verticalHuggingPriority="999" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="joR-y8-1Ca">
+                                                <rect key="frame" x="0.0" y="4" width="63" height="42"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" text="Start Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Af0-A1-R9s">
+                                                        <rect key="frame" x="0.0" y="0.0" width="63" height="21"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:00 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LA9-hN-W5T">
+                                                        <rect key="frame" x="0.0" y="21" width="63" height="21"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uIu-7X-tbR">
+                                                <rect key="frame" x="73" y="24.5" width="50" height="1"/>
+                                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="df6-hQ-nn3"/>
+                                                    <constraint firstAttribute="height" constant="1" id="fsv-6P-k1r"/>
+                                                </constraints>
+                                            </view>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="nJy-4x-Wa3">
+                                                <rect key="frame" x="133" y="0.0" width="180.5" height="50"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="0bX-BP-sGq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60.5" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" text="End Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HT-hj-8n8">
+                                                                <rect key="frame" x="0.0" y="0.0" width="60.5" height="29"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:30 am" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hv0-zo-YlT">
+                                                                <rect key="frame" x="0.0" y="29" width="60.5" height="21"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gs6-7w-HMv">
+                                                        <rect key="frame" x="83.5" y="0.0" width="1" height="50"/>
+                                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="1" id="bWQ-EY-iTr"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="oxU-IU-WHe">
+                                                        <rect key="frame" x="94.5" y="0.0" width="86" height="50"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" text="Total Duration" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jah-Ah-ZgJ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="86" height="29"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Hr 45 Min." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jFM-DM-WqT">
+                                                                <rect key="frame" x="0.0" y="29" width="86" height="21"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="0X7-Cc-Pf9">
+                                        <rect key="frame" x="0.0" y="115" width="470" height="57"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Service Name" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WXS-4Q-Mjf">
+                                                <rect key="frame" x="0.0" y="0.0" width="470" height="26"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="20"/>
+                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="XQ7-on-LRL">
+                                                <rect key="frame" x="0.0" y="31" width="470" height="26"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customer Name" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IH7-2g-yFr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="127.5" height="26"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="20"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dependent" translatesAutoresizingMaskIntoConstraints="NO" id="SCW-Jz-z0z">
+                                                        <rect key="frame" x="132.5" y="4" width="24" height="18"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="18" id="tEI-DO-ugg"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <view contentMode="scaleToFill" horizontalCompressionResistancePriority="749" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="FF4-rT-Bl3">
+                                                        <rect key="frame" x="161.5" y="8" width="308.5" height="10"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="10" id="pY1-L1-0Yn"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" horizontalHuggingPriority="255" verticalHuggingPriority="255" translatesAutoresizingMaskIntoConstraints="NO" id="3eU-t1-mf5">
+                                        <rect key="frame" x="0.0" y="187" width="470" height="50"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="255" verticalHuggingPriority="255" text="Request description" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbr-hk-0Z7">
+                                                <rect key="frame" x="10" y="5" width="450" height="40"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.92941176469999998" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="Jbr-hk-0Z7" firstAttribute="leading" secondItem="3eU-t1-mf5" secondAttribute="leading" constant="10" id="1J0-8L-8p2"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jbr-hk-0Z7" secondAttribute="trailing" constant="10" id="4Q4-1F-fNh"/>
+                                            <constraint firstItem="Jbr-hk-0Z7" firstAttribute="leading" secondItem="3eU-t1-mf5" secondAttribute="leading" constant="10" id="CxU-jM-1Cd"/>
+                                            <constraint firstAttribute="bottom" secondItem="Jbr-hk-0Z7" secondAttribute="bottom" constant="5" id="EIL-ew-7HY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Jbr-hk-0Z7" secondAttribute="trailing" constant="10" id="TId-8M-4Ho"/>
+                                            <constraint firstItem="Jbr-hk-0Z7" firstAttribute="top" secondItem="3eU-t1-mf5" secondAttribute="top" constant="5" id="khS-d9-jjU"/>
+                                            <constraint firstItem="Jbr-hk-0Z7" firstAttribute="centerY" secondItem="3eU-t1-mf5" secondAttribute="centerY" id="q9U-Tf-lXd"/>
+                                        </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                                <real key="value" value="0.5"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="LwZ-aq-rpm">
+                                        <rect key="frame" x="0.0" y="252" width="470" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="xTO-uw-bZ5">
+                                                <rect key="frame" x="0.0" y="0.0" width="227.5" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="6o7-eq-gfE"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                <state key="normal" title="REPLACE SERVICE">
+                                                    <color key="titleColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="actionReplace:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="lXX-9e-jhN"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="zlq-Vk-HAT">
+                                                <rect key="frame" x="242.5" y="0.0" width="227.5" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="Sdv-u4-3bx"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                <state key="normal" title="CHANGE TIMESLOT" backgroundImage="enabledButton">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionTimeSlot:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="9Ur-pN-ADx"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="0X7-Cc-Pf9" firstAttribute="leading" secondItem="CAq-OP-PyB" secondAttribute="leading" id="Dbm-NF-l0G"/>
+                                    <constraint firstItem="Aqc-K0-aeZ" firstAttribute="leading" secondItem="CAq-OP-PyB" secondAttribute="leading" id="JQH-bQ-sx2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Aqc-K0-aeZ" secondAttribute="trailing" id="ORI-HQ-aE3"/>
+                                    <constraint firstAttribute="trailing" secondItem="3eU-t1-mf5" secondAttribute="trailing" id="OTu-hG-zMG"/>
+                                    <constraint firstAttribute="trailing" secondItem="0X7-Cc-Pf9" secondAttribute="trailing" id="TCQ-zX-nfP"/>
+                                    <constraint firstItem="uPZ-gR-srE" firstAttribute="leading" secondItem="CAq-OP-PyB" secondAttribute="leading" id="mcI-DU-E0t"/>
+                                    <constraint firstItem="3eU-t1-mf5" firstAttribute="leading" secondItem="CAq-OP-PyB" secondAttribute="leading" id="uvS-nU-j5A"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="CAq-OP-PyB" secondAttribute="bottom" constant="15" id="G8v-9S-0Fg"/>
+                            <constraint firstItem="CAq-OP-PyB" firstAttribute="top" secondItem="fwM-ZS-UiH" secondAttribute="top" constant="15" id="XAg-1e-YIZ"/>
+                            <constraint firstItem="CAq-OP-PyB" firstAttribute="leading" secondItem="fwM-ZS-UiH" secondAttribute="leading" constant="15" id="Z3f-Gf-YV6"/>
+                            <constraint firstAttribute="trailing" secondItem="CAq-OP-PyB" secondAttribute="trailing" constant="15" id="eW4-mV-Qqu"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.79774008279999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                    <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UpA-2Q-UEb">
+                        <rect key="frame" x="157" y="87" width="1" height="6"/>
+                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="6" id="FUT-x6-LV9"/>
+                            <constraint firstAttribute="width" constant="1" id="W1c-Rb-eey"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7AK-0h-X69">
+                        <rect key="frame" x="102" y="87" width="6" height="6"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="1AI-Wb-1Sf"/>
+                            <constraint firstAttribute="height" constant="6" id="2YR-SV-xLN"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                <real key="value" value="0.5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                <real key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="fwM-ZS-UiH" secondAttribute="trailing" constant="20" id="O5a-JF-vYw"/>
+                    <constraint firstItem="UpA-2Q-UEb" firstAttribute="trailing" secondItem="uIu-7X-tbR" secondAttribute="trailing" id="QWJ-6L-JkB"/>
+                    <constraint firstItem="fwM-ZS-UiH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="WeW-st-MH5"/>
+                    <constraint firstItem="fwM-ZS-UiH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="fuH-np-vgE"/>
+                    <constraint firstItem="7AK-0h-X69" firstAttribute="leading" secondItem="uIu-7X-tbR" secondAttribute="leading" constant="-6" id="qH1-jE-B8f"/>
+                    <constraint firstItem="UpA-2Q-UEb" firstAttribute="centerY" secondItem="uIu-7X-tbR" secondAttribute="centerY" id="rhc-RY-23f"/>
+                    <constraint firstItem="7AK-0h-X69" firstAttribute="centerY" secondItem="uIu-7X-tbR" secondAttribute="centerY" id="s20-5l-9MQ"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fwM-ZS-UiH" secondAttribute="bottom" constant="20" id="v9j-Lr-lAX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="activeRequestView" destination="3eU-t1-mf5" id="obc-GT-2Jh"/>
+                <outlet property="btnDelete" destination="VOe-1s-JGD" id="cOJ-2H-lwg"/>
+                <outlet property="btnReplace" destination="xTO-uw-bZ5" id="ky6-R8-ixj"/>
+                <outlet property="btnStackView" destination="LwZ-aq-rpm" id="KTp-Mh-Qnc"/>
+                <outlet property="btnTimeslot" destination="zlq-Vk-HAT" id="MLj-yv-aVe"/>
+                <outlet property="dependentIcon" destination="SCW-Jz-z0z" id="cQt-vk-OZC"/>
+                <outlet property="lblCustomerName" destination="IH7-2g-yFr" id="mCK-Te-O3c"/>
+                <outlet property="lblDuration" destination="jFM-DM-WqT" id="iSB-J8-AB6"/>
+                <outlet property="lblEndTime" destination="Hv0-zo-YlT" id="evl-VE-vSI"/>
+                <outlet property="lblRequestDescription" destination="Jbr-hk-0Z7" id="UeF-0o-pBU"/>
+                <outlet property="lblServiceName" destination="WXS-4Q-Mjf" id="LbJ-8Q-D4E"/>
+                <outlet property="lblServiceStatus" destination="v8b-Mu-5Ou" id="gfb-P2-UXD"/>
+                <outlet property="lblStartTime" destination="LA9-hN-W5T" id="P4a-pw-wNi"/>
+            </connections>
+            <point key="canvasLocation" x="510.14492753623193" y="214.28571428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Delete" width="21" height="22"/>
+        <image name="dependent" width="24" height="25"/>
+        <image name="enabledButton" width="330" height="48"/>
+    </resources>
+</document>

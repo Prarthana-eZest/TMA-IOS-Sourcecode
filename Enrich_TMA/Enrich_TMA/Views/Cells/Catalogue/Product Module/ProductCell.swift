@@ -37,14 +37,14 @@ class ProductCell: UICollectionViewCell {
             if !productDetails.productImageURL.isEmpty {
                 let url = URL(string: productDetails.productImageURL)
 
-                self.productImageView.kf.setImage(with: url, placeholder: UIImage(named: ""), options: nil, progressBlock: nil, completionHandler: nil)
-            } else {
-                self.productImageView.image = UIImage(named: "")
+                self.productImageView.kf.setImage(with: url, placeholder: UIImage(named: "productDefault"), options: nil, progressBlock: nil, completionHandler: nil)
+            }
+            else {
+                self.productImageView.image = UIImage(named: "productDefault")
             }
         }
 
     }
-
 }
 
 extension UIImageView {
@@ -66,26 +66,4 @@ extension UIImageView {
         guard let url = URL(string: link) else { return }
         downloaded(from: url, contentMode: mode)
     }
-}
-
-
-struct ProductOrderModel {
-    let productName: String
-    let productType: String
-    let orderType: OrderType
-    let specialPrice: String
-    let productCount: String
-    let orderedDate: String
-    let cancelledDate: String
-    let deliveredDate: String
-    let productImageURL: String
-    let item_id: Int64
-    let sku: String
-}
-
-enum OrderType: String {
-    case InProgress = "InProgress"
-    case Completed = "Completed"
-    case Cancelled = "Cancelled"
-    
 }

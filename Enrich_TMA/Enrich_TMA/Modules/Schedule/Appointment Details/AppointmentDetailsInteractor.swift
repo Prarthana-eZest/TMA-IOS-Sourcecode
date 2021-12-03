@@ -12,30 +12,45 @@
 
 import UIKit
 
-protocol AppointmentDetailsBusinessLogic
-{
-  func doSomething(request: AppointmentDetails.Something.Request)
+protocol AppointmentDetailsBusinessLogic {
+    func doGetAppointmentList(request: Schedule.GetAppointnents.AppointmentDetailsRequest, method: HTTPMethod)
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request)
+    func doGetAppointmentStatus(appointmentId: String)
+    func doPostUploadSelfie(request: AppointmentDetails.UploadSelfie.Request)
 }
 
-protocol AppointmentDetailsDataStore
-{
-  //var name: String { get set }
+protocol AppointmentDetailsDataStore {
+    //var name: String { get set }
 }
 
-class AppointmentDetailsInteractor: AppointmentDetailsBusinessLogic, AppointmentDetailsDataStore
-{
-  var presenter: AppointmentDetailsPresentationLogic?
-  var worker: AppointmentDetailsWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: AppointmentDetails.Something.Request)
-  {
-    worker = AppointmentDetailsWorker()
-    worker?.doSomeWork()
-    
-    let response = AppointmentDetails.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+class AppointmentDetailsInteractor: AppointmentDetailsBusinessLogic, AppointmentDetailsDataStore {
+    var presenter: AppointmentDetailsPresentationLogic?
+    var worker: AppointmentDetailsWorker?
+    //var name: String = ""
+
+    // MARK: Do something
+
+    func doGetAppointmentList(request: Schedule.GetAppointnents.AppointmentDetailsRequest, method: HTTPMethod) {
+        worker = AppointmentDetailsWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForAppointments(request: request, method: method)
+    }
+
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request) {
+        worker = AppointmentDetailsWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForChangeAppointmentStatus(appointmentId: appointmentId, request: request)
+    }
+
+    func doGetAppointmentStatus(appointmentId: String) {
+        worker = AppointmentDetailsWorker()
+        worker?.presenter = self.presenter
+        worker?.getRequestForAppointmentStatus(appointmentId: appointmentId)
+    }
+
+    func doPostUploadSelfie(request: AppointmentDetails.UploadSelfie.Request) {
+        worker = AppointmentDetailsWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForUploadSelfie(request: request)
+    }
 }

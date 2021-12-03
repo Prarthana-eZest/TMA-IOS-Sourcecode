@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -23,41 +21,52 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DNz-WH-c1q" id="vzb-FI-CrN">
-                <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Riu-hv-HAh">
-                        <rect key="frame" x="20" y="15" width="374" height="13.5"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Riu-hv-HAh">
+                        <rect key="frame" x="20" y="15" width="374" height="14"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amit Agrawal" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zqq-h1-BVQ">
-                                <rect key="frame" x="0.0" y="0.0" width="93.5" height="13.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="121.5" height="14"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
                                 <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Aundh" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zfl-QB-csy">
-                                <rect key="frame" x="98.5" y="0.0" width="112" height="13.5"/>
+                                <rect key="frame" x="126.5" y="0.0" width="121" height="14"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
                                 <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 123 123 1234" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ug-2D-das">
-                                <rect key="frame" x="215.5" y="0.0" width="158.5" height="13.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+91 123 123 ****" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ug-2D-das">
+                                <rect key="frame" x="252.5" y="0.0" width="121.5" height="14"/>
                                 <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
                                 <color key="textColor" red="0.13725490200000001" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <constraints>
-                            <constraint firstItem="Zfl-QB-csy" firstAttribute="width" secondItem="Riu-hv-HAh" secondAttribute="width" multiplier="0.3" id="PKm-Qe-HYC"/>
-                            <constraint firstItem="zqq-h1-BVQ" firstAttribute="width" secondItem="Riu-hv-HAh" secondAttribute="width" multiplier="0.25" id="fYF-WM-mp7"/>
-                        </constraints>
                     </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TOz-S5-Fjn">
+                        <rect key="frame" x="389" y="18" width="8" height="8"/>
+                        <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="ecg-jn-91D"/>
+                            <constraint firstAttribute="width" constant="8" id="qL5-hi-ZN8"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="TOz-S5-Fjn" secondAttribute="trailing" constant="17" id="5TK-Ur-dff"/>
                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Riu-hv-HAh" secondAttribute="bottom" constant="15" id="JCE-r4-y7C"/>
                     <constraint firstAttribute="trailing" secondItem="Riu-hv-HAh" secondAttribute="trailing" constant="20" id="JJb-hv-EdN"/>
+                    <constraint firstItem="TOz-S5-Fjn" firstAttribute="centerY" secondItem="Riu-hv-HAh" secondAttribute="centerY" id="LT2-2l-Qne"/>
                     <constraint firstItem="Riu-hv-HAh" firstAttribute="leading" secondItem="vzb-FI-CrN" secondAttribute="leading" constant="20" id="OnL-3N-kD5"/>
                     <constraint firstItem="Riu-hv-HAh" firstAttribute="top" secondItem="vzb-FI-CrN" secondAttribute="top" constant="15" id="bPl-cK-3Z0"/>
                 </constraints>
@@ -67,7 +76,9 @@
                 <outlet property="lblCustomerName" destination="zqq-h1-BVQ" id="QTx-Df-9U4"/>
                 <outlet property="lblLocation" destination="Zfl-QB-csy" id="pP5-SP-L0n"/>
                 <outlet property="lblMobileNumber" destination="4ug-2D-das" id="Lhg-jl-k9h"/>
+                <outlet property="statusView" destination="TOz-S5-Fjn" id="Ygb-w3-Y8T"/>
             </connections>
+            <point key="canvasLocation" x="139" y="129"/>
         </tableViewCell>
     </objects>
 </document>

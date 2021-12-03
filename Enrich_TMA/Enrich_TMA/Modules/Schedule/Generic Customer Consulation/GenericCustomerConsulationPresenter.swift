@@ -12,20 +12,20 @@
 
 import UIKit
 
-protocol GenericCustomerConsulationPresentationLogic
-{
-  func presentSomething(response: GenericCustomerConsulation.Something.Response)
+protocol GenericCustomerConsulationPresentationLogic {
+    func presentSuccess<T: Decodable>(response: T)
+    func presentError(responseError: String?)
 }
 
-class GenericCustomerConsulationPresenter: GenericCustomerConsulationPresentationLogic
-{
-  weak var viewController: GenericCustomerConsulationDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: GenericCustomerConsulation.Something.Response)
-  {
-    let viewModel = GenericCustomerConsulation.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class GenericCustomerConsulationPresenter: GenericCustomerConsulationPresentationLogic {
+    weak var viewController: GenericCustomerConsulationDisplayLogic?
+
+    // MARK: Do something
+
+    func presentSuccess<T: Decodable>(response: T) {
+        viewController?.displaySuccess(viewModel: response)
+    }
+    func presentError(responseError: String?) {
+        viewController?.displayError(errorMessage: responseError)
+    }
 }

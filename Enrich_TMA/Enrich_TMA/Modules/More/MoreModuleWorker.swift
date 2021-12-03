@@ -11,56 +11,63 @@
 import UIKit
 
 class MoreModuleWorker {
+
     let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
     // let networkLayer = NetworkLayer() // Uncomment this in case do request using URLsession
     var presenter: MoreModulePresentationLogic?
 
-    func postRequest(request: MoreModule.Something.Request) {
+    func postRequestForCheckInStatus(request: MoreModule.GetCheckInStatus.Request, method: HTTPMethod) {
         // *********** NETWORK CONNECTION
 
         let errorHandler: (String) -> Void = { (error) in
             print(error)
-            self.presenter?.presentSomethingError(responseError: error)
+            self.presenter?.presentError(responseError: error)
         }
-        let successHandler: (MoreModule.Something.Response) -> Void = { (employees) in
+        let successHandler: (MoreModule.GetCheckInStatus.Response) -> Void = { (employees) in
             print(employees)
             let response = employees
-            self.presenter?.presentSomethingSuccess(response: response)
+            self.presenter?.presentSuccess(response: response)
         }
 
-        let emp1 = MoreModule.Something.Request(name: request.name, salary: request.salary, age: request.age)
-        self.networkLayer.post(urlString: ConstantAPINames.createData.rawValue,
-                               body: emp1, successHandler: successHandler,
-                               errorHandler: errorHandler, method: .post)
+        self.networkLayer.post(urlString: ConstantAPINames.getCheckInStatus.rawValue, body: request,
+                               headers: ["Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: method)
     }
-    func getRequestWithParameter(request: MoreModule.Something.Request) {
+
+    func postRequestForMarkCheckInOut(request: MoreModule.MarkCheckInOut.Request, method: HTTPMethod) {
+        // *********** NETWORK CONNECTION
 
         let errorHandler: (String) -> Void = { (error) in
             print(error)
-            self.presenter?.presentSomethingError(responseError: error)
+            self.presenter?.presentError(responseError: error)
         }
-        let successHandler: ([MoreModule.Something.Response]) -> Void = { (employees) in
+        let successHandler: (MoreModule.MarkCheckInOut.Response) -> Void = { (employees) in
             print(employees)
-            //self.view?.displayEmployees(employees: employees)
+            let response = employees
+            self.presenter?.presentSuccess(response: response)
         }
-        self.networkLayer.get(urlString: "http://dummy.restapiexample.com/api/v1/employees",
-                              successHandler: successHandler,
-                              errorHandler: errorHandler)
-    }
-    func getRequestWithoutParameter() {
 
-        let successHandler: ([MoreModule.Something.Response]) -> Void = { (employees) in
-            print(employees)
-            self.presenter?.presentSomethingSuccessFor(response: employees)
-        }
+        self.networkLayer.post(urlString: ConstantAPINames.markCheckInOut.rawValue, body: request,
+                               headers: ["Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: method)
+    }
+
+    func postRequestForCheckInOutDetails(request: MoreModule.CheckInOutDetails.Request, method: HTTPMethod) {
+        // *********** NETWORK CONNECTION
+
         let errorHandler: (String) -> Void = { (error) in
             print(error)
-            self.presenter?.presentSomethingError(responseError: error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (MoreModule.CheckInOutDetails.Response) -> Void = { (employees) in
+            print(employees)
+            let response = employees
+            self.presenter?.presentSuccess(response: response)
         }
 
-        self.networkLayer.get(urlString: "http://dummy.restapiexample.com/api/v1/employees",
-                              successHandler: successHandler,
-                              errorHandler: errorHandler)
+        self.networkLayer.post(urlString: ConstantAPINames.getCheckInOutDetails.rawValue, body: request,
+                               headers: ["Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                               successHandler: successHandler, errorHandler: errorHandler, method: method)
     }
 
 }

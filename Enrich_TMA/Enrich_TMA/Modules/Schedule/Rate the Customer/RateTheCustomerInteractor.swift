@@ -12,30 +12,20 @@
 
 import UIKit
 
-protocol RateTheCustomerBusinessLogic
-{
-  func doSomething(request: RateTheCustomer.Something.Request)
+protocol RateTheCustomerBusinessLogic {
+    func doPostRating(request: AddNewNote.ObserveNote.Request, method: HTTPMethod)
 }
 
-protocol RateTheCustomerDataStore
-{
-  //var name: String { get set }
-}
+class RateTheCustomerInteractor: RateTheCustomerBusinessLogic {
+    var presenter: RateTheCustomerPresentationLogic?
+    var worker: RateTheCustomerWorker?
+    //var name: String = ""
 
-class RateTheCustomerInteractor: RateTheCustomerBusinessLogic, RateTheCustomerDataStore
-{
-  var presenter: RateTheCustomerPresentationLogic?
-  var worker: RateTheCustomerWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: RateTheCustomer.Something.Request)
-  {
-    worker = RateTheCustomerWorker()
-    worker?.doSomeWork()
-    
-    let response = RateTheCustomer.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    // MARK: Do something
+
+    func doPostRating(request: AddNewNote.ObserveNote.Request, method: HTTPMethod) {
+        worker = RateTheCustomerWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForAddRating(request: request, method: method)
+    }
 }

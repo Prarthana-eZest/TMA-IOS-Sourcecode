@@ -12,20 +12,21 @@
 
 import UIKit
 
-protocol MyProfilePresentationLogic
-{
-  func presentSomething(response: MyProfile.Something.Response)
+protocol MyProfilePresentationLogic {
+    func presentGetProfileSuccess<T: Decodable>(response: T)
+    func presentGetProfileError(responseError: String?)
 }
 
-class MyProfilePresenter: MyProfilePresentationLogic
-{
-  weak var viewController: MyProfileDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: MyProfile.Something.Response)
-  {
-    let viewModel = MyProfile.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class MyProfilePresenter: MyProfilePresentationLogic {
+    weak var viewController: MyProfileDisplayLogic?
+
+    // MARK: Do something
+
+    func presentGetProfileSuccess<T>(response: T) where T: Decodable {
+        viewController?.displaySuccess(viewModel: response)
+    }
+
+    func presentGetProfileError(responseError: String?) {
+        viewController?.displayError(errorMessage: responseError)
+    }
 }

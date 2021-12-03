@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="ShowListingView" id="iN0-l3-epB" customClass="ShowListingView" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xm9-VD-TKH">
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nBA-eh-HUl">
+                    <rect key="frame" x="0.0" y="270" width="375" height="50"/>
+                    <color key="backgroundColor" white="0.77213541666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="KtS-N1-QYS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="39"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="10"/>
+                    <state key="normal" title="x">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="actionClose:" destination="iN0-l3-epB" eventType="touchUpInside" id="jTt-vV-5K5"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stores" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXJ-Du-SJu">
+                    <rect key="frame" x="16" y="270" width="58.5" height="50"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="6yP-J0-SrJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="22"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="heightClass=regular-widthClass=regular">
+                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="22"/>
+                    </variation>
+                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="H0N-bn-NkX">
+                    <rect key="frame" x="0.0" y="320" width="375" height="347"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="iN0-l3-epB" id="0mj-Dx-F8o"/>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="SLu-0e-D2V"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="nBA-eh-HUl" secondAttribute="trailing" id="4xD-lD-cXI"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="7Mr-hn-tVZ"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="8xD-Cr-16Q"/>
+                <constraint firstItem="xm9-VD-TKH" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="AqB-zu-PFV"/>
+                <constraint firstItem="nBA-eh-HUl" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Asv-Xd-ytF"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="top" secondItem="nBA-eh-HUl" secondAttribute="bottom" id="BzM-5X-3DW"/>
+                <constraint firstItem="xm9-VD-TKH" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Dpt-kY-7P7"/>
+                <constraint firstItem="VXJ-Du-SJu" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="GcI-br-0Bo"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="top" secondItem="VXJ-Du-SJu" secondAttribute="bottom" id="H52-5F-3Ls"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="Iwb-yR-c9I"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="300" id="OiB-EK-ct0"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ank-Uj-7zN"/>
+                <constraint firstItem="xm9-VD-TKH" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="obn-Do-t3y"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="r5Y-ci-DwC"/>
+                <constraint firstItem="xm9-VD-TKH" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="uQD-Zx-SpC"/>
+                <constraint firstItem="H0N-bn-NkX" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="zaO-eu-kGf"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="lblTitle" destination="VXJ-Du-SJu" id="rEJ-fk-naQ"/>
+                <outlet property="tblShowList" destination="H0N-bn-NkX" id="tV8-Ox-Xce"/>
+                <outlet property="viewBackground" destination="xm9-VD-TKH" id="AeB-hb-fts"/>
+            </connections>
+            <point key="canvasLocation" x="-986.39999999999998" y="139.880059970015"/>
+        </view>
+    </objects>
+</document>

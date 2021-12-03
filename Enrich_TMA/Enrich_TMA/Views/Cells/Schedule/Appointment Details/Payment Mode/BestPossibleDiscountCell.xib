@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTDemi.otf">
+            <string>FuturaPT-Demi</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BestPossibleDiscountCell" rowHeight="83" id="KGk-i7-Jjw" customClass="BestPossibleDiscountCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="83"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="83"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sB3-os-MOH">
+                        <rect key="frame" x="0.0" y="5" width="428" height="60"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discountPercent" translatesAutoresizingMaskIntoConstraints="NO" id="NFx-y6-VGf">
+                                <rect key="frame" x="30" y="17.5" width="25" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="KcQ-Bb-byU">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
+                                    <constraint firstAttribute="height" constant="25" id="rqA-4A-ikB">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Applied Offers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pU0-y1-F0K">
+                                <rect key="frame" x="70" y="17" width="308" height="26"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="20"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="28"/>
+                                </variation>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nextBlack" translatesAutoresizingMaskIntoConstraints="NO" id="GzV-g9-gW5">
+                                <rect key="frame" x="393" y="20" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="of6-Yi-6zc">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
+                                    <constraint firstAttribute="width" constant="20" id="pPG-Qu-yei">
+                                        <variation key="heightClass=regular-widthClass=regular" constant="30"/>
+                                    </constraint>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UXG-GV-6hz">
+                                <rect key="frame" x="301" y="0.0" width="120" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="TeE-Q5-i3H"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="actionNext:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YLb-zn-2v5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.92941176469999998" green="0.97647058819999999" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="GzV-g9-gW5" firstAttribute="centerY" secondItem="sB3-os-MOH" secondAttribute="centerY" id="6Qt-u2-hYu"/>
+                            <constraint firstAttribute="trailing" secondItem="GzV-g9-gW5" secondAttribute="trailing" constant="15" id="KJQ-CZ-ZCK"/>
+                            <constraint firstItem="pU0-y1-F0K" firstAttribute="leading" secondItem="NFx-y6-VGf" secondAttribute="trailing" constant="15" id="WQW-nD-gNm">
+                                <variation key="heightClass=regular-widthClass=regular" constant="25"/>
+                            </constraint>
+                            <constraint firstItem="GzV-g9-gW5" firstAttribute="leading" secondItem="pU0-y1-F0K" secondAttribute="trailing" constant="15" id="ZsR-oK-8yK"/>
+                            <constraint firstAttribute="bottom" secondItem="UXG-GV-6hz" secondAttribute="bottom" id="bPL-TL-wb5"/>
+                            <constraint firstItem="UXG-GV-6hz" firstAttribute="top" secondItem="sB3-os-MOH" secondAttribute="top" id="dsE-Zw-tZo"/>
+                            <constraint firstItem="pU0-y1-F0K" firstAttribute="centerY" secondItem="sB3-os-MOH" secondAttribute="centerY" id="e8H-L1-oFz"/>
+                            <constraint firstItem="NFx-y6-VGf" firstAttribute="centerY" secondItem="sB3-os-MOH" secondAttribute="centerY" id="ebb-s3-uNv"/>
+                            <constraint firstAttribute="height" constant="60" id="h8g-Ic-VgT">
+                                <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                            </constraint>
+                            <constraint firstAttribute="trailing" secondItem="UXG-GV-6hz" secondAttribute="trailing" constant="7" id="sUa-os-dsm"/>
+                            <constraint firstItem="NFx-y6-VGf" firstAttribute="leading" secondItem="sB3-os-MOH" secondAttribute="leading" constant="30" id="xWw-9z-rsh">
+                                <variation key="heightClass=regular-widthClass=regular" constant="45"/>
+                            </constraint>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="sB3-os-MOH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="1sL-Ad-9iR"/>
+                    <constraint firstAttribute="trailing" secondItem="sB3-os-MOH" secondAttribute="trailing" id="MCP-Qs-Was"/>
+                    <constraint firstItem="sB3-os-MOH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="TZ6-V8-hfl"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="sB3-os-MOH" secondAttribute="bottom" constant="5" id="aXF-Z0-omV"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="215.94202898550725" y="134.93303571428569"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="discountPercent" width="26" height="27"/>
+        <image name="nextBlack" width="13" height="25"/>
+    </resources>
+</document>

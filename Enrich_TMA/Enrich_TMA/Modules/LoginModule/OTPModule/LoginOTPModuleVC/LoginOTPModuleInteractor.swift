@@ -12,12 +12,14 @@ protocol LoginOTPModuleBusinessLogic {
 }
 
 protocol LoginOTPModuleDataStore {
-  //var name: String { get set }
+    //var name: String { get set }
 }
 
 class LoginOTPModuleInteractor: LoginOTPModuleBusinessLogic, LoginOTPModuleDataStore {
-  var presenter: LoginOTPModulePresentationLogic?
-  var worker: LoginOTPModuleWorker?
+
+    var presenter: LoginOTPModulePresentationLogic?
+    var worker: LoginOTPModuleWorker?
+
     // MARK: Do something
     func doPostRequest(request: LoginOTPModule.OTP.Request, method: HTTPMethod) {
         worker = LoginOTPModuleWorker()

@@ -20,15 +20,15 @@ class ServiceCell: UICollectionViewCell {
 
     func configureCell(productDetails: ServiceModel ) {
         self.serviceNameLabel.text = productDetails.name
-        self.backgroundImageView.image = UIImage(named: "categoryPlaceholderImg")
+        self.backgroundImageView.image = UIImage(named: "imgCategoryProd")
 
-//        if  let userSelectionForService = UserDefaults.standard.value( UserSelectedLocation.self, forKey: UserDefauiltsKeys.k_Key_SelectedSalonAndGenderForService) {
-//            let imageURL: String = (userSelectionForService.gender == PersonType.male ? productDetails.male_img : productDetails.female_img)
-//            if !imageURL.isEmpty {
-//                let url = URL(string: imageURL )
-//                self.backgroundImageView.kf.setImage(with: url, placeholder: UIImage(named: "categoryPlaceholderImg"), options: nil, progressBlock: nil, completionHandler: nil)
-//            }
-//        }
+        if  let userSelectionForService = UserDefaults.standard.value( UserSelectedLocation.self, forKey: UserDefauiltsKeys.k_Key_SelectedSalonAndGenderForService) {
+            let imageURL: String = (userSelectionForService.gender == PersonType.male ? productDetails.male_img : productDetails.female_img)
+            if !imageURL.isEmpty {
+                let url = URL(string: imageURL )
+                self.backgroundImageView.kf.setImage(with: url, placeholder: UIImage(named: "imgCategoryProd"), options: nil, progressBlock: nil, completionHandler: nil)
+            }
+        }
 
 //        if !productDetails.female_img.isEmpty {
 //            let url = URL(string:productDetails.female_img)

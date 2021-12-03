@@ -12,9 +12,28 @@
 
 import UIKit
 
-class MyProfileWorker
-{
-  func doSomeWork()
-  {
-  }
+class MyProfileWorker {
+    let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
+    var presenter: MyProfilePresentationLogic?
+
+    func getRequestForUserProfile(employeeId: String?) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentGetProfileError(responseError: error)
+        }
+        let successHandler: (MyProfile.GetUserProfile.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentGetProfileSuccess(response: response)
+        }
+
+        var url = ConstantAPINames.getUserProfile.rawValue
+        if let id = employeeId {
+            url.append("&employee_id=\(id)")
+        }
+
+        self.networkLayer.get(urlString: url, headers: ["Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"], successHandler: successHandler, errorHandler: errorHandler)
+
+    }
+
 }

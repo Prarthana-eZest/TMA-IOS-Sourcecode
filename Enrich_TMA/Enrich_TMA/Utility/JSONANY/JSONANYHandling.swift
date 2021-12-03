@@ -9,24 +9,19 @@
 import Foundation
 // MARK: - Encode/decode helpers
 class JSONNull: Codable, Hashable {
-
     public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
         return true
     }
-
     public var hashValue: Int {
         return 0
     }
-
     public init() {}
-
     public required init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         if !container.decodeNil() {
             throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
         }
     }
-
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
         try container.encodeNil()
@@ -34,7 +29,6 @@ class JSONNull: Codable, Hashable {
 }
 class JSONCodingKey: CodingKey {
     let key: String
-
     required init?(intValue: Int) {
         return nil
     }
@@ -137,7 +131,6 @@ class JSONAny: Codable {
         }
         throw decodingError(forCodingPath: container.codingPath)
     }
-
     static func decodeArray(from container: inout UnkeyedDecodingContainer) throws -> [Any] {
         var arr: [Any] = []
         while !container.isAtEnd {
@@ -146,7 +139,6 @@ class JSONAny: Codable {
         }
         return arr
     }
-
     static func decodeDictionary(from container: inout KeyedDecodingContainer<JSONCodingKey>) throws -> [String: Any] {
         var dict = [String: Any]()
         for key in container.allKeys {
@@ -155,91 +147,113 @@ class JSONAny: Codable {
         }
         return dict
     }
-
     static func encode(to container: inout UnkeyedEncodingContainer, array: [Any]) throws {
         for value in array {
             if let value = value as? Bool {
                 try container.encode(value)
-            } else if let value = value as? Int64 {
+            }
+            else if let value = value as? Int64 {
                 try container.encode(value)
-            } else if let value = value as? Double {
+            }
+            else if let value = value as? Double {
                 try container.encode(value)
-            } else if let value = value as? String {
+            }
+            else if let value = value as? String {
                 try container.encode(value)
-            } else if value is JSONNull {
+            }
+            else if value is JSONNull {
                 try container.encodeNil()
-            } else if let value = value as? [Any] {
+            }
+            else if let value = value as? [Any] {
                 var container = container.nestedUnkeyedContainer()
                 try encode(to: &container, array: value)
-            } else if let value = value as? [String: Any] {
+            }
+            else if let value = value as? [String: Any] {
                 var container = container.nestedContainer(keyedBy: JSONCodingKey.self)
                 try encode(to: &container, dictionary: value)
-            } else {
+            }
+            else {
                 throw encodingError(forValue: value, codingPath: container.codingPath)
             }
         }
     }
-
     static func encode(to container: inout KeyedEncodingContainer<JSONCodingKey>, dictionary: [String: Any]) throws {
         for (key, value) in dictionary {
-            let key = JSONCodingKey(stringValue: key)!
-            if let value = value as? Bool {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? Int64 {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? Double {
-                try container.encode(value, forKey: key)
-            } else if let value = value as? String {
-                try container.encode(value, forKey: key)
-            } else if value is JSONNull {
-                try container.encodeNil(forKey: key)
-            } else if let value = value as? [Any] {
-                var container = container.nestedUnkeyedContainer(forKey: key)
-                try encode(to: &container, array: value)
-            } else if let value = value as? [String: Any] {
-                var container = container.nestedContainer(keyedBy: JSONCodingKey.self, forKey: key)
-                try encode(to: &container, dictionary: value)
-            } else {
+            if let key = JSONCodingKey(stringValue: key) {
+                if let value = value as? Bool {
+                    try container.encode(value, forKey: key)
+                }
+                else if let value = value as? Int64 {
+                    try container.encode(value, forKey: key)
+                }
+                else if let value = value as? Double {
+                    try container.encode(value, forKey: key)
+                }
+                else if let value = value as? String {
+                    try container.encode(value, forKey: key)
+                }
+                else if value is JSONNull {
+                    try container.encodeNil(forKey: key)
+                }
+                else if let value = value as? [Any] {
+                    var container = container.nestedUnkeyedContainer(forKey: key)
+                    try encode(to: &container, array: value)
+                }
+                else if let value = value as? [String: Any] {
+                    var container = container.nestedContainer(keyedBy: JSONCodingKey.self, forKey: key)
+                    try encode(to: &container, dictionary: value)
+                }
+                else {
+                    throw encodingError(forValue: value, codingPath: container.codingPath)
+                }
+            }
+            else {
                 throw encodingError(forValue: value, codingPath: container.codingPath)
             }
         }
     }
-
     static func encode(to container: inout SingleValueEncodingContainer, value: Any) throws {
         if let value = value as? Bool {
             try container.encode(value)
-        } else if let value = value as? Int64 {
+        }
+        else if let value = value as? Int64 {
             try container.encode(value)
-        } else if let value = value as? Double {
+        }
+        else if let value = value as? Double {
             try container.encode(value)
-        } else if let value = value as? String {
+        }
+        else if let value = value as? String {
             try container.encode(value)
-        } else if value is JSONNull {
+        }
+        else if value is JSONNull {
             try container.encodeNil()
-        } else {
+        }
+        else {
             throw encodingError(forValue: value, codingPath: container.codingPath)
         }
     }
-
     public required init(from decoder: Decoder) throws {
         if var arrayContainer = try? decoder.unkeyedContainer() {
             self.value = try JSONAny.decodeArray(from: &arrayContainer)
-        } else if var container = try? decoder.container(keyedBy: JSONCodingKey.self) {
+        }
+        else if var container = try? decoder.container(keyedBy: JSONCodingKey.self) {
             self.value = try JSONAny.decodeDictionary(from: &container)
-        } else {
+        }
+        else {
             let container = try decoder.singleValueContainer()
             self.value = try JSONAny.decode(from: container)
         }
     }
-
     public func encode(to encoder: Encoder) throws {
         if let arr = self.value as? [Any] {
             var container = encoder.unkeyedContainer()
             try JSONAny.encode(to: &container, array: arr)
-        } else if let dict = self.value as? [String: Any] {
+        }
+        else if let dict = self.value as? [String: Any] {
             var container = encoder.container(keyedBy: JSONCodingKey.self)
             try JSONAny.encode(to: &container, dictionary: dict)
-        } else {
+        }
+        else {
             var container = encoder.singleValueContainer()
             try JSONAny.encode(to: &container, value: self.value)
         }

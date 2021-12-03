@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E3D1969A233105DA006597BA"
-               BuildableName = "Enrich_TMA.app"
+               BuildableName = "TMA_Stage.app"
                BlueprintName = "Enrich_TMA"
                ReferencedContainer = "container:Enrich_TMA.xcodeproj">
             </BuildableReference>
@@ -27,19 +27,17 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3D1969A233105DA006597BA"
-            BuildableName = "Enrich_TMA.app"
+            BuildableName = "TMA_Stage.app"
             BlueprintName = "Enrich_TMA"
             ReferencedContainer = "container:Enrich_TMA.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -56,13 +54,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3D1969A233105DA006597BA"
-            BuildableName = "Enrich_TMA.app"
+            BuildableName = "TMA_Stage.app"
             BlueprintName = "Enrich_TMA"
             ReferencedContainer = "container:Enrich_TMA.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
@@ -75,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E3D1969A233105DA006597BA"
-            BuildableName = "Enrich_TMA.app"
+            BuildableName = "TMA_Stage.app"
             BlueprintName = "Enrich_TMA"
             ReferencedContainer = "container:Enrich_TMA.xcodeproj">
          </BuildableReference>

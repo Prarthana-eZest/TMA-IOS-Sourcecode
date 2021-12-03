@@ -12,30 +12,21 @@
 
 import UIKit
 
-protocol MyCustomersBusinessLogic
-{
-  func doSomething(request: MyCustomers.Something.Request)
+protocol MyCustomersBusinessLogic {
+    func doPostGetMyCustomersRequest(request: MyCustomers.GetCustomers.Request, method: HTTPMethod)
 }
 
-protocol MyCustomersDataStore
-{
-  //var name: String { get set }
-}
+class MyCustomersInteractor: MyCustomersBusinessLogic {
 
-class MyCustomersInteractor: MyCustomersBusinessLogic, MyCustomersDataStore
-{
-  var presenter: MyCustomersPresentationLogic?
-  var worker: MyCustomersWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: MyCustomers.Something.Request)
-  {
-    worker = MyCustomersWorker()
-    worker?.doSomeWork()
-    
-    let response = MyCustomers.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    var presenter: MyCustomersPresentationLogic?
+    var worker: MyCustomersWorker?
+    //var name: String = ""
+
+    // MARK: Do something
+
+    func doPostGetMyCustomersRequest(request: MyCustomers.GetCustomers.Request, method: HTTPMethod) {
+        worker = MyCustomersWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForMyCustomers(request: request, method: method)
+    }
 }

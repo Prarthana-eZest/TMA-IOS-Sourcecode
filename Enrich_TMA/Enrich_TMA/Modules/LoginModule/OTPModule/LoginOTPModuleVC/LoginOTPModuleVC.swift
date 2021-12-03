@@ -12,11 +12,10 @@ protocol LoginOTPModuleDisplayLogic: class {
 }
 
 class LoginOTPModuleVC: DesignableViewController, LoginOTPModuleDisplayLogic {
+
     @IBOutlet weak private var imgLogo: UIImageView!
-    @IBOutlet weak private var txtFieldCustomObj: CustomTextField!
+    @IBOutlet weak private var txtFUserName: CustomTextField!
     @IBOutlet weak private var btnProceed: UIButton!
-    @IBOutlet weak private var lblDescription: UILabel!
-    @IBOutlet weak private var txtCountryCode: CustomTextField!
 
     private  var userFirstName: String?
     private  var userLastName: String?
@@ -56,20 +55,24 @@ class LoginOTPModuleVC: DesignableViewController, LoginOTPModuleDisplayLogic {
         initialSetUp()
     }
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
         self.navigationController?.addCustomBackButton(title: "")
-
+        KeyboardAnimation.sharedInstance.beginKeyboardObservation(self.view)
+        self.txtFUserName.text = ""
     }
+
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewWillDisappear(animated)
         hideKeyboard()
+        KeyboardAnimation.sharedInstance.endKeyboardObservation()
     }
     // MARK: initialSetUp
     func initialSetUp() {
         hideKeyboardWhenTappedAround()
         btnProceed.isEnabled = false
         title = "Login"
-        [txtFieldCustomObj, txtCountryCode].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingChanged) })
+        [txtFUserName].forEach({ $0.addTarget(self, action: #selector(editingChanged), for: .editingChanged) })
     }
 
     // MARK: PassData
@@ -83,57 +86,52 @@ class LoginOTPModuleVC: DesignableViewController, LoginOTPModuleDisplayLogic {
 
     // MARK: IBActions
     @IBAction func actionBtnProceed(_ sender: Any) {
-        txtCountryCode.resignFirstResponder()
-        txtFieldCustomObj.resignFirstResponder()
-        connectToServerForMobileOTP(mobileNumber: self.txtFieldCustomObj.text ?? "")
+        txtFUserName.resignFirstResponder()
+        connectToServerForMobileOTP(userName: txtFUserName.text ?? "")
     }
-    
+
     @IBAction func actionBackToLogin(_ sender: Any) {
-        self.navigationController?.popViewController(animated:true)
+        self.navigationController?.popViewController(animated: true)
     }
-    
+
 }
 
 // MARK: Call Webservice
 extension LoginOTPModuleVC {
-    func connectToServerForMobileOTP(mobileNumber: String) {
+
+    func connectToServerForMobileOTP(userName: String) {
         EZLoadingActivity.show("Loading...", disableUI: true)
-        if((delegate) != nil) {
-            let request = LoginOTPModule.OTP.Request(mobile_number: mobileNumber)
-            interactor?.doPostRequest(request: request, method: HTTPMethod.post)
-        } else {
-            let request = LoginOTPModule.OTP.Request(mobile_number: mobileNumber)
-            interactor?.doPostRequest(request: request, method: HTTPMethod.post)
-        }
+
+        let request = LoginOTPModule.OTP.Request(username: userName)
+        interactor?.doPostRequest(request: request, method: HTTPMethod.post)
     }
 
     func displaySuccessLoginOTPModule<T: Decodable>(viewModel: T) {
         EZLoadingActivity.hide(true, animated: false)
-        let obj: LoginOTPModule.OTP.Response = viewModel as! LoginOTPModule.OTP.Response
 
-        if((delegate) != nil) {
-            if(obj.status == true) {
-                UserDefaults.standard.set(encodable: obj, forKey: UserDefauiltsKeys.k_Key_LoginUserOTPDetails)
-            }
-
+        if delegate != nil {
             delegate?.displaySuccessLoginOTPModule(viewModel: viewModel)
             return
         }
-        if(obj.status == true) {
-            UserDefaults.standard.set(encodable: obj, forKey: UserDefauiltsKeys.k_Key_LoginUserOTPDetails)
 
-            let vc = OTPVerificationModuleVC.instantiate(fromAppStoryboard: .Login)
-            vc.passData(firstName: userFirstName ?? "", lastName: userLastName ?? "", gender: userGender, mobileNumber: txtFieldCustomObj.text ?? "", userFaceBookOrGoogleEmail: "", referalCode: userReferalCode ?? "", OTPCode: obj.data?.otpcode ?? "", otherInclinedGender: userOtherInclinedGender ?? "", countryCode: txtCountryCode.text ?? "" )
-            self.navigationController?.pushViewController(vc, animated: true)
+       if let obj = viewModel as? LoginOTPModule.OTP.Response {
+
+            if obj.status == true {
+                let vc = OTPVerificationModuleVC.instantiate(fromAppStoryboard: .Login)
+                vc.userName = txtFUserName.text ?? ""
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            showAlert(alertTitle: alertTitle, alertMessage: obj.message ?? "")
         }
     }
+
     func displayErrorLoginOTPModule(errorMessage: String?) {
         EZLoadingActivity.hide()
-        if((delegate) != nil) {
+        if delegate != nil {
             delegate?.displayErrorLoginOTPModule(errorMessage: errorMessage)
             return
         }
-        showAlert(alertTitle: alertTitle, alertMessage: errorMessage!)
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "")
     }
 }
 
@@ -146,29 +144,18 @@ extension LoginOTPModuleVC: UITextFieldDelegate {
 }
 
 extension LoginOTPModuleVC {
+
     @objc func editingChanged(_ textField: UITextField) {
         btnProceed.isEnabled = false
         btnProceed.isSelected = false
         imgLogo.image = UIImage(named: ImageNames.disabledLogo.rawValue)
 
-        if textField.text?.count == 1 {
-            if textField.text?.first == " "{
-                textField.text = ""
-                return
-            }
-        }
-        guard
-            let mobileNumber = self.txtFieldCustomObj.text?.trim(), !mobileNumber.isEmpty, mobileNumber.count > 9,
-            let countryCode = self.txtCountryCode.text?.trim(), !countryCode.isEmpty
+        let text = (txtFUserName.text ?? "").trim()
 
-            else {
-                btnProceed.isEnabled = false
-                btnProceed.isSelected = false
-                imgLogo.image = UIImage(named: ImageNames.disabledLogo.rawValue)
-                return
+        if !text.isEmpty {
+            btnProceed.isEnabled = true
+            imgLogo.image = UIImage(named: ImageNames.enabledLogo.rawValue)
+            btnProceed.isSelected = true
         }
-        btnProceed.isEnabled = true
-        imgLogo.image = UIImage(named: ImageNames.enabledLogo.rawValue)
-        btnProceed.isSelected = true
     }
 }

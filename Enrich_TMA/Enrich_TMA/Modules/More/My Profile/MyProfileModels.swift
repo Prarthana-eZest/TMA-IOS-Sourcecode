@@ -12,40 +12,178 @@
 
 import UIKit
 
-enum MyProfile
-{
+enum MyProfile {
     // MARK: Use cases
-    
-    enum Something
-    {
-        struct Request
-        {
+
+    enum GetUserProfile {
+
+        struct Request: Codable {
+            let is_custom: Bool = true
         }
-        struct Response
-        {
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            var data: UserData?
         }
-        struct ViewModel
-        {
+
+        struct UserData: Codable {
+            let username: String?
+            let admin_id: String?
+            let firstname: String?
+            let middlename: String?
+            let lastname: String?
+            let nickname: String?
+            let employee_code: String?
+            let employee_id: String?
+            let birthdate: String?
+            let designation: String?
+            let base_salon_code: String?
+            let base_salon_name: String?
+            let joining_date: String?
+            let category: String?
+            let profile_pic: String?
+            let rating: AnyCodable?
+            let mobile_number: String?
+            let email: String?
+            let address: [Address]?
+            let gender: String?
+            let salon_id: String?
+            let work_number: String?
+            let status: String?
+            let customer_count: String?
+            let service: [Service]?
+            let is_technician: String?
+            let is_belita_technician: String?
+            let salon_opening_time_label: String?
+            let salon_closing_time_label: String?
+            let salon_opening_time: String?
+            let salon_closing_time: String?
+            let customers: Customer?
+            let incentive_dashboard_enabled: Bool?
+            let tenure: String?
+            let band: String?
+            let role: String?
+        }
+
+        struct Address: Codable {
+            let line_1: String?
+            let line_2: String?
+            let city: String?
+            let state: String?
+            let country: String?
+        }
+
+        struct Service: Codable {
+            let service_id: String?
+            let service_name: String?
+            let service_sku: String?
+        }
+        
+        struct Customer: Codable {
+            let male: AnyCodable?
+            let female: AnyCodable?
+            let other: AnyCodable?
         }
     }
-}
 
-let profileSections:[MyProfileSection] =
-    [MyProfileSection(title:"Personal details",data:[MyProfileModel(title:"Date of joining",value:"DD/MM/YYY"),
-                                                     MyProfileModel(title:"Gender",value:"Male"),
-                                                     MyProfileModel(title:"Mobile No",value:"9876532445"),
-                                                     MyProfileModel(title:"Home Contact No",value:"020-27281174"),
-                                                     MyProfileModel(title:"Email Id",value:"abc@gmail.com"),
-                                                     MyProfileModel(title:"Passport No",value:"DFHH353456CV"),
-                                                     MyProfileModel(title:"Address",value:"terad xdgfg adgdfhZC zdgdghvbvx fhgdb fhghfg xfgdfgdf")]),
-    MyProfileSection(title:"Professional details",data:[MyProfileModel(title:"Employee Code",value:"1234"),
-                                                   MyProfileModel(title:"Nick Name",value:"Parmo"),
-                                                   MyProfileModel(title:"Experience",value:"5 Years"),
-                                                   MyProfileModel(title:"Center",value:"Aundh"),
-                                                   MyProfileModel(title:"Category",value:"Hair"),
-                                                   MyProfileModel(title:"Designation/Role",value:"Maste Stylist"),
-                                                   MyProfileModel(title:"Services Performed",value:"Service 1,Service 2")]),
-    MyProfileSection(title:"Shift details",data:[MyProfileModel(title:"Working Hours",value:"10 Hour"),
-                                                 MyProfileModel(title:"Shift Timing",value:"Shift 1(10.00 - 8.00)"),
-                                                 MyProfileModel(title:"Working Hours",value:"10 Hour"),
-                                                 MyProfileModel(title:"Status",value:"Active")])]
+    enum GetServiceList {
+
+        struct Request: Codable {
+            let is_custom: Bool = true
+            let page_no: Int?
+            let technician_id: String?
+            let limit: Int?
+            let salon_id: String?
+            let service_type: String?
+            let gender: String?
+            let search_text: String?
+            var is_dependant_service: Int?
+            var customer_id: String?
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            var data: Data?
+        }
+
+        struct Data: Codable {
+            let service_count: Int?
+            let service_list: [Service_list]?
+            let total_records: Int?
+        }
+
+        struct Service_list: Codable {
+            let entity_id: String?
+            let type_id: String?
+            let name: String?
+            let price: Double?
+            let taxable_price: Double?
+            let buffer_time: String?
+            let service_id: String?
+            let service_code: String?
+            let store_id: Int64?
+            let min_price: Double?
+            let max_price: Double?
+            let service_category: String?
+            let service_time: String?
+            let parent_item_id: String?
+            let parent_name: String?
+            let parent_sku: String?
+            let product_type: String?
+            let is_consultation_required: String?
+            let bundle_parent_id: String?
+            let configurable_parent_id: String?
+            var startTime: String?
+            var endTime: String?
+            var is_dependant_service: Int?
+            var dependant_name: String?
+            var dependant_gender: String?
+            var dependant_note: String?
+            var dependant_age: String?
+            let gender: String?
+            var dependant_id: Int?
+            var override: Int?
+            let max_qty_allowed: Int?
+        }
+    }
+
+    enum GetRosterDetails {
+
+        struct Request: Codable {
+            let salon_code: String
+            let fromDate: String
+            let toDate: String
+            let employee_id: String
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            var data: [EmployeeData]?
+            var time_stamp: String = ""
+        }
+
+        struct EmployeeData: Codable {
+            let first_name: String?
+            let last_name: String?
+            let category_name: String?
+            let shift_name: String?
+            let start_time: String?
+            let end_time: String?
+            let date: String?
+            let is_leave: Int?
+            let leave_type_id: Int?
+            let leave_type: String?
+            let employee_id: Int64?
+            let roster_id: Int64?
+            let shift_id: Int64?
+            let designation: String?
+            let rating: Double?
+            let attendance_status: String?
+            let appointments: Bool?
+        }
+    }
+
+}

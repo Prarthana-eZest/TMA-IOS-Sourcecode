@@ -12,110 +12,211 @@
 
 import UIKit
 
-protocol SearchByDisplayLogic: class
-{
-    func displaySomething(viewModel: SearchBy.Something.ViewModel)
+enum SearchFrom {
+    case listing, appointmentBooking
 }
 
-class SearchByVC: UIViewController, SearchByDisplayLogic
-{
-    var interactor: SearchByBusinessLogic?
-    @IBOutlet weak var tableView: UITableView!
-
-    @IBOutlet weak var txtfFirstName: UITextField!
-    @IBOutlet weak var txtfLastName: UITextField!
-    @IBOutlet weak var txtfContactNo: UITextField!
-    @IBOutlet weak var txtfEmailAddress: UITextField!
+class SearchByVC: UIViewController, MyCustomersDisplayLogic {
     
-    @IBOutlet weak var btnContinue: UIButton!
+    var interactor: MyCustomersBusinessLogic?
     
-    var searchResult = [SearchCellModel]()
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var txtfFirstName: UITextField!
+    @IBOutlet weak private var txtfLastName: UITextField!
+    @IBOutlet weak private var txtfContactNo: UITextField!
+    @IBOutlet weak private var txtfEmailAddress: UITextField!
+    @IBOutlet weak private var btnContinue: UIButton!
+    @IBOutlet weak private var lblNoRecords: UILabel!
+    
+    var searchResult = [MyCustomers.GetCustomers.Customer]()
+    
+    var selectedIndex = 0
+    
+    var flowFrom: SearchFrom?
+    
+    var serviceType: String = SalonServiceAt.Salon
+    
+    var limit = 20
+    var page_no = 1
+    
+    var total_records = 0
+    
+    var viewDismissBlock: ((Bool, MyCustomers.GetCustomers.Customer?) -> Void)?
     
     // MARK: Object lifecycle
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-    {
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
     
     // MARK: Setup
     
-    private func setup()
-    {
+    private func setup() {
         let viewController = self
-        let interactor = SearchByInteractor()
-        let presenter = SearchByPresenter()
+        let interactor = MyCustomersInteractor()
+        let presenter = MyCustomersPresenter()
         viewController.interactor = interactor
         interactor.presenter = presenter
         presenter.viewController = viewController
     }
     
-    // MARK: Routing
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-    {
-        //    if let scene = segue.identifier {
-        //      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-        //      if let router = router, router.responds(to: selector) {
-        //        router.perform(selector, with: segue)
-        //      }
-        //    }
-    }
-    
     // MARK: View lifecycle
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        doSomething()
         tableView.separatorColor = .clear
-        tableView.register(UINib(nibName: "SearchCell", bundle: nil), forCellReuseIdentifier: "SearchCell")
-        
-        searchResult.removeAll()
-        searchResult.append(contentsOf: [SearchCellModel(userName: "Kalpana Sharma", contactNo: "+91 9876543210", email: "abc@gmail.com", isSelected: false),
-                                         SearchCellModel(userName: "Vinay Sharma", contactNo: "+91 9876543210", email: "abc@gmail.com", isSelected: false),
-                                         SearchCellModel(userName: "Aman Sharma", contactNo: "+91 9876543210", email: "abc@gmail.com", isSelected: false),
-                                         SearchCellModel(userName: "Abhijeet Sharma", contactNo: "+91 9876543210", email: "abc@gmail.com", isSelected: false)])
-        
+        tableView.register(UINib(nibName: CellIdentifier.searchCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.searchCell)
+        tableView.separatorInset = UIEdgeInsets(top: 0, left: UIScreen.main.bounds.width, bottom: 0, right: 0)
+        lblNoRecords.isHidden = true
         tableView.reloadData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait, andRotateTo: UIInterfaceOrientation.portrait)
-        self.navigationController?.addCustomBackButton(title: "Search By")
         KeyboardAnimation.sharedInstance.beginKeyboardObservation(self.view)
+        if flowFrom == .appointmentBooking {
+            showNavigationBarLeftButtons()
+        }
+        else {
+            addSOSButton()
+            self.navigationController?.addCustomBackButton(title: "Search By")
+        }
+        
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         KeyboardAnimation.sharedInstance.endKeyboardObservation()
     }
     
-    // MARK: Do something
-    
-    //@IBOutlet weak var nameTextField: UITextField!
-    
-    func doSomething()
-    {
-        let request = SearchBy.Something.Request()
-        interactor?.doSomething(request: request)
+    @objc func leftButtonAction(sender: UIButton) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    func displaySomething(viewModel: SearchBy.Something.ViewModel)
-    {
-        //nameTextField.text = viewModel.name
+    // MARK: - Top Navigation Bar And  Actions
+    func showNavigationBarLeftButtons() {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 40) )
+        button.setTitleColor(UIColor.black, for: .normal)
+        button.setTitle(" Search By", for: .normal)
+        
+        let imgBackArrow = UIImage(named: "navigationBackButton")
+        button.setImage(imgBackArrow, for: .normal)
+        button.titleLabel?.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 20)
+        button.addTarget(self, action: #selector(leftButtonAction), for: .touchUpInside)
+        let leftButtonItem = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = leftButtonItem
+    }
+    
+    func addSOSButton() {
+        guard let sosImg = UIImage(named: "SOS") else {
+            return
+        }
+        let sosButton = UIBarButtonItem(image: sosImg, style: .plain, target: self, action: #selector(didTapSOSButton))
+        sosButton.tintColor = UIColor.black
+        navigationItem.title = ""
+        if showSOS {
+            navigationItem.rightBarButtonItems = [sosButton]
+        }
+    }
+    
+    @objc func didTapSOSButton() {
+        SOSFactory.shared.raiseSOSRequest()
     }
     
     @IBAction func actionContinue(_ sender: UIButton) {
+        if btnContinue.isEnabled {
+            
+            let customer = searchResult[selectedIndex - 1]
+            
+            if flowFrom == .appointmentBooking {
+                
+                if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+                    
+                    if serviceType == SalonServiceAt.home,
+                        let customerGender = customer.gender,
+                        let techGender = userData.gender {
+                        
+                        if techGender == "3" {
+                            if customerGender != "3" {
+                                self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.otherCustomerSelectionValidation, seconds: toastMessageDuration)
+                                return
+                            }
+                            else if customer.inclined_other_gender == nil{
+                                self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.inclined_gender_missing, seconds: toastMessageDuration)
+                                return
+                            }
+                            else {
+                                self.viewDismissBlock?(true, customer)
+                                self.navigationController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                        else {
+                            if customerGender == "3" {
+                                
+                                guard let inclinedGender = customer.inclined_other_gender  else {
+                                    self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.inclined_gender_missing, seconds: toastMessageDuration)
+                                    return
+                                }
+                                                                
+                                if techGender == "1" && inclinedGender.lowercased() != "male" {
+                                    self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.otherMaleCustomerSelectionValidation, seconds: toastMessageDuration)
+                                    return
+                                }
+                                else if techGender == "2" && inclinedGender.lowercased() != "female" {
+                                    self.showToast(alertTitle: alertTitle, message: AlertMessagesToAsk.otherFemaleCustomerSelectionValidation, seconds: toastMessageDuration)
+                                    return
+                                }
+                                
+                                self.viewDismissBlock?(true, customer)
+                                self.navigationController?.dismiss(animated: true, completion: nil)
+                            }
+                            else if (customerGender != techGender) {
+                                let alert = techGender == "1" ? AlertMessagesToAsk.maleCustomerSelectionValidation : AlertMessagesToAsk.femaleCustomerSelectionValidation
+                                self.showToast(alertTitle: alertTitle, message: alert, seconds: toastMessageDuration)
+                                return
+                            }
+                            else {
+                                self.viewDismissBlock?(true, customer)
+                                self.navigationController?.dismiss(animated: true, completion: nil)
+                            }
+                        }
+                    }
+                    else {
+                        self.viewDismissBlock?(true, customer)
+                        self.navigationController?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
+            else {
+                let vc = CustomerDetailsVC.instantiate(fromAppStoryboard: .More)
+                vc.customerDetails = customer
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+        }
+    }
+    
+    @IBAction func actionSearch(_ sender: UIButton) {
+        guard !(txtfContactNo.text ?? "").isEmpty ||
+            !(txtfFirstName.text ?? "").isEmpty ||
+            !(txtfLastName.text ?? "").isEmpty ||
+            !(txtfEmailAddress.text ?? "").isEmpty else {
+                searchResult.removeAll()
+                tableView.reloadData()
+                lblNoRecords.isHidden = false
+                return
+        }
+        page_no = 1
+        total_records = 0
+        searchCustomer()
     }
     
 }
@@ -131,24 +232,74 @@ extension SearchByVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell") as? SearchCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.searchCell) as? SearchCell else {
             return UITableViewCell()
         }
-        cell.configureCell(model: searchResult[indexPath.row])
+        let isSelected = ((selectedIndex != 0) && (selectedIndex - 1 == indexPath.row))
+        cell.configureCell(model: searchResult[indexPath.row], isSelected: isSelected)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selection: \(indexPath.row)")
-        for index in 0...(searchResult.count - 1){
-            searchResult[index].isSelected = false
-        }
-        searchResult[indexPath.row].isSelected = true
+        selectedIndex = indexPath.row + 1
+        btnContinue.isEnabled = true
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        print("Row index: \(indexPath.row)")
+        if indexPath.row == (searchResult.count - 1) &&
+            searchResult.count < total_records {
+            page_no += 1
+            self.searchCustomer()
+        }
+    }
+}
+
+extension SearchByVC {
+    
+    func searchCustomer() {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            
+            let technician = flowFrom == .appointmentBooking ? "" : (userData.employee_id ?? "")
+            let filter = MyCustomers.GetCustomers.RequestFilter(
+                mobile_number: txtfContactNo.text ?? "",
+                firstname: txtfFirstName.text ?? "",
+                lastname: txtfLastName.text ?? "",
+                technician_id: technician,
+                email: txtfEmailAddress.text ?? "",
+                limit: limit, page: page_no)
+            let request = MyCustomers.GetCustomers.Request(filter: filter)
+            interactor?.doPostGetMyCustomersRequest(request: request, method: .post)
+        }
+    }
+    
+    func displaySuccess<T: Decodable>(viewModel: T) {
+        EZLoadingActivity.hide()
+        if let model = viewModel as? MyCustomers.GetCustomers.Response,
+            model.status == true {
+            total_records = model.total_records ?? 0
+            if page_no == 1 {
+                self.searchResult.removeAll()
+                selectedIndex = 0
+            }
+            btnContinue.isEnabled = false
+            self.searchResult.append(contentsOf: model.data ?? [])
+            lblNoRecords.isHidden = !searchResult.isEmpty
+            self.tableView.reloadData()
+        }
+    }
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        DispatchQueue.main.async { [unowned self] in
+            self.showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "")
+        }
     }
 }

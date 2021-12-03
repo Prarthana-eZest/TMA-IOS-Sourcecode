@@ -13,6 +13,9 @@ protocol ProductActionDelegate: class {
     func wishlistStatus(status: Bool, indexPath: IndexPath)
     func checkboxStatus(status: Bool, indexPath: IndexPath)
     func actionQunatity(quantity: Int, indexPath: IndexPath)
+    func actionAddOnCart(indexPath: IndexPath)
+    func moveToCart(indexPath: IndexPath)
+
 }
 
 class TrendingProductsCell: UICollectionViewCell {
@@ -27,6 +30,7 @@ class TrendingProductsCell: UICollectionViewCell {
     @IBOutlet weak var btnWishList: UIButton!
     @IBOutlet weak private var lblDiscount: UILabel!
     @IBOutlet weak var btnCheckBox: UIButton!
+    @IBOutlet weak var btnMoveToCart: UIButton!
 
     weak var delegate: ProductActionDelegate?
     var indexPath = IndexPath(row: 0, section: 0)
@@ -39,6 +43,10 @@ class TrendingProductsCell: UICollectionViewCell {
     @IBAction func actionWishlist(_ sender: UIButton) {
        // sender.isSelected = !sender.isSelected
         delegate?.wishlistStatus(status: sender.isSelected, indexPath: indexPath)
+    }
+    @IBAction func moveToCartAction(_ sender: UIButton) {
+        delegate?.moveToCart(indexPath: indexPath)
+
     }
 
     @IBAction func actionCheckBox(_ sender: UIButton) {
@@ -77,7 +85,6 @@ class TrendingProductsCell: UICollectionViewCell {
         if !model.strImage.isEmpty {
             self.cardImageView.kf.setImage(with: URL(string: model.strImage), placeholder: UIImage(named: "productDefault"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-
     }
 }
 
@@ -95,4 +102,5 @@ struct ProductModel: Codable {
     var sku: String
     var isProductSelected: Bool
     var type_id: String
+    var type_of_service: String
 }

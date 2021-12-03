@@ -9,8 +9,6 @@ protocol ProductLandingModuleBusinessLogic {
     func doPostRequest(request: ProductLandingModule.Something.Request, method: HTTPMethod)
     func doPostRequestProductCategory(request: ProductLandingModule.Something.ProductCategoryRequest, method: HTTPMethod)
     func doPostRequestBlogs(request: ProductLandingModule.Something.Request, method: HTTPMethod)
-     func doPostRequestAddToWishList(request: HairTreatmentModule.Something.AddToWishListRequest, method: HTTPMethod, accessToken: String)
-    func doPostRequestRemoveFromWishList(request: HairTreatmentModule.Something.RemoveFromWishListRequest, method: HTTPMethod, accessToken: String)
 
     func getBannersOffersTrending_productsNew_products(serverDataObj: ProductLandingModule.Something.Response?, isLogin: Bool) -> ModelForProductDataUI
     func getBlogs(serverDataObj: ProductLandingModule.Something.ResponseBlogs?) -> Any
@@ -19,24 +17,15 @@ protocol ProductLandingModuleBusinessLogic {
     func doPostRequestGetQuoteIdGuest(request: ProductDetailsModule.GetQuoteIDGuest.Request, method: HTTPMethod)
      func doGetRequestToGetAllCartItemsCustomer(request: ProductDetailsModule.GetAllCartsItemCustomer.Request, method: HTTPMethod)
      func doGetRequestToGetAllCartItemsGuest(request: ProductDetailsModule.GetAllCartsItemGuest.Request, method: HTTPMethod)
+    func getRequestForSelectedServiceDetails(request: HairTreatmentModule.Something.Request, method: HTTPMethod)
+
 }
 
 class ProductLandingModuleInteractor: ProductLandingModuleBusinessLogic {
+
     var presenter: ProductLandingModulePresentationLogic?
     var worker: ProductLandingModuleWorker?
-    var workerCart: CartManager?
-
-     func doPostRequestAddToWishList(request: HairTreatmentModule.Something.AddToWishListRequest, method: HTTPMethod, accessToken: String) {
-        worker = ProductLandingModuleWorker()
-        worker?.presenter = presenter
-        worker?.postRequestAddToWishList(request: request, accessToken: accessToken)
-    }
-
-    func doPostRequestRemoveFromWishList(request: HairTreatmentModule.Something.RemoveFromWishListRequest, method: HTTPMethod, accessToken: String) {
-        worker = ProductLandingModuleWorker()
-        worker?.presenter = presenter
-        worker?.postRequestRemovefromWishList(request: request, accessToken: accessToken)
-    }
+    var workerCart: CartAPIManager?
 
     func doPostRequest(request: ProductLandingModule.Something.Request, method: HTTPMethod) {
         worker = ProductLandingModuleWorker()
@@ -56,26 +45,32 @@ class ProductLandingModuleInteractor: ProductLandingModuleBusinessLogic {
     }
     // Cart Manager Functions
     func doPostRequestGetQuoteIdMine(request: ProductDetailsModule.GetQuoteIDMine.Request, accessToken: String) {
-        workerCart = CartManager()
+        workerCart = CartAPIManager()
         workerCart?.presenterCartWorker = presenter
         workerCart?.postRequestGetQuoteIdMine(request: request, accessToken: accessToken)
     }
     func doPostRequestGetQuoteIdGuest(request: ProductDetailsModule.GetQuoteIDGuest.Request, method: HTTPMethod) {
-        workerCart = CartManager()
+        workerCart = CartAPIManager()
         workerCart?.presenterCartWorker = presenter
         workerCart?.postRequestGetQuoteIdGuest(request: request)
     }
 
     func doGetRequestToGetAllCartItemsCustomer(request: ProductDetailsModule.GetAllCartsItemCustomer.Request, method: HTTPMethod) {
-        workerCart = CartManager()
+        workerCart = CartAPIManager()
         workerCart?.presenterCartWorker = presenter
         workerCart?.getRequestToGetAllCartItemsCustomer(request: request)
     }
 
     func doGetRequestToGetAllCartItemsGuest(request: ProductDetailsModule.GetAllCartsItemGuest.Request, method: HTTPMethod) {
-        workerCart = CartManager()
+        workerCart = CartAPIManager()
         workerCart?.presenterCartWorker = presenter
         workerCart?.getRequestToGetAllCartItemsGuest(request: request)
+    }
+
+    func getRequestForSelectedServiceDetails(request: HairTreatmentModule.Something.Request, method: HTTPMethod) {
+        worker = ProductLandingModuleWorker()
+        worker?.presenter = self.presenter
+        worker?.getRequestForSelectedServiceDetails(request: request)
     }
 
 }
@@ -101,7 +96,7 @@ extension ProductLandingModuleInteractor {
             }
 
             if let arrOfr = child.offers {
-                for model in arrOfr {
+                for _ in arrOfr {
                     //                    arrOffers.append(IrresistibleOfferModel.init(title: <#T##String#>, topTitle: <#T##String#>, offerDiscount: <#T##String#>, offerDescription: <#T##String#>, imageUrl: <#T##String#>)))
                 }
             }
@@ -109,47 +104,66 @@ extension ProductLandingModuleInteractor {
             if let arrTrdPrd = child.trending_products {
                 for model in arrTrdPrd {
                     var specialPrice = model.price ?? 0
+                    var elementPrice = model.price ?? 0
                     var isFevo = isLogin ? (model.wishlist_flag ?? false) : false
 
-                    if let modelFevoObj = GenericClass.sharedInstance.getFevoriteProductSet().filter({$0.productId! == model.id}).first {
-                        isFevo = modelFevoObj.changedState!
+                    if let modelFevoObj =
+                        GenericClass.sharedInstance.getFevoriteProductSet().filter({ ($0.productId ?? "") == model.id}).first {
+                        isFevo = modelFevoObj.changedState ?? false
                     }
 
-                    var offerPercentage = 0
+                    var offerPercentage: Double = 0
                     // ****** Check for special price
-                    var isSpecialDateInbetweenTo = true
+                    let configurablePrice = GenericClass.sharedInstance.getConfigurableProductsPrice(element: model.configurable_subproduct_options ?? [])
 
-                    if let specialFrom = model.special_from_date {
-                        if Date().description.getFormattedDate() >= specialFrom.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
+                    if configurablePrice.price == 0 {
+                        var isSpecialDateInbetweenTo = false
+
+                        if let specialFrom = model.special_from_date {
+                            let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                            let fromDateInt: Int = Int(specialFrom.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                            if currentDateInt >= fromDateInt {
+                                isSpecialDateInbetweenTo = true
+                                if let specialTo = model.special_to_date {
+                                    let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                                    let toDateInt: Int = Int(specialTo.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                                    if currentDateInt <= toDateInt {
+                                        isSpecialDateInbetweenTo = true
+                                    }
+                                    else {
+                                        isSpecialDateInbetweenTo = false
+                                    }
+                                }
+                            }
+                            else {
+                                isSpecialDateInbetweenTo = false
+                            }
+                        }
+
+                        if isSpecialDateInbetweenTo {
+                            if let splPrice = model.special_price, splPrice != 0 {
+                                specialPrice = splPrice
+                            }
                         }
                     }
-
-                    if let specialTo = model.special_to_date {
-                        if Date().description.getFormattedDate() <= specialTo.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
-                        }
+                    else {
+                        specialPrice = configurablePrice.splPrice
+                        elementPrice = configurablePrice.price
                     }
 
-                    if isSpecialDateInbetweenTo {
-                        if let splPrice = model.special_price, splPrice != 0 {
-                            specialPrice = splPrice
-                            offerPercentage = Int(specialPrice.getPercent(price: model.price ?? 0))
-                        }
-                    }
+                    offerPercentage = specialPrice.getPercent(price: elementPrice)
 
                     let intId: Int64? = Int64(model.id!)
-                    arrTrending_products.append(ProductModel(productId: intId!, productName: model.name ?? "", price: model.price ?? 0, specialPrice: specialPrice, reviewCount: String(format: "\(model.total_reviews ?? 0)"), ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: String(format: "\(offerPercentage)"), isFavourite: isFevo, strImage: (model.image ?? ""), sku: model.sku ?? "", isProductSelected: false, type_id: model.type_id ?? ""))
+                    arrTrending_products.append(ProductModel(productId: intId!, productName: model.name ?? "", price: elementPrice, specialPrice: specialPrice, reviewCount: model.total_reviews?.cleanForPrice ?? "0", ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: offerPercentage.cleanForRating, isFavourite: isFevo, strImage: (model.image ?? ""), sku: model.sku ?? "", isProductSelected: false, type_id: model.type_id ?? "", type_of_service: ""))
                 }
             }
 
             if let arrNewPrd = child.new_products {
                 for model in arrNewPrd {
                     var specialPrice = model.price ?? 0
+                    var elementPrice = model.price ?? 0
                     var isFevo = isLogin ? (model.wishlist_flag ?? false) : false
 
                     if let modelFevoObj = GenericClass.sharedInstance.getFevoriteProductSet().filter({$0.productId! == model.id}).first {
@@ -157,40 +171,57 @@ extension ProductLandingModuleInteractor {
                     }
 
                     // ****** Check for special price
-                    var isSpecialDateInbetweenTo = true
-                    var offerPercentage = 0
+                    var isSpecialDateInbetweenTo = false
+                    var offerPercentage: Double = 0
 
-                    if let specialFrom = model.special_from_date {
-                        if Date().description.getFormattedDate() >= specialFrom.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
+                    let configurablePrice = GenericClass.sharedInstance.getConfigurableProductsPrice(element: model.configurable_subproduct_options ?? [])
+                    if configurablePrice.price == 0 {
+
+                        if let specialFrom = model.special_from_date {
+                            let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                            let fromDateInt: Int = Int(specialFrom.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                            if currentDateInt >= fromDateInt {
+                                isSpecialDateInbetweenTo = true
+                                if let specialTo = model.special_to_date {
+                                    let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                                    let toDateInt: Int = Int(specialTo.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                                    if currentDateInt <= toDateInt {
+                                        isSpecialDateInbetweenTo = true
+                                    }
+                                    else {
+                                        isSpecialDateInbetweenTo = false
+                                    }
+                                }
+                            }
+                            else {
+                                isSpecialDateInbetweenTo = false
+                            }
+                        }
+
+                        if isSpecialDateInbetweenTo {
+                            if let splPrice = model.special_price, splPrice != 0 {
+                                specialPrice = splPrice
+                            }
                         }
                     }
-
-                    if let specialTo = model.special_to_date {
-                        if Date().description.getFormattedDate() <= specialTo.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
-                        }
+                    else {
+                        specialPrice = configurablePrice.splPrice
+                        elementPrice = configurablePrice.price
                     }
 
-                    if isSpecialDateInbetweenTo {
-                        if let splPrice = model.special_price, splPrice != 0 {
-                            specialPrice = splPrice
-                            offerPercentage = Int(specialPrice.getPercent(price: model.price ?? 0))
-                        }
-                    }
+                    offerPercentage = specialPrice.getPercent(price: elementPrice)
 
                     let intId: Int64? = Int64(model.id!)
-                    arrNew_products.append(ProductModel(productId: intId!, productName: model.name ?? "", price: model.price ?? 0, specialPrice: specialPrice, reviewCount: String(format: "\(model.total_reviews ?? 0)"), ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: String(format: "\(offerPercentage)"), isFavourite: isFevo, strImage: (model.image ?? ""), sku: (model.sku ?? ""), isProductSelected: false, type_id: model.type_id ?? ""))
+                    arrNew_products.append(ProductModel(productId: intId!, productName: model.name ?? "", price: elementPrice, specialPrice: specialPrice, reviewCount: model.total_reviews?.cleanForPrice ?? "0", ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: offerPercentage.cleanForRating, isFavourite: isFevo, strImage: (model.image ?? ""), sku: (model.sku ?? ""), isProductSelected: false, type_id: model.type_id ?? "", type_of_service: ""))
                 }
             }
 
             if let arrRcntViewPrd = child.recentlyViewedProducts {
                 for model in arrRcntViewPrd {
                     var specialPrice = model.price ?? 0
+                    var elementPrice = model.price ?? 0
                     var isFevo = isLogin ? (model.wishlist_flag ?? false) : false
 
                     if let modelFevoObj = GenericClass.sharedInstance.getFevoriteProductSet().filter({$0.productId! == model.id}).first {
@@ -198,33 +229,50 @@ extension ProductLandingModuleInteractor {
                     }
 
                     // ****** Check for special price
-                    var isSpecialDateInbetweenTo = true
-                    var offerPercentage = 0
+                    var isSpecialDateInbetweenTo = false
+                    var offerPercentage: Double = 0
 
-                    if let specialFrom = model.special_from_date {
-                        if Date().description.getFormattedDate() >= specialFrom.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
-                        }
-                    }
+                    let configurablePrice = GenericClass.sharedInstance.getConfigurableProductsPrice(element: model.configurable_subproduct_options ?? [])
+                    if configurablePrice.price == 0 {
 
-                    if let specialTo = model.special_to_date {
-                        if Date().description.getFormattedDate() <= specialTo.getFormattedDate() {
-                            isSpecialDateInbetweenTo = true
-                        } else {
-                            isSpecialDateInbetweenTo = false
+                        if let specialFrom = model.special_from_date {
+                            let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                            let fromDateInt: Int = Int(specialFrom.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                            if currentDateInt >= fromDateInt {
+                                isSpecialDateInbetweenTo = true
+                                if let specialTo = model.special_to_date {
+                                    let currentDateInt: Int = Int(Date().dayYearMonthDateHyphen) ?? 0
+                                    let toDateInt: Int = Int(specialTo.getFormattedDateForSpecialPrice().dayYearMonthDateHyphen) ?? 0
+
+                                    if currentDateInt <= toDateInt {
+                                        isSpecialDateInbetweenTo = true
+                                    }
+                                    else {
+                                        isSpecialDateInbetweenTo = false
+                                    }
+                                }
+                            }
+                            else {
+                                isSpecialDateInbetweenTo = false
+                            }
                         }
-                    }
 
                     if isSpecialDateInbetweenTo {
                         if let splPrice = model.special_price, splPrice != 0 {
                             specialPrice = splPrice
-                            offerPercentage = Int(specialPrice.getPercent(price: model.price ?? 0))
                         }
                     }
+                    }
+                    else {
+                        specialPrice = configurablePrice.splPrice
+                        elementPrice = configurablePrice.price
+                    }
+
+                    offerPercentage = specialPrice.getPercent(price: elementPrice)
+
                     let intId: Int64? = Int64(model.id!)
-                    arrRecently_viewed.append(ProductModel(productId: intId!, productName: model.name ?? "", price: model.price ?? 0, specialPrice: specialPrice, reviewCount: String(format: "\(model.total_reviews ?? 0)"), ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: String(format: "\(offerPercentage)"), isFavourite: isFevo, strImage: (model.image ?? ""), sku: (model.sku ?? ""), isProductSelected: false, type_id: model.type_id ?? ""))
+                    arrRecently_viewed.append(ProductModel(productId: intId!, productName: model.name ?? "", price: elementPrice, specialPrice: specialPrice, reviewCount: model.total_reviews?.cleanForPrice ?? "0", ratingPercentage: (model.rating_percentage ?? 0).getPercentageInFive(), showCheckBox: false, offerPercentage: offerPercentage.cleanForRating, isFavourite: isFevo, strImage: (model.image ?? ""), sku: (model.sku ?? ""), isProductSelected: false, type_id: model.type_id ?? "", type_of_service: ""))
                 }
             }
 
@@ -233,14 +281,14 @@ extension ProductLandingModuleInteractor {
                     arrBrands.append(PopularBranchModel(value: model.value ?? "", title: model.label ?? "", imageUrl: model.swatch_image_url ?? ""))
                 }
             }
-        }
 
-        modelFinal.brands = arrBrands
-        modelFinal.banners = arrBanners
-        modelFinal.offers = arrOffers
-        modelFinal.trending_products = arrTrending_products
-        modelFinal.new_products = arrNew_products
-        modelFinal.recently_viewed = arrRecently_viewed
+            modelFinal.brands = arrBrands
+            modelFinal.banners = arrBanners
+            modelFinal.offers = arrOffers
+            modelFinal.trending_products = arrTrending_products
+            modelFinal.new_products = arrNew_products
+            modelFinal.recently_viewed = arrRecently_viewed
+        }
         return modelFinal
     }
 
@@ -256,5 +304,4 @@ extension ProductLandingModuleInteractor {
 
         return arrBlogsModel
     }
-
 }

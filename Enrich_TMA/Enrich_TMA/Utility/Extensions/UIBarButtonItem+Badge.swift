@@ -28,7 +28,8 @@ extension UIBarButtonItem {
     private var badgeLayer: CAShapeLayer? {
         if let b: AnyObject = objc_getAssociatedObject(self, &handle) as AnyObject? {
             return b as? CAShapeLayer
-        } else {
+        }
+        else {
             return nil
         }
     }
@@ -61,7 +62,7 @@ extension UIBarButtonItem {
     }
 
     func updateBadge(number: Int) {
-        if let text = badgeLayer?.sublayers?.filter({ $0 is CATextLayer }).first as? CATextLayer {
+        if let text = badgeLayer?.sublayers?.first(where: { $0 is CATextLayer }) as? CATextLayer {
             text.string = "\(number)"
         }
     }

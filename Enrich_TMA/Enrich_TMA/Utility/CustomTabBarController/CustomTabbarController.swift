@@ -15,9 +15,8 @@ class CustomTabbarController: UITabBarController, UITabBarControllerDelegate {
         self.delegate = self
     }
     override func viewDidLoad() {
-        for navViewController in self.viewControllers! {
-            _ = navViewController.children[0].view
-        }
+        super.viewDidLoad()
+        self.viewControllers?.forEach {_ = $0.children[0].view}
     }
 
     func tabBarControllerSupportedInterfaceOrientations(_ tabBarController: UITabBarController) -> UIInterfaceOrientationMask {
@@ -57,11 +56,11 @@ class CustomTabbarController: UITabBarController, UITabBarControllerDelegate {
 //self.tabBarController?.increaseBadge(indexOfTab: 3, num: "34")
 extension UITabBarController {
     func increaseBadge(indexOfTab: Int, num: String) {
-        let tabItem = tabBar.items![indexOfTab]
-        tabItem.badgeValue = num
+        let tabItem = tabBar.items?[indexOfTab]
+        tabItem?.badgeValue = num
     }
     func nilBadge(indexOfTab: Int) {
-        let tabItem = tabBar.items![indexOfTab]
-        tabItem.badgeValue = nil
+        let tabItem = tabBar.items?[indexOfTab]
+        tabItem?.badgeValue = nil
     }
 }

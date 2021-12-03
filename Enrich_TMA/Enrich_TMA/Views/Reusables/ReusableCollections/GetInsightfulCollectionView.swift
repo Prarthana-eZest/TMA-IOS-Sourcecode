@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol GetInsightfulDelegates {
+protocol GetInsightfulDelegates: class {
     func selectedItem(indexPath: IndexPath)
 }
 
@@ -16,7 +16,7 @@ class GetInsightfulCollectionView: NSObject, UICollectionViewDelegate, UICollect
 
     var collectionView: UICollectionView!
     var items = [GetInsightFulDetails]()
-    var getInsightfulDelegate: GetInsightfulDelegates?
+    weak var getInsightfulDelegate: GetInsightfulDelegates?
 
     init(parentView: UIView, items: [GetInsightFulDetails]) {
         super.init()
@@ -35,7 +35,7 @@ class GetInsightfulCollectionView: NSObject, UICollectionViewDelegate, UICollect
         collectionView.delegate = self
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(UINib(nibName: "GetInsightfulCell", bundle: nil), forCellWithReuseIdentifier: "GetInsightfulCell")
+        collectionView.register(UINib(nibName: CellIdentifier.getInsightfulCell, bundle: nil), forCellWithReuseIdentifier: CellIdentifier.getInsightfulCell)
         parentView.addSubview(collectionView)
 
     }
@@ -53,7 +53,9 @@ class GetInsightfulCollectionView: NSObject, UICollectionViewDelegate, UICollect
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell: GetInsightfulCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GetInsightfulCell", for: indexPath) as! GetInsightfulCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.getInsightfulCell, for: indexPath) as? GetInsightfulCell else {
+            return UICollectionViewCell()
+        }
 //        cell.configureCell(details: items[indexPath.row])
         return cell
     }

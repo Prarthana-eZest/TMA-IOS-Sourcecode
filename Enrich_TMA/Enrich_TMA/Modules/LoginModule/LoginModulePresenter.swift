@@ -11,8 +11,8 @@
 import UIKit
 
 protocol LoginModulePresentationLogic {
-    func presentLoginSuccess<T: Decodable>(response: T)
-    func presentLoginError(responseError: String?)
+    func presentSuccess<T: Decodable>(response: T)
+    func presentError(responseError: String?)
 }
 
 class LoginModulePresenter: LoginModulePresentationLogic {
@@ -21,10 +21,10 @@ class LoginModulePresenter: LoginModulePresentationLogic {
   // MARK: Do something
 
     // MARK: Do something
-    func presentLoginSuccess<T: Decodable>(response: T) {
+    func presentSuccess<T: Decodable>(response: T) {
         viewController?.displaySuccess(viewModel: response)
     }
-    func presentLoginError(responseError: String? ) {
+    func presentError(responseError: String? ) {
         viewController?.displayError(errorMessage: responseError)
     }
 

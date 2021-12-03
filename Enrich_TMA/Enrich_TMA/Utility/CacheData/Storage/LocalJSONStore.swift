@@ -29,7 +29,8 @@ class LocalJSONStore<T> where T: Codable {
         do {
             let data = try JSONEncoder().encode(object)
             try data.write(to: fileURL)
-        } catch let e {
+        }
+        catch let e {
             print("ERROR: \(e)")
         }
     }
@@ -42,7 +43,8 @@ class LocalJSONStore<T> where T: Codable {
             let data = try Data(contentsOf: fileURL)
             let jsonDecoder = JSONDecoder()
             return try jsonDecoder.decode(T.self, from: data)
-        } catch let e {
+        }
+        catch let e {
             print("ERROR: \(e)")
             return nil
         }
@@ -52,7 +54,8 @@ class LocalJSONStore<T> where T: Codable {
         do {
         try FileManager.default.createDirectory(at: StorageType.cache.subFolderName(subfolder: strFolderName), withIntermediateDirectories: false, attributes: nil)
 
-        } catch {
+        }
+        catch {
             print("error : \(error)")
         }
 
@@ -79,7 +82,8 @@ class LocalJSONStore<T> where T: Codable {
         do {
             try fileManager.createDirectory(at: folder, withIntermediateDirectories: false, attributes: nil)
 
-        } catch {
+        }
+        catch {
             print("error : \(error)")
             self.createFolder(strFolderName: "")
             self.createFolder(strFolderName: folderName)

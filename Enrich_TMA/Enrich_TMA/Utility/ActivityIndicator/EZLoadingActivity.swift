@@ -38,7 +38,8 @@ public struct EZLoadingActivity {
             get {
                 if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
                     return  3.5
-                } else {
+                }
+                else {
                     return 1.6
                 }
             }
@@ -69,8 +70,8 @@ public struct EZLoadingActivity {
 
         DispatchQueue.main.async {
             if Settings.DarkensBackground {
-                if overlay == nil {
-                    overlay = UIView(frame: UIApplication.shared.keyWindow!.frame)
+                if overlay == nil, let frame = UIApplication.shared.keyWindow?.frame {
+                    overlay = UIView(frame: frame)
                 }
                 overlay.backgroundColor = UIColor.black.withAlphaComponent(0)
                 topMostController?.view.addSubview(overlay)
@@ -119,7 +120,8 @@ public struct EZLoadingActivity {
             DispatchQueue.main.async {
                 instance?.hideLoadingActivity(success, animated: animated)
             }
-        } else {
+        }
+        else {
             instance?.hideLoadingActivity(success, animated: animated)
         }
 
@@ -151,7 +153,7 @@ public struct EZLoadingActivity {
 
             self.init(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
 
-            center = CGPoint(x: topMostController!.view.bounds.midX, y: topMostController!.view.bounds.midY)
+            center = CGPoint(x: topMostController?.view.bounds.midX ?? 0, y: topMostController?.view.bounds.midY ?? 0)
             autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
             backgroundColor = Settings.BackgroundColor
             alpha = 1
@@ -190,8 +192,9 @@ public struct EZLoadingActivity {
 
             if Settings.LoadOverApplicationWindow {
                 UIApplication.shared.windows.first?.addSubview(self)
-            } else {
-                topMostController!.view.addSubview(self)
+            }
+            else {
+                topMostController?.view.addSubview(self)
             }
 
             //make it smoothly
@@ -238,10 +241,11 @@ public struct EZLoadingActivity {
             }
 
             var animationDuration: Double = 0
-            if success != nil {
-                if success! {
+            if let value = success {
+                if !value {
                     animationDuration = 0.5
-                } else {
+                }
+                else {
                     animationDuration = 1
                 }
             }
@@ -254,12 +258,13 @@ public struct EZLoadingActivity {
                 textLabel.fadeTransition(animationDuration)
             }
 
-            if success != nil {
-                if success! {
+            if let value = success {
+                if !value {
                     icon.textColor = Settings.SuccessColor
                     icon.text = Settings.SuccessIcon
                     textLabel.text = Settings.SuccessText
-                } else {
+                }
+                else {
                     icon.textColor = Settings.FailColor
                     icon.text = Settings.FailIcon
                     textLabel.text = Settings.FailText
@@ -282,7 +287,8 @@ public struct EZLoadingActivity {
                         instance = nil
                         hidingInProgress = false
                 })
-            } else {
+            }
+            else {
                 //activityView.stopAnimating()
                 self.callSelectorAsync(#selector(UIView.removeFromSuperview), delay: animationDuration)
                 instance = nil
@@ -320,7 +326,8 @@ private extension UIScreen {
         get {
             if UIDevice.current.orientation.isPortrait {
                 return UIScreen.main.bounds.size.width
-            } else {
+            }
+            else {
                 return UIScreen.main.bounds.size.height
             }
         }
@@ -329,7 +336,8 @@ private extension UIScreen {
         get {
             if UIDevice.current.orientation.isPortrait {
                 return UIScreen.main.bounds.size.height
-            } else {
+            }
+            else {
                 return UIScreen.main.bounds.size.width
             }
         }

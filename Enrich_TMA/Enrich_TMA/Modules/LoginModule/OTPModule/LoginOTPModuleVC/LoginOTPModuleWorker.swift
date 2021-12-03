@@ -8,6 +8,7 @@
 import UIKit
 
 class LoginOTPModuleWorker {
+
     let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
     // let networkLayer = NetworkLayer() // Uncomment this in case do request using URLsession
     var presenter: LoginOTPModulePresentationLogic?
@@ -25,9 +26,8 @@ class LoginOTPModuleWorker {
             self.presenter?.presentSomethingSuccess(response: response)
         }
 
-        let emp1 = LoginOTPModule.OTP.Request(mobile_number: request.mobile_number)
         self.networkLayer.post(urlString: ConstantAPINames.sendOTPOnMobile.rawValue,
-                               body: emp1, successHandler: successHandler,
+                               body: request, successHandler: successHandler,
                                errorHandler: errorHandler, method: .post)
     }
 

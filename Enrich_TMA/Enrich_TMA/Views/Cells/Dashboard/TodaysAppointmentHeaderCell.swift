@@ -9,14 +9,15 @@
 import UIKit
 
 class TodaysAppointmentHeaderCell: UITableViewCell {
-    
-    @IBOutlet weak var lblDateTime: UILabel!
-    
-    weak var delegate:AppointmentDelegate?
-    
+
+    @IBOutlet weak private var lblDateTime: UILabel!
+
+    weak var delegate: AppointmentDelegate?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        lblDateTime.text = Date().dayNameDateFormat
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,10 +25,9 @@ class TodaysAppointmentHeaderCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
+
     @IBAction func actionViewAll(_ sender: UIButton) {
         delegate?.actionViewAllAppointments()
     }
-    
-    
+
 }

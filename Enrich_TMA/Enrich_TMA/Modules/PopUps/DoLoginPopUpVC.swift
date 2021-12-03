@@ -11,17 +11,17 @@ import UIKit
 struct Status {
 
 }
-protocol LoginRegisterDelegate {
+protocol LoginRegisterDelegate: class {
     func doLoginRegister()
 }
 
 class DoLoginPopUpVC: UIViewController {
-    var delegate: LoginRegisterDelegate?
     @IBOutlet weak private var imgLogo: UIImageView!
     @IBOutlet weak private var lblDescription: UILabel!
     @IBOutlet weak private var btnLogin: UIButton!
 
     var onDoneBlock: ((Bool) -> Void)?
+    weak var delegate: LoginRegisterDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,23 +29,15 @@ class DoLoginPopUpVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-    /*
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     @IBAction func actionBtnLogin(_ sender: Any) {
-        onDoneBlock!(true)
+        onDoneBlock?(true)
         delegate?.doLoginRegister()
         self.dismiss(animated: false, completion: nil)
     }
     @IBAction func clickToClose(_ sender: Any) {
-        onDoneBlock!(true)
+        onDoneBlock?(true)
         self.dismiss(animated: false, completion: nil)
     }
 }

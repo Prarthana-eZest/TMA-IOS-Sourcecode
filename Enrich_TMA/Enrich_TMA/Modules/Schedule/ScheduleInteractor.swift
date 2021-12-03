@@ -12,30 +12,35 @@
 
 import UIKit
 
-protocol ScheduleBusinessLogic
-{
-  func doSomething(request: Schedule.Something.Request)
+protocol ScheduleBusinessLogic {
+    func doGetRosterData(request: MyProfile.GetRosterDetails.Request, method: HTTPMethod)
+    func doGetAppointmentList(request: Schedule.GetAppointnents.Request, method: HTTPMethod)
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request)
 }
 
-protocol ScheduleDataStore
-{
-  //var name: String { get set }
-}
+class ScheduleInteractor: ScheduleBusinessLogic {
+    var presenter: SchedulePresentationLogic?
+    var worker: ScheduleWorker?
+    //var name: String = ""
 
-class ScheduleInteractor: ScheduleBusinessLogic, ScheduleDataStore
-{
-  var presenter: SchedulePresentationLogic?
-  var worker: ScheduleWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: Schedule.Something.Request)
-  {
-    worker = ScheduleWorker()
-    worker?.doSomeWork()
-    
-    let response = Schedule.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+    // MARK: Do something
+
+    func doGetRosterData(request: MyProfile.GetRosterDetails.Request, method: HTTPMethod) {
+        worker = ScheduleWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForRosterDetails(request: request, method: method)
+    }
+
+    func doGetAppointmentList(request: Schedule.GetAppointnents.Request, method: HTTPMethod) {
+        worker = ScheduleWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForAppointments(request: request, method: method)
+    }
+
+    func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request) {
+        worker = ScheduleWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestForChangeAppointmentStatus(appointmentId: appointmentId, request: request)
+    }
+
 }

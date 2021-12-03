@@ -12,73 +12,550 @@
 
 import UIKit
 
-protocol AppointmentDetailsDisplayLogic: class
-{
-  func displaySomething(viewModel: AppointmentDetails.Something.ViewModel)
+protocol AppointmentDetailsDisplayLogic: class {
+    func displaySuccess<T: Decodable> (viewModel: T)
+    func displayError(errorMessage: String?)
 }
 
-class AppointmentDetailsVC: UIViewController, AppointmentDetailsDisplayLogic
-{
-  var interactor: AppointmentDetailsBusinessLogic?
+class AppointmentDetailsVC: UIViewController, AppointmentDetailsDisplayLogic {
+    var interactor: AppointmentDetailsBusinessLogic?
 
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = AppointmentDetailsInteractor()
-    let presenter = AppointmentDetailsPresenter()
-    viewController.interactor = interactor
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-//      if let router = router, router.responds(to: selector) {
-//        router.perform(selector, with: segue)
-//      }
+    @IBOutlet weak private var btnBeginAppoinement: UIButton!
+    @IBOutlet weak private var tableView: UITableView!
+    @IBOutlet weak private var menuView: UIView!
+    @IBOutlet weak private var trasperentView: UIView!
+
+    @IBOutlet weak private var bottomView: UIView!
+    @IBOutlet weak private var separatorView: UIView!
+    @IBOutlet weak private var btnClose: UIButton!
+
+    var appointmentDetails: Schedule.GetAppointnents.Data?
+
+    var selectedDate: Date = Date()
+
+    // For job card appointment details
+    var isPresented: Bool = false
+
+    // For Belita Flow
+    var markAsLeaveNow: Bool = false
+    var showOTPScreen: Bool = false
+
+    // MARK: Object lifecycle
+
+    var appintmentTimeLine: [AppointmentTimelineModel] = []
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-  }
-  
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = AppointmentDetails.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: AppointmentDetails.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+
+    // MARK: Setup
+
+    private func setup() {
+        let viewController = self
+        let interactor = AppointmentDetailsInteractor()
+        let presenter = AppointmentDetailsPresenter()
+        viewController.interactor = interactor
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+    }
+
+    // MARK: View lifecycle
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        tableView.register(UINib(nibName: CellIdentifier.appointmentDetailsCell, bundle: nil),
+                           forCellReuseIdentifier: CellIdentifier.appointmentDetailsCell)
+        tableView.register(UINib(nibName: CellIdentifier.appointmentTimelineCell, bundle: nil),
+                           forCellReuseIdentifier: CellIdentifier.appointmentTimelineCell)
+
+        tableView.separatorColor = .clear
+        menuView.isHidden = true
+        trasperentView.isHidden = true
+        self.view.bringSubviewToFront(menuView)
+        // if selectedDate.dayYearMonthDate >= Date().dayYearMonthDate{
+        showNavigationBarButtons()
+        // }
+        configureUI()
+
+        if markAsLeaveNow {
+            changeAppointmentStatus(status: .leaveNow)
+        }
+        else if showOTPScreen {
+            if appointmentDetails?.is_selfie_uploaded == true {
+                presentOTPScreen()
+            }
+            else {
+                captureSelfie()
+            }
+        }
+
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
+        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait,
+                                         andRotateTo: UIInterfaceOrientation.portrait)
+        self.navigationController?.addCustomBackButton(title: "")
+        if !markAsLeaveNow {
+            getAppointmentsForDate(date: selectedDate.dayYearMonthDate)
+        }
+    }
+
+    func changeAppointmentStatus(status: AppointmentStatus) {
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser) {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let request = JobCard.ChangeAppointmentStatus.Request(
+                status: status.rawValue,
+                employee_id: userData.employee_id,
+                reason: nil, is_custom: true)
+            let id = "\(self.appointmentDetails?.appointment_id ?? 0)"
+            interactor?.doPostUpdateAppointmentStatus(appointmentId: id, request: request)
+        }
+    }
+
+    func getAppointmentsForDate(date: String) {
+
+        if let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self,
+                                                      forKey: UserDefauiltsKeys.k_Key_LoginUser), let appointment = self.appointmentDetails, let id = appointment.appointment_id {
+
+            EZLoadingActivity.show("Loading...", disableUI: true)
+
+            let request = Schedule.GetAppointnents.AppointmentDetailsRequest(
+                date: date,
+                salon_code: userData.base_salon_code ?? "",
+                appointment_id: "\(id)", limit: 1, page_no: 1)
+            interactor?.doGetAppointmentList(request: request, method: .post)
+        }
+    }
+
+    func configureUI() {
+
+        btnClose.isHidden = !isPresented
+        bottomView.isHidden = isPresented
+        separatorView.isHidden = isPresented
+
+        configureTimeline()
+
+        if let details = appointmentDetails,
+            let statusText = details.status,
+            let typeText = details.appointment_type,
+            let status = AppointmentStatus(rawValue: statusText),
+            let type = ServiceType(rawValue: typeText),
+            let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser),
+            let employeeId = userData.employee_id {
+
+            if selectedDate.dayYearMonthDate != Date().dayYearMonthDate {
+                btnBeginAppoinement.isEnabled = false
+                btnBeginAppoinement.setTitle(status.rawValue.uppercased(), for: .disabled)
+                return
+            }
+
+            var title = status.rawValue.uppercased()
+            btnBeginAppoinement.isEnabled = true
+
+            switch status {
+
+            case .confirmed, .delayed:
+                title = (type == ServiceType.salonService ? "BEGIN APPOINTMENT" : "LEAVING NOW")
+
+            case .leaveNow:
+                title = "REACHED"
+
+            case .checked_in:
+                title = "BEGIN APPOINTMENT"
+
+            case .booked, .scheduled, .completed, .cancelled, .time_elapsed, .noShow:
+                title = status.rawValue.uppercased()
+                btnBeginAppoinement.isEnabled = false
+
+            case .in_progress:
+                title = "CONTINUE APPOINTMENT"
+
+            }
+
+            btnBeginAppoinement.setTitle(title, for: .normal)
+
+            let completedStatus = [AppointmentStatus.completed.rawValue,
+                                   AppointmentStatus.cancelled.rawValue,
+                                   AppointmentStatus.time_elapsed.rawValue]
+
+            let allCompletedServices = details.services?.filter {
+                if completedStatus.contains($0.status ?? ""), let id = $0.technician_id, employeeId == "\(id)" {
+                    return true
+                }
+                return false
+            }
+
+            let onlyCompletedServices = details.services?.filter {
+                if let status = $0.status,
+                    status == AppointmentStatus.completed.rawValue ,
+                    let id = $0.technician_id, employeeId == "\(id)" {
+                    return true
+                }
+                return false
+            }
+
+            let selfServiceCount = details.services?.filter {
+                if let id = $0.technician_id, employeeId == "\(id)" {
+                    return true
+                }
+                return false
+            }
+
+            if let onlyCompleted = onlyCompletedServices,
+                !onlyCompleted.isEmpty,
+                allCompletedServices?.count == selfServiceCount?.count,
+                !completedStatus.contains(status.rawValue),
+                status.rawValue != AppointmentStatus.noShow.rawValue {
+                btnBeginAppoinement.isEnabled = true
+                btnBeginAppoinement.setTitle("PROCEED PAYMENT", for: .normal)
+            }
+
+        }
+        else {
+            btnBeginAppoinement.isEnabled = false
+            btnBeginAppoinement.setTitle((appointmentDetails?.status ?? "").uppercased(), for: .normal)
+        }
+
+        self.tableView.reloadData()
+
+    }
+
+    // MARK: - Top Navigation Bar And  Actions
+    func showNavigationBarButtons() {
+
+        AppDelegate.OrientationLock.lock(to: UIInterfaceOrientationMask.portrait,
+                                         andRotateTo: UIInterfaceOrientation.portrait)
+
+        guard let menuImg = UIImage(named: "moreDots"),
+            let sosImg = UIImage(named: "SOS") else {
+                return
+        }
+
+        let menuButton = UIBarButtonItem(image: menuImg, style: .plain, target: self, action: #selector(didTapMenuButton))
+        menuButton.tintColor = UIColor.black
+
+        let sosButton = UIBarButtonItem(image: sosImg, style: .plain, target: self, action: #selector(didTapSOSButton))
+        sosButton.tintColor = UIColor.black
+
+        navigationItem.title = ""
+        if showSOS {
+            navigationItem.rightBarButtonItems = [sosButton]
+        }
+    }
+
+    @objc func didTapMenuButton() {
+        hideMenuPopUp(status: false)
+    }
+
+    @objc func didTapSOSButton() {
+        SOSFactory.shared.raiseSOSRequest()
+    }
+
+    @IBAction func actionClose(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    @IBAction func actionClientInformation(_ sender: UIButton) {
+        let vc = ClientInformationVC.instantiate(fromAppStoryboard: .Schedule)
+        vc.customerId = appointmentDetails?.booked_for_id
+        vc.gender = appointmentDetails?.gender ?? 1
+        vc.appointmentDetails = appointmentDetails
+        if let forms = appointmentDetails?.generic_form_list {
+            vc.form_id = forms.first?.form_id
+        }
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    @IBAction func actionBeginAppointment(_ sender: UIButton) {
+
+        guard let details = appointmentDetails,
+            let typeText = details.appointment_type,
+            let type = ServiceType(rawValue: typeText) else {
+                return
+        }
+
+        if type != .salonService {
+
+            if sender.titleLabel?.text == "LEAVING NOW"{
+                if let latitude = details.customer_latitude,
+                    let longitude = details.customer_longitude {
+                    ApplicationFactory.shared.openGoogleMaps(lat: latitude, long: longitude)
+                }
+                else {
+                    showAlert(alertTitle: "Alert", alertMessage: "Customer location details are missing")
+                }
+                changeAppointmentStatus(status: .leaveNow)
+            }
+            else if sender.titleLabel?.text == "REACHED"{
+                if details.is_selfie_uploaded == true {
+                    presentOTPScreen()
+                }
+                else {
+                    captureSelfie()
+                }
+            }
+            else if sender.titleLabel?.text == "PROCEED PAYMENT"{
+                self.checkAppointmentStatus()
+            }
+            else {
+                if let appointmentId = appointmentDetails?.appointment_id {
+                    let vc = JobCardVC.instantiate(fromAppStoryboard: .Schedule)
+                    vc.appointmentId = "\(appointmentId)"
+                    vc.selectedDate = selectedDate
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+        else {
+            if sender.titleLabel?.text == "PROCEED PAYMENT"{
+                self.checkAppointmentStatus()
+            }
+            else {
+                if let appointmentId = appointmentDetails?.appointment_id {
+                    let vc = JobCardVC.instantiate(fromAppStoryboard: .Schedule)
+                    vc.appointmentId = "\(appointmentId)"
+                    vc.selectedDate = selectedDate
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
+    }
+
+    func captureSelfie() {
+        ImagePicker.sharedInstance.pickImage(self, imageEditMode: .default, openMode: .camera) { (status, image, _) in
+            if status, let image = image {
+                let imageBase64 = self.convertImageToBase64(image: image)
+                print("Image base64 string:\(imageBase64)")
+                self.uploadSelfie(base64Image: imageBase64)
+            }
+        }
+    }
+
+    func convertImageToBase64(image: UIImage) -> String {
+        if let imageData = image.jpegData(compressionQuality: 0.5) {
+            return imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        }
+        return ""
+    }
+
+    func uploadSelfie(base64Image: String) {
+        if let id = appointmentDetails?.appointment_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            let request = AppointmentDetails.UploadSelfie.Request(appointment_id: id, selfie_image: base64Image)
+            interactor?.doPostUploadSelfie(request: request)
+        }
+    }
+
+    func presentOTPScreen() {
+        let vc = ConfirmCustomerOTPVC.instantiate(fromAppStoryboard: .Schedule)
+        self.view.alpha = screenPopUpAlpha
+        vc.appointmentDetails = self.appointmentDetails
+        vc.confirmationType = .belitaOTP
+        self.present(vc, animated: true, completion: nil)
+        vc.viewDismissBlock = { [unowned self] result in
+            self.view.alpha = 1.0
+            if result {
+                if self.btnBeginAppoinement.titleLabel?.text == "GET INVOICE" {
+                    self.checkAppointmentStatus()
+                }
+                else {
+                    self.getAppointmentsForDate(date: self.selectedDate.dayYearMonthDate)
+                }
+            }
+        }
+    }
+
+    // MARK: - Menu Pop Up Actions
+    @IBAction func actionMenu(_ sender: UIButton) {
+        hideMenuPopUp(status: true)
+    }
+
+    @IBAction func actionRebook(_ sender: UIButton) {
+        hideMenuPopUp(status: true)
+    }
+
+    @IBAction func actionModify(_ sender: UIButton) {
+        hideMenuPopUp(status: true)
+    }
+
+    @IBAction func actionCancel(_ sender: UIButton) {
+        hideMenuPopUp(status: true)
+    }
+
+    @IBAction func actionBookAppointment(_ sender: UIButton) {
+        hideMenuPopUp(status: true)
+    }
+
+    func hideMenuPopUp(status: Bool) {
+        UIView.animate(withDuration: 1) {
+            self.trasperentView.isHidden = status
+            self.menuView.isHidden = status
+        }
+    }
+
+    func configureTimeline() {
+        self.appintmentTimeLine.removeAll()
+        guard let userData = UserDefaults.standard.value(MyProfile.GetUserProfile.UserData.self, forKey: UserDefauiltsKeys.k_Key_LoginUser), let employeeId = userData.employee_id else {
+            return
+        }
+        appointmentDetails?.services?.forEach {
+                        
+            let customerName = (($0.is_dependant ?? 0) == 1) ? ($0.dependant_name ?? "") : ($0.booked_for ?? "")
+            let isDependent = ($0.is_dependant ?? 0) == 1
+            
+            self.appintmentTimeLine.append(AppointmentTimelineModel(time: $0.start_time ?? "",
+                                                                    title: $0.service_name ?? "",
+                                                                    subTitle: $0.servicing_technician ?? "",
+                                                                    selfService: "\($0.technician_id ?? 0)" == employeeId, customerName: customerName, isDepedentService: isDependent))
+        }
+        self.appintmentTimeLine.append(AppointmentTimelineModel(time: appointmentDetails?.services?.last?.end_time ?? "",
+                                                                title: "Appointment ends",
+                                                                subTitle: "",
+                                                                selfService: false, customerName: "", isDepedentService: false))
+        self.tableView.reloadData()
+    }
+
+    func checkAppointmentStatus() {
+        if let id = appointmentDetails?.appointment_id {
+            EZLoadingActivity.show("Loading...", disableUI: true)
+            interactor?.doGetAppointmentStatus(appointmentId: "\(id)")
+        }
+    }
+}
+
+extension AppointmentDetailsVC {
+
+    func displaySuccess<T>(viewModel: T) where T: Decodable {
+        EZLoadingActivity.hide()
+        print("Response: \(viewModel)")
+
+        if let model = viewModel as? Schedule.GetAppointnents.Response {
+            self.appointmentDetails = model.data?.first
+            self.configureUI()
+        }
+        else if let model = viewModel as? JobCard.ChangeAppointmentStatus.Response {
+
+            if model.status == true {
+                getAppointmentsForDate(date: selectedDate.dayYearMonthDate)
+            }
+            else {
+                showAlert(alertTitle: alertTitle, alertMessage: model.message)
+            }
+        }
+        else if let model = viewModel as? AppointmentDetails.AppointmentStatus.Response,
+            let data = model.data {
+
+            if data.complete {
+                print("Appointment Status: true")
+                let vc = InvoiceVC.instantiate(fromAppStoryboard: .Schedule)
+                vc.appointmentDetails = self.appointmentDetails
+                self.navigationController?.pushViewController(vc, animated: true)
+
+            }
+            else {
+                let message: String
+                if let paymentStatus = PaymentStatus(rawValue: appointmentDetails?.payment_status ?? ""), paymentStatus == .paymentPaid {
+                    message = AlertMessagesSuccess.paymentAlreadyCatured
+                }
+                else {
+                    message = AlertMessagesToAsk.invoiceNotGenerated
+                }
+
+                let alertController = UIAlertController(
+                    title: alertTitle,
+                    message: message,
+                    preferredStyle: UIAlertController.Style.alert)
+                alertController.addAction(UIAlertAction(
+                    title: AlertButtonTitle.ok,
+                    style: UIAlertAction.Style.cancel) { _ -> Void in
+                        self.navigationController?.popToRootViewController(animated: true)
+                })
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        else if let model = viewModel as? AppointmentDetails.UploadSelfie.Response {
+
+            if model.status == true {
+                self.showToast(alertTitle: alertTitle, message: model.message, seconds: toastMessageDuration)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.1) {
+                    self.presentOTPScreen()
+                }
+            }
+            else {
+                showAlert(alertTitle: alertTitle, alertMessage: model.message)
+            }
+        }
+    }
+
+    func displayError(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
+
+}
+
+extension AppointmentDetailsVC: UITableViewDelegate, UITableViewDataSource {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return (appointmentDetails?.services?.count ?? 0) > 0 ? 3 : 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        return section == 2 ? appintmentTimeLine.count : 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
+        switch indexPath.section {
+
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.appointmentDetailsCell,
+                                                           for: indexPath) as? AppointmentDetailsCell else {
+                                                            return UITableViewCell()
+            }
+            if let model = appointmentDetails {
+                cell.configureCell(model: model, date: selectedDate)
+            }
+            cell.selectionStyle = .none
+            return cell
+
+        case 1:
+
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.appointmentTimelineHeader,
+                                                     for: indexPath)
+            cell.selectionStyle = .none
+            return cell
+
+        case 2:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.appointmentTimelineCell,
+                                                           for: indexPath) as? AppointmentTimelineCell else {
+                                                            return UITableViewCell()
+            }
+            cell.selectionStyle = .none
+            cell.configureCell(model: appintmentTimeLine[indexPath.row],
+                               isEndCell: (indexPath.row == (appintmentTimeLine.count - 1)))
+            return cell
+
+        default:
+            return UITableViewCell()
+        }
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("Selection")
+    }
 }

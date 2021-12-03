@@ -12,20 +12,155 @@
 
 import UIKit
 
-enum Schedule
-{
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+enum Schedule {
+    // MARK: Use cases
+
+    enum GetAppointnents {
+        struct Request: Codable {
+            let date: String
+            let salon_code: String
+            let employee_code: String
+            let limit: Int
+            let page_no: Int
+        }
+
+        struct SingleAppointmentRequest: Codable {
+            let date: String
+            let salon_code: String
+            let employee_code: String
+            let appointment_id: String
+            let limit: Int
+            let page_no: Int
+        }
+
+        struct AppointmentDetailsRequest: Codable {
+            let date: String
+            let salon_code: String
+            let appointment_id: String
+            let limit: Int
+            let page_no: Int
+        }
+
+        struct AppointnentHistoryRequest: Codable {
+            let salon_code: String
+            let customer_id: String
+            let limit: Int
+            let page_no: Int
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            var total_records: Int?
+            let data: [Data]?
+            let time_stamp: String?
+        }
+
+        struct Data: Codable {
+            let appointment_id: Int64?
+            let appointment_date: String?
+            let booking_technician_id: Int64?
+            let appointment_type: String?
+            let status: String?
+            let booked_by: String?
+            let customer_address: String?
+            let customer_address2: String?
+            let booked_by_contact: String?
+            let booked_by_id: Int64?
+            let booking_technician: String?
+            let booking_number: String?
+            let payment_status: String?
+            let landmark: String?
+            let last_visit: String?
+            let avg_rating: Double?
+            let services: [Schedule.GetAppointnents.Services]?
+            let serviceCount: Int?
+            let total_duration: Int?
+            let start_time: String?
+            let end_time: String?
+            let customer_latitude: Double?
+            let customer_longitude: Double?
+
+            // Now params
+            let customer_name: String?
+            let customer_firstname: String?
+            let customer_lastname: String?
+            let customer_email: String?
+            let customer_mobile_number: String?
+            let customer_ratings: Double?
+            let high_expensive: Bool?
+            let membership: String?
+            let membership_image: String?
+            let membership_default_image: String?
+            let membership_completed_image: String?
+            let gender_label: String?
+            let gender: Int?
+            let inclined_other_gender: String?
+            let profile_picture: String?
+            let is_customer_rated: Bool?
+            let salon_name: String?
+
+            let generic_form_filled: Bool?
+            let generic_form_list: [FormDetails]?
+
+            let approval_request: String?
+            let approval_status: String?
+
+            let is_selfie_uploaded: Bool?
+            let selfie_image: String?
+            
+            let booked_for: String?
+            let booked_for_id: Int64?
+            let booked_for_contact: String?
+        }
+
+        struct Services: Codable {
+            let appointment_type: String?
+            let service_id: Int64?
+            let service_code: String?
+            let service_name: String?
+            let service_duration: Int?
+            let calculated_buffer_time: Int?
+            let buffer_time: Int?
+            let price: AnyCodable?
+            let start_time: String?
+            let end_time: String?
+            let customer_latitude: Double?
+            let customer_longitude: Double?
+            let station_id: Int64?
+            let reason: String?
+            let category_name: String?
+            let technician_preference: String?
+            let technician_designation: String?
+            let status: String?
+            let previous_service_id: Int64?
+            let id: Int64?
+            let technician_id: Int64?
+            let servicing_technician: String?
+            let booked_for: String?
+            let booked_for_id: Int64?
+            let booked_for_contact: String?
+            let notes: String?
+
+            let is_consultation_required: Bool?
+            let consultation_form_list: [FormDetails]?
+
+            let approval_request: String?
+            let approval_status: String?
+            
+            let is_dependant: Int?
+            let dependant_name: String?
+            let dependant_gender: String?
+            let dependant_note: String?
+            let dependant_age: String?
+            let gender: String?
+            let dependant_id: Int?
+            let override: Int?
+        }
+
+        struct FormDetails: Codable {
+            let form_id: String?
+            let is_submitted: Bool?
+        }
     }
-    struct Response
-    {
-    }
-    struct ViewModel
-    {
-    }
-  }
 }

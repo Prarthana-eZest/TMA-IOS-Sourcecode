@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBold.otf">
+            <string>FuturaPT-Bold</string>
+        </array>
+        <array key="FuturaPTMedium.otf">
+            <string>FuturaPT-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductivityHeaderCell" rowHeight="193" id="KGk-i7-Jjw" customClass="ProductivityHeaderCell" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="396" height="193"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="396" height="193"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8TK-KN-k9b">
+                        <rect key="frame" x="20" y="0.0" width="356" height="149"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NeY-Zd-3W3">
+                                <rect key="frame" x="0.0" y="0.0" width="356" height="72"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="AHU-07-USP">
+                                        <rect key="frame" x="15" y="12" width="326" height="48"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ProductivityRank" translatesAutoresizingMaskIntoConstraints="NO" id="QyV-Yn-0TE">
+                                                <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="YJG-9l-cCI"/>
+                                                    <constraint firstAttribute="height" constant="48" id="yMX-Mv-avO"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hey you have achived 2 Rank in salon, Out of 100 people" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hl7-Xp-2iJ">
+                                                <rect key="frame" x="58" y="3.5" width="268" height="41.5"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="AHU-07-USP" firstAttribute="centerY" secondItem="NeY-Zd-3W3" secondAttribute="centerY" id="5OH-AM-Bll"/>
+                                    <constraint firstAttribute="trailing" secondItem="AHU-07-USP" secondAttribute="trailing" constant="15" id="BG2-sd-Kuq"/>
+                                    <constraint firstItem="AHU-07-USP" firstAttribute="leading" secondItem="NeY-Zd-3W3" secondAttribute="leading" constant="15" id="CoP-DR-4tT"/>
+                                    <constraint firstAttribute="height" constant="72" id="cmo-UD-FPt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DHE-4a-ofr">
+                                <rect key="frame" x="0.0" y="77" width="356" height="72"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="3Ij-xa-3ag">
+                                        <rect key="frame" x="15" y="10" width="326" height="52"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RevenueMultiplier" translatesAutoresizingMaskIntoConstraints="NO" id="ZuL-2u-A0t">
+                                                <rect key="frame" x="0.0" y="2" width="48" height="48"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="48" id="4og-AU-TZB"/>
+                                                    <constraint firstAttribute="width" constant="48" id="do1-Qr-vM0"/>
+                                                </constraints>
+                                            </imageView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="1Ii-I7-e2z">
+                                                <rect key="frame" x="58" y="0.0" width="268" height="52"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2.5/5+" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kaZ-hf-wjx">
+                                                        <rect key="frame" x="0.0" y="0.0" width="79" height="31"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Bold" family="Futura PT" pointSize="24"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Revenue Multiplier" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="moF-SU-TTO">
+                                                        <rect key="frame" x="0.0" y="31" width="119" height="21"/>
+                                                        <fontDescription key="fontDescription" name="FuturaPT-Medium" family="Futura PT" pointSize="16"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="3Ij-xa-3ag" firstAttribute="centerY" secondItem="DHE-4a-ofr" secondAttribute="centerY" id="GAG-Aa-qM6"/>
+                                    <constraint firstAttribute="height" constant="72" id="QPT-Mw-eQo"/>
+                                    <constraint firstAttribute="trailing" secondItem="3Ij-xa-3ag" secondAttribute="trailing" constant="15" id="UPS-Rk-UcH"/>
+                                    <constraint firstItem="3Ij-xa-3ag" firstAttribute="leading" secondItem="DHE-4a-ofr" secondAttribute="leading" constant="15" id="pZd-t8-hBw"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
+                                        <real key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DHE-4a-ofr" secondAttribute="trailing" id="2F2-av-XYT"/>
+                            <constraint firstItem="NeY-Zd-3W3" firstAttribute="leading" secondItem="8TK-KN-k9b" secondAttribute="leading" id="d6x-pO-cBZ"/>
+                            <constraint firstItem="DHE-4a-ofr" firstAttribute="leading" secondItem="8TK-KN-k9b" secondAttribute="leading" id="dKg-3Q-XuH"/>
+                            <constraint firstAttribute="trailing" secondItem="NeY-Zd-3W3" secondAttribute="trailing" id="uVN-a3-NoZ"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="8TK-KN-k9b" secondAttribute="trailing" constant="20" id="1Yb-3v-wuM"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="8TK-KN-k9b" secondAttribute="bottom" constant="5" id="GaI-Af-373"/>
+                    <constraint firstItem="8TK-KN-k9b" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="LeK-EV-jZW"/>
+                    <constraint firstItem="8TK-KN-k9b" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="o3U-Ey-gSe"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="rankView" destination="NeY-Zd-3W3" id="UUS-TD-0bl"/>
+                <outlet property="revenueMultiplierView" destination="DHE-4a-ofr" id="T7a-sl-B8A"/>
+            </connections>
+            <point key="canvasLocation" x="192.75362318840581" y="171.76339285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ProductivityRank" width="29" height="48"/>
+        <image name="RevenueMultiplier" width="31" height="40"/>
+    </resources>
+</document>

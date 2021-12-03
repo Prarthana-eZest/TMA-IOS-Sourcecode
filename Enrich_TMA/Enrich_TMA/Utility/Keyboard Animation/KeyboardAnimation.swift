@@ -29,8 +29,12 @@ class KeyboardAnimation: NSObject {
         let tap = UITapGestureRecognizer(target: self, action: #selector(KeyboardAnimation.onTap(_:)))
         //        tap.delegate = self
         tap.cancelsTouchesInView = false
-        self.view!.addGestureRecognizer(tap)
+        self.view?.addGestureRecognizer(tap)
         addKeyboardObserver()
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 
     func endKeyboardObservation() {
@@ -45,12 +49,9 @@ class KeyboardAnimation: NSObject {
     fileprivate func addKeyboardObserver() {
 
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardAnimation.textFieldDidBeginEditing(_:)), name: UITextField.textDidBeginEditingNotification, object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardAnimation.textViewDidBeginEditing(_:)), name: UITextView.textDidBeginEditingNotification, object: nil)
-
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardAnimation.keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(KeyboardAnimation.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-
     }
 
     fileprivate func removeKeyboardObserver() {
@@ -58,13 +59,15 @@ class KeyboardAnimation: NSObject {
     }
 
     @objc internal func onTap(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: view!)
-        let hitView = view?.hitTest(location, with: nil)
-        if hitView is UIButton {
-            return
-        }
+        if let view = view {
+            let location = sender.location(in: view)
+            let hitView = view.hitTest(location, with: nil)
+            if hitView is UIButton {
+                return
+            }
 
-        view?.endEditing(true)
+            view.endEditing(true)
+        }
     }
 
     @objc func textViewDidBeginEditing(_ notification: Foundation.Notification) {
@@ -91,7 +94,8 @@ class KeyboardAnimation: NSObject {
 
         if let firstResponder = view?.firstResponder() {
             controlFrame = view?.convert(firstResponder.frame, from: firstResponder.superview)
-        } else if controlFrame == nil {
+        }
+        else if controlFrame == nil {
             controlFrame = CGRect.zero
         }
     }
@@ -107,15 +111,16 @@ class KeyboardAnimation: NSObject {
 
             if let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 self.keyboardSize = keyboardSize
-                let maxY = view!.frame.size.height - (keyboardSize.height + controlFrame.size.height + 5)
+                let maxY = (view?.frame.size.height ?? 0) - (keyboardSize.height + controlFrame.size.height + 5)
 
                 if (controlFrame.origin.y + extraBottomSpace) > maxY {
 
-                    kbHeight = view!.frame.origin.y + (controlFrame.origin.y - maxY)
-                    kbHeight = kbHeight + extraBottomSpace
+                    kbHeight = (view?.frame.origin.y ?? 0) + (controlFrame.origin.y - maxY)
+                    kbHeight += extraBottomSpace
                     self.animateView(true)
 
-                } else {
+                }
+                else {
 
                     self.keyboardWillHide(exestingInfo)
                 }
@@ -126,15 +131,15 @@ class KeyboardAnimation: NSObject {
     @objc func keyboardWillHide(_ notification: Foundation.Notification) {
 
         //        isKeyboardOpen = false
-        kbHeight = abs(view!.frame.origin.y)
+        kbHeight = abs(view?.frame.origin.y ?? 0)
         self.animateView(false)
     }
 
     fileprivate func animateView(_ up: Bool) {
-        if view!.frame.origin.y <= 0 {
+        if (view?.frame.origin.y ?? 0) <= 0 {
             if up {
                 //Get Current out of frame y position
-                let absY = abs(view!.frame.origin.y)
+                let absY = abs(view?.frame.origin.y ?? 0)
                 //Get Max allowed size to go out of screen from current position
                 let maxHeight = self.keyboardSize.height - absY
                 kbHeight = (absY + kbHeight) > self.keyboardSize.height ? maxHeight : kbHeight
@@ -142,7 +147,7 @@ class KeyboardAnimation: NSObject {
 
             let movement = (up ? -kbHeight : kbHeight)
             UIView.animate(withDuration: 0.3, animations: {
-                self.view?.frame = self.view!.frame.offsetBy(dx: 0, dy: movement!)
+                self.view?.frame = self.view?.frame.offsetBy(dx: 0, dy: movement ?? 0) ?? UIView().frame
             })
         }
     }
@@ -165,10 +170,8 @@ extension UIView {
             return self
         }
 
-        for view in self.subviews {
-            if view.isFirstResponder {
-                return view
-            }
+        for view in (self.subviews.filter { $0.isFirstResponder }) {
+            return view
         }
         return nil
     }

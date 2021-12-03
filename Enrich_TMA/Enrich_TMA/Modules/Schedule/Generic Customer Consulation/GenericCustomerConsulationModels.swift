@@ -12,20 +12,69 @@
 
 import UIKit
 
-enum GenericCustomerConsulation
-{
-  // MARK: Use cases
-  
-  enum Something
-  {
-    struct Request
-    {
+enum GenericCustomerConsulation {
+    // MARK: Use cases
+
+    enum FormData {
+
+        struct Request: Codable {
+            let customer_id: String
+            let form_id: String
+            let is_custom: Bool
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+            let data: [Data]?
+        }
+
+        struct Data: Codable {
+            let label: String?
+            let field_type: String?
+            let required: Bool?
+            let show_in_email: Bool?
+            let fieldcol: Int?
+            let wrappercol: Int?
+            let cid: String?
+            let field_cid: String?
+            let value: String?
+            let field_options: [Options]?
+        }
+
+        struct Options: Codable {
+            let label: String?
+            let checked: Bool?
+        }
     }
-    struct Response
-    {
+
+    enum SubmitFormData {
+
+        struct Request: Codable {
+            let formData: FormDataRequest
+            let is_custom: Bool
+        }
+
+        struct FormDataRequest: Codable {
+            let form_id: String
+            let customer_id: String
+            let booking_number: String
+            let customer_name: String
+            let data: [Data]
+        }
+
+        struct Data: Codable {
+            let id: String
+            let value: [String]
+            let size: String
+            let field_type: String
+        }
+
+        struct Response: Codable {
+            var status: Bool = false
+            var message: String = ""
+        }
+
     }
-    struct ViewModel
-    {
-    }
-  }
+
 }

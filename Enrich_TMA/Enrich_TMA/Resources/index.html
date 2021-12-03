@@ -1,0 +1,57 @@
+<html>
+    <script type="text/javascript" language="javascript" src="https://rawgit.com/Microsoft/PowerBI-JavaScript/master/dist/powerbi.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <head>
+        <script type="text/javascript">
+
+            
+            function powerBiEmbed(type,id,embedUrl,accessToken,allowExport,tableName,columnName,employeeId){
+                
+                const filter = {
+                    $schema: "http://powerbi.com/product/schema#advanced",
+                    target: {
+                        table: tableName,
+                        column: columnName
+                    },
+                    operator: "eq",
+                    values: [employeeId]
+                };
+                
+                var models = window['powerbi-client'].models;
+                var permissions = models.Permissions.All;
+                var embedConfiguration = {
+                    type: type,
+                    id: id,
+                    embedUrl: embedUrl,
+                    tokenType: models.TokenType.Aad,
+                    accessToken: accessToken,
+                    permissions: permissions,
+                    filters: [filter],
+                    settings: {
+                        filterPaneEnabled: false,
+                        navContentPaneEnabled: false,
+                        visualSettings: {
+                            visualHeaders: [
+                                {
+                                    settings: {
+                                        visible: allowExport,
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                };
+                                
+                var $reportContainer = $('#reportContainer');
+                
+                var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="reportContainer"></div>
+    </body>
+    
+</html>
+
+ 

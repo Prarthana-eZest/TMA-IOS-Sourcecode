@@ -11,24 +11,23 @@
 import UIKit
 
 protocol MoreModulePresentationLogic {
-    func presentSomethingSuccess<T: Decodable>(response: T)
-    func presentSomethingSuccessFor<T: Decodable>(response: [T])
-    func presentSomethingError(responseError: String?)
+    func presentSuccess<T: Decodable>(response: T)
+    func presentSuccessFor<T: Decodable>(response: [T])
+    func presentError(responseError: String?)
 }
 
 class MoreModulePresenter: MoreModulePresentationLogic {
-  weak var viewController: MoreModuleDisplayLogic?
-
-  // MARK: Do something
+    weak var viewController: MoreModuleDisplayLogic?
 
     // MARK: Do something
-    func presentSomethingSuccess<T: Decodable>(response: T) {
+
+    func presentSuccess<T: Decodable>(response: T) {
         viewController?.displaySuccess(viewModel: response)
     }
-    func presentSomethingError(responseError: String? ) {
+    func presentError(responseError: String? ) {
         viewController?.displayError(errorMessage: responseError)
     }
-    func presentSomethingSuccessFor<T: Decodable>(response: [T]) {
+    func presentSuccessFor<T: Decodable>(response: [T]) {
         viewController?.displaySuccess(responseSuccess: response)
     }
 }

@@ -12,8 +12,8 @@ public enum ContactsErrors: CustomStringConvertible {
     public var description: String {
         switch self {
         // Use Internationalization, as appropriate.
-        case .UserCancelledContacts: return "Cancel Contact Picker"
-
+        case .UserCancelledContacts:
+            return "Cancel Contact Picker"
         }
     }
 }

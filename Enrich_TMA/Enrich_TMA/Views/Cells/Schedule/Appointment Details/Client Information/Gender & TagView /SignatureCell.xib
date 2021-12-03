@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="NotoSerif-Regular.ttf">
+            <string>NotoSerif</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SignatureCell" rowHeight="297" id="KGk-i7-Jjw" customClass="SignatureCell" customModule="TMA_Dev" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="381" height="297"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="381" height="297"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="HCI-vJ-4DV">
+                        <rect key="frame" x="30" y="10" width="321" height="255"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Signature" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jpH-9d-ulE">
+                                <rect key="frame" x="72.5" y="0.0" width="176.5" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="LI8-eJ-mID"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSerif" family="Noto Serif" pointSize="26"/>
+                                <color key="textColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Kf-9z-eqC" customClass="YPDrawSignatureView" customModule="TMA_Dev" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55" width="321" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Amk-ux-sja"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="VBorderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="VBorderColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                        <color key="value" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bdF-CC-wK5">
+                                <rect key="frame" x="0.0" y="220" width="321" height="35"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="K0z-Ss-pJE">
+                                        <rect key="frame" x="0.0" y="0.0" width="321" height="35"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vZL-V5-JVn">
+                                                <rect key="frame" x="0.0" y="0.0" width="153" height="35"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                                <state key="normal" title="Clear">
+                                                    <color key="titleColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionClear:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vzu-6J-jaZ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5RR-TW-xIs">
+                                                <rect key="frame" x="168" y="0.0" width="153" height="35"/>
+                                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="18"/>
+                                                <state key="normal" title="Save">
+                                                    <color key="titleColor" red="0.1529411765" green="0.1450980392" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="actionSaveSignature:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="PGI-6w-KUN"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="K0z-Ss-pJE" firstAttribute="top" secondItem="bdF-CC-wK5" secondAttribute="top" id="EOj-2s-sTw"/>
+                                    <constraint firstAttribute="height" constant="35" id="NxJ-tp-17k"/>
+                                    <constraint firstAttribute="bottom" secondItem="K0z-Ss-pJE" secondAttribute="bottom" id="Qqs-kM-IT9"/>
+                                    <constraint firstAttribute="bottom" secondItem="K0z-Ss-pJE" secondAttribute="bottom" id="ZC8-YC-0P6"/>
+                                    <constraint firstItem="K0z-Ss-pJE" firstAttribute="leading" secondItem="bdF-CC-wK5" secondAttribute="leading" id="ZHv-JJ-uJ7"/>
+                                    <constraint firstItem="K0z-Ss-pJE" firstAttribute="top" secondItem="bdF-CC-wK5" secondAttribute="top" id="lae-Bm-kFh"/>
+                                    <constraint firstAttribute="trailing" secondItem="K0z-Ss-pJE" secondAttribute="trailing" id="snF-Zc-V6N"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="9Kf-9z-eqC" firstAttribute="leading" secondItem="HCI-vJ-4DV" secondAttribute="leading" id="JsW-0R-eCN"/>
+                            <constraint firstAttribute="trailing" secondItem="bdF-CC-wK5" secondAttribute="trailing" id="dwP-2m-1eb"/>
+                            <constraint firstAttribute="trailing" secondItem="9Kf-9z-eqC" secondAttribute="trailing" id="i2u-y0-J24"/>
+                            <constraint firstItem="bdF-CC-wK5" firstAttribute="leading" secondItem="HCI-vJ-4DV" secondAttribute="leading" id="l6b-PX-GUK"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="HCI-vJ-4DV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Dtc-qf-0MN"/>
+                    <constraint firstItem="HCI-vJ-4DV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="EWB-dr-4Cf"/>
+                    <constraint firstAttribute="trailing" secondItem="HCI-vJ-4DV" secondAttribute="trailing" constant="30" id="U2h-et-15J"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HCI-vJ-4DV" secondAttribute="bottom" constant="30" id="XTc-1L-oXt"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bottomView" destination="K0z-Ss-pJE" id="vxX-ty-MKZ"/>
+                <outlet property="signatureView" destination="9Kf-9z-eqC" id="nR6-Xt-Aqd"/>
+            </connections>
+            <point key="canvasLocation" x="180.43478260869566" y="213.28125"/>
+        </tableViewCell>
+    </objects>
+</document>

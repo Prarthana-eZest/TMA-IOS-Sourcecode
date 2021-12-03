@@ -12,20 +12,32 @@
 
 import UIKit
 
-protocol AppointmentDetailsPresentationLogic
-{
-  func presentSomething(response: AppointmentDetails.Something.Response)
+protocol AppointmentDetailsPresentationLogic {
+    func presentGetAppointmentsSuccess<T: Decodable>(response: T)
+    func presentUpdateAppointmentStatus<T: Decodable>(response: T)
+    func presentGetAppointmentStatus<T: Decodable>(response: T)
+    func presentError(responseError: String?)
 }
 
-class AppointmentDetailsPresenter: AppointmentDetailsPresentationLogic
-{
-  weak var viewController: AppointmentDetailsDisplayLogic?
-  
-  // MARK: Do something
-  
-  func presentSomething(response: AppointmentDetails.Something.Response)
-  {
-    let viewModel = AppointmentDetails.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+class AppointmentDetailsPresenter: AppointmentDetailsPresentationLogic {
+    weak var viewController: AppointmentDetailsDisplayLogic?
+
+    // MARK: Do something
+
+    func presentGetAppointmentsSuccess<T>(response: T) where T: Decodable {
+        viewController?.displaySuccess(viewModel: response)
+    }
+
+    func presentError(responseError: String?) {
+        viewController?.displayError(errorMessage: responseError)
+    }
+
+    func presentUpdateAppointmentStatus<T: Decodable>(response: T) {
+        viewController?.displaySuccess(viewModel: response)
+    }
+
+    func presentGetAppointmentStatus<T: Decodable>(response: T) {
+        viewController?.displaySuccess(viewModel: response)
+    }
+
 }

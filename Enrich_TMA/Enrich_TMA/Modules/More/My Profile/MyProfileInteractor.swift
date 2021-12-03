@@ -12,30 +12,24 @@
 
 import UIKit
 
-protocol MyProfileBusinessLogic
-{
-  func doSomething(request: MyProfile.Something.Request)
+protocol MyProfileBusinessLogic {
+    func doGetMyProfileData(employeeId: String?)
 }
 
-protocol MyProfileDataStore
-{
-  //var name: String { get set }
+protocol MyProfileDataStore {
+    //var name: String { get set }
 }
 
-class MyProfileInteractor: MyProfileBusinessLogic, MyProfileDataStore
-{
-  var presenter: MyProfilePresentationLogic?
-  var worker: MyProfileWorker?
-  //var name: String = ""
-  
-  // MARK: Do something
-  
-  func doSomething(request: MyProfile.Something.Request)
-  {
-    worker = MyProfileWorker()
-    worker?.doSomeWork()
-    
-    let response = MyProfile.Something.Response()
-    presenter?.presentSomething(response: response)
-  }
+class MyProfileInteractor: MyProfileBusinessLogic, MyProfileDataStore {
+
+    var presenter: MyProfilePresentationLogic?
+    var worker: MyProfileWorker?
+    //var name: String = ""
+
+    // MARK: Do something
+    func doGetMyProfileData(employeeId: String?) {
+        worker = MyProfileWorker()
+        worker?.presenter = self.presenter
+        worker?.getRequestForUserProfile(employeeId: employeeId)
+    }
 }

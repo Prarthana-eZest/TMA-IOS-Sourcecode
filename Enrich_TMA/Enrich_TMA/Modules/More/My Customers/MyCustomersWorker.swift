@@ -12,9 +12,24 @@
 
 import UIKit
 
-class MyCustomersWorker
-{
-  func doSomeWork()
-  {
-  }
+class MyCustomersWorker {
+
+    let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
+    var presenter: MyCustomersPresentationLogic?
+
+    func postRequestForMyCustomers(request: MyCustomers.GetCustomers.Request, method: HTTPMethod) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (MyCustomers.GetCustomers.Response) -> Void = { (response) in
+            print(response)
+            self.presenter?.presentSuccess(response: response)
+        }
+
+         self.networkLayer.post(urlString: ConstantAPINames.getMyCustomers.rawValue, body: request,
+                                      headers: ["Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"],
+                                      successHandler: successHandler, errorHandler: errorHandler, method: method)
+    }
 }

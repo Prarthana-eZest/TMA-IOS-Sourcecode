@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="FuturaPTBook.otf">
+            <string>FuturaPT-Book</string>
+        </array>
+        <array key="NotoSans-SemiBold.ttf">
+            <string>NotoSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="ServiceAddOnsMultiSelectionCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ServiceAddOnsMultiSelectionCell" rowHeight="256" id="Scv-n4-JHT" customClass="ServiceAddOnsMultiSelectionCell" customModule="enrich" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="582" height="256"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Scv-n4-JHT" id="9rE-bj-vxf">
+                <rect key="frame" x="0.0" y="0.0" width="582" height="255.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KlY-YD-ACL">
+                        <rect key="frame" x="27" y="5" width="545" height="44"/>
+                        <subviews>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qud-0H-c1g">
+                                <rect key="frame" x="0.0" y="11.5" width="21" height="21"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="32C-5B-TRO"/>
+                                    <constraint firstAttribute="width" constant="21" id="Zm1-Fx-Hp6"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="addonunslelectedcheckbox"/>
+                                <state key="selected" backgroundImage="addonselectgedcheckbox">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JHJ-oP-qoZ">
+                                <rect key="frame" x="31" y="22" width="384" height="0.0"/>
+                                <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="FuturaPT-Book" family="Futura PT" pointSize="24"/>
+                                </variation>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="700" verticalHuggingPriority="700" axis="vertical" distribution="fillProportionally" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="u6R-Yl-87W">
+                                <rect key="frame" x="425" y="0.0" width="120" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="700" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="₹0.0" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Al-VN-bYr">
+                                        <rect key="frame" x="88" y="0.0" width="32" height="22"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="24"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="700" verticalHuggingPriority="700" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="₹0.0" textAlignment="right" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W2f-2e-Pyt">
+                                        <rect key="frame" x="88" y="22" width="32" height="22"/>
+                                        <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="16"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="NotoSans-SemiBold" family="Noto Sans" pointSize="24"/>
+                                        </variation>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="RWI-In-d7p"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                    </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IX7-eo-dLi">
+                        <rect key="frame" x="20" y="254" width="542" height="0.5"/>
+                        <color key="backgroundColor" red="0.80784313730000001" green="0.80784313730000001" blue="0.80784313730000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="d0R-wl-dND"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="IX7-eo-dLi" secondAttribute="trailing" id="3wc-bA-9AD"/>
+                    <constraint firstItem="KlY-YD-ACL" firstAttribute="top" secondItem="9rE-bj-vxf" secondAttribute="top" constant="5" id="5y9-1r-1iH"/>
+                    <constraint firstAttribute="trailing" secondItem="KlY-YD-ACL" secondAttribute="trailing" constant="10" id="9f0-eV-exd"/>
+                    <constraint firstItem="KlY-YD-ACL" firstAttribute="leading" secondItem="9rE-bj-vxf" secondAttribute="leading" constant="27" id="ARc-FG-3Xl"/>
+                    <constraint firstItem="IX7-eo-dLi" firstAttribute="leading" secondItem="9rE-bj-vxf" secondAttribute="leadingMargin" id="Mdn-cl-NCQ"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KlY-YD-ACL" secondAttribute="bottom" constant="5" id="akW-Ow-7RQ"/>
+                    <constraint firstAttribute="bottom" secondItem="IX7-eo-dLi" secondAttribute="bottom" constant="1" id="vZE-95-GaH"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="btnCheckUnChecked" destination="qud-0H-c1g" id="AhA-kC-8US"/>
+                <outlet property="lblOldPrice" destination="W2f-2e-Pyt" id="OuJ-Ds-PJg"/>
+                <outlet property="lblPrice" destination="5Al-VN-bYr" id="ne1-DY-Nar"/>
+                <outlet property="lblTitle" destination="JHJ-oP-qoZ" id="Xa6-I0-RmQ"/>
+                <outlet property="sepratorLine" destination="IX7-eo-dLi" id="pBm-wu-wDr"/>
+            </connections>
+            <point key="canvasLocation" x="219.19999999999999" y="139.43028485757122"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="addonselectgedcheckbox" width="20" height="20"/>
+        <image name="addonunslelectedcheckbox" width="20" height="20"/>
+    </resources>
+</document>

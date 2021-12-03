@@ -10,12 +10,12 @@ import UIKit
 
 class MyProfileHeaderCell: UITableViewCell {
 
-    @IBOutlet weak var profilePicture: UIImageView!
-    @IBOutlet weak var lblUserName: UILabel!
-    @IBOutlet weak var lblSpeciality: UILabel!
-    @IBOutlet weak var lblDateOfJoining: UILabel!
-    
-    
+    @IBOutlet weak private var profilePicture: UIImageView!
+    @IBOutlet weak private var lblUserName: UILabel!
+    @IBOutlet weak private var lblSpeciality: UILabel!
+    @IBOutlet weak private var lblDateOfJoining: UILabel!
+    @IBOutlet weak private var lblRatings: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -26,18 +26,43 @@ class MyProfileHeaderCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
-    func configureCell(model:MyProfileHeaderModel){
-        lblUserName.text = model.userName
-        lblSpeciality.text = model.speciality
-        lblDateOfJoining.text = model.dateOfJoining
+
+    func configureCell(model: MyProfileHeaderModel) {
+
+        lblUserName.text = model.userName.capitalized
+        lblSpeciality.text = model.speciality.capitalized
+
+        let dateString = model.dateOfJoining
+        if let date = dateString.getDateFromString() {
+            lblDateOfJoining.text = date.monthYearDate
+        }
+        else {
+            lblDateOfJoining.text = dateString
+        }
+
+        let rating = Double(model.ratings)?.cleanForRating
+        lblRatings.text = "\(rating ?? "0")/5"
+
+        profilePicture.layer.cornerRadius = profilePicture.frame.size.height * 0.5
+        profilePicture.kf.indicatorType = .activity
+        let defaultImage = UIImage(named: "defaultProfile")
+
+        if !model.profilePictureURL.isEmpty,
+            let imageurl = URL(string: model.profilePictureURL) {
+            profilePicture.kf.setImage(with: imageurl, placeholder: defaultImage, options: nil, progressBlock: nil, completionHandler: nil)
+        }
+        else {
+            profilePicture.image = defaultImage
+        }
     }
-    
+
 }
 
-struct MyProfileHeaderModel{
+struct MyProfileHeaderModel {
     let profilePictureURL: String
     let userName: String
     let speciality: String
     let dateOfJoining: String
+    let ratings: String
+    let gender: String
 }
