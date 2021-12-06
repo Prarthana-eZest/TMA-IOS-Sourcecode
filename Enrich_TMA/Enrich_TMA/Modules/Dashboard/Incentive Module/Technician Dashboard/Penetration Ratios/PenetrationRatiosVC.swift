@@ -735,7 +735,6 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
     }
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
-        
         switch rangeType
         {
         
@@ -749,8 +748,20 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            
-            if dateRange.end.monthName != dateRange.start.monthName
+            /*
+             case .cutome:
+                         
+                         if dateRange.end.monthName != dateRange.start.monthName
+                         {
+                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+                         }
+                         else {
+                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
+                         }
+                     }
+             update if condition with this extension. On true else condition should execute for this
+             */
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
