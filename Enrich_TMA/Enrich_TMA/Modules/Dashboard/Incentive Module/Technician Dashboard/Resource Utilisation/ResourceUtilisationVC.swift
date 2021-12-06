@@ -176,7 +176,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         var values = [Double]()
         
         //Productive time
-        let totalShiftTime = filterArray.filter({$0.total_shift_time ?? 0 > 0})
+        let totalShiftTime = filterArray.filter({$0.services_time ?? 0 > 0})
         //Busy time
 //        let totalServiceTime = filterArray.filter({$0.services_time ?? 0 > 0})
         
@@ -188,7 +188,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             for objDt in dates {
                 if let data = totalShiftTime.filter({$0.date == objDt}).first
                 {
-                    values.append(Double(data.services_time! / data.total_shift_time!))
+                    values.append(Double(data.services_time!))
                 }
                 else {
                     values.append(Double(0.0))
@@ -201,7 +201,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                     if let rMonth = data.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return Double(data.services_time! / data.total_shift_time!)
+                        return Double(data.services_time!)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -219,7 +219,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                         if let rMonth = data.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return Double(data.services_time! / data.total_shift_time!)
+                            return Double(data.services_time!)
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -232,7 +232,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 for objDt in dates {
                     if let data = totalShiftTime.filter({$0.date == objDt}).first
                     {
-                        values.append(Double(data.services_time! / data.total_shift_time!))
+                        values.append(Double(data.services_time!))
                     }
                     else {
                         values.append(Double(0.0))
@@ -243,7 +243,79 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
     return values
     }
     
-    func calculateTrainingTime(filterArray : [Dashboard.GetRevenueDashboard.ResourceUtilization], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
+    func calculateProductiveTimeRatio(filterArray : [Dashboard.GetRevenueDashboard.ResourceUtilization], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]
+    {
+        var values = [Double]()
+        
+        //Productive time
+        let totalShiftTime = filterArray.filter({$0.total_shift_time ?? 0 > 0})
+        //Busy time
+//        let totalServiceTime = filterArray.filter({$0.services_time ?? 0 > 0})
+        
+        
+        switch dateRangeType
+        {
+        case .yesterday, .today, .week, .mtd:
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = totalShiftTime.filter({$0.date == objDt}).first
+                {
+                    values.append(Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100))
+                }
+                else {
+                    values.append(Double(0.0))
+                }
+            }
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start)
+            for qMonth in months {
+                let value = totalShiftTime.map ({ (data) -> Double in
+                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                       rMonth == qMonth
+                    {
+                        return Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100)
+                    }
+                    return 0.0
+                }).reduce(0) {$0 + $1}
+                
+                values.append(value)
+            }
+            
+        case .cutome:
+            
+            if dateRange.end.monthName != dateRange.start.monthName
+            {
+                let months = dateRange.end.monthNames(from: dateRange.start)
+                for qMonth in months {
+                    let value = totalShiftTime.map ({ (data) -> Double in
+                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                           rMonth == qMonth
+                        {
+                            return Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100)
+                        }
+                        return 0.0
+                    }).reduce(0) {$0 + $1}
+
+                    values.append(value)
+                }
+            }
+            else {
+                let dates = dateRange.end.dayDates(from: dateRange.start)
+                for objDt in dates {
+                    if let data = totalShiftTime.filter({$0.date == objDt}).first
+                    {
+                        values.append(Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100))
+                    }
+                    else {
+                        values.append(Double(0.0))
+                    }
+                }
+            }
+        }
+    return values
+    }
+    
+    func calculateTrainingTimeRatio(filterArray : [Dashboard.GetRevenueDashboard.ResourceUtilization], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
         var values = [Double]()
         
         let totalTranningTime = filterArray.filter({$0.tranning_time ?? 0 > 0})
@@ -255,7 +327,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             for objDt in dates {
                 if let data = totalTranningTime.filter({$0.date == objDt}).first
                 {
-                    values.append(Double(data.tranning_time! / data.total_shift_time!))
+                    values.append(Double(Double(data.tranning_time!) / Double(data.total_shift_time!)) * 100)
                 }
                 else {
                     values.append(Double(0.0))
@@ -268,7 +340,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                     if let rMonth = data.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return Double(data.tranning_time! / data.total_shift_time!)
+                        return Double(Double(data.tranning_time!) / Double(data.total_shift_time!) * 100)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -286,7 +358,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                         if let rMonth = data.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return Double(data.tranning_time! / data.total_shift_time!)
+                            return Double(Double(data.tranning_time!) / Double(data.total_shift_time!) * 100 )
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -299,7 +371,73 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 for objDt in dates {
                     if let data = totalTranningTime.filter({$0.date == objDt}).first
                     {
-                        values.append(Double(data.tranning_time! / data.total_shift_time!))
+                        values.append(Double(Double(data.tranning_time!) / Double(data.total_shift_time!)) * 100)
+                    }
+                    else {
+                        values.append(Double(0.0))
+                    }
+                }
+            }
+        }
+    return values
+    }
+    func calculateTrainingTime(filterArray : [Dashboard.GetRevenueDashboard.ResourceUtilization], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
+        var values = [Double]()
+        
+        let totalTranningTime = filterArray.filter({$0.tranning_time ?? 0 > 0})
+        //( trainingBusyTime / productivityAvailableTime )
+        switch dateRangeType
+        {
+        case .yesterday, .today, .week, .mtd:
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = totalTranningTime.filter({$0.date == objDt}).first
+                {
+                    values.append(Double(data.tranning_time!))
+                }
+                else {
+                    values.append(Double(0.0))
+                }
+            }
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start)
+            for qMonth in months {
+                let value = totalTranningTime.map ({ (data) -> Double in
+                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                       rMonth == qMonth
+                    {
+                        return Double(data.tranning_time!)
+                    }
+                    return 0.0
+                }).reduce(0) {$0 + $1}
+                
+                values.append(value)
+            }
+            
+        case .cutome:
+            
+            if dateRange.end.monthName != dateRange.start.monthName
+            {
+                let months = dateRange.end.monthNames(from: dateRange.start)
+                for qMonth in months {
+                    let value = totalTranningTime.map ({ (data) -> Double in
+                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                           rMonth == qMonth
+                        {
+                            return Double(data.tranning_time!)
+                        }
+                        return 0.0
+                    }).reduce(0) {$0 + $1}
+
+                    values.append(value)
+                }
+            }
+            else {
+                let dates = dateRange.end.dayDates(from: dateRange.start)
+                for objDt in dates {
+                    if let data = totalTranningTime.filter({$0.date == objDt}).first
+                    {
+                        values.append(Double(data.tranning_time!))
                     }
                     else {
                         values.append(Double(0.0))
@@ -323,7 +461,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             for objDt in dates {
                 if let data = totalServiceTime.filter({$0.date == objDt}).first
                 {
-                    values.append(Double(data.break_time! / data.total_shift_time!))
+                    values.append(Double(data.break_time!))
                 }
                 else {
                     values.append(Double(0.0))
@@ -336,7 +474,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                     if let rMonth = data.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return Double(data.break_time! / data.total_shift_time!)
+                        return Double(data.break_time!)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -354,7 +492,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                         if let rMonth = data.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return Double(data.break_time! / data.total_shift_time!)
+                            return Double(data.break_time!)
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -367,7 +505,74 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 for objDt in dates {
                     if let data = totalServiceTime.filter({$0.date == objDt}).first
                     {
-                        values.append(Double(data.break_time! / data.total_shift_time!))
+                        values.append(Double(data.break_time!))
+                    }
+                    else {
+                        values.append(Double(0.0))
+                    }
+                }
+            }
+        }
+    return values
+    }
+    
+    func calculateBreakTimeRatio(filterArray : [Dashboard.GetRevenueDashboard.ResourceUtilization], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
+        var values = [Double]()
+        
+        let totalServiceTime = filterArray.filter({$0.break_time ?? 0 > 0})
+        
+        switch dateRangeType
+        {
+        case .yesterday, .today, .week, .mtd:
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = totalServiceTime.filter({$0.date == objDt}).first
+                {
+                    values.append(Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100))
+                }
+                else {
+                    values.append(Double(0.0))
+                }
+            }
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start)
+            for qMonth in months {
+                let value = totalServiceTime.map ({ (data) -> Double in
+                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                       rMonth == qMonth
+                    {
+                        return Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100)
+                    }
+                    return 0.0
+                }).reduce(0) {$0 + $1}
+                
+                values.append(value)
+            }
+            
+        case .cutome:
+            
+            if dateRange.end.monthName != dateRange.start.monthName
+            {
+                let months = dateRange.end.monthNames(from: dateRange.start)
+                for qMonth in months {
+                    let value = totalServiceTime.map ({ (data) -> Double in
+                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                           rMonth == qMonth
+                        {
+                            return Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100)
+                        }
+                        return 0.0
+                    }).reduce(0) {$0 + $1}
+
+                    values.append(value)
+                }
+            }
+            else {
+                let dates = dateRange.end.dayDates(from: dateRange.start)
+                for objDt in dates {
+                    if let data = totalServiceTime.filter({$0.date == objDt}).first
+                    {
+                        values.append(Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100))
                     }
                     else {
                         values.append(Double(0.0))
@@ -541,12 +746,14 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         if(resourceUtilizationCount! > 0){
             breakTimeBusy = breakTimeCount
         }
-        if(breakTimeCount == 0)
+        var breakTimeProductivity = 0.0
+        if(breakTimeCount != 0)
         {
-            breakTimeCount = 1
+            breakTimeProductivity = (totalServiceTimeCount / breakTimeCount)
         }
-        let breakTimeProductivity = (totalServiceTimeCount / breakTimeCount)
-        
+        else {
+            breakTimeProductivity = 0.0
+        }
         var strproductivityAvailableTime, strproductivityBusyeTime, strproductivity, strtrainingBusyTime, strproductivityTraining, strbreakTimeBusy, strbreakTimeProductivity : String
         ;
         if(productivityAvailableTime >= 60){
@@ -654,24 +861,46 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         if(index == 3){
             let graphColor = EarningDetails.Revenue.graphBarColor
             
+            // 2 tile : Buy
             let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
             
-            
+            //3 tile : prodctutivity i.e. ratio
             let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: values, barColor: graphColor.last!)
             
             
             return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
         }
+        
         let graphColor = EarningDetails.ResourceUtilisation.graphBarColor
         
+        if(index == 0){ // productive time
         let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: graphData(forData: [], atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: calculateProductiveTimeRatio(filterArray: data ?? [], dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
+        }
+        if(index == 1) { // training time
+        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
         
+        
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values:calculateTrainingTimeRatio(filterArray: data ?? [], dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
+        
+        
+        return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
+        }
+        
+        //break time
+        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
+        
+        
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: calculateBreakTimeRatio(filterArray: data ?? [], dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
+        
+        //let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: graphData(forData: [], atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
+        
+        return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
     
     
