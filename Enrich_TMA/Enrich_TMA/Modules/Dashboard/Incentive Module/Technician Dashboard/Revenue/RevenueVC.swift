@@ -120,6 +120,18 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let selectedIndex = indexPath.row - 1
         let dateRange = DateRange(startDate!, endDate)
         
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Date filter applied
+        let dateFilteredRevenue = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
+        
+        
+        //Update Data for Index
         if(selectedIndex >= 0){
             let model = dataModels[selectedIndex]
             model.dateRangeType = rangeType
@@ -127,7 +139,8 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
                 model.customeDateRange = dateRange
             }
             
-            let graphData = getBarLineGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            update(modeData: model, withData: dateFilteredRevenue, otherFilters: filterArray, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            let graphData = getBarLineGraphEntry(model.title, forData: dateFilteredRevenue, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             barGraphData[selectedIndex] = graphData.barGraph
             lineGraphData[selectedIndex] = graphData.lineGraph
         }
@@ -137,12 +150,138 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
                 headerModel?.customeDateRange = dateRange
             }
             
-            headerGraphDataGraphEntries = getTotalRevenueBarLineGraphEntry(dateRange: dateRange, dateRangeType: rangeType)
+            updateHeaderModel(withData: dateFilteredRevenue, otherFilters: filterArray, dateRange: dateRange, dateRangeType: rangeType)
+            headerGraphDataGraphEntries = getTotalRevenueBarLineGraphEntry(forData: dateFilteredRevenue, dateRange: dateRange, dateRangeType: rangeType)
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
+    func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, otherFilters : [String]?, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredRevenue = data
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            
+            //Date filter applied
+            filteredRevenue = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        //Other Filters Applied
+        //Gender
+        if let gender = otherFilters?[0], gender != "All Genders"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
+        }
+
+        //Category
+        if let category = otherFilters?[1], category != "All Categories"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.category == category })
+        }
+        
+        //Sub-Category
+        if let subCategory = otherFilters?[2], subCategory != "All Categories"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.sub_category == subCategory })
+        }
+        
+        var value : Double = 0.0
+        for revenue in filteredRevenue ?? [] {
+            
+            switch index {
+            case 0:
+                // Salon Service Revenue Data
+                if (revenue.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) {
+                    value += Double(revenue.total ?? 0.0)
+                }
+                
+            case 1:
+                // Home Service Revenue Data
+                if (revenue.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home) {
+                    value += Double(revenue.total ?? 0.0)
+                }
+                
+            case 2:
+                // Retail Products Revenue Data
+                if (revenue.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail) {
+                    value += Double(revenue.total ?? 0.0)
+                }
+            default:
+                continue
+            }
+        }
+        dataModels[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+    }
+    
+    
+    func updateHeaderModel(withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, otherFilters : [String]?, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredRevenue = data
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            
+            //Date filter applied
+            filteredRevenue = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        //Other Filters Applied
+        //Gender
+        if let gender = otherFilters?[0], gender != "All Genders"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
+        }
+
+        //Category
+        if let category = otherFilters?[1], category != "All Categories"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.category == category })
+        }
+        
+        //Sub-Category
+        if let subCategory = otherFilters?[2], subCategory != "All Categories"
+        {
+            filteredRevenue = filteredRevenue?.filter({ $0.sub_category == subCategory })
+        }
+        
+        var salonServiceToatal:Double = 0.0
+        var homeServiceTotal:Double = 0.0
+        var retailTotal:Double = 0.0
+        
+        for revenue in filteredRevenue ?? [] {
+            
+            // Retail Products Revenue Data
+            if (revenue.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail) {
+                retailTotal += Double(revenue.total ?? 0.0)
+            }
+            
+            // Salon Service Revenue Data
+            if (revenue.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) {
+                salonServiceToatal += Double(revenue.total ?? 0.0)
+            }
+            
+            // Home Service Revenue Data
+            if (revenue.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home) {
+                homeServiceTotal += Double(revenue.total ?? 0.0)
+            }
+        }
+        
+        headerModel?.value = salonServiceToatal + homeServiceTotal + retailTotal
+    }
     
     func revenueScreenData(startDate : Date, endDate : Date = Date().startOfDay, otherFilters : [String]?, completion: (() -> Void)? ) {
         
