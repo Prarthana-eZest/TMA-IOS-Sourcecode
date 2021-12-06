@@ -272,7 +272,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         switch rangeType
         {
         
-        case .yesterday, .today, .mtd, .week:
+        case .yesterday, .today, .mtd:
+            return dateRange.end.endOfMonth.dayDates(from: dateRange.start.startOfMonth, withFormat: "dd")
+            
+        case .week:
             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
             
         case .qtd, .ytd:

@@ -98,6 +98,7 @@ class EarningDetailsCell: UITableViewCell, ChartViewDelegate {
         graphDtFilter.setTitle(model.dateRangeType.rawValue, for: .normal)
 //        if chartView.data == nil, !model.isExpanded {
         //if !model.isExpanded {
+        
             drawGraph(graphData: data, showRightAxix: (model.earningsType == .CustomerEngagement || model.earningsType == .ResourceUtilisation))
         //}
         

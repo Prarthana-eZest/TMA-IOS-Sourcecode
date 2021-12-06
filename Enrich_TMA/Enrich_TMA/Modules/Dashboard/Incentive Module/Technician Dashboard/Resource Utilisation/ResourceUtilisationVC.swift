@@ -29,7 +29,8 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
     var headerGraphData: GraphDataEntry?
     
     var dataModel = [EarningsCellDataModel]()
-    var graphData = [GraphDataEntry]()
+    var barGraphData = [GraphDataEntry]()
+    var lineGraphData = [GraphDataEntry]()
 
     var dateRangeType : DateRangeType = .mtd
     var resourceUtilizationCutomeDateRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
@@ -109,7 +110,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 model.customeDateRange = dateRange
             }
             
-            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+//            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            let graphData = getBarLineGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            barGraphData[selectedIndex] = graphData.barGraph
+            lineGraphData[selectedIndex] = graphData.lineGraph
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -449,7 +453,8 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
     func resourceUtilizationScreenData(startDate : Date, endDate : Date = Date().startOfDay){
         
         dataModel.removeAll()
-        graphData.removeAll()
+        barGraphData.removeAll()
+        lineGraphData.removeAll()
         
         let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
         
@@ -586,24 +591,30 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         //Data Model
         let productiveTimeModel = EarningsCellDataModel(earningsType: .ResourceUtilisation, title: "Productive Time", value: [strproductivityAvailableTime,strproductivityBusyeTime,strproductivity], subTitle: ["Available","Busy","Productivity"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: resourceUtilizationCutomeDateRange)
         dataModel.append(productiveTimeModel)
-        //Graph Data
-        graphData.append(getGraphEntry(productiveTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
+        //GraphDate
+        let productiveTimeGraphEntries = getBarLineGraphEntry(productiveTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        barGraphData.append(productiveTimeGraphEntries.barGraph)
+        lineGraphData.append(productiveTimeGraphEntries.lineGraph)
         
         
         //"Training Time"
         //Data Model
         let trainingTimeModel = EarningsCellDataModel(earningsType: .ResourceUtilisation, title: "Training Time", value: [strproductivityAvailableTime,strtrainingBusyTime,strproductivityTraining], subTitle: ["Available","Busy","Productivity"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: resourceUtilizationCutomeDateRange)
         dataModel.append(trainingTimeModel)
-        //Graph Data
-        graphData.append(getGraphEntry(trainingTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
+        //GraphDate
+        let tainingTimeGraphEntries = getBarLineGraphEntry(trainingTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        barGraphData.append(tainingTimeGraphEntries.barGraph)
+        lineGraphData.append(tainingTimeGraphEntries.lineGraph)
         
         
         //"Break Time"
         //Data Model
         let breakTimeModel = EarningsCellDataModel(earningsType: .ResourceUtilisation, title: "Break Time", value: [strproductivityAvailableTime,strbreakTimeBusy,strbreakTimeProductivity], subTitle: ["Available","Break Taken","Productivity"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: resourceUtilizationCutomeDateRange)
         dataModel.append(breakTimeModel)
-        //Graph Data
-        graphData.append(getGraphEntry(breakTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
+        //GraphDate
+        let breakTimeGraphEntries = getBarLineGraphEntry(breakTimeModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        barGraphData.append(breakTimeGraphEntries.barGraph)
+        lineGraphData.append(breakTimeGraphEntries.lineGraph)
         
         
         let attendanceDate = calculateAttendanceForMonth()
@@ -623,20 +634,53 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             //Data Model
             let attendanceModel = EarningsCellDataModel(earningsType: .ResourceUtilisation, title: "Attendance", value: ["\(attendanceCount)/\(days)"], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: resourceUtilizationCutomeDateRange)
             dataModel.append(attendanceModel)
-            //Graph Data
-            graphData.append(getGraphEntry(attendanceModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
+            //GraphDate
+            let breakTimeGraphEntries = getBarLineGraphEntry(attendanceModel.title, forData: filteredResourceUtilizationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType)
+            barGraphData.append(breakTimeGraphEntries.barGraph)
+            lineGraphData.append(breakTimeGraphEntries.lineGraph)
         }
         tableView.reloadData()
-        
-       
+
     }
+    
+    func getBarLineGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.ResourceUtilization]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> BarLineGraphEntry
+    {
+        let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
+        let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
+        
+        if(index == 3){
+            let graphColor = EarningDetails.Revenue.graphBarColor
+            
+            let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
+            
+            
+            let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: values, barColor: graphColor.last!)
+            
+            
+            return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
+        }
+        let graphColor = EarningDetails.ResourceUtilisation.graphBarColor
+        
+        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Busy", units: units, values: values, barColor: graphColor.first!)
+        
+        
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Productive", units: units, values: values, barColor: graphColor.last!)
+        
+        
+        return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
+        
+    }
+    
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
         
         switch rangeType
         {
         
-        case .yesterday, .today, .mtd, .week:
+        case .yesterday, .today, .mtd:
+            return dateRange.end.endOfMonth.dayDates(from: dateRange.start.startOfMonth, withFormat: "dd")
+            
+        case .week:
             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
             
         case .qtd, .ytd:
@@ -825,10 +869,10 @@ extension ResourceUtilisationVC: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
                 cell.delegate = self
                 cell.parentVC = self
-                
                 let index = indexPath.row - 1
                 let model = dataModel[index]
-                let barGraph = graphData[index]
+                let barGraph = barGraphData[index]
+//                let lineGraph = lineGraphData[index]
                 
                 cell.configureCell(model: model, data: [barGraph])
                 return cell
@@ -840,12 +884,12 @@ extension ResourceUtilisationVC: UITableViewDelegate, UITableViewDataSource {
                 cell.selectionStyle = .none
                 cell.delegate = self
                 cell.parentVC = self
-                
                 let index = indexPath.row - 1
                 let model = dataModel[index]
-                let barGraph = graphData[index]
+                let barGraph = barGraphData[index]
+                let lineGraph = lineGraphData[index]
                 
-                cell.configureCell(model: model, data: [barGraph])
+                cell.configureCell(model: model, data: [lineGraph, barGraph])
                 return cell
             }
         }

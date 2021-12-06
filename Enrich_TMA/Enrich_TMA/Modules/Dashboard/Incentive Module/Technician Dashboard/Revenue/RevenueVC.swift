@@ -273,7 +273,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: values, barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: graphData(forData: [], atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
@@ -287,7 +287,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: values, barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: totalRevenueGraphData(forData: [], dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
