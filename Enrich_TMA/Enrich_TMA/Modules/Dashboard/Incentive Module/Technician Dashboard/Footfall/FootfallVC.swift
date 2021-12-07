@@ -104,6 +104,16 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
         let selectedIndex = indexPath.row - 1
         let dateRange = DateRange(startDate!, endDate)
         
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Date filter applied
+        let dateFilteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
+        
         if(selectedIndex >= 0){
             let model = dataModel[selectedIndex]
             model.dateRangeType = rangeType
@@ -111,7 +121,8 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
                 model.customeDateRange = dateRange
             }
             
-            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            update(modeData: model, withData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            graphData[selectedIndex] = getGraphEntry(model.title,forData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
         }
         else if let _ = headerModel {
             headerModel?.dateRangeType = rangeType
@@ -119,13 +130,89 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
                 headerModel?.customeDateRange = dateRange
             }
             
-            headerGraphData = getTotalFootfallGraphEntry(dateRange: dateRange, dateRangeType: rangeType)
+            updateHeaderModel(withData: dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
+            headerGraphData = getTotalFootfallGraphEntry(forData:dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
+    func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredFootfall = data
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            
+            //Date filter applied
+            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        var value : Double = 0.0
+        switch index {
+        case 0:
+            //service
+             let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
+             value = Double(salonServiceData.unique(map: {$0.invoice_number}).count)
+            
+        case 1:
+            //Home
+            let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
+            value = Double(homeServiceRevenueData.unique(map: {$0.invoice_number}).count)
+            
+        case 2:
+            //Retail
+            let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+            value = Double(retailData?.unique(map: {$0.invoice_number}).count ?? 0)
+            
+        default:
+            print("****************** UNKNOWN ******************")
+        }
+        
+        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+    }
     
+    
+    func updateHeaderModel(withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredFootfall = data
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            //Date filter applied
+            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+       //service
+        let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
+        let salonServiceCount : Int = salonServiceData.unique(map: {$0.invoice_number}).count
+        print("serviceToatal conunt : \(salonServiceCount)")
+        
+        //Home
+        let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
+        let homeServiceCount : Int = homeServiceRevenueData.unique(map: {$0.invoice_number}).count
+        print("homeServiceTotal conunt : \(homeServiceCount)")
+    
+        //Retail
+        let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+        let retailCount : Int = retailData?.unique(map: {$0.invoice_number}).count ?? 0
+        print("retail conunt : \(retailCount)")
+        
+        headerModel?.value = Double(salonServiceCount + homeServiceCount + retailCount)
+    }
+
     
     func doSomething()
     {
@@ -485,85 +572,44 @@ extension FootfallVC: EarningsFilterDelegate {
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
-        let invoiceNumber = technicianDataJSON?.data?.revenue_transactions?.filter({($0.invoice_number ?? "") != ""})
-        let updateUniqueData = invoiceNumber?.unique(map: {$0.invoice_number}) ?? []
-        
-        
-       //service
-        let serviceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
-        
-        
-        //add condition for product category type
-        var serviceToatal : Int = 0 //= serviceData?.count ?? 0
-        let serviceDataUniqueInvoice = serviceData.unique(map: {$0.invoice_number})
-        for objInvoice in updateUniqueData {
-            for objServiceData in serviceDataUniqueInvoice {
-                if(objInvoice.invoice_number == objServiceData.invoice_number){
-                    serviceToatal = serviceToatal + 1
-                }
-            }
-        }
-        
-        print("serviceToatal conunt : \(serviceToatal)")
-        //123
-        let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
-        //add condition for product category type
-        
-        let homeInvoiceUnique = homeServiceRevenueData.unique(map: {$0.invoice_number})
-        var homeServiceTotal : Int = 0
-        
-        for objInvoice in updateUniqueData {
-            for objHomeData in homeInvoiceUnique {
-                if(objInvoice.invoice_number == objHomeData.invoice_number){
-                    homeServiceTotal = homeServiceTotal + 1
-                }
-            }
-        }
-        
-        print("homeServiceTotal conunt : \(homeServiceTotal)")
-    
-        let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-        let retialInvoiceUnique = retailData?.unique(map: {$0.invoice_number}) ?? []
-        var retailCount : Int = 0
-        
-        for objInvoice in updateUniqueData {
-            for objRetail in retialInvoiceUnique {
-                if (objInvoice.invoice_number == objRetail.invoice_number){
-                    retailCount = retailCount + 1
-                }
-            }
-        }
-        
-        //43
-        print("retail conunt : \(retailCount)")
-       // if( serviceToatal > 0) {
+        //service
+         let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
+         let salonServiceCount : Int = salonServiceData.unique(map: {$0.invoice_number}).count
+         print("serviceToatal conunt : \(salonServiceCount)")
+         
+         //Home
+         let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
+         let homeServiceCount : Int = homeServiceRevenueData.unique(map: {$0.invoice_number}).count
+         print("homeServiceTotal conunt : \(homeServiceCount)")
+     
+         //Retail
+         let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+         let retailCount : Int = retailData?.unique(map: {$0.invoice_number}).count ?? 0
+         print("retail conunt : \(retailCount)")
         
         //salon service
         //Data Model
-        let salonServiceModel = EarningsCellDataModel(earningsType: .Footfall, title: "Salon Service", value: [Double(serviceToatal).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: footfallCutomeDateRange)
+        let salonServiceModel = EarningsCellDataModel(earningsType: .Footfall, title: "Salon Service", value: [Double(salonServiceCount).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: footfallCutomeDateRange)
         dataModel.append(salonServiceModel)
         //Graph Data
         graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFootfallForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
-
-    
-       // }
         
-      
+        
         //home service
         //Data Model
-        let homeServiceModel = EarningsCellDataModel(earningsType: .Footfall, title: "Home Service", value: [Double(homeServiceTotal).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: footfallCutomeDateRange)
+        let homeServiceModel = EarningsCellDataModel(earningsType: .Footfall, title: "Home Service", value: [Double(homeServiceCount).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: footfallCutomeDateRange)
         dataModel.append(homeServiceModel)
         //Graph Data
         graphData.append(getGraphEntry(homeServiceModel.title, forData: filteredFootfallForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
 
-        //home service
+        //Retail service
         //Data Model
         let retailProductModel = EarningsCellDataModel(earningsType: .Footfall, title: "Retail Products", value: [Double(retailCount).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: footfallCutomeDateRange)
         dataModel.append(retailProductModel)
         //Graph Data
         graphData.append(getGraphEntry(retailProductModel.title, forData: filteredFootfallForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
         
-        let footfallCount = Double(serviceToatal + homeServiceTotal + retailCount)
+        let footfallCount = Double(salonServiceCount + homeServiceCount + retailCount)
     
         headerModel?.value = footfallCount
         headerModel?.dateRangeType = graphRangeType
