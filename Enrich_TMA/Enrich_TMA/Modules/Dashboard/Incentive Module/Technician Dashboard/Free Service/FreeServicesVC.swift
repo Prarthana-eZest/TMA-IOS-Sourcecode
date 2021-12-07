@@ -102,6 +102,16 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         let selectedIndex = indexPath.row - 1
         let dateRange = DateRange(startDate!, endDate)
         
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Date filter applied
+        let dateFilteredFreeService = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
+        
         if(selectedIndex >= 0){
             let model = dataModel[selectedIndex]
             model.dateRangeType = rangeType
@@ -109,7 +119,8 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                 model.customeDateRange = dateRange
             }
             
-            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            update(modeData: model, withData: dateFilteredFreeService, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            graphData[selectedIndex] = getGraphEntry(model.title,forData: dateFilteredFreeService, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
         }
         else if let _ = headerModel {
             headerModel?.dateRangeType = rangeType
@@ -117,10 +128,99 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                 headerModel?.customeDateRange = dateRange
             }
             
-            headerGraphData = getTotalFreeServiceGraphEntry(dateRange: dateRange, dateRangeType: rangeType)
+            updateHeaderModel(withData: dateFilteredFreeService, dateRange: dateRange, dateRangeType: rangeType)
+            headerGraphData = getTotalFreeServiceGraphEntry(forData: dateFilteredFreeService, dateRange: dateRange, dateRangeType: rangeType)
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredFreeServices = data
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            
+            //Date filter applied
+            filteredFreeServices = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        var value : Double = 0.0
+        for freeService in filteredFreeServices ?? [] {
+            switch index {
+            case 0:
+                // Reward points
+                if let fsRevenue = freeService.free_service_revenue, fsRevenue > 0 {
+                    value += fsRevenue
+                }
+                
+            case 1:
+                // complimentary_giftcard
+                if let cGiftCard = freeService.complimentary_giftcard, cGiftCard > 0, (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) {
+                    value += cGiftCard
+                }
+                
+            case 2:
+                // grooming_giftcard
+                if let gGiftCard = freeService.grooming_giftcard, gGiftCard > 0, (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) {
+                    value += gGiftCard
+                }
+                
+            default:
+                continue
+            }
+        }
+        
+        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+    }
+    
+    
+    func updateHeaderModel(withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredFreeServices = data
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+            
+            //Date filter applied
+            filteredFreeServices = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        var freeServiceRevenueCount : Double = 0.0
+        var complimentaryGiftcardCount : Double = 0.0
+        var groomingGiftcardCount : Double = 0.0
+        
+        for freeService in filteredFreeServices ?? [] {
+            // Reward points
+            if let fsRevenue = freeService.free_service_revenue, fsRevenue > 0 {
+                freeServiceRevenueCount += fsRevenue
+            }
+            
+            // complimentary_giftcard
+            if let cGiftCard = freeService.complimentary_giftcard, cGiftCard > 0, (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) {
+                complimentaryGiftcardCount += cGiftCard
+            }
+            
+            // grooming_giftcard
+            if let gGiftCard = freeService.grooming_giftcard, gGiftCard > 0, (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) {
+                groomingGiftcardCount += gGiftCard
+            }
+        }
+        
+        headerModel?.value = freeServiceRevenueCount + complimentaryGiftcardCount + groomingGiftcardCount
     }
     
 
