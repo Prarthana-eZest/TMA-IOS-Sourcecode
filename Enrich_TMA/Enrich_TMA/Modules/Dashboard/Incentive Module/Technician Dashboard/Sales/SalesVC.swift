@@ -141,7 +141,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             }
             
             update(modeData: model, withData: dateFilteredSales, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
-            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            graphData[selectedIndex] = getGraphEntry(model.title, forData: dateFilteredSales, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
         }
         else if let _ = headerModel {
             headerModel?.dateRangeType = rangeType
@@ -150,7 +150,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             }
             
             updateHeaderModel(withData: dateFilteredSales, dateRange: dateRange, dateRangeType: rangeType)
-            headerGraphData = getTotalSalesGraphEntry(dateRange: dateRange, dateRangeType: rangeType)
+            headerGraphData = getTotalSalesGraphEntry(forData: dateFilteredSales, dateRange: dateRange, dateRangeType: rangeType)
         }
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
