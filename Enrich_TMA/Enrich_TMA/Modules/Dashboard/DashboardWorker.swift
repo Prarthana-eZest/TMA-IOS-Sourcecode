@@ -138,7 +138,7 @@ class DashboardWorker {
             self.presenter?.presentError(responseError: error)
         }
         let successHandler: (Dashboard.GetRevenueDashboard.Response) -> Void = { (response) in
-            print(response)
+           // print(response)
             self.presenter?.presentSuccess(response: response)
         }
 

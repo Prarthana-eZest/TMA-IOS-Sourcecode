@@ -102,12 +102,24 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         let selectedIndex = indexPath.row - 1
         let dateRange = DateRange(startDate!, endDate)
         
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Date filter applied
+        let dateFilteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
+        
         if(selectedIndex >= 0){
             let model = dataModel[selectedIndex]
             model.dateRangeType = rangeType
             if model.dateRangeType == .cutome {
                 model.customeDateRange = dateRange
             }
+            
+            update(modeData: model, withData: dateFilteredCustomerEngagement, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             
             graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
         }
@@ -122,6 +134,119 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
+    
+    
+    func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.TechnicianFeedback]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+        
+        var filteredCustomerEngagement = data
+        
+        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+        
+        //Fetch Data incase not having filtered already
+        if data == nil, (data?.count ?? 0 <= 0) {
+            
+            
+            //Date filter applied
+            filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (revenue) -> Bool in
+                if let date = revenue.date?.date()?.startOfDay {
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+        }
+        
+        var value1 : Double = 0.0
+        var value2 : Double = 0.0
+        for customer in filteredCustomerEngagement ?? [] {
+            
+            switch index {
+            case 0:
+                // Service Level
+                if let serviceLevel = customer.service_avg_ratings, serviceLevel > 0 {
+                    value1 += serviceLevel
+                }
+                
+                //value1 = value1 / Double(filteredCustomerEngagement?.count ?? 0)
+                
+            case 1:
+                // Customer interaction
+                if let serviceLevel = customer.technician_avg_ratings, serviceLevel > 0 {
+                    value1 += serviceLevel
+                }
+                
+               // value1 = value1 / Double(filteredCustomerEngagement?.count ?? 0)
+                
+            case 2:
+                // Customer Repeat
+                
+                let filteredcustomerRepeat = technicianDataJSON?.data?.client_repeat_transactions?.filter({ (customerEngagement) -> Bool in
+                    if let date = customerEngagement.date?.date()?.startOfDay {
+                        
+                        return date >= dateRange.start && date <= dateRange.end
+                    }
+                    return false
+                })
+                if(filteredcustomerRepeat != nil){
+                  
+                for objCustomerRepeat in filteredcustomerRepeat! {
+                    value1 += objCustomerRepeat.service_revenue ?? 0.0
+                }
+                }
+                else {
+                    value1 = 0
+                }
+                value2 = Double(filteredcustomerRepeat?.count ?? 0)
+                
+//                let values = index == 0 ?
+//                                        ["",value1.abbrevationString, value2.abbrevationString] :
+//                                        [value1.rounded().abbrevationString]
+                
+                dataModel[index] = EarningsCellDataModel(earningsType: .CustomerEngagement, title: modeData.title, value: ["",String(filteredcustomerRepeat?.count ?? 0), value1.rounded().abbrevationString], subTitle: ["","Count", "Revenue"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                return
+                
+            case 3://Customer Feedback Received
+                if let customerFeedback = customer.no_of_feedbacks, customerFeedback > 0 {
+                    value1 += Double(customerFeedback)
+                }
+                
+        case 4://Customer Served
+                if let customerServed = customer.no_of_services, customerServed > 0 {
+                    value1 += Double(customerServed)
+                }
+        case 5://Feedback Count
+            
+            if let customerFeedback = customer.no_of_feedbacks, customerFeedback > 0 {
+                value1 += Double(customerFeedback)
+            }
+            
+            if let customerServed = customer.no_of_services, customerServed > 0 {
+                value2 += Double(customerServed)
+            }
+            
+                
+            default:
+                continue
+            }
+        }
+        
+        let values = index == 0 ?
+                                ["",value1.roundedStringValue(toFractionDigits: 2), value2.roundedStringValue(toFractionDigits: 2)] :
+                                [value1.roundedStringValue(toFractionDigits: 2)]
+        if(index == 5){ //Feedback Count
+            
+            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [(value1 / value2).percent], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+        }
+        else if(index == 0 || index == 1){
+            dataModel[index] = EarningsCellDataModel(earningsType: .CustomerEngagement, title: modeData.title, value: [((value1 / Double(filteredCustomerEngagement?.count ?? 0))).roundedStringValue(toFractionDigits: 2)],subTitle: [""], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+//            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [(value1 / Double(filteredCustomerEngagement?.count ?? 0)).rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+        }
+        else {
+            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: values, subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+        }
+    }
+    
     
     func customerEngagementData(startDate : Date, endDate : Date = Date().startOfDay){
         //Handled Wrong function calling to avoid data mismatch
@@ -210,7 +335,7 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         dataModel.append(serviceLevelModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceLevelModel.title, forData: filteredFreeServiceForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
-//        dataModel.append(EarningsCellDataModel(earningsType: .CustomerEngagement, title: "Service Level", value: [serviceLevelShowData.abbrevationString],subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: customDateRange))
+
         
         
         if(customerInteractionShowData < 0 || customerInteractionShowData.abbrevationString == "NaN")
