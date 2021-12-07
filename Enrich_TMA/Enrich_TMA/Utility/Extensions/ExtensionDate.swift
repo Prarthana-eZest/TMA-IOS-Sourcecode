@@ -173,6 +173,11 @@ extension Date
         }
         return array
     }
+    
+    func inSameMonth(asDate date: Date) -> Bool
+    {
+        return Utils.calendar.isDate(self, equalTo: date, toGranularity: .month)
+    }
 }
 
 extension Formatter {

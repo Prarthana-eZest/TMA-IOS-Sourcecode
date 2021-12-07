@@ -412,7 +412,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: values, barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: graphData(forData: [], atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
@@ -423,10 +423,10 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let values = totalRevenueGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
         let graphColor = EarningDetails.Revenue.graphBarColor
         
-        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Total Revenue", units: units, values: values, barColor: graphColor.first!)
+        let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Total Revenue", units: units, values: values, barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: totalRevenueGraphData(forData: [], dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
@@ -445,8 +445,20 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            
-            if dateRange.end.monthName != dateRange.start.monthName
+            /*
+             case .cutome:
+                         
+                         if dateRange.end.monthName != dateRange.start.monthName
+                         {
+                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+                         }
+                         else {
+                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
+                         }
+                     }
+             update if condition with this extension. On true else condition should execute for this
+             */
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }

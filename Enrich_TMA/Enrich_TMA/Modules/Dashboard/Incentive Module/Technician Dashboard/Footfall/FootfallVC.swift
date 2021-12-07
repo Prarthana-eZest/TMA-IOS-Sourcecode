@@ -295,7 +295,6 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
     }
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
-        
         switch rangeType
         {
         
@@ -309,8 +308,20 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            
-            if dateRange.end.monthName != dateRange.start.monthName
+            /*
+             case .cutome:
+                         
+                         if dateRange.end.monthName != dateRange.start.monthName
+                         {
+                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+                         }
+                         else {
+                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
+                         }
+                     }
+             update if condition with this extension. On true else condition should execute for this
+             */
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -324,7 +335,7 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = totalFootfallGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.FreeServices.graphBarColor
+        let graphColor = EarningDetails.Footfall.graphBarColor
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Free Service", units: units, values: values, barColor: graphColor.first!)
     }

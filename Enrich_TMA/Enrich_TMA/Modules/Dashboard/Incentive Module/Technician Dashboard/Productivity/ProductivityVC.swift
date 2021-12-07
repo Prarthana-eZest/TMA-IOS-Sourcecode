@@ -268,19 +268,33 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
     }
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
-        
         switch rangeType
         {
         
-        case .yesterday, .today, .mtd, .week:
+        case .yesterday, .today, .mtd:
+            return dateRange.end.endOfMonth.dayDates(from: dateRange.start.startOfMonth, withFormat: "dd")
+            
+        case .week:
             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
             
         case .qtd, .ytd:
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            
-            if dateRange.end.monthName != dateRange.start.monthName
+            /*
+             case .cutome:
+                         
+                         if dateRange.end.monthName != dateRange.start.monthName
+                         {
+                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+                         }
+                         else {
+                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
+                         }
+                     }
+             update if condition with this extension. On true else condition should execute for this
+             */
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
