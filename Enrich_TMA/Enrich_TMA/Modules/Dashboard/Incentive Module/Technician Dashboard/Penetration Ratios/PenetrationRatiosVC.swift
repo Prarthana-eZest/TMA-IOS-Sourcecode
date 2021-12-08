@@ -867,13 +867,15 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                         //Data Model
                         
 
-//                        categotyCount = 0
-//                        subCategoryCount = 0
+                        
 //                        //index += 1
+                        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [modeData.subTitle[0] ,modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                        categotyCount = 0
+                        subCategoryCount = 0
                     }
-                    dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [modeData.subTitle[0] ,modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                    
                 }
-                break
+                return
             
             }
        // }
