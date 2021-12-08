@@ -188,8 +188,6 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
             return calculatePenetrationRatioForDyanmicData(penetrationRatioFromServer: penerationRatioFromFilters ?? [], penetrationRatio: filteredPenetrationRatio ?? [], dateRange: dateRange, dateRangeType: dateRangeType)
         }
-        
-        return [0.0]
     }
     
     
@@ -199,9 +197,9 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let serviceCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
         
         var serviceRatio : Double = 0.0
-        if(invoiceNumbers.count > 0){
-            serviceRatio =  Double(Double(serviceCount.count) / Double(invoiceNumbers.count))
-        }
+        //        if(invoiceNumbers.count > 0){
+        //            serviceRatio =  Double(Double(serviceCount.count) / Double(invoiceNumbers.count))
+        //        }
         
         switch dateRangeType
         {
@@ -279,9 +277,9 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let productCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         
         var productRatio :Double = 0.0
-//        if(serviceCount.count > 0){
-//            productRatio = Double(productCount.count / serviceCount.count)
-//        }
+        //        if(serviceCount.count > 0){
+        //            productRatio = Double(productCount.count / serviceCount.count)
+        //        }
         
         switch dateRangeType
         {
@@ -359,14 +357,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         if(invoiceNumbers.count > 0) {
             appBookingRatio =  Double(appBooking.count / invoiceNumbers.count)
         }
-        //        customers served
-        //        let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
-        //            if let date = customerEngagement.date?.date()?.startOfDay {
-        //
-        //                return date >= startDate && date <= endDate
-        //            }
-        //            return false
-        //        })
+        
         let customersServed = customerServedArray.filter({$0.no_of_services ?? 0 > 0})
         var customersServedCount : Double = 0.0
         for objCustomersServed in customersServed {
@@ -379,7 +370,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
                 if let data = customerServedArray.filter({$0.date == objDt}).first{
-                    values.append(Double(data.no_of_services ?? 0))
+                    appBookingRatio = Double((Double(data.no_of_services ?? 0)) / Double(appBooking.count))
+                    values.append(appBookingRatio)
                 }
                 else {
                     values.append(Double(0.0))
@@ -392,7 +384,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     if let rMonth = services.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return (Double(services.no_of_services ?? 0))
+                        appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
+                        return (appBookingRatio)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -410,7 +403,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                         if let rMonth = services.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return (Double(services.no_of_services ?? 0))
+                            appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
+                            return (appBookingRatio)
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -423,7 +417,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 for objDt in dates {
                     if let data = customerServedArray.filter({$0.date == objDt}).first
                     {
-                        values.append((Double(data.no_of_services ?? 0)))
+                        appBookingRatio = Double((Double(data.no_of_services ?? 0)) / Double(appBooking.count))
+                        values.append(appBookingRatio)
                     }
                     else {
                         values.append(Double(0.0))
@@ -506,7 +501,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         var categotyCount : Int = 0
         var subCategoryCount : Int = 0
-        //        var ratio : Int = 0
+        var ratio : Double = 0.0
         var filterPenetrationArrayWithCategoryData = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
         if(penetrationRatioFromServer.count > 0){
             for objTransaction in penetrationRatio  {
@@ -522,68 +517,85 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     }
                 }
             }
-                    
+        }
+        
+        
+        switch dateRangeType
+        {
+        case .yesterday, .today, .week, .mtd:
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first{
+                    ratio = Double(subCategoryCount / categotyCount)
+                    values.append(ratio)
                 }
-                
-                
-                switch dateRangeType
-                {
-                case .yesterday, .today, .week, .mtd:
-                    let dates = dateRange.end.dayDates(from: dateRange.start)
-                    for objDt in dates {
-                        if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first{
-                            values.append(Double(1.0))
+                else {
+                    values.append(Double(0.0))
+                }
+            }
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start)
+            for qMonth in months {
+                let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
+                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                       rMonth == qMonth
+                    {
+                        if(categotyCount == 0){
+                        ratio = 0
                         }
                         else {
-                            values.append(Double(0.0))
+                            ratio = Double(subCategoryCount / categotyCount)
                         }
+                        return ratio
                     }
-                case .qtd, .ytd:
-                    let months = dateRange.end.monthNames(from: dateRange.start)
-                    for qMonth in months {
-                        let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
-                            if let rMonth = services.date?.date()?.string(format: "MMM"),
-                               rMonth == qMonth
-                            {
-                                return 1.0
+                    return 0.0
+                }).reduce(0) {$0 + $1}
+                
+                values.append(value)
+            }
+            
+        case .cutome:
+            
+            if dateRange.end.monthName != dateRange.start.monthName
+            {
+                let months = dateRange.end.monthNames(from: dateRange.start)
+                for qMonth in months {
+                    let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
+                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                           rMonth == qMonth
+                        {
+                            if(categotyCount == 0){
+                            ratio = 0
                             }
-                            return 0.0
-                        }).reduce(0) {$0 + $1}
-                        
-                        values.append(value)
-                    }
+                            else {
+                                ratio = Double(subCategoryCount / categotyCount)
+                            }
+                            return (ratio)
+                        }
+                        return 0.0
+                    }).reduce(0) {$0 + $1}
                     
-                case .cutome:
-                    
-                    if dateRange.end.monthName != dateRange.start.monthName
+                    values.append(value)
+                }
+            }
+            else {
+                let dates = dateRange.end.dayDates(from: dateRange.start)
+                for objDt in dates {
+                    if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first
                     {
-                        let months = dateRange.end.monthNames(from: dateRange.start)
-                        for qMonth in months {
-                            let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
-                                if let rMonth = services.date?.date()?.string(format: "MMM"),
-                                   rMonth == qMonth
-                                {
-                                    return (Double(1.0))
-                                }
-                                return 0.0
-                            }).reduce(0) {$0 + $1}
-                            
-                            values.append(value)
+                        if(categotyCount == 0){
+                        ratio = 0
+                        }
+                        else {
+                            ratio = Double(subCategoryCount / categotyCount)
                         }
                     }
                     else {
-                        let dates = dateRange.end.dayDates(from: dateRange.start)
-                        for objDt in dates {
-                            if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first
-                            {
-                                values.append((Double(1.0)))
-                            }
-                            else {
-                                values.append(Double(0.0))
-                            }
-                        }
+                        values.append(Double(0.0))
                     }
                 }
+            }
+        }
         return values
         
     }
@@ -781,116 +793,116 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         var invoceCount : Int = 0
         var ratio : Double = 0.0
         
-       // for penetration in filteredPenetrationRatio ?? [] {
+        // for penetration in filteredPenetrationRatio ?? [] {
+        
+        switch index {
+        case 0: // Service Count per Invoice
+            //service count per invoice
+            let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
+            count = serviceCount?.count ?? 0
             
-            switch index {
-            case 0: // Service Count per Invoice
-                //service count per invoice
-                let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
-                count = serviceCount?.count ?? 0
-               
-                if(uniqueInvoices!.count > 0){
-                    invoceCount = uniqueInvoices?.count ?? 0
-                    ratio = Double(count / uniqueInvoices!.count)
-                }
-                
-            case 1:
-                // Product To Service
-                let productCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-                count = productCount?.count ?? 0
-                
-                let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
-                invoceCount = serviceCount?.count ?? 0
-                
-                if(invoceCount > 0){
-                   ratio = Double(count / invoceCount)
-                }
-                
-            case 2:
-                let appBooking = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
-                
-                count = appBooking?.count ?? 0
-                if(uniqueInvoices!.count > 0) {
-                    ratio =  Double(count / uniqueInvoices!.count)
-                }
-                //customers served
-                let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
-                    if let date = customerEngagement.date?.date()?.startOfDay {
-                        
-                        return date >= dateRange.start && date <= dateRange.end
-                    }
-                    return false
-                })
-                let customersServed = filteredCustomerEngagement?.filter({$0.no_of_services ?? 0 > 0})
-                for customers in customersServed ?? []{
-                    invoceCount += customers.no_of_services ?? 0
-                }
-                
-            case 3:
-                //cross sell
-                let crossSell = technicianDataJSON?.data?.cross_sell_transactions
-                if(crossSell?.count ?? 0 > 0){
-                    
-                    var crossSellRevenueCount : Double = 0.0
-                    for objCrossSell in crossSell! {
-                        crossSellRevenueCount += objCrossSell.paid_service_revenue ?? 0.0
-                    }
-                    
-                    //"Cross Sell"
-                    //Data Model
-                    dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["",String(crossSell?.count ?? 0), String(crossSellRevenueCount)], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
-                   
-                    
-                    
-                }
-                else {
-                    dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
-                    
-                }
-                break
-            default:
-                //Penetration ratio dynamic data
-                let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
-                
-                var categotyCount : Int = 0
-                var subCategoryCount : Int = 0
-                var ratio : Int = 0
-                //var index = 4 // to set the index for graphs
-                if(penerationRatioFromFilters?.count ?? 0 > 0){
-                    for objPenetration in penerationRatioFromFilters! {
-                        
-                        for objTransaction in filteredPenetrationRatio! {
-                            
-                            if((objTransaction.category == objPenetration.compare_label!) || (objTransaction.category == objPenetration.to_compare_label!)) {
-                                categotyCount = categotyCount + 1
-                            }
-                            
-                            if((objTransaction.sub_category == objPenetration.compare_label) || (objTransaction.sub_category == objPenetration.to_compare_label)){
-                                subCategoryCount = subCategoryCount + 1
-                            }
-                            
-                            
-                        }
-                        if(categotyCount > 0){
-                            ratio = subCategoryCount / categotyCount
-                        }
-                        
-                        //"penetrationModel"
-                        //Data Model
-                        
-
-                        
-//                        //index += 1
-                        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [modeData.subTitle[0] ,modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
-                        categotyCount = 0
-                        subCategoryCount = 0
-                    }
-                    
-                }
-                return
-            
+            if(uniqueInvoices!.count > 0){
+                invoceCount = uniqueInvoices?.count ?? 0
+                ratio = Double(count / uniqueInvoices!.count)
             }
-       // }
+            
+        case 1:
+            // Product To Service
+            let productCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+            count = productCount?.count ?? 0
+            
+            let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
+            invoceCount = serviceCount?.count ?? 0
+            
+            if(invoceCount > 0){
+                ratio = Double(count / invoceCount)
+            }
+            
+        case 2:
+            let appBooking = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
+            
+            count = appBooking?.count ?? 0
+            if(uniqueInvoices!.count > 0) {
+                ratio =  Double(count / uniqueInvoices!.count)
+            }
+            //customers served
+            let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
+                if let date = customerEngagement.date?.date()?.startOfDay {
+                    
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+            let customersServed = filteredCustomerEngagement?.filter({$0.no_of_services ?? 0 > 0})
+            for customers in customersServed ?? []{
+                invoceCount += customers.no_of_services ?? 0
+            }
+            
+        case 3:
+            //cross sell
+            let crossSell = technicianDataJSON?.data?.cross_sell_transactions
+            if(crossSell?.count ?? 0 > 0){
+                
+                var crossSellRevenueCount : Double = 0.0
+                for objCrossSell in crossSell! {
+                    crossSellRevenueCount += objCrossSell.paid_service_revenue ?? 0.0
+                }
+                
+                //"Cross Sell"
+                //Data Model
+                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["",String(crossSell?.count ?? 0), String(crossSellRevenueCount)], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+                
+                
+                
+            }
+            else {
+                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+                
+            }
+            break
+        default:
+            //Penetration ratio dynamic data
+            let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
+            
+            var categotyCount : Int = 0
+            var subCategoryCount : Int = 0
+            var ratio : Int = 0
+            //var index = 4 // to set the index for graphs
+            if(penerationRatioFromFilters?.count ?? 0 > 0){
+                for objPenetration in penerationRatioFromFilters! {
+                    
+                    for objTransaction in filteredPenetrationRatio! {
+                        
+                        if((objTransaction.category == objPenetration.compare_label!) || (objTransaction.category == objPenetration.to_compare_label!)) {
+                            categotyCount = categotyCount + 1
+                        }
+                        
+                        if((objTransaction.sub_category == objPenetration.compare_label) || (objTransaction.sub_category == objPenetration.to_compare_label)){
+                            subCategoryCount = subCategoryCount + 1
+                        }
+                        
+                        
+                    }
+                    if(categotyCount > 0){
+                        ratio = subCategoryCount / categotyCount
+                    }
+                    
+                    //"penetrationModel"
+                    //Data Model
+                    
+                    
+                    
+                    //                        //index += 1
+                    dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [modeData.subTitle[0] ,modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                    categotyCount = 0
+                    subCategoryCount = 0
+                }
+                
+            }
+            return
+            
+        }
+        // }
         
         dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(count),String(invoceCount),String(ratio)], subTitle: [modeData.subTitle[0], modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
         
