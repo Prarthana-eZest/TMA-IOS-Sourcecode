@@ -208,8 +208,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filterArray.filter({$0.date == objDt}).first{
-                    values.append(Double(1.0))
+                if let data = serviceCount.filter({$0.date == objDt}).first{
+                    serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+                    values.append(serviceRatio)
+                    
                 }
                 else {
                     values.append(Double(0.0))
@@ -218,11 +220,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start)
             for qMonth in months {
-                let value = filterArray.map ({ (services) -> Double in
+                let value = serviceCount.map ({ (services) -> Double in
                     if let rMonth = services.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return Double(1.0)
+                        serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+                        return serviceRatio
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -236,11 +239,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
-                    let value = filterArray.map ({ (services) -> Double in
+                    let value = serviceCount.map ({ (services) -> Double in
                         if let rMonth = services.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return Double(1.0)
+                            serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+                            return serviceRatio
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -251,9 +255,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filterArray.filter({$0.date == objDt}).first
+                    if let data = serviceCount.filter({$0.date == objDt}).first
                     {
-                        values.append(Double(1.0))
+                        serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+                        values.append(serviceRatio)
                     }
                     else {
                         values.append(Double(0.0))
@@ -267,21 +272,25 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
     func calculateProductToService(filterArray: [Dashboard.GetRevenueDashboard.RevenueTransaction], invoiceNumbers : [String], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
         var values = [Double]()
         
+        //service count per invoice
+        let serviceCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
+        
         //product to service
         let productCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         
         var productRatio :Double = 0.0
-        if(invoiceNumbers.count > 0){
-            productRatio = Double(productCount.count / invoiceNumbers.count)
-        }
+//        if(serviceCount.count > 0){
+//            productRatio = Double(productCount.count / serviceCount.count)
+//        }
         
         switch dateRangeType
         {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filterArray.filter({$0.date == objDt}).first{
-                    values.append(Double(1.0))
+                if let data = productCount.filter({$0.date == objDt}).first{
+                    productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                    values.append(productRatio)
                 }
                 else {
                     values.append(Double(0.0))
@@ -290,11 +299,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start)
             for qMonth in months {
-                let value = filterArray.map ({ (services) -> Double in
+                let value = productCount.map ({ (services) -> Double in
                     if let rMonth = services.date?.date()?.string(format: "MMM"),
                        rMonth == qMonth
                     {
-                        return Double(1.0)
+                        productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                        return Double(productRatio)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
@@ -308,11 +318,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
-                    let value = filterArray.map ({ (services) -> Double in
+                    let value = productCount.map ({ (services) -> Double in
                         if let rMonth = services.date?.date()?.string(format: "MMM"),
                            rMonth == qMonth
                         {
-                            return Double(1.0)
+                            productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                            return Double(productRatio)
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
@@ -323,9 +334,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filterArray.filter({$0.date == objDt}).first
+                    if let data = productCount.filter({$0.date == objDt}).first
                     {
-                        values.append(Double(1.0))
+                        productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                        values.append(productRatio)
                     }
                     else {
                         values.append(Double(0.0))
@@ -637,8 +649,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let productCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         
         var productRatio :Double = 0.0
-        if(updateUniqueData!.count > 0){
-            productRatio = Double(productCount!.count / updateUniqueData!.count)
+        if(serviceCount!.count > 0){
+            productRatio = Double(productCount!.count / serviceCount!.count)
         }
         
         //"Product To Service"
