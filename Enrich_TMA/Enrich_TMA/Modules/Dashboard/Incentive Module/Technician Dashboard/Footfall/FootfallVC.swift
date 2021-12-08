@@ -438,20 +438,17 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
             
             //Date filter applied
-            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (freeService) -> Bool in
-                if let date = freeService.date?.date()?.startOfDay {
+            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (footFall) -> Bool in
+                if let date = footFall.date?.date()?.startOfDay {
                     return  (date >= dateRange.start && date <= dateRange.end) &&
-                            ((freeService.free_service_revenue ?? 0 > 0) ||
-                            (freeService.complimentary_giftcard ?? 0 > 0 &&
-                            (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)) ||
-                            (freeService.grooming_giftcard ?? 0 > 0 &&
-                            (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)))
+                            (((footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ((footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || (footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || (footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail))
                 }
                 return false
             })
         }
         else {
-            filteredFootfall = filteredFootfall?.filter({($0.free_service_revenue ?? 0 > 0) || ($0.complimentary_giftcard ?? 0 > 0 && ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)) || ($0.grooming_giftcard ?? 0 > 0 && ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services))})
+
+            filteredFootfall = filteredFootfall?.filter({(($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         }
         
         switch dateRangeType
