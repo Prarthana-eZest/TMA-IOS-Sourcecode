@@ -166,7 +166,8 @@ open class NetworkLayerAlamofire {
                     do {
                         let responseObject = try JSONDecoder().decode(T.self, from: data)
                         if let jsonString = String(data: data, encoding: .utf8) {
-                            print(jsonString)
+                            //TODO: Commented printing response to resolve time consumption for Revenue Dashboard
+                            //print(jsonString)
                         }
                         successHandler(responseObject)
                     }

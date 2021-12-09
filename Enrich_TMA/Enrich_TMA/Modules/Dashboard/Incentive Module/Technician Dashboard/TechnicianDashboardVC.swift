@@ -131,7 +131,6 @@ class TechnicianDashboardVC: UIViewController, TechnicianDashboardDisplayLogic
             return false
         })
         // Revenue Screen
-        // Revenue Screen
         let serviceData = filteredRevenue?.filter({($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
         var serviceToatal : Double = 0.0
         

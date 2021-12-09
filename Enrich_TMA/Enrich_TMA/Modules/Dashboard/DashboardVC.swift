@@ -444,9 +444,7 @@ extension DashboardVC: DashboardHeaderCellDelegate {
 extension DashboardVC: IncentiveDashboardDelegate {
     
     func actionTechnicianNext() {
-        getRevenueDashboard()
-        
-        
+       // getRevenueDashboard()
     }
     
     func actionEarningsNext() {
