@@ -299,68 +299,68 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         }
         
         switch index {
-            case 0:
-                // RM Optimization
-                //RM Optimization
-                //let rmOptimization = technicianDataJSON?.data?.rm_consumption
-                var rmOptimizationCount = 0
-                var rmOptimizationRemaning = 0
-                
-                
-                let filteredrmOptimization = technicianDataJSON?.data?.rm_consumption?.filter({ (productivity) -> Bool in
-                    if let date = productivity.consumption_date?.date()?.startOfDay {
-                        
-                        return date >= dateRange.start && date <= dateRange.end
-                    }
-                    return false
-                })
-                
-                
-                if let count = filteredrmOptimization?.count, count > 0 {
+        case 0:
+            // RM Optimization
+            //RM Optimization
+            //let rmOptimization = technicianDataJSON?.data?.rm_consumption
+            var rmOptimizationCount = 0
+            var rmOptimizationRemaning = 0
+            
+            
+            let filteredrmOptimization = technicianDataJSON?.data?.rm_consumption?.filter({ (productivity) -> Bool in
+                if let date = productivity.consumption_date?.date()?.startOfDay {
                     
-                    for objData in filteredrmOptimization!
-                    {
-                        rmOptimizationCount += objData.rm_consumption ?? 0
-                    }
-                    
-                    rmOptimizationCount /= count
-                    
-                    if(rmOptimizationCount <= 100){
-                        rmOptimizationRemaning = 100 - rmOptimizationCount
-                    }
-                    else {
-                        rmOptimizationRemaning = rmOptimizationCount - 100
-                    }
+                    return date >= dateRange.start && date <= dateRange.end
                 }
-                dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                return false
+            })
+            
+            
+            if let count = filteredrmOptimization?.count, count > 0 {
                 
-            case 1:
-                // Quality and safety
-                //quality and safety
-                let qualityScoreData = filteredProductivity?.filter({$0.score ?? 0 > 0})
-                
-                var qualityScoreDataCount : Double = 0.0
-                for objqualityScoreData in qualityScoreData! {
-                    qualityScoreDataCount = qualityScoreDataCount + Double(objqualityScoreData.score!)
-                }
-                var showCount = (qualityScoreDataCount / Double(qualityScoreData!.count)) / 100
-                if(qualityScoreDataCount == 0 || qualityScoreData?.count == 0)
+                for objData in filteredrmOptimization!
                 {
-                    showCount = 0
+                    rmOptimizationCount += objData.rm_consumption ?? 0
                 }
                 
-                dataModel[index] =  EarningsCellDataModel(earningsType: .Productivity, title: "Quality & Safety Audit", value: [showCount.percent], subTitle: [""], showGraph: modeData.showGraph, cellType: .SingleValue, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+                rmOptimizationCount /= count
                 
-            case 2:
-                // Revenue multiplier
-                let revenueMulti = revenueMultiplier(dateRange: dateRange)
-                dataModel[index] = EarningsCellDataModel(earningsType: .Productivity, title: "Revenue Multiplier", value: [revenueMulti.roundedStringValue(toFractionDigits: 2)], subTitle: [""], showGraph: modeData.showGraph, cellType: .SingleValue, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
-                
-            default:
-                break
-//                continue
+                if(rmOptimizationCount <= 100){
+                    rmOptimizationRemaning = 100 - rmOptimizationCount
+                }
+                else {
+                    rmOptimizationRemaning = rmOptimizationCount - 100
+                }
             }
+            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+        case 1:
+            // Quality and safety
+            //quality and safety
+            let qualityScoreData = filteredProductivity?.filter({$0.score ?? 0 > 0})
+            
+            var qualityScoreDataCount : Double = 0.0
+            for objqualityScoreData in qualityScoreData! {
+                qualityScoreDataCount = qualityScoreDataCount + Double(objqualityScoreData.score!)
+            }
+            var showCount = (qualityScoreDataCount / Double(qualityScoreData!.count)) / 100
+            if(qualityScoreDataCount == 0 || qualityScoreData?.count == 0)
+            {
+                showCount = 0
+            }
+            
+            dataModel[index] =  EarningsCellDataModel(earningsType: .Productivity, title: "Quality & Safety Audit", value: [showCount.percent], subTitle: [""], showGraph: modeData.showGraph, cellType: .SingleValue, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+        case 2:
+            // Revenue multiplier
+            let revenueMulti = revenueMultiplier(dateRange: dateRange)
+            dataModel[index] = EarningsCellDataModel(earningsType: .Productivity, title: "Revenue Multiplier", value: [revenueMulti.roundedStringValue(toFractionDigits: 2)], subTitle: [""], showGraph: modeData.showGraph, cellType: .SingleValue, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+        default:
+            break
+        //                continue
         }
+    }
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
         switch rangeType
@@ -378,15 +378,15 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .cutome:
             /*
              case .cutome:
-                         
-                         if dateRange.end.monthName != dateRange.start.monthName
-                         {
-                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                         }
-                         else {
-                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-                         }
-                     }
+             
+             if dateRange.end.monthName != dateRange.start.monthName
+             {
+             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+             }
+             else {
+             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
+             }
+             }
              update if condition with this extension. On true else condition should execute for this
              */
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
@@ -665,160 +665,6 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         
         return qualityAndSafetyValues
     }
-    
-    
-    //    func getGraphValues(index: Int) -> [Double]{
-    //        var valueArr = [Double]()
-    //        var filteredArr = [Dashboard.GetRevenueDashboard.QualityScoreData]()
-    //        if(index == 0){// rm consumption
-    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-    //
-    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-    //
-    //                for objDt in weekArray {
-    //                   if let data = filterRMOptimization.filter({$0.consumption_date == objDt}).first
-    //                   {
-    //                    valueArr.append(Double(data.rm_consumption ?? Int(0.0)))
-    //                   }
-    //                   else {
-    //                    valueArr.append(Double(0.0))
-    //                   }
-    //
-    //                }
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-    //
-    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-    //
-    //                for objDt in monthArr {
-    //                   if let data = filterRMOptimization.filter({$0.consumption_date == objDt}).first
-    //                   {
-    //                    valueArr.append(Double(data.rm_consumption ?? Int(0.0)))
-    //                   }
-    //                   else {
-    //                    valueArr.append(0.0)
-    //                   }
-    //
-    //                }
-    //
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-    //
-    //                let months = Date.today.monthNames(from: Date.today.lastQuarter())
-    //
-    //                for qMonth in months {
-    //                    let value = filterRMOptimization.map ({ (revenue) -> Double in
-    //                        if let rMonth = revenue.consumption_date?.date()?.string(format: "MMM"),
-    //                           rMonth == qMonth
-    //                        {
-    //                            return Double(revenue.rm_consumption ?? Int(0.0))
-    //                        }
-    //                        return 0.0
-    //                    }).reduce(0) {$0 + $1}
-    //
-    //                    valueArr.append(value)
-    //                }
-    //
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-    //                let months = Date.today.monthNames(from: Date.today.lastYear())
-    //
-    //                for yMonth in months {
-    //                    let value = filterRMOptimization.map ({ (revenue) -> Double in
-    //                        if let rMonth = revenue.consumption_date?.date()?.string(format: "MMM"),
-    //                           rMonth == yMonth
-    //                        {
-    //                            return Double(revenue.rm_consumption ?? Int(0.0))
-    //                        }
-    //                        return 0.0
-    //                    }).reduce(0) {$0 + $1}
-    //
-    //                    valueArr.append(value)
-    //                }
-    //            }
-    //        }
-    //        else if(index == 1){// quality and safty audit
-    //            let qualityScoreData = filterProductivity.filter({$0.score ?? 0 > 0})
-    //
-    //            filteredArr = qualityScoreData
-    //
-    //            var qualityScoreDataCount : Float = 0.0
-    //            for objqualityScoreData in qualityScoreData {
-    //                qualityScoreDataCount = qualityScoreDataCount + Float(objqualityScoreData.score!)
-    //            }
-    //            if(dateSelectedTitle == DateRangeType.yesterday.rawValue || dateSelectedTitle == DateRangeType.today.rawValue || dateSelectedTitle == DateRangeType.week.rawValue){
-    //
-    //                let weekArray = Date.today.dayDates(from: Date.today.lastWeek())
-    //
-    //                for objDt in weekArray {
-    //                   if let data = filteredArr.filter({$0.date == objDt}).first
-    //                   {
-    //                    valueArr.append(Double(data.score ?? Int(0.0)))
-    //                   }
-    //                   else {
-    //                    valueArr.append(Double(0.0))
-    //                   }
-    //
-    //                }
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.mtd.rawValue){
-    //
-    //                let monthArr = Date.today.dayDates(from: Date.today.startOfMonth)
-    //
-    //                for objDt in monthArr {
-    //                   if let data = filteredArr.filter({$0.date == objDt}).first
-    //                   {
-    //                    valueArr.append(Double(data.score ?? Int(0.0)))
-    //                   }
-    //                   else {
-    //                    valueArr.append(0.0)
-    //                   }
-    //
-    //                }
-    //
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.qtd.rawValue){
-    //
-    //                let months = Date.today.monthNames(from: Date.today.lastQuarter())
-    //
-    //                for qMonth in months {
-    //                    let value = filteredArr.map ({ (revenue) -> Double in
-    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-    //                           rMonth == qMonth
-    //                        {
-    //                            return Double(revenue.score ?? Int(0.0))
-    //                        }
-    //                        return 0.0
-    //                    }).reduce(0) {$0 + $1}
-    //
-    //                    valueArr.append(value)
-    //                }
-    //
-    //            }
-    //            else if(dateSelectedTitle == DateRangeType.ytd.rawValue){
-    //                let months = Date.today.monthNames(from: Date.today.lastYear())
-    //
-    //                for yMonth in months {
-    //                    let value = filteredArr.map ({ (revenue) -> Double in
-    //                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
-    //                           rMonth == yMonth
-    //                        {
-    //                            return Double(revenue.score ?? Int(0.0))
-    //                        }
-    //                        return 0.0
-    //                    }).reduce(0) {$0 + $1}
-    //
-    //                    valueArr.append(value)
-    //                }
-    //            }
-    //        }
-    //        else { //revenue multiplier
-    //
-    //        }
-    //
-    //
-    //        return valueArr
-    //    }
     
 }
 

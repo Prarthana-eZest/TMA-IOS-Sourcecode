@@ -37,9 +37,9 @@ enum DateRangeType : String {
         case .mtd:
             return Date.today.startOfMonth
         case .qtd:
-            return Date.today.lastQuarter()
+            return Date.today.startOfQuarter
         case .ytd:
-            return Date.today.lastYear()
+            return Date.today.startOfYear
         case .cutome:
             return nil
         }
