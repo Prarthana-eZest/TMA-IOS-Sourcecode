@@ -513,10 +513,10 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             }
             
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filteredRevenue?.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.total ?? 0.0)
@@ -531,10 +531,10 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filteredRevenue?.map ({ (revenue) -> Double in
-                        if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                        if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(revenue.total ?? 0.0)

@@ -505,10 +505,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                    }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = rewardPoints.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(rewards.free_service_revenue ?? 0.0)
@@ -523,10 +523,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = rewardPoints.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.free_service_revenue ?? 0.0)
@@ -573,10 +573,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                    }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = complimentoryGiftVoucher.map ({ (complimentory) -> Double in
-                    if let rMonth = complimentory.date?.date()?.string(format: "MMM"),
+                    if let rMonth = complimentory.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(complimentory.complimentary_giftcard ?? 0.0)
@@ -591,10 +591,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = complimentoryGiftVoucher.map ({ (complimentory) -> Double in
-                        if let rMonth = complimentory.date?.date()?.string(format: "MMM"),
+                        if let rMonth = complimentory.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(complimentory.complimentary_giftcard ?? 0.0)
@@ -639,10 +639,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                    }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = groomingGiftCards.map ({ (grooming) -> Double in
-                    if let rMonth = grooming.date?.date()?.string(format: "MMM"),
+                    if let rMonth = grooming.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(grooming.grooming_giftcard ?? 0.0)
@@ -657,10 +657,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = groomingGiftCards.map ({ (grooming) -> Double in
-                        if let rMonth = grooming.date?.date()?.string(format: "MMM"),
+                        if let rMonth = grooming.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(grooming.grooming_giftcard ?? 0.0)

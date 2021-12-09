@@ -216,10 +216,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = serviceCount.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
@@ -235,10 +235,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = serviceCount.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
@@ -295,10 +295,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = productCount.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
@@ -314,10 +314,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = productCount.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
@@ -378,10 +378,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = customerServedArray.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
@@ -397,10 +397,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = customerServedArray.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
@@ -447,10 +447,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filterArray.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return (Double(services.paid_service_revenue ?? 0))
@@ -465,10 +465,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filterArray.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return (Double(services.paid_service_revenue ?? 0))
@@ -534,10 +534,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM"),
+                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         if(categotyCount == 0){
@@ -558,10 +558,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filterPenetrationArrayWithCategoryData.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM"),
+                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             if(categotyCount == 0){

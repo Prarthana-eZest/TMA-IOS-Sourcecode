@@ -209,10 +209,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalShiftTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(data.services_time!)
@@ -227,10 +227,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalShiftTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(data.services_time!)
@@ -281,10 +281,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalShiftTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100)
@@ -299,10 +299,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalShiftTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double((Double(data.services_time!) / Double(data.total_shift_time!)) * 100)
@@ -348,10 +348,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalTranningTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(Double(data.tranning_time!) / Double(data.total_shift_time!) * 100)
@@ -366,10 +366,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalTranningTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(data.tranning_time!) / Double(data.total_shift_time!) * 100 )
@@ -414,10 +414,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalTranningTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(data.tranning_time!)
@@ -432,10 +432,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalTranningTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(data.tranning_time!)
@@ -482,10 +482,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalServiceTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(data.break_time!)
@@ -500,10 +500,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalServiceTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(data.break_time!)
@@ -549,10 +549,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = totalServiceTime.map ({ (data) -> Double in
-                    if let rMonth = data.date?.date()?.string(format: "MMM"),
+                    if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100)
@@ -567,10 +567,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = totalServiceTime.map ({ (data) -> Double in
-                        if let rMonth = data.date?.date()?.string(format: "MMM"),
+                        if let rMonth = data.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(data.break_time!) / Double(data.total_shift_time!) * 100)
@@ -613,10 +613,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filterArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(1.0)
@@ -631,10 +631,10 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
             if dateRange.end.monthName != dateRange.start.monthName
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filterArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(1.0))
@@ -846,11 +846,23 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         
         let attendanceData =  technicianDataJSON?.data?.attendance_data
         if(attendanceData != nil) {
-            for objAttendance in attendanceData! {
-                if(objAttendance.date!.contains(attendanceDate)){
-                    attendanceCount = attendanceCount + 1
+//            for objAttendance in attendanceData! {
+//                if(objAttendance.date!.contains(attendanceDate)){
+//                    attendanceCount = attendanceCount + 1
+//                }
+//            }
+            
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = attendanceData!.filter({$0.date == objDt}).first
+                {
+                    attendanceCount += 1
+                }
+                else {
+                    attendanceCount += 0
                 }
             }
+            
             
             let days: Int = getMonthDays()
             
@@ -872,7 +884,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
         
-        if(index == 3){
+        if(index == 3){ // attendance
             let graphColor = EarningDetails.Revenue.graphBarColor
             
             // 2 tile : Buy
