@@ -72,6 +72,34 @@ extension Date
         return Calendar(identifier: .gregorian).date(byAdding: components, to: startOfMonth)!
     }
     
+    var startOfQuarter: Date {
+        var components = Calendar.current.dateComponents([.month, .year], from: self)
+
+        let quarterMonth: Int
+        switch components.month! {
+            case 1,2,3: quarterMonth = 1 //first Quarter
+            case 4,5,6: quarterMonth = 4 //second Quarter
+            case 7,8,9: quarterMonth = 7 //third Quarter
+            case 10,11,12: quarterMonth = 10 //last Quarter
+            default: quarterMonth = 1
+        }
+        components.month = quarterMonth
+        let quarterStartDate = Calendar.current.date(from: components)!
+        return Calendar.current.startOfDay(for: quarterStartDate)
+    }
+    
+    var startOfYear: Date {
+        var components = Calendar.current.dateComponents([.month, .year], from: self)
+        
+        //Handled first 3 months not a part of current financial year
+        components.year = components.month! < 4 ? components.year! - 1 : components.year!
+        
+        //financial year starts from April
+        components.month = 4
+        let quarterStartDate = Calendar.current.date(from: components)!
+        return Calendar.current.startOfDay(for: quarterStartDate)
+    }
+    
     var startOfDay: Date
     {
         return Utils.calendar.startOfDay(for: self)
