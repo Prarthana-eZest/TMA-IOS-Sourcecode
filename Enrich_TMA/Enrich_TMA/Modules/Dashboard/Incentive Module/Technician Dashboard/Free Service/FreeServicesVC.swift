@@ -347,7 +347,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             /*
              case .cutome:
                          
-                         if dateRange.end.monthName != dateRange.start.monthName
+                         if dateRange.start.inSameMonth(asDate: dateRange.end) != true
                          {
                              return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                          }
@@ -454,7 +454,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.monthName != dateRange.start.monthName
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                 for month in months {
@@ -521,7 +521,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.monthName != dateRange.start.monthName
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
@@ -589,7 +589,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.monthName != dateRange.start.monthName
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
@@ -655,7 +655,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
         case .cutome:
             
-            if dateRange.end.monthName != dateRange.start.monthName
+            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
                 let months = dateRange.end.monthNames(from: dateRange.start)
                 for qMonth in months {
