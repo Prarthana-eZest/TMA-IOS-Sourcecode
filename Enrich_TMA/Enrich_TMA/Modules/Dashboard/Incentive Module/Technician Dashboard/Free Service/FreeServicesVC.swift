@@ -38,7 +38,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
     
     var dateRangeType : DateRangeType = .mtd
     var freeServicesCutomeDateRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
-
+    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
     {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -91,11 +91,11 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
     func updateFreeServiceScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-//        DispatchQueue.main.async { [unowned self] () in
-            freeServicesScreen(startDate:  startDate ?? Date.today, endDate: endDate)
-//            tableView.reloadData()
-//            EZLoadingActivity.hide()
-//        }
+        //        DispatchQueue.main.async { [unowned self] () in
+        freeServicesScreen(startDate:  startDate ?? Date.today, endDate: endDate)
+        //            tableView.reloadData()
+        //            EZLoadingActivity.hide()
+        //        }
     }
     
     func updateFreeServiceScreenData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -223,14 +223,14 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         headerModel?.value = freeServiceRevenueCount + complimentaryGiftcardCount + groomingGiftcardCount
     }
     
-
+    
     func freeServicesScreen(startDate : Date, endDate : Date = Date().startOfDay) {
         //Handled Wrong function calling to avoid data mismatch
         guard fromChartFilter == false else {
             print("******* Wrong Function Called **********")
             return
         }
-    
+        
         dataModel.removeAll()
         graphData.removeAll()
         
@@ -287,21 +287,21 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         dataModel.append(rewardPointsModel)
         //Graph Data
         graphData.append(getGraphEntry(rewardPointsModel.title, forData: filteredFreeServiceForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
-
+        
         //complimentary_giftcard
         //Data Model
         let cGiftVoucherModel = EarningsCellDataModel(earningsType: .FreeServices, title: "Complimentary Gift Voucher", value: [complimentaryGiftcardCount.abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: freeServicesCutomeDateRange)
         dataModel.append(cGiftVoucherModel)
         //Graph Data
         graphData.append(getGraphEntry(cGiftVoucherModel.title, forData: filteredFreeServiceForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
-
+        
         //grooming_giftcard
         //Data Model
         let gGiftCardModel = EarningsCellDataModel(earningsType: .FreeServices, title: "Grooming Gift Card", value: [groomingGiftcardCount.abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: freeServicesCutomeDateRange)
         dataModel.append(gGiftCardModel)
         //Graph Data
         graphData.append(getGraphEntry(gGiftCardModel.title, forData: filteredFreeServiceForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
-       
+        
         var freeServicesCount = Double(freeServiceRevenueCount + groomingGiftcardCount + complimentaryGiftcardCount)
         freeServicesCount = 0.8 * freeServicesCount
         headerModel?.value = freeServicesCount
@@ -329,7 +329,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Free Service", units: units, values: values, barColor: graphColor.first!)
     }
-
+    
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
         switch rangeType
         {
@@ -344,20 +344,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            /*
-             case .cutome:
-                         
-                         if dateRange.start.inSameMonth(asDate: dateRange.end) != true
-                         {
-                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                         }
-                         else {
-                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-                         }
-                     }
-             update if condition with this extension. On true else condition should execute for this
-             */
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -368,7 +355,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
     }
     
     func graphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
-       
+        
         var filteredFreeServices = data
         
         if data == nil, (data?.count ?? 0 <= 0) {
@@ -383,7 +370,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                 return false
             })
         }
-
+        
         
         //reward points
         if(index == 0){
@@ -410,11 +397,11 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             filteredFreeService = technicianDataJSON?.data?.revenue_transactions?.filter({ (freeService) -> Bool in
                 if let date = freeService.date?.date()?.startOfDay {
                     return  (date >= dateRange.start && date <= dateRange.end) &&
-                            ((freeService.free_service_revenue ?? 0 > 0) ||
+                        ((freeService.free_service_revenue ?? 0 > 0) ||
                             (freeService.complimentary_giftcard ?? 0 > 0 &&
-                            (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)) ||
+                                (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)) ||
                             (freeService.grooming_giftcard ?? 0 > 0 &&
-                            (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)))
+                                (freeService.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)))
                 }
                 return false
             })
@@ -454,7 +441,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                 for month in months {
@@ -499,10 +486,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             for objDt in dates {
                 if let data = rewardPoints.filter({$0.date == objDt}).first{
                     freeServicesValues.append(Double(data.free_service_revenue ?? 0.0))
-                   }
-                   else {
+                }
+                else {
                     freeServicesValues.append(Double(0.0))
-                   }
+                }
             }
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
@@ -515,13 +502,13 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
-
+                
                 freeServicesValues.append(value)
             }
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -533,7 +520,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
-
+                    
                     freeServicesValues.append(value)
                 }
             }
@@ -567,10 +554,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             for objDt in dates {
                 if let data = complimentoryGiftVoucher.filter({$0.date == objDt}).first{
                     freeServicesValues.append(Double(data.complimentary_giftcard ?? 0.0))
-                   }
-                   else {
+                }
+                else {
                     freeServicesValues.append(Double(0.0))
-                   }
+                }
             }
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
@@ -583,13 +570,13 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
-
+                
                 freeServicesValues.append(value)
             }
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -601,7 +588,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
-
+                    
                     freeServicesValues.append(value)
                 }
             }
@@ -633,10 +620,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             for objDt in dates {
                 if let data = groomingGiftCards.filter({$0.date == objDt}).first{
                     freeServicesValues.append(Double(data.grooming_giftcard ?? 0.0))
-                   }
-                   else {
+                }
+                else {
                     freeServicesValues.append(Double(0.0))
-                   }
+                }
             }
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
@@ -649,13 +636,13 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1}
-
+                
                 freeServicesValues.append(value)
             }
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -667,7 +654,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1}
-
+                    
                     freeServicesValues.append(value)
                 }
             }
@@ -702,7 +689,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
 extension FreeServicesVC: EarningsFilterDelegate {
     
     func actionDateFilter() {
-       print("Date Filter")
+        print("Date Filter")
         let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
         self.view.alpha = screenPopUpAlpha
         vc.fromChartFilter = false

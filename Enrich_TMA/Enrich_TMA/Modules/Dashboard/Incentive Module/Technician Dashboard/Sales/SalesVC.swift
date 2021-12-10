@@ -111,11 +111,11 @@ class SalesVC: UIViewController, SalesDisplayLogic
     func updateSalesScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-//        DispatchQueue.main.async { [unowned self] () in
-            salesScreenData(startDate:  startDate ?? Date.today, endDate: endDate)
-//            tableView.reloadData()
-//            EZLoadingActivity.hide()
-//        }
+        //        DispatchQueue.main.async { [unowned self] () in
+        salesScreenData(startDate:  startDate ?? Date.today, endDate: endDate)
+        //            tableView.reloadData()
+        //            EZLoadingActivity.hide()
+        //        }
     }
     
     func updateSalesScreenData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -205,8 +205,8 @@ class SalesVC: UIViewController, SalesDisplayLogic
         }
         
         let values = index == 0 ?
-                                ["",value1.abbrevationString, value2.abbrevationString] :
-                                [value1.rounded().abbrevationString]
+            ["",value1.abbrevationString, value2.abbrevationString] :
+            [value1.rounded().abbrevationString]
         
         dataModels[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: values, subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
     }
@@ -252,7 +252,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
         
         headerModel?.value = membershipRevenueCount + valuePackageRevenueCount + servicePackageRevenueCount
     }
-
+    
     func salesScreenData(startDate : Date, endDate : Date = Date().startOfDay) {
         
         //Handled Wrong function calling to avoid data mismatch
@@ -328,7 +328,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
         dataModels.append(valuePackageSalesModel)
         //Graph Data
         graphData.append(getGraphEntry(valuePackageSalesModel.title, forData: filteredSalesForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
-    
+        
         //service_package_revenue
         //Data Model
         let servicePackageSalesModel = EarningsCellDataModel(earningsType: .Sales, title: "Service Package Sales", value: [servicePackageRevenueCount.abbrevationString], subTitle: [""], showGraph: true, cellType: .PackageType, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: salesCutomeDateRange)
@@ -350,9 +350,9 @@ class SalesVC: UIViewController, SalesDisplayLogic
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
         if(index == 0){//for New and Renewal
-        let graphColor = EarningDetails.Sales.graphBarColor
-        
-        return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
+            let graphColor = EarningDetails.Sales.graphBarColor
+            
+            return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
         }
         else {
             //singleValueTileColor
@@ -385,20 +385,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            /*
-             case .cutome:
-                         
-                         if dateRange.start.inSameMonth(asDate: dateRange.end) != true
-                         {
-                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                         }
-                         else {
-                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-                         }
-                     }
-             update if condition with this extension. On true else condition should execute for this
-             */
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -494,7 +481,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                 for month in months {
@@ -563,7 +550,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -630,7 +617,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -698,7 +685,7 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {

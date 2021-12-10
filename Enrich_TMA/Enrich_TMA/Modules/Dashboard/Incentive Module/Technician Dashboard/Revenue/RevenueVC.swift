@@ -110,9 +110,9 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
     func updateRevenueScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-//        DispatchQueue.main.async { [unowned self] () in
-            revenueScreenData(startDate: startDate ?? Date.today, endDate: endDate, otherFilters: filterArray, completion: nil)
-//        }
+        //        DispatchQueue.main.async { [unowned self] () in
+        revenueScreenData(startDate: startDate ?? Date.today, endDate: endDate, otherFilters: filterArray, completion: nil)
+        //        }
     }
     
     
@@ -180,7 +180,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         {
             filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
         }
-
+        
         //Category
         if let category = otherFilters?[1], category != "All Categories"
         {
@@ -245,7 +245,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         {
             filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
         }
-
+        
         //Category
         if let category = otherFilters?[1], category != "All Categories"
         {
@@ -326,7 +326,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         {
             filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
         }
-
+        
         //Category
         if let category = otherFilters?[1], category != "All Categories"
         {
@@ -445,20 +445,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            /*
-             case .cutome:
-                         
-                         if dateRange.start.inSameMonth(asDate: dateRange.end) != true
-                         {
-                             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                         }
-                         else {
-                             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-                         }
-                     }
-             update if condition with this extension. On true else condition should execute for this
-             */
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -529,7 +516,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -586,63 +573,63 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         }
         
         switch dateRangeType  {
-                
-                case .yesterday, .today, .week, .mtd:
-                    let dates = dateRange.end.dayDates(from: dateRange.start)
-                    for objDt in dates {
-                        if let data = filteredRevenue?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
-                        {
-                            let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                            totalRevenue.append(Double(value))
-                        }
-                        else {
-                            totalRevenue.append(Double(0.0))
-                        }
-                    }
-                    
-                case .qtd, .ytd:
-                    let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
-                    for month in months {
-                        if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
-                        {
-                            let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                            totalRevenue.append(Double(value))
-                        }
-                        else {
-                            totalRevenue.append(Double(0.0))
-                        }
-                    }
-                    
-                case .cutome:
-                    
-                    if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+        
+        case .yesterday, .today, .week, .mtd:
+            let dates = dateRange.end.dayDates(from: dateRange.start)
+            for objDt in dates {
+                if let data = filteredRevenue?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
+                {
+                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                    totalRevenue.append(Double(value))
+                }
+                else {
+                    totalRevenue.append(Double(0.0))
+                }
+            }
+            
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+            for month in months {
+                if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
+                {
+                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                    totalRevenue.append(Double(value))
+                }
+                else {
+                    totalRevenue.append(Double(0.0))
+                }
+            }
+            
+        case .cutome:
+            
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            {
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+                for month in months {
+                    if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
                     {
-                        let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
-                        for month in months {
-                            if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
-                            {
-                                let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                                totalRevenue.append(Double(value))
-                            }
-                            else {
-                                totalRevenue.append(Double(0.0))
-                            }
-                        }
+                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                        totalRevenue.append(Double(value))
                     }
                     else {
-                        let dates = dateRange.end.dayDates(from: dateRange.start)
-                        for objDt in dates {
-                            if let data = filteredRevenue?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
-                            {
-                                let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                                totalRevenue.append(Double(value))
-                            }
-                            else {
-                                totalRevenue.append(Double(0.0))
-                            }
-                        }
+                        totalRevenue.append(Double(0.0))
                     }
                 }
+            }
+            else {
+                let dates = dateRange.end.dayDates(from: dateRange.start)
+                for objDt in dates {
+                    if let data = filteredRevenue?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
+                    {
+                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                        totalRevenue.append(Double(value))
+                    }
+                    else {
+                        totalRevenue.append(Double(0.0))
+                    }
+                }
+            }
+        }
         
         return totalRevenue
     }

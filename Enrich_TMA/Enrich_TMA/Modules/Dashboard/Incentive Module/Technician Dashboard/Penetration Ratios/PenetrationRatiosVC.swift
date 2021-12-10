@@ -233,7 +233,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -312,7 +312,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -395,7 +395,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -463,7 +463,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -541,7 +541,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                        rMonth == qMonth
                     {
                         if(categotyCount == 0){
-                        ratio = 0
+                            ratio = 0
                         }
                         else {
                             ratio = Double(subCategoryCount / categotyCount)
@@ -556,7 +556,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -565,7 +565,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                            rMonth == qMonth
                         {
                             if(categotyCount == 0){
-                            ratio = 0
+                                ratio = 0
                             }
                             else {
                                 ratio = Double(subCategoryCount / categotyCount)
@@ -584,7 +584,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first
                     {
                         if(categotyCount == 0){
-                        ratio = 0
+                            ratio = 0
                         }
                         else {
                             ratio = Double(subCategoryCount / categotyCount)
@@ -696,14 +696,13 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         //"App Booking"
         //Data Model
-        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),customersServedCount.roundedStringValue(toFractionDigits: 2),String(appBookingRatio)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),String(appBookingRatio)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(appBookingModel)
         //Graph Data
         graphData.append(getGraphEntry(appBookingModel.title, forData: filteredPenetrationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
         
         
         //cross sell
-        //TODO: Firoz : graph for cross sell
         let crossSell = technicianDataJSON?.data?.cross_sell_transactions
         if(crossSell?.count ?? 0 > 0){
             
@@ -922,7 +921,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }

@@ -121,7 +121,6 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
                 model.customeDateRange = dateRange
             }
             
-            //            graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             if(selectedIndex != 3){
                 update(modeData: model, withData: dateFilteredResourceUtilization, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             }
@@ -225,7 +224,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -297,7 +296,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -364,7 +363,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -430,7 +429,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -498,7 +497,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -565,7 +564,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -629,7 +628,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -808,7 +807,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         //        print("********************** breaktime busy : \(breakTimeBusy.abbrevationString)")
         
         
-        strbreakTimeProductivity = "\((breakTimeCount / totalServiceTimeCount).percent)"
+        strbreakTimeProductivity = "\(Double(breakTimeBusy / productivityAvailableTime).percent)"
         //
         //        print("********************** breaktime busy : \(breakTimeBusy.abbrevationString)")
         //"Productive Time"
@@ -846,24 +845,11 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
         
         let attendanceData =  technicianDataJSON?.data?.attendance_data
         if(attendanceData != nil) {
-//            for objAttendance in attendanceData! {
-//                if(objAttendance.date!.contains(attendanceDate)){
-//                    attendanceCount = attendanceCount + 1
-//                }
-//            }
-            
-            let dates = dateRange.end.dayDates(from: dateRange.start)
-            for objDt in dates {
-                if let data = attendanceData!.filter({$0.date == objDt}).first
-                {
-                    attendanceCount += 1
-                }
-                else {
-                    attendanceCount += 0
+            for objAttendance in attendanceData! {
+                if(objAttendance.date!.contains(attendanceDate)){
+                    attendanceCount = attendanceCount + 1
                 }
             }
-            
-            
             let days: Int = getMonthDays()
             
             //Attendance
@@ -944,20 +930,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            /*
-             case .cutome:
-             
-             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
-             {
-             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-             }
-             else {
-             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-             }
-             }
-             update if condition with this extension. On true else condition should execute for this
-             */
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -966,38 +939,6 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             }
         }
     }
-    
-    //    func graphPlotValues(index: Int) -> [Double]{
-    //        let valuesArr = [Double]()
-    //
-    //        if(index == 0){//productivity time
-    //            //Productive time
-    //            let totalShiftTime = filterResourceUtilization.filter({$0.total_shift_time ?? 0 > 0})
-    //
-    //            var totalShiftTimeCount : Int = 0
-    //            for objtotalShiftTime in totalShiftTime {
-    //                totalShiftTimeCount = totalShiftTimeCount + objtotalShiftTime.total_shift_time!
-    //            }
-    //
-    //            var productivityAvailableTime : Double = 0.0
-    //
-    //            if(totalShiftTime.count > 0){
-    //                productivityAvailableTime = Double(totalShiftTimeCount)
-    //            }
-    //        }
-    //        else if(index == 1){//training time
-    //
-    //        }
-    //        else if(index == 2){//break time
-    //
-    //        }
-    //        else{//attendance
-    //
-    //        }
-    //
-    //
-    //        return valuesArr
-    //    }
     
     func getMonthDays() -> Int{
         let calendar = Calendar.current

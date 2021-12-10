@@ -270,7 +270,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         
         //Revenue Multiplier
         //Data Model
-        let revenueMulti = revenueMultiplier(dateRange: graphDateRange)
+        let revenueMulti = revenueMultiplier(dateRange: dateRange)
         let revenueMultiplierModel = EarningsCellDataModel(earningsType: .Productivity, title: "Revenue Multiplier", value: [revenueMulti.roundedStringValue(toFractionDigits: 2)], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
         dataModel.append(revenueMultiplierModel)
         //Graph Data
@@ -376,20 +376,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            /*
-             case .cutome:
-             
-             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
-             {
-             return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-             }
-             else {
-             return dateRange.end.dayDates(from: dateRange.start, withFormat: "dd")
-             }
-             }
-             update if condition with this extension. On true else condition should execute for this
-             */
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -446,7 +433,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let monthlyDates = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM-dd")
                 for (index, monthlyDate) in monthlyDates.enumerated() {
@@ -563,7 +550,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -633,7 +620,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
         case .cutome:
             
-            if dateRange.start.inSameMonth(asDate: dateRange.end) != true
+            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
