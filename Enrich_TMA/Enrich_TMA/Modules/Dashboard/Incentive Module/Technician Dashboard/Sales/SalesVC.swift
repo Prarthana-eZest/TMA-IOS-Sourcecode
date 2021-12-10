@@ -349,18 +349,26 @@ class SalesVC: UIViewController, SalesDisplayLogic
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
+        if(index == 0){//for New and Renewal
         let graphColor = EarningDetails.Sales.graphBarColor
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
+        }
+        else {
+            //singleValueTileColor
+            let graphColor = EarningDetails.Sales.packageValueTileColor!
+            
+            return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor)
+        }
     }
     
     func getTotalSalesGraphEntry(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
         let values = totalSalesGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.Sales.graphBarColor
+        let graphColor = EarningDetails.Sales.packageValueTileColor!
         
-        return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Sales", units: units, values: values, barColor: graphColor.first!)
+        return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Sales", units: units, values: values, barColor: graphColor)
     }
     
     func xAxisUnits(forDateRange dateRange:DateRange, rangeType: DateRangeType) -> [String] {
@@ -539,10 +547,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = membershipRevenue.map ({ (membershipRevenueData) -> Double in
-                    if let rMonth = membershipRevenueData.date?.date()?.string(format: "MMM"),
+                    if let rMonth = membershipRevenueData.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(membershipRevenueData.membership_new_revenue ?? 0.0)
@@ -557,10 +565,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = membershipRevenue.map ({ (membershipRevenueData) -> Double in
-                        if let rMonth = membershipRevenueData.date?.date()?.string(format: "MMM"),
+                        if let rMonth = membershipRevenueData.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(membershipRevenueData.membership_new_revenue ?? 0.0)
@@ -606,10 +614,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = valuePackageRevenue.map ({ (valuePackageRevenueData) -> Double in
-                    if let rMonth = valuePackageRevenueData.date?.date()?.string(format: "MMM"),
+                    if let rMonth = valuePackageRevenueData.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(valuePackageRevenueData.value_package_revenue ?? 0.0)
@@ -624,10 +632,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = valuePackageRevenue.map ({ (valuePackageRevenueData) -> Double in
-                        if let rMonth = valuePackageRevenueData.date?.date()?.string(format: "MMM"),
+                        if let rMonth = valuePackageRevenueData.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(valuePackageRevenueData.value_package_revenue ?? 0.0)
@@ -674,10 +682,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = servicePackageRevenue.map ({ (servicePackageRevenueData) -> Double in
-                    if let rMonth = servicePackageRevenueData.date?.date()?.string(format: "MMM"),
+                    if let rMonth = servicePackageRevenueData.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(servicePackageRevenueData.service_package_revenue ?? 0.0)
@@ -692,10 +700,10 @@ class SalesVC: UIViewController, SalesDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = servicePackageRevenue.map ({ (servicePackageRevenueData) -> Double in
-                        if let rMonth = servicePackageRevenueData.date?.date()?.string(format: "MMM"),
+                        if let rMonth = servicePackageRevenueData.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(servicePackageRevenueData.service_package_revenue ?? 0.0)

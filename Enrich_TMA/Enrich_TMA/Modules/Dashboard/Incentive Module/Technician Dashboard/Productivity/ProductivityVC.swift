@@ -547,10 +547,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                    if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM"),
+                    if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(rmOptimization.rm_consumption ?? Int(0.0))
@@ -565,10 +565,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                        if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM"),
+                        if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rmOptimization.rm_consumption ?? Int(0.0))
@@ -617,10 +617,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = qualityScoreData.map ({ (quality) -> Double in
-                    if let rMonth = quality.date?.date()?.string(format: "MMM"),
+                    if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(quality.score ?? Int(0.0))
@@ -635,10 +635,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = qualityScoreData.map ({ (quality) -> Double in
-                        if let rMonth = quality.date?.date()?.string(format: "MMM"),
+                        if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(quality.score ?? Int(0.0))

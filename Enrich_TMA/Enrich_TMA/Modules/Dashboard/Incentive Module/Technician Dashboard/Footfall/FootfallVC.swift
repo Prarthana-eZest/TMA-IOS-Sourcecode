@@ -520,10 +520,10 @@ extension FootfallVC: EarningsFilterDelegate {
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = serviceData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(Double(1.0))
@@ -538,10 +538,10 @@ extension FootfallVC: EarningsFilterDelegate {
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = serviceData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(1.0))
@@ -592,10 +592,10 @@ extension FootfallVC: EarningsFilterDelegate {
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = homeServiceRevenueData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(Double(1.0))
@@ -610,10 +610,10 @@ extension FootfallVC: EarningsFilterDelegate {
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = homeServiceRevenueData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(1.0))
@@ -660,10 +660,10 @@ extension FootfallVC: EarningsFilterDelegate {
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = retailData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(Double(1.0))
@@ -678,10 +678,10 @@ extension FootfallVC: EarningsFilterDelegate {
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = retailData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(1.0))

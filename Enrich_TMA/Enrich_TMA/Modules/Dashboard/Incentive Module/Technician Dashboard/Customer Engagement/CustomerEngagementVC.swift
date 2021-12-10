@@ -484,10 +484,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = serviceLevelData.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.service_avg_ratings ?? 0)
@@ -502,10 +502,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = serviceLevelData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(Double(1.0))
@@ -551,10 +551,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = customerInteractionArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.technician_avg_ratings ?? 0)
@@ -569,10 +569,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = customerInteractionArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.technician_avg_ratings ?? 0)
@@ -627,10 +627,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = filteredcustomerRepeat.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.service_revenue ?? 0)
@@ -645,10 +645,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = filteredcustomerRepeat.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.service_revenue ?? 0)
@@ -694,10 +694,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = customerFeedbackReceivedArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.no_of_feedbacks ?? 0)
@@ -712,10 +712,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = customerFeedbackReceivedArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.no_of_feedbacks ?? 0)
@@ -762,10 +762,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = customersServedArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.no_of_services ?? 0)
@@ -780,10 +780,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = customersServedArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.no_of_services ?? 0)
@@ -831,10 +831,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             for qMonth in months {
                 let value = customersServedArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM"),
+                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
                         return Double(revenue.no_of_services ?? 0)
@@ -849,10 +849,10 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             
             if dateRange.start.inSameMonth(asDate: dateRange.end) != true
             {
-                let months = dateRange.end.monthNames(from: dateRange.start)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
                     let value = customersServedArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM"),
+                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
                             return Double(rewards.no_of_services ?? 0)
