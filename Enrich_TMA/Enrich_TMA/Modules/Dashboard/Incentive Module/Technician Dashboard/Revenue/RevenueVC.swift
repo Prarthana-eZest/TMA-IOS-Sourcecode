@@ -445,7 +445,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -516,7 +516,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -602,7 +602,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                 for month in months {

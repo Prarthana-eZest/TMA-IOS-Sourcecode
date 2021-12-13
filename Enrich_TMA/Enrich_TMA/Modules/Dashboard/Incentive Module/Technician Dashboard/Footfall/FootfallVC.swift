@@ -275,7 +275,7 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
             }
@@ -349,7 +349,7 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
                 for month in months {
@@ -523,7 +523,7 @@ extension FootfallVC: EarningsFilterDelegate {
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -595,7 +595,7 @@ extension FootfallVC: EarningsFilterDelegate {
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
@@ -663,7 +663,7 @@ extension FootfallVC: EarningsFilterDelegate {
             
         case .cutome:
             
-            if (dateRange.start.inSameMonth(asDate: dateRange.end) != true && (dateRange.end.dayDates(from: dateRange.start, withFormat: "dd").count > 28))
+            if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
                 for qMonth in months {
