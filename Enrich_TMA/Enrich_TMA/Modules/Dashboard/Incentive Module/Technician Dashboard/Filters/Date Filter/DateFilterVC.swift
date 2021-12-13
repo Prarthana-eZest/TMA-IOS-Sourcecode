@@ -215,7 +215,8 @@ class DateFilterVC: UIViewController, DateFilterDisplayLogic
 extension DateFilterVC: SelectDateRangeDelegate {
     
     func actionFromDate() {
-        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: Date(), minimumDate: nil, maximumDate: nil, datePickerMode: .date) { (selectedDate) in
+        let model = data.last
+        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.fromDate ?? Date.today.lastYear(), minimumDate: Date.today.lastYear(), maximumDate: Date.today, datePickerMode: .date) { (selectedDate) in
             if(selectedDate != nil){
                 self.data.last?.fromDate = selectedDate
                 let userDefaults = UserDefaults.standard
@@ -226,9 +227,8 @@ extension DateFilterVC: SelectDateRangeDelegate {
     }
     
     func actionToDate() {
-        let model = data[data.count - 1]
-      //  print("from date \(model.fromDate)")
-        DatePickerDialog().show("To Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: Date(), minimumDate: model.fromDate!, maximumDate: nil, datePickerMode: .date) { (selectedDate) in
+        let model = data.last
+        DatePickerDialog().show("To Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.toDate ?? Date.today, minimumDate: model?.fromDate!, maximumDate: Date.today, datePickerMode: .date) { (selectedDate) in
             if(selectedDate != nil){
                 self.data.last?.toDate = selectedDate
                 let userDefaults = UserDefaults.standard
