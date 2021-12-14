@@ -92,11 +92,11 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
     func updateProductivityScreenData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             productivityData(startDate:  startDate ?? Date.today, endDate: endDate)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//            tableView.reloadData()
+//            EZLoadingActivity.hide()
+//        }
     }
     
     
@@ -277,6 +277,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         graphData.append(getGraphEntry(revenueMultiplierModel.title, forData: filteredProductivityForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
         headerModel?.value = Double("")
         tableView.reloadData()
+        EZLoadingActivity.hide()
     }
     
     func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.QualityScoreData]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {

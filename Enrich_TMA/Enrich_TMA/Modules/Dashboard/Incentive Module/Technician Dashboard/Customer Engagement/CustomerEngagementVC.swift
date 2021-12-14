@@ -91,11 +91,11 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
     func updateCustomerEngagementData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             customerEngagementData(startDate:  startDate ?? Date.today, endDate: endDate)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//            tableView.reloadData()
+//            EZLoadingActivity.hide()
+//        }
     }
     
     func updateCustomerEngagementData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -407,6 +407,7 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         graphData.append(getGraphEntry(feedbackCountModel.title, forData: filteredFreeServiceForGraph, atIndex: 5, dateRange: graphDateRange, dateRangeType: graphRangeType))
         headerModel?.value = Double("")
         tableView.reloadData()
+        EZLoadingActivity.hide()
     }
     
     func getGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.TechnicianFeedback]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry

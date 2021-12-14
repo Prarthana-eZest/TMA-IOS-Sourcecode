@@ -92,11 +92,11 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
     func updateResourceUtilizationData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             resourceUtilizationScreenData(startDate:  startDate ?? Date.today, endDate: endDate)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//            tableView.reloadData()
+//            EZLoadingActivity.hide()
+//        }
     }
     
     func updateResourceUtilizationData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -862,7 +862,7 @@ class ResourceUtilisationVC: UIViewController, ResourceUtilisationDisplayLogic
             lineGraphData.append(breakTimeGraphEntries.lineGraph)
         }
         tableView.reloadData()
-        
+        EZLoadingActivity.hide()
     }
     
     func getBarLineGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.ResourceUtilization]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> BarLineGraphEntry

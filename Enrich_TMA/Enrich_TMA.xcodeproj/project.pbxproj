@@ -688,6 +688,13 @@
 		F89CD2AB256CDF1300F15C18 /* AddNewDependentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CD2A5256CDF1300F15C18 /* AddNewDependentVC.swift */; };
 		F89CD2AC256CDF1300F15C18 /* AddNewDependentInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CD2A6256CDF1300F15C18 /* AddNewDependentInteractor.swift */; };
 		F89FA0752435D5C500893474 /* SOSFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89FA0742435D5C500893474 /* SOSFactory.swift */; };
+		F8A323F727674C22003DC166 /* EarningsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F127674C22003DC166 /* EarningsPresenter.swift */; };
+		F8A323F827674C22003DC166 /* EarningsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F227674C22003DC166 /* EarningsWorker.swift */; };
+		F8A323F927674C22003DC166 /* EarningsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F327674C22003DC166 /* EarningsRouter.swift */; };
+		F8A323FA27674C22003DC166 /* EarningsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F427674C22003DC166 /* EarningsModels.swift */; };
+		F8A323FB27674C22003DC166 /* EarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F527674C22003DC166 /* EarningsViewController.swift */; };
+		F8A323FC27674C22003DC166 /* EarningsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A323F627674C22003DC166 /* EarningsInteractor.swift */; };
+		F8A3240427674E06003DC166 /* Earnings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A3240327674E06003DC166 /* Earnings.storyboard */; };
 		F8A3C8AD25DE31F40088739A /* IncentiveMyDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8AB25DE31F40088739A /* IncentiveMyDetailsCell.swift */; };
 		F8A3C8AE25DE31F40088739A /* IncentiveMyDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A3C8AC25DE31F40088739A /* IncentiveMyDetailsCell.xib */; };
 		F8A3C8B625DE52DD0088739A /* RevenueTrendPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8B025DE52DD0088739A /* RevenueTrendPresenter.swift */; };
@@ -1553,6 +1560,13 @@
 		F89CD2A5256CDF1300F15C18 /* AddNewDependentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDependentVC.swift; sourceTree = "<group>"; };
 		F89CD2A6256CDF1300F15C18 /* AddNewDependentInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewDependentInteractor.swift; sourceTree = "<group>"; };
 		F89FA0742435D5C500893474 /* SOSFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSFactory.swift; sourceTree = "<group>"; };
+		F8A323F127674C22003DC166 /* EarningsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsPresenter.swift; sourceTree = "<group>"; };
+		F8A323F227674C22003DC166 /* EarningsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsWorker.swift; sourceTree = "<group>"; };
+		F8A323F327674C22003DC166 /* EarningsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsRouter.swift; sourceTree = "<group>"; };
+		F8A323F427674C22003DC166 /* EarningsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsModels.swift; sourceTree = "<group>"; };
+		F8A323F527674C22003DC166 /* EarningsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsViewController.swift; sourceTree = "<group>"; };
+		F8A323F627674C22003DC166 /* EarningsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsInteractor.swift; sourceTree = "<group>"; };
+		F8A3240327674E06003DC166 /* Earnings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Earnings.storyboard; sourceTree = "<group>"; };
 		F8A3C8AB25DE31F40088739A /* IncentiveMyDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveMyDetailsCell.swift; sourceTree = "<group>"; };
 		F8A3C8AC25DE31F40088739A /* IncentiveMyDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IncentiveMyDetailsCell.xib; sourceTree = "<group>"; };
 		F8A3C8B025DE52DD0088739A /* RevenueTrendPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueTrendPresenter.swift; sourceTree = "<group>"; };
@@ -2070,6 +2084,7 @@
 				E30A94E4234D954700E544D0 /* More.storyboard */,
 				F8F386D4256399EF00B6284F /* BookAppointment.storyboard */,
 				F8A3C8BC25DE53200088739A /* Incentive.storyboard */,
+				F8A3240327674E06003DC166 /* Earnings.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -2486,6 +2501,7 @@
 				E33F8FF42355E21C000D5288 /* DashboardModels.swift */,
 				E33F8FF62355E21C000D5288 /* DashboardInteractor.swift */,
 				F8B860EE25C3DA5300EFDEFE /* Incentive Module */,
+				F8A323F027674B9C003DC166 /* Earnings Module */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -3832,6 +3848,19 @@
 			path = "Add New Dependent";
 			sourceTree = "<group>";
 		};
+		F8A323F027674B9C003DC166 /* Earnings Module */ = {
+			isa = PBXGroup;
+			children = (
+				F8A323F527674C22003DC166 /* EarningsViewController.swift */,
+				F8A323F127674C22003DC166 /* EarningsPresenter.swift */,
+				F8A323F227674C22003DC166 /* EarningsWorker.swift */,
+				F8A323F327674C22003DC166 /* EarningsRouter.swift */,
+				F8A323F427674C22003DC166 /* EarningsModels.swift */,
+				F8A323F627674C22003DC166 /* EarningsInteractor.swift */,
+			);
+			path = "Earnings Module";
+			sourceTree = "<group>";
+		};
 		F8A3C8AA25DE31D10088739A /* My Details */ = {
 			isa = PBXGroup;
 			children = (
@@ -4525,6 +4554,7 @@
 				E37237E42356F4CE00DD0375 /* MyProfileHeaderCell.xib in Resources */,
 				E30A94E5234D954700E544D0 /* More.storyboard in Resources */,
 				F8B77E5A240E5ED0006A35B0 /* IrresistibleOffersCell.xib in Resources */,
+				F8A3240427674E06003DC166 /* Earnings.storyboard in Resources */,
 				F8F4F34F26CBF2F6008EA453 /* EarningCategoryFilterCell.xib in Resources */,
 				F844E59E26C640DA00252A56 /* EarningDetailsThreeValueCell.xib in Resources */,
 				E37237E82356F81B00DD0375 /* MyProfileCell.xib in Resources */,
@@ -4911,6 +4941,7 @@
 				F8DD44D824D4071F006BC246 /* AutoDiscountListPresenter.swift in Sources */,
 				F8F386E025639DEC00B6284F /* SelectStylistAndTimeslotModels.swift in Sources */,
 				E3FCBAD7240D37AE008349A8 /* TimeSlotsTableViewCell.swift in Sources */,
+				F8A323FA27674C22003DC166 /* EarningsModels.swift in Sources */,
 				F8B77E59240E5ED0006A35B0 /* IrresistibleOffersCell.swift in Sources */,
 				E30A9518234DF43D00E544D0 /* NotificationsVC.swift in Sources */,
 				F8F386EE2563AE4600B6284F /* StylistAvailableModels.swift in Sources */,
@@ -5088,6 +5119,7 @@
 				E3FCBB36240D37AE008349A8 /* RateServiceCell.swift in Sources */,
 				F825434D2476B2D5007ED67E /* PopularBrandsCell.swift in Sources */,
 				F82BCF74248F7A4800F16419 /* SendPaymentLinkVC.swift in Sources */,
+				F8A323F727674C22003DC166 /* EarningsPresenter.swift in Sources */,
 				E3FCBAEB240D37AE008349A8 /* PersonalAddressCell.swift in Sources */,
 				E30E5E482357494F001040F5 /* LoginOTPModulePresenter.swift in Sources */,
 				E362486623E0365100CCF440 /* AvailMyPackagesModels.swift in Sources */,
@@ -5192,6 +5224,7 @@
 				E3FCB940240D3585008349A8 /* GlobalSearchTableViewCell.swift in Sources */,
 				F86E74CE25DF8904007FC9B2 /* ProductivityDetailsPresenter.swift in Sources */,
 				E35C296E234B1DF100AAD18B /* MoreModulePresenter.swift in Sources */,
+				F8A323FC27674C22003DC166 /* EarningsInteractor.swift in Sources */,
 				F8254345247693E1007ED67E /* SearchModuleWorker.swift in Sources */,
 				E3FCB94C240D3585008349A8 /* HeaderViewCell.swift in Sources */,
 				F8D0241C24121FA600CD5E71 /* PackageDetailVC.swift in Sources */,
@@ -5248,6 +5281,7 @@
 				E37237DE2356F3FF00DD0375 /* MyProfileModels.swift in Sources */,
 				F832BE3225E629CE0095D886 /* IncentiveDetailsHeaderCell.swift in Sources */,
 				F8D0241724121E0B00CD5E71 /* PackageListingInteractor.swift in Sources */,
+				F8A323F827674C22003DC166 /* EarningsWorker.swift in Sources */,
 				F8FAFD8A2424CCA200123E84 /* ApplyCouponModels.swift in Sources */,
 				E38815DC237973080091964B /* JobCardVC.swift in Sources */,
 				E3FCBB35240D37AE008349A8 /* ReviewThumpsUpDownCell.swift in Sources */,
@@ -5338,6 +5372,7 @@
 				F87494EB26CA9E4C002A2202 /* PackageFilterModels.swift in Sources */,
 				F875C4692410D919009AA42F /* ProductCategoryBackImageCell.swift in Sources */,
 				F851EFC226BBC34000D97020 /* IncentiveHelper.swift in Sources */,
+				F8A323F927674C22003DC166 /* EarningsRouter.swift in Sources */,
 				E372380323570E1B00DD0375 /* MyCustomersInteractor.swift in Sources */,
 				F8D0241524121E0B00CD5E71 /* PackageListingModels.swift in Sources */,
 				E3FCB89E240D3141008349A8 /* SortProductViewController.swift in Sources */,
@@ -5393,6 +5428,7 @@
 				F8B77E44240E5357006A35B0 /* SalonServiceModuleModels.swift in Sources */,
 				F8802C0D25E50ABE005EBD1D /* CTCDetailsModels.swift in Sources */,
 				E33F10FA234B103800C2F9F5 /* UIBarButtonItem+Badge.swift in Sources */,
+				F8A323FB27674C22003DC166 /* EarningsViewController.swift in Sources */,
 				F8920F5826CAB1E800C168CD /* DateFilterInteractor.swift in Sources */,
 				F86E74E325DF9478007FC9B2 /* AchievementModels.swift in Sources */,
 				E310119E23700BA2003720F3 /* GenericCustomerConsulationPresenter.swift in Sources */,
@@ -5548,7 +5584,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.100;
+				MARKETING_VERSION = 1.101;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -5750,7 +5786,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.100;
+				MARKETING_VERSION = 1.101;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -5784,7 +5820,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.100;
+				MARKETING_VERSION = 1.101;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EnrichSalon.TMA;
 				PRODUCT_NAME = TMA_Stage;

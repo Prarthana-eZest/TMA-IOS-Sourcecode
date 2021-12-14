@@ -97,11 +97,11 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
     func updatePenetrationData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        DispatchQueue.main.async { [unowned self] () in
+//        DispatchQueue.main.async { [unowned self] () in
             penetrationRatioScreenData(startDate:  startDate ?? Date.today, endDate: endDate)
-            tableView.reloadData()
-            EZLoadingActivity.hide()
-        }
+//            tableView.reloadData()
+//            EZLoadingActivity.hide()
+//        }
     }
     
     func updatePenetrationData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
@@ -767,6 +767,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             }
         }
         tableView.reloadData()
+        EZLoadingActivity.hide()
     }
     
     func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
