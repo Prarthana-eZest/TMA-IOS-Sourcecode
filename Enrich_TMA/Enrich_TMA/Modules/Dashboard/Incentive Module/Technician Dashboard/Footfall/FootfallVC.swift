@@ -225,6 +225,15 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
         //nameTextField.text = viewModel.name
     }
     
+    func getGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
+    {
+        let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
+        let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
+        let graphColor = EarningDetails.Footfall.graphBarColor
+        
+        return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
+    }
+    
     func graphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
         
         var filteredFootfall = data
@@ -240,9 +249,6 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
                 }
                 return false
             })
-            
-            
-            
         }
         
         // var serviceToatal : Int = 0 //= serviceData?.count ?? 0
@@ -324,26 +330,24 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filteredFootfall?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
+                if let data = filteredFootfall?.filter({$0.date == objDt})
                 {
-                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                    totalFootfall.append(Double(value))
+                    totalFootfall.append(Double(data.count))
                 }
                 else {
-                    totalFootfall.append(Double(0.0))
+                    totalFootfall.append(0.0)
                 }
             }
             
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
             for month in months {
-                if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
+                if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false})
                 {
-                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                    totalFootfall.append(Double(value))
+                    totalFootfall.append(Double(data.count))
                 }
                 else {
-                    totalFootfall.append(Double(0.0))
+                    totalFootfall.append(0.0)
                 }
             }
             
@@ -353,10 +357,9 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
                 for month in months {
-                    if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
+                    if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false}).map({$0.total})
                     {
-                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                        totalFootfall.append(Double(value))
+                        totalFootfall.append(Double(data.count))
                     }
                     else {
                         totalFootfall.append(Double(0.0))
@@ -366,12 +369,12 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filteredFootfall?.filter({$0.date == objDt}).first
+                    if let data = filteredFootfall?.filter({$0.date == objDt})
                     {
-                        totalFootfall.append(Double(data.total ?? 0.0))
+                        totalFootfall.append(Double(data.count))
                     }
                     else {
-                        totalFootfall.append(Double(0.0))
+                        totalFootfall.append(0.0)
                     }
                 }
             }
@@ -499,7 +502,7 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = serviceData.filter({$0.date == objDt}).first {
+                if let _ = serviceData.filter({$0.date == objDt}).first {
                     values.append(Double(1.0))
                 }
                 else {
@@ -542,7 +545,7 @@ extension FootfallVC: EarningsFilterDelegate {
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = serviceData.filter({$0.date == objDt}).first
+                    if let _ = serviceData.filter({$0.date == objDt}).first
                     {
                         values.append(Double(1.0))
                     }
@@ -571,7 +574,7 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = homeServiceRevenueData.filter({$0.date == objDt}).first{
+                if let _ = homeServiceRevenueData.filter({$0.date == objDt}).first{
                     values.append(Double(1.0))
                 }
                 else {
@@ -614,7 +617,7 @@ extension FootfallVC: EarningsFilterDelegate {
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = homeServiceRevenueData.filter({$0.date == objDt}).first
+                    if let _ = homeServiceRevenueData.filter({$0.date == objDt}).first
                     {
                         values.append(Double(1.0))
                     }
@@ -639,7 +642,7 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = retailData.filter({$0.date == objDt}).first{
+                if let _ = retailData.filter({$0.date == objDt}).first{
                     values.append(Double(1.0))
                 }
                 else {
@@ -682,7 +685,7 @@ extension FootfallVC: EarningsFilterDelegate {
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = retailData.filter({$0.date == objDt}).first
+                    if let _ = retailData.filter({$0.date == objDt}).first
                     {
                         values.append(Double(1.0))
                     }
@@ -693,16 +696,6 @@ extension FootfallVC: EarningsFilterDelegate {
             }
         }
         return values
-    }
-    
-    
-    func getGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
-    {
-        let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
-        let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.Footfall.graphBarColor
-        
-        return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
     }
 }
 
