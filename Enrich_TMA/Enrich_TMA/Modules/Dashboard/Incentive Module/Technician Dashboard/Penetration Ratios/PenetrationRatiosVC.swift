@@ -651,7 +651,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         //"Service Count Per Invoice"
         //Data Model
-        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(updateUniqueData?.count ?? 0),String(serviceRatio)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(updateUniqueData?.count ?? 0),String(serviceRatio)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(serviceCountPerInvoiceModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceCountPerInvoiceModel.title, forData: filteredPenetrationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -667,7 +667,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         //"Product To Service"
         //Data Model
-        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount?.count ?? 0),String(serviceCount?.count ?? 0),String(productRatio)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount?.count ?? 0),String(serviceCount?.count ?? 0),String(productRatio)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(productToServiceModel)
         //Graph Data
         graphData.append(getGraphEntry(productToServiceModel.title, forData: filteredPenetrationForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -696,7 +696,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         //"App Booking"
         //Data Model
-        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),String(appBookingRatio)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),String(appBookingRatio)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(appBookingModel)
         //Graph Data
         graphData.append(getGraphEntry(appBookingModel.title, forData: filteredPenetrationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -722,14 +722,14 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             //"Cross Sell"
             //Data Model
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(filteredCrossSell?.count ?? 0), crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(filteredCrossSell?.count ?? 0), crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
             
         }
         else {
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -763,7 +763,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 
                 //"penetrationModel"
                 //Data Model
-                let penetrationModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: objPenetration.heading ?? "", value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [objPenetration.compare_label ?? "" ,objPenetration.to_compare_label ?? "", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+                let penetrationModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: objPenetration.heading ?? "", value: [String(subCategoryCount),String(categotyCount),String(ratio)], subTitle: [objPenetration.compare_label ?? "" ,objPenetration.to_compare_label ?? "", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
                 dataModel.append(penetrationModel)
                 //Graph Data
                 graphData.append(getGraphEntry(penetrationModel.title, forData: filteredPenetrationForGraph, atIndex: index, dateRange: graphDateRange, dateRangeType: graphRangeType))
