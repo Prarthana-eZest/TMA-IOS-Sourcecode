@@ -525,7 +525,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first{
+                if let data = filterPenetrationArrayWithCategoryData.filter({$0.date == objDt}).first, categotyCount > 0 {
                     ratio = Double(subCategoryCount / categotyCount)
                     values.append(ratio)
                 }
