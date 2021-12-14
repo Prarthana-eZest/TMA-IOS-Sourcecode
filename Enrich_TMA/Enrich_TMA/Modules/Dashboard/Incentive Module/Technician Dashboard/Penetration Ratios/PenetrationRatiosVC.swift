@@ -868,7 +868,8 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
                 
             }
-            break
+            return
+            
         default:
             //Penetration ratio dynamic data
             let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
