@@ -181,8 +181,18 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             return calculateAppBooking(filterArray: filteredPenetrationRatio ?? [], customerServedArray: filteredCustomerEngagement ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
         }
         else if(index == 3) {// cross sell
-            let crossSell = technicianDataJSON?.data?.cross_sell_transactions
+          
+            
+            let crossSell = technicianDataJSON?.data?.cross_sell_transactions?.filter({ (crossSell) -> Bool in
+                if let date = crossSell.date?.date()?.startOfDay {
+                    
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+            
             return calculateCrossSell(filterArray: crossSell ?? [], dateRange: dateRange, dateRangeType: dateRangeType)
+            
         }
         else {
             let penerationRatioFromFilters = technicianDataJSON?.data?.filters?.penetration_ratios
@@ -849,7 +859,16 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
         case 3:
             //cross sell
-            let crossSell = technicianDataJSON?.data?.cross_sell_transactions
+//            let crossSell = technicianDataJSON?.data?.cross_sell_transactions
+            
+            let crossSell = technicianDataJSON?.data?.cross_sell_transactions?.filter({ (crossSell) -> Bool in
+                if let date = crossSell.date?.date()?.startOfDay {
+                    
+                    return date >= dateRange.start && date <= dateRange.end
+                }
+                return false
+            })
+            
             if(crossSell?.count ?? 0 > 0){
                 
                 var crossSellRevenueCount : Double = 0.0
