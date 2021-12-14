@@ -713,14 +713,14 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             //"Cross Sell"
             //Data Model
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["",String(crossSell?.count ?? 0), String(crossSellRevenueCount)], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(crossSell?.count ?? 0), crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
             
         }
         else {
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["","Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
