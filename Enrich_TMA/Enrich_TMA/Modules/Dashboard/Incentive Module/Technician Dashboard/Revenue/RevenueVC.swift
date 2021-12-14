@@ -588,7 +588,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             }
             
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
             for month in months {
                 if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
                 {
@@ -604,7 +604,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "-MM-")
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
                 for month in months {
                     if let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
                     {
