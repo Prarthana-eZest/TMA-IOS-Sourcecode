@@ -576,25 +576,31 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = qualityScoreData.filter({$0.date == objDt}).first{
-                    qualityAndSafetyValues.append(Double(data.score ?? Int(0.0)))
-                }
-                else {
-                    qualityAndSafetyValues.append(Double(0.0))
-                }
-            }
-        case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = qualityScoreData.map ({ (quality) -> Double in
-                    if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(quality.score ?? Int(0.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
+                let data = qualityScoreData.filter({$0.date == objDt})
+                let scores = data.compactMap({$0.score})
+                let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
                 
+                var value = scoreSum / Double(scores.count)
+                if(scoreSum == 0 || scores.count == 0)
+                {
+                    value = 0.0
+                }
+                qualityAndSafetyValues.append(value)
+            }
+            
+        case .qtd, .ytd:
+            
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = qualityScoreData.filter({($0.date?.contains(month)) ?? false})
+                let scores = data.compactMap({$0.score})
+                let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
+                
+                var value = scoreSum / Double(scores.count)
+                if(scoreSum == 0 || scores.count == 0)
+                {
+                    value = 0.0
+                }
                 qualityAndSafetyValues.append(value)
             }
             
@@ -602,30 +608,33 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = qualityScoreData.map ({ (quality) -> Double in
-                        if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(quality.score ?? Int(0.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = qualityScoreData.filter({($0.date?.contains(month)) ?? false})
+                    let scores = data.compactMap({$0.score})
+                    let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
                     
+                    var value = scoreSum / Double(scores.count)
+                    if(scoreSum == 0 || scores.count == 0)
+                    {
+                        value = 0.0
+                    }
                     qualityAndSafetyValues.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = qualityScoreData.filter({$0.date == objDt}).first
+                    let data = qualityScoreData.filter({$0.date == objDt})
+                    let scores = data.compactMap({$0.score})
+                    let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
+                    
+                    var value = (scoreSum / Double(scores.count)) / 100
+                    if(scoreSum == 0 || scores.count == 0)
                     {
-                        qualityAndSafetyValues.append(Double(data.score ?? Int(0.0)))
+                        value = 0.0
                     }
-                    else {
-                        qualityAndSafetyValues.append(Double(0.0))
-                    }
+                    qualityAndSafetyValues.append(value)
                 }
             }
         }
