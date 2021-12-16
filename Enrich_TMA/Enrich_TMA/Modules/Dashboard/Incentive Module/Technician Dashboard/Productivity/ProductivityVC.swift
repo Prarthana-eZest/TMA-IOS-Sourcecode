@@ -506,52 +506,54 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first {
-                    rmOptimizationValues.append(Double(data.rm_consumption ?? 0))
+                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt})
+                {
+                    let rmConsumptions = data.compactMap({$0.rm_consumption})
+                    let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                    rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
                 }
                 else {
                     rmOptimizationValues.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                    if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(rmOptimization.rm_consumption ?? 0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1} ?? 0.0
-                
-                rmOptimizationValues.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                if let data = filteredrmOptimization?.filter({($0.consumption_date?.contains(month)) ?? false})
+                {
+                    let rmConsumptions = data.compactMap({$0.rm_consumption})
+                    let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                    rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
+                }
+                else {
+                    rmOptimizationValues.append(0.0)
+                }
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                        if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(rmOptimization.rm_consumption ?? 0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1} ?? 0.0
-                    
-                    rmOptimizationValues.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    if let data = filteredrmOptimization?.filter({($0.consumption_date?.contains(month)) ?? false})
+                    {
+                        let rmConsumptions = data.compactMap({$0.rm_consumption})
+                        let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                        rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
+                    }
+                    else {
+                        rmOptimizationValues.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first
+                    if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt})
                     {
-                        rmOptimizationValues.append(Double(data.rm_consumption ?? 0))
+                        let rmConsumptions = data.compactMap({$0.rm_consumption})
+                        let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                        rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
                     }
                     else {
                         rmOptimizationValues.append(0.0)
@@ -589,7 +591,6 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             }
             
         case .qtd, .ytd:
-            
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
             for month in months {
                 let data = qualityScoreData.filter({($0.date?.contains(month)) ?? false})
@@ -605,7 +606,6 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
                 let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
