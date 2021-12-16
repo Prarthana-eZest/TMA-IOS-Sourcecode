@@ -21,6 +21,7 @@ protocol DashboardBusinessLogic {
     func doPostUpdateAppointmentStatus(appointmentId: String, request: JobCard.ChangeAppointmentStatus.Request)
     func getIncentiveDashboard(request: Dashboard.GetIncentiveDashboard.Request)
     func getRevenueDashboard(request: Dashboard.GetRevenueDashboard.Request)
+    func getEarningsDashboard(request: Dashboard.GetEarningsDashboard.Request)
 }
 
 class DashboardInteractor: DashboardBusinessLogic {
@@ -77,5 +78,12 @@ class DashboardInteractor: DashboardBusinessLogic {
         worker = DashboardWorker()
         worker?.presenter = self.presenter
         worker?.postRequestGetRevenueDashboard(request: request)
+    }
+    
+    //get earnings dashboard data
+    func getEarningsDashboard(request: Dashboard.GetEarningsDashboard.Request) {
+        worker = DashboardWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestGetEarningsDashboard(request: request)
     }
 }

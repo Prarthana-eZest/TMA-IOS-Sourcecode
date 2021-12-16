@@ -158,10 +158,18 @@ extension DashboardVC {
         interactor?.getIncentiveDashboard(request: request)
     }
     
+    //Get reveneue dashboard data
     func getRevenueDashboard() {
         EZLoadingActivity.show("Loading...", disableUI: true)
         let request = Dashboard.GetRevenueDashboard.Request()
         interactor?.getRevenueDashboard(request: request)
+    }
+    
+    //Get earnings dashbioard data
+    func getEarningsDashboard() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        let request = Dashboard.GetEarningsDashboard.Request()
+        interactor?.getEarningsDashboard(request: request)
     }
     
     func getForceUpadateInfo() {
@@ -265,6 +273,16 @@ extension DashboardVC {
                 showAlert(alertTitle: alertTitle, alertMessage: model.message)
             }*/
             
+        }
+        else if let model = viewModel as? Dashboard.GetEarningsDashboard.Response {
+            EZLoadingActivity.hide()
+           // print("Dashboard data shown above")
+            let userDefaults = UserDefaults.standard
+            userDefaults.set(encodable: model, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+            userDefaults.synchronize()
+            
+            let vc = EarningsViewController.instantiate(fromAppStoryboard: .Incentive)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
@@ -506,7 +524,8 @@ extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
                 return UITableViewCell()
             }
             cell.delegate = self
-            cell.viewType = .listView
+            //changing from .lsitView to .gridView to show two buttons for dashboards
+            cell.viewType = .gridView
             cell.configureCell()
             cell.selectionStyle = .none
             return cell
@@ -641,10 +660,11 @@ extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .incentiveEarnings:
-            getIncentiveDashboard()
-        
+           // getIncentiveDashboard()
+            getEarningsDashboard()
         case .technicianDashboard:
             getRevenueDashboard()
+        
         default:
             break
         }

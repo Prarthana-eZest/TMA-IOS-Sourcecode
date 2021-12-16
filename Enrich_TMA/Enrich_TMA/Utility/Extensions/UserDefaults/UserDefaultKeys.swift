@@ -54,6 +54,9 @@ enum UserDefauiltsKeys {
     static let k_key_FreeServicesToatal = "k_key_FreeServicesToatal"
     static let k_key_FootfallToatal = "k_key_FootfallToatal"
     
+    //Earnings data : Dashboard
+    static let k_key_EarningsDashboard = "k_key_EarningsDashboard"
+    
     //key for from and To date for date filter
     static let k_key_FromDate = "k_key_FromDate"
     static let k_key_ToDate = "k_key_ToDate"

@@ -146,4 +146,21 @@ class DashboardWorker {
 
         self.networkLayer.get(urlString: url, headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"], successHandler: successHandler, errorHandler: errorHandler)
     }
+    
+    //Get earnings data
+    func postRequestGetEarningsDashboard(request: Dashboard.GetEarningsDashboard.Request) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentError(responseError: error)
+        }
+        let successHandler: (Dashboard.GetEarningsDashboard.Response) -> Void = { (response) in
+            print("Earnings response\(response)")
+            self.presenter?.presentSuccess(response: response)
+        }
+
+        let url = ConstantAPINames.getEarningsDashboard.rawValue
+
+        self.networkLayer.get(urlString: url, headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"], successHandler: successHandler, errorHandler: errorHandler)
+    }
 }

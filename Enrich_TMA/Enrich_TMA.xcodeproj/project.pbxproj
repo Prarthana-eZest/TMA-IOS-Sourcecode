@@ -5584,7 +5584,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.101;
+				MARKETING_VERSION = 1.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -5786,7 +5786,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.101;
+				MARKETING_VERSION = 1.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -5820,7 +5820,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.101;
+				MARKETING_VERSION = 1.10;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EnrichSalon.TMA;
 				PRODUCT_NAME = TMA_Stage;
