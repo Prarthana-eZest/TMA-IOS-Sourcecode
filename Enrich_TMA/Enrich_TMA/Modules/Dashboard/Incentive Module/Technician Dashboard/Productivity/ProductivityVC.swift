@@ -253,7 +253,9 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         
         //RM Optimization
         //Data Model
-        let RMOptimizationModel = EarningsCellDataModel(earningsType: .Productivity, title: "RM Optimization", value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
+        let rmOptimizationCountString = filteredrmOptimization != nil ? String(rmOptimizationCount) : "NA"
+        let rmOptimizationRemaningString = filteredrmOptimization != nil ? String(rmOptimizationRemaning) : "NA"
+        let RMOptimizationModel = EarningsCellDataModel(earningsType: .Productivity, title: "RM Optimization", value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
         dataModel.append(RMOptimizationModel)
         //Graph Data
         graphData.append(getGraphEntry(RMOptimizationModel.title, forData: filteredProductivityForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -302,8 +304,6 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         switch index {
         case 0:
             // RM Optimization
-            //RM Optimization
-            //let rmOptimization = technicianDataJSON?.data?.rm_consumption
             var rmOptimizationCount = 0
             var rmOptimizationRemaning = 0
             
@@ -333,7 +333,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                     rmOptimizationRemaning = rmOptimizationCount - 100
                 }
             }
-            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+            let rmOptimizationCountString = filteredrmOptimization != nil ? String(rmOptimizationCount) : "NA"
+            let rmOptimizationRemaningString = filteredrmOptimization != nil ? String(rmOptimizationRemaning) : "NA"
+            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
             
         case 1:
             // Quality and safety
@@ -503,11 +506,11 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first{
-                    rmOptimizationValues.append(Double(data.rm_consumption ?? Int(0.0)))
+                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first {
+                    rmOptimizationValues.append(Double(data.rm_consumption ?? 0))
                 }
                 else {
-                    rmOptimizationValues.append(Double(0.0))
+                    rmOptimizationValues.append(0.0)
                 }
             }
         case .qtd, .ytd:
@@ -517,7 +520,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                     if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
                        rMonth == qMonth
                     {
-                        return Double(rmOptimization.rm_consumption ?? Int(0.0))
+                        return Double(rmOptimization.rm_consumption ?? 0)
                     }
                     return 0.0
                 }).reduce(0) {$0 + $1} ?? 0.0
@@ -535,7 +538,7 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                         if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
                            rMonth == qMonth
                         {
-                            return Double(rmOptimization.rm_consumption ?? Int(0.0))
+                            return Double(rmOptimization.rm_consumption ?? 0)
                         }
                         return 0.0
                     }).reduce(0) {$0 + $1} ?? 0.0
@@ -548,10 +551,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                 for objDt in dates {
                     if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first
                     {
-                        rmOptimizationValues.append(Double(data.rm_consumption ?? Int(0.0)))
+                        rmOptimizationValues.append(Double(data.rm_consumption ?? 0))
                     }
                     else {
-                        rmOptimizationValues.append(Double(0.0))
+                        rmOptimizationValues.append(0.0)
                     }
                 }
             }
