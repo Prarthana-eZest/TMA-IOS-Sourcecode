@@ -253,8 +253,8 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         
         //RM Optimization
         //Data Model
-        let rmOptimizationCountString = filteredrmOptimization != nil ? String(rmOptimizationCount) : "NA"
-        let rmOptimizationRemaningString = filteredrmOptimization != nil ? String(rmOptimizationRemaning) : "NA"
+        let rmOptimizationCountString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationCount) : "NA"
+        let rmOptimizationRemaningString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationRemaning) : "NA"
         let RMOptimizationModel = EarningsCellDataModel(earningsType: .Productivity, title: "RM Optimization", value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
         dataModel.append(RMOptimizationModel)
         //Graph Data
@@ -334,8 +334,8 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                 }
             }
             
-            let rmOptimizationCountString = filteredrmOptimization != nil ? String(rmOptimizationCount) : "NA"
-            let rmOptimizationRemaningString = filteredrmOptimization != nil ? String(rmOptimizationRemaning) : "NA"
+            let rmOptimizationCountString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationCount) : "NA"
+            let rmOptimizationRemaningString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationRemaning) : "NA"
             dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
             
         case 1:
