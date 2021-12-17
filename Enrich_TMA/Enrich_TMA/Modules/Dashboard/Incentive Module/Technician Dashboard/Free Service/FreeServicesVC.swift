@@ -220,7 +220,7 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             }
         }
         
-        headerModel?.value = freeServiceRevenueCount + complimentaryGiftcardCount + groomingGiftcardCount
+        headerModel?.value = (freeServiceRevenueCount + complimentaryGiftcardCount + groomingGiftcardCount) * 0.8
     }
     
     
@@ -386,63 +386,16 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             filteredFreeService = filteredFreeService?.filter({($0.free_service_revenue ?? 0 > 0) || ($0.complimentary_giftcard ?? 0 > 0 && ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)) || ($0.grooming_giftcard ?? 0 > 0 && ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services))})
         }
         
-        switch dateRangeType
-        {
+        let rewardPointsData = graphData(forData: filteredFreeService, atIndex: 0, dateRange: dateRange, dateRangeType: dateRangeType)
         
-        case .yesterday, .today, .week, .mtd:
-            let dates = dateRange.end.dayDates(from: dateRange.start)
-            for objDt in dates {
-                if let data = filteredFreeService?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
-                {
-                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                    totalFreeService.append(Double(value))
-                }
-                else {
-                    totalFreeService.append(Double(0.0))
-                }
-            }
-            
-        case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
-            for month in months {
-                if let data = filteredFreeService?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
-                {
-                    let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                    totalFreeService.append(Double(value))
-                }
-                else {
-                    totalFreeService.append(Double(0.0))
-                }
-            }
-            
-        case .cutome:
-            
-            if dateRange.end.days(from: dateRange.start) > 31
-            {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
-                for month in months {
-                    if let data = filteredFreeService?.filter({($0.date?.contains(month)) ?? false}).map({$0.total}), data.count > 0
-                    {
-                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                        totalFreeService.append(Double(value))
-                    }
-                    else {
-                        totalFreeService.append(Double(0.0))
-                    }
-                }
-            }
-            else {
-                let dates = dateRange.end.dayDates(from: dateRange.start)
-                for objDt in dates {
-                    if let data = filteredFreeService?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
-                    {
-                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
-                        totalFreeService.append(Double(value))
-                    }
-                    else {
-                        totalFreeService.append(Double(0.0))
-                    }
-                }
+        let complimentoryGiftVouchersData = graphData(forData: filteredFreeService, atIndex: 1, dateRange: dateRange, dateRangeType: dateRangeType)
+        
+        let groomingGiftCardsData = graphData(forData: filteredFreeService, atIndex: 2, dateRange: dateRange, dateRangeType: dateRangeType)
+        
+        if rewardPointsData.count == complimentoryGiftVouchersData.count, complimentoryGiftVouchersData.count == groomingGiftCardsData.count {
+            for (index, rewardPoint) in rewardPointsData.enumerated() {
+                let totalValue = rewardPoint + complimentoryGiftVouchersData[index] + groomingGiftCardsData[index]
+                totalFreeService.append(totalValue * 0.8)
             }
         }
         

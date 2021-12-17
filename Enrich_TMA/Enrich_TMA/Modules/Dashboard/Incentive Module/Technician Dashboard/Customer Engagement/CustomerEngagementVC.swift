@@ -285,9 +285,13 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         for objServiceLevel in serviceLevelData! {
             serviceLevelCount = serviceLevelCount + (objServiceLevel.service_avg_ratings ?? 0)
         }
-        var serviceLevelShowData = serviceLevelCount / Double(filteredCustomerEngagement?.count ?? 0)
-        serviceLevelShowCount = serviceLevelShowData
-        print("Service level \(serviceLevelShowData)")
+        if let feedbackCount = filteredCustomerEngagement?.count, feedbackCount > 0 {
+            serviceLevelShowCount = serviceLevelCount / Double(feedbackCount)
+        }
+        else {
+            serviceLevelShowCount = 0.0
+        }
+        print("Service level \(serviceLevelShowCount)")
         
         //customer interaction
         let customerInteraction = filteredCustomerEngagement?.filter({$0.technician_avg_ratings ?? 0 > 0})
@@ -324,14 +328,9 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             feedbackCount = 0
         }
         
-        if(serviceLevelShowData < 0 || serviceLevelShowData.abbrevationString == "NaN")
-        {
-            serviceLevelShowData = 0
-        }
-        
         //Service lwvel
         //Data Model
-        let serviceLevelModel = EarningsCellDataModel(earningsType: .CustomerEngagement, title: "Service Level", value: [serviceLevelShowData.roundedStringValue(toFractionDigits: 2)],subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: customerEngagementCutomeDateRange)
+        let serviceLevelModel = EarningsCellDataModel(earningsType: .CustomerEngagement, title: "Service Level", value: [serviceLevelShowCount.roundedStringValue(toFractionDigits: 2)],subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: customerEngagementCutomeDateRange)
         dataModel.append(serviceLevelModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceLevelModel.title, forData: filteredFreeServiceForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -463,7 +462,7 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
             return calculateCustomersServed(filterArray: filteredCustomerEngagement!, dateRange: dateRange, dateRangeType: dateRangeType)
         }
         else { //feedback count
-            return calculateCustomerFeedbackReceived(filterArray: filteredCustomerEngagement!, dateRange: dateRange, dateRangeType: dateRangeType)
+            return calculateCustomersFeedbakCount(filterArray: filteredCustomerEngagement!, dateRange: dateRange, dateRangeType: dateRangeType)
         }
     }
     
@@ -476,56 +475,70 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = serviceLevelData.filter({$0.date == objDt}).first
+                let data = serviceLevelData.filter({$0.date == objDt})
+                let ratings = data.map({$0.service_avg_ratings})
+                let ratingSum = ratings.reduce(0){$0 + ($1 ?? 0.0)}
+                
+                if ratings.count > 0
                 {
-                    graphValues.append(Double(data.service_avg_ratings ?? 0))
+                    let value = ratingSum/Double(ratings.count)
+                    graphValues.append(value)
                 }
                 else {
-                    graphValues.append(Double(0.0))
+                    graphValues.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = serviceLevelData.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(revenue.service_avg_ratings ?? 0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = serviceLevelData.filter({($0.date?.contains(month)) ?? false})
+                let ratings = data.map({$0.service_avg_ratings})
+                let ratingSum = ratings.reduce(0){$0 + ($1 ?? 0.0)}
                 
-                graphValues.append(value)
+                if ratings.count > 0
+                {
+                    let value = ratingSum/Double(ratings.count)
+                    graphValues.append(value)
+                }
+                else {
+                    graphValues.append(0.0)
+                }
             }
             
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = serviceLevelData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(Double(1.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = serviceLevelData.filter({($0.date?.contains(month)) ?? false})
+                    let ratings = data.map({$0.service_avg_ratings})
+                    let ratingSum = ratings.reduce(0){$0 + ($1 ?? 0.0)}
                     
-                    graphValues.append(value)
+                    if ratings.count > 0
+                    {
+                        let value = ratingSum/Double(ratings.count)
+                        graphValues.append(value)
+                    }
+                    else {
+                        graphValues.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = serviceLevelData.filter({$0.date == objDt}).first
+                    let data = serviceLevelData.filter({$0.date == objDt})
+                    let ratings = data.map({$0.service_avg_ratings})
+                    let ratingSum = ratings.reduce(0){$0 + ($1 ?? 0.0)}
+                    
+                    if ratings.count > 0
                     {
-                        graphValues.append(Double(1.0))
+                        let value = ratingSum/Double(ratings.count)
+                        graphValues.append(value)
                     }
                     else {
-                        graphValues.append(Double(0.0))
+                        graphValues.append(0.0)
                     }
                 }
             }
@@ -812,67 +825,76 @@ class CustomerEngagementVC: UIViewController, CustomerEngagementDisplayLogic
         return graphValues
     }
     
-    // TODO: Discuss with Firoz
     func calculateCustomersFeedbakCount(filterArray : [Dashboard.GetRevenueDashboard.TechnicianFeedback], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
         var graphValues = [Double]()
         
-        let customersServedArray = filterArray.filter({$0.no_of_services ?? 0 > 0})
+        let customersServedArray = filterArray//.filter({$0.no_of_services ?? 0 > 0})
         
         switch dateRangeType
         {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = customersServedArray.filter({$0.date == objDt}).first
+                let data = customersServedArray.filter({$0.date == objDt})
+                let feedback = data.compactMap({$0.no_of_feedbacks}).reduce(0) {$0 + $1}
+                let services = data.compactMap({$0.no_of_services}).reduce(0) {$0 + $1}
+                if services > 0
                 {
-                    graphValues.append(Double(data.no_of_services ?? 0))
+                    let value = Double(feedback)/Double(services) * 100
+                    graphValues.append(value)
                 }
                 else {
-                    graphValues.append(Double(0.0))
+                    graphValues.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = customersServedArray.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(revenue.no_of_services ?? 0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
-                graphValues.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = customersServedArray.filter({($0.date?.contains(month)) ?? false})
+                let feedback = data.compactMap({$0.no_of_feedbacks}).reduce(0) {$0 + $1}
+                let services = data.compactMap({$0.no_of_services}).reduce(0) {$0 + $1}
+                if services > 0
+                {
+                    let value = Double(feedback)/Double(services) * 100
+                    graphValues.append(value)
+                }
+                else {
+                    graphValues.append(0.0)
+                }
             }
             
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = customersServedArray.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(rewards.no_of_services ?? 0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
-                    graphValues.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = customersServedArray.filter({($0.date?.contains(month)) ?? false})
+                    let feedback = data.compactMap({$0.no_of_feedbacks}).reduce(0) {$0 + $1}
+                    let services = data.compactMap({$0.no_of_services}).reduce(0) {$0 + $1}
+                    if services > 0
+                    {
+                        let value = Double(feedback)/Double(services) * 100
+                        graphValues.append(value)
+                    }
+                    else {
+                        graphValues.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = customersServedArray.filter({$0.date == objDt}).first
+                    let data = customersServedArray.filter({$0.date == objDt})
+                    let feedback = data.compactMap({$0.no_of_feedbacks}).reduce(0) {$0 + $1}
+                    let services = data.compactMap({$0.no_of_services}).reduce(0) {$0 + $1}
+                    if services > 0
                     {
-                        graphValues.append(Double(data.no_of_services ?? 0))
+                        let value = Double(feedback)/Double(services) * 100
+                        graphValues.append(value)
                     }
                     else {
-                        graphValues.append(Double(0.0))
+                        graphValues.append(0.0)
                     }
                 }
             }
