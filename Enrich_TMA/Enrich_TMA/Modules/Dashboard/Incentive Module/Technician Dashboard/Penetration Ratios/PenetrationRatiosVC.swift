@@ -306,8 +306,10 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                  */
 //                if let data = productCount.filter({$0.date == objDt}).first{
                 let data = productCount.filter({$0.date == objDt})
+                let serviceData = serviceCount.filter({$0.date == objDt})
+                print("Date: \(objDt) \n Product Data: \(data.count) \n Service count :\(serviceData.count)")
                 if(data.count > 0){
-                productRatio =  Double(data.count) / Double(serviceCount.count)
+                productRatio =  Double(data.count) / Double(serviceData.count)
                     values.append(productRatio)
                 }
                 else {
