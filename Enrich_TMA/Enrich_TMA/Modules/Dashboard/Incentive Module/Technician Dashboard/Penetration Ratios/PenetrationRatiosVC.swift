@@ -207,23 +207,29 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let serviceCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
         
         var serviceRatio : Double = 0.0
-        //        if(invoiceNumbers.count > 0){
-        //            serviceRatio =  Double(Double(serviceCount.count) / Double(invoiceNumbers.count))
-        //        }
-        
+    
+        let test = serviceCount.filter({$0.invoice_number == "SI26FY22-006141"})
+        print("Dates : \(test.map({$0.date}))")
         switch dateRangeType
         {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = serviceCount.filter({$0.date == objDt}).first{
-                    serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
-                    values.append(serviceRatio)
+                let data = serviceCount.filter({$0.date == objDt})
+                let uniqueInvoice = data.compactMap({$0.invoice_number}).unique(map: {$0})
+                    let count = uniqueInvoice.count
+                print("data : \(data.count) \n unique Invoices : \(uniqueInvoice)")
+//                print("Service array : \(serviceCount)")
+                print("Date : \(objDt) \n Invoice array : \(uniqueInvoice)")
+                if(data.count > 0){
                     
+                    serviceRatio =  Double(data.count / count)
+                    values.append(serviceRatio)
                 }
                 else {
-                    values.append(Double(0.0))
+                    values.append(0.0)
                 }
+                print("Service ratio \(serviceRatio)")
             }
         case .qtd, .ytd:
             let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
@@ -656,7 +662,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         var serviceRatio : Double = 0.0
         if(updateUniqueData!.count > 0){
-            serviceRatio =  Double(serviceCount!.count / updateUniqueData!.count)
+            serviceRatio =  Double(serviceCount!.count) / Double(updateUniqueData!.count)
         }
         
         //"Service Count Per Invoice"
