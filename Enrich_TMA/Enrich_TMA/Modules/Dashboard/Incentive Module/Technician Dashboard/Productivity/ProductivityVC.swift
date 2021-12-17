@@ -253,7 +253,9 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         
         //RM Optimization
         //Data Model
-        let RMOptimizationModel = EarningsCellDataModel(earningsType: .Productivity, title: "RM Optimization", value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
+        let rmOptimizationCountString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationCount) : "NA"
+        let rmOptimizationRemaningString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationRemaning) : "NA"
+        let RMOptimizationModel = EarningsCellDataModel(earningsType: .Productivity, title: "RM Optimization", value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: productivityCutomeDateRange)
         dataModel.append(RMOptimizationModel)
         //Graph Data
         graphData.append(getGraphEntry(RMOptimizationModel.title, forData: filteredProductivityForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -302,8 +304,6 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         switch index {
         case 0:
             // RM Optimization
-            //RM Optimization
-            //let rmOptimization = technicianDataJSON?.data?.rm_consumption
             var rmOptimizationCount = 0
             var rmOptimizationRemaning = 0
             
@@ -333,7 +333,10 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
                     rmOptimizationRemaning = rmOptimizationCount - 100
                 }
             }
-            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(rmOptimizationCount)], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaning)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+            
+            let rmOptimizationCountString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationCount) : "NA"
+            let rmOptimizationRemaningString = (filteredrmOptimization != nil && filteredrmOptimization?.count ?? 0 > 0) ? String(rmOptimizationRemaning) : "NA"
+            dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [rmOptimizationCountString], subTitle: ["RM Optimization Deviation Is \(rmOptimizationRemaningString)"], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
             
         case 1:
             // Quality and safety
@@ -503,55 +506,57 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first{
-                    rmOptimizationValues.append(Double(data.rm_consumption ?? Int(0.0)))
+                if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt})
+                {
+                    let rmConsumptions = data.compactMap({$0.rm_consumption})
+                    let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                    rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
                 }
                 else {
-                    rmOptimizationValues.append(Double(0.0))
+                    rmOptimizationValues.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                    if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(rmOptimization.rm_consumption ?? Int(0.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1} ?? 0.0
-                
-                rmOptimizationValues.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                if let data = filteredrmOptimization?.filter({($0.consumption_date?.contains(month)) ?? false})
+                {
+                    let rmConsumptions = data.compactMap({$0.rm_consumption})
+                    let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                    rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
+                }
+                else {
+                    rmOptimizationValues.append(0.0)
+                }
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = filteredrmOptimization?.map ({ (rmOptimization) -> Double in
-                        if let rMonth = rmOptimization.consumption_date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(rmOptimization.rm_consumption ?? Int(0.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1} ?? 0.0
-                    
-                    rmOptimizationValues.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    if let data = filteredrmOptimization?.filter({($0.consumption_date?.contains(month)) ?? false})
+                    {
+                        let rmConsumptions = data.compactMap({$0.rm_consumption})
+                        let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                        rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
+                    }
+                    else {
+                        rmOptimizationValues.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt}).first
+                    if let data = filteredrmOptimization?.filter({$0.consumption_date == objDt})
                     {
-                        rmOptimizationValues.append(Double(data.rm_consumption ?? Int(0.0)))
+                        let rmConsumptions = data.compactMap({$0.rm_consumption})
+                        let rmConsumptionSum = Double(rmConsumptions.reduce(0){$0 + $1})
+                        rmOptimizationValues.append(rmConsumptionSum/Double(rmConsumptions.count))
                     }
                     else {
-                        rmOptimizationValues.append(Double(0.0))
+                        rmOptimizationValues.append(0.0)
                     }
                 }
             }
@@ -573,56 +578,63 @@ class ProductivityVC: UIViewController, ProductivityDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = qualityScoreData.filter({$0.date == objDt}).first{
-                    qualityAndSafetyValues.append(Double(data.score ?? Int(0.0)))
-                }
-                else {
-                    qualityAndSafetyValues.append(Double(0.0))
-                }
-            }
-        case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = qualityScoreData.map ({ (quality) -> Double in
-                    if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(quality.score ?? Int(0.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
+                let data = qualityScoreData.filter({$0.date == objDt})
+                let scores = data.compactMap({$0.score})
+                let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
                 
+                var value = scoreSum / Double(scores.count)
+                if(scoreSum == 0 || scores.count == 0)
+                {
+                    value = 0.0
+                }
+                qualityAndSafetyValues.append(value)
+            }
+            
+        case .qtd, .ytd:
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = qualityScoreData.filter({($0.date?.contains(month)) ?? false})
+                let scores = data.compactMap({$0.score})
+                let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
+                
+                var value = scoreSum / Double(scores.count)
+                if(scoreSum == 0 || scores.count == 0)
+                {
+                    value = 0.0
+                }
                 qualityAndSafetyValues.append(value)
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = qualityScoreData.map ({ (quality) -> Double in
-                        if let rMonth = quality.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(quality.score ?? Int(0.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = qualityScoreData.filter({($0.date?.contains(month)) ?? false})
+                    let scores = data.compactMap({$0.score})
+                    let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
                     
+                    var value = scoreSum / Double(scores.count)
+                    if(scoreSum == 0 || scores.count == 0)
+                    {
+                        value = 0.0
+                    }
                     qualityAndSafetyValues.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = qualityScoreData.filter({$0.date == objDt}).first
+                    let data = qualityScoreData.filter({$0.date == objDt})
+                    let scores = data.compactMap({$0.score})
+                    let scoreSum:Double = Double(scores.reduce(0) {$0 + $1})
+                    
+                    var value = (scoreSum / Double(scores.count)) / 100
+                    if(scoreSum == 0 || scores.count == 0)
                     {
-                        qualityAndSafetyValues.append(Double(data.score ?? Int(0.0)))
+                        value = 0.0
                     }
-                    else {
-                        qualityAndSafetyValues.append(Double(0.0))
-                    }
+                    qualityAndSafetyValues.append(value)
                 }
             }
         }
