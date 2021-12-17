@@ -231,14 +231,12 @@ extension EarningDetailsHeaderCell {
             chartDataSet.highlightColor = UIColor.clear
             barChartData.addDataSet(chartDataSet)
         }
-        let barWidth = 0.3
+        var barWidth = 0.3
         let barSpace = 0.0
         let groupSpace = (1 - (barWidth * Double(graphData.count)))
         
+        if let barCount = barChartData.dataSets.first?.entryCount, barCount <= 5 { barWidth = 0.05 * Double(barCount) }
         barChartData.barWidth = barWidth
-        
-//        barChartData.groupBars(fromX: 0.5, groupSpace: groupSpace, barSpace: barSpace)
-        
         return barChartData
     }
     
