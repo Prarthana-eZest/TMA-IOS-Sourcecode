@@ -434,9 +434,10 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filteredFreeService?.filter({$0.date == objDt}).first
+                    if let data = filteredFreeService?.filter({$0.date == objDt}).map({$0.total}), data.count > 0
                     {
-                        totalFreeService.append(Double(data.total ?? 0.0))
+                        let value = data.reduce(0) {$0 + ($1 ?? 0.0)}
+                        totalFreeService.append(Double(value))
                     }
                     else {
                         totalFreeService.append(Double(0.0))
@@ -460,25 +461,15 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = rewardPoints.filter({$0.date == objDt}).first{
-                    freeServicesValues.append(Double(data.free_service_revenue ?? 0.0))
-                }
-                else {
-                    freeServicesValues.append(Double(0.0))
-                }
+                let data = rewardPoints.filter({$0.date == objDt})
+                let value = data.compactMap({$0.free_service_revenue}).reduce(0){$0 + $1}
+                freeServicesValues.append(value)
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = rewardPoints.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(rewards.free_service_revenue ?? 0.0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = rewardPoints.filter({($0.date?.contains(month)) ?? false})
+                let value = data.compactMap({$0.free_service_revenue}).reduce(0){$0 + $1}
                 freeServicesValues.append(value)
             }
             
@@ -486,30 +477,19 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = rewardPoints.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(rewards.free_service_revenue ?? 0.0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = rewardPoints.filter({($0.date?.contains(month)) ?? false})
+                    let value = data.compactMap({$0.free_service_revenue}).reduce(0){$0 + $1}
                     freeServicesValues.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = rewardPoints.filter({$0.date == objDt}).first
-                    {
-                        freeServicesValues.append(Double(data.free_service_revenue ?? 0.0))
-                    }
-                    else {
-                        freeServicesValues.append(Double(0.0))
-                    }
+                    let data = rewardPoints.filter({$0.date == objDt})
+                    let value = data.compactMap({$0.free_service_revenue}).reduce(0){$0 + $1}
+                    freeServicesValues.append(value)
                 }
             }
         }
@@ -528,25 +508,15 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = complimentoryGiftVoucher.filter({$0.date == objDt}).first{
-                    freeServicesValues.append(Double(data.complimentary_giftcard ?? 0.0))
-                }
-                else {
-                    freeServicesValues.append(Double(0.0))
-                }
+                let data = complimentoryGiftVoucher.filter({$0.date == objDt})
+                let value = data.compactMap({$0.complimentary_giftcard}).reduce(0){$0 + $1}
+                freeServicesValues.append(value)
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = complimentoryGiftVoucher.map ({ (complimentory) -> Double in
-                    if let rMonth = complimentory.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(complimentory.complimentary_giftcard ?? 0.0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = complimentoryGiftVoucher.filter({($0.date?.contains(month)) ?? false})
+                let value = data.compactMap({$0.complimentary_giftcard}).reduce(0){$0 + $1}
                 freeServicesValues.append(value)
             }
             
@@ -554,30 +524,19 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = complimentoryGiftVoucher.map ({ (complimentory) -> Double in
-                        if let rMonth = complimentory.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(complimentory.complimentary_giftcard ?? 0.0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = complimentoryGiftVoucher.filter({($0.date?.contains(month)) ?? false})
+                    let value = data.compactMap({$0.complimentary_giftcard}).reduce(0){$0 + $1}
                     freeServicesValues.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = complimentoryGiftVoucher.filter({$0.date == objDt}).first
-                    {
-                        freeServicesValues.append(Double(data.complimentary_giftcard ?? 0.0))
-                    }
-                    else {
-                        freeServicesValues.append(Double(0.0))
-                    }
+                    let data = complimentoryGiftVoucher.filter({$0.date == objDt})
+                    let value = data.compactMap({$0.complimentary_giftcard}).reduce(0){$0 + $1}
+                    freeServicesValues.append(value)
                 }
             }
         }
@@ -594,25 +553,15 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = groomingGiftCards.filter({$0.date == objDt}).first{
-                    freeServicesValues.append(Double(data.grooming_giftcard ?? 0.0))
-                }
-                else {
-                    freeServicesValues.append(Double(0.0))
-                }
+                let data = groomingGiftCards.filter({$0.date == objDt})
+                let value = data.compactMap({$0.grooming_giftcard}).reduce(0){$0 + $1}
+                freeServicesValues.append(value)
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = groomingGiftCards.map ({ (grooming) -> Double in
-                    if let rMonth = grooming.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(grooming.grooming_giftcard ?? 0.0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = groomingGiftCards.filter({($0.date?.contains(month)) ?? false})
+                let value = data.compactMap({$0.grooming_giftcard}).reduce(0){$0 + $1}
                 freeServicesValues.append(value)
             }
             
@@ -620,30 +569,19 @@ class FreeServicesVC: UIViewController, FreeServicesDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = groomingGiftCards.map ({ (grooming) -> Double in
-                        if let rMonth = grooming.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(grooming.grooming_giftcard ?? 0.0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = groomingGiftCards.filter({($0.date?.contains(month)) ?? false})
+                    let value = data.compactMap({$0.grooming_giftcard}).reduce(0){$0 + $1}
                     freeServicesValues.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = groomingGiftCards.filter({$0.date == objDt}).first
-                    {
-                        freeServicesValues.append(Double(data.grooming_giftcard ?? 0.0))
-                    }
-                    else {
-                        freeServicesValues.append(Double(0.0))
-                    }
+                    let data = groomingGiftCards.filter({$0.date == objDt})
+                    let value = data.compactMap({$0.grooming_giftcard}).reduce(0){$0 + $1}
+                    freeServicesValues.append(value)
                 }
             }
         }
