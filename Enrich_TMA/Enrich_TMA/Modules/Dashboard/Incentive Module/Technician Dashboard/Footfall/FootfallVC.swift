@@ -273,7 +273,6 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
         return GraphDataEntry(graphType: .barGraph, dataTitle: "Total Free Service", units: units, values: values, barColor: graphColor.first!)
     }
     
-    // TODO:  Firoz for total data calculations
     func totalFootfallGraphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double]
     {
         var totalFootfall = [Double]()
