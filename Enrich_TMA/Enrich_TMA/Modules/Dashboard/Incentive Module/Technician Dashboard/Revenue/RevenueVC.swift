@@ -140,7 +140,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             }
             
             update(modeData: model, withData: dateFilteredRevenue, otherFilters: filterArray, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
-            let graphData = getBarLineGraphEntry(model.title, forData: dateFilteredRevenue, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+            let graphData = getBarLineGraphEntry(model.title, forData: dateFilteredRevenue, otherFilters: filterArray, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             barGraphData[selectedIndex] = graphData.barGraph
             lineGraphData[selectedIndex] = graphData.lineGraph
         }
@@ -299,28 +299,14 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
         
         //Date filter applied
-        let dateFilteredRevenue = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+        var filteredRevenue = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
             if let date = revenue.date?.date()?.startOfDay {
                 return date >= startDate && date <= endDate
             }
             return false
         })
         
-        //Handle Graph Scenarios
-        let dateRange = DateRange(startDate, endDate)
-        var graphRangeType = dateRangeType
-        var graphDateRange = dateRange
-        var filteredRevenueForGraph = dateFilteredRevenue
-        if (dateRangeType == .yesterday || dateRangeType == .today) {
-            filteredRevenueForGraph = nil
-            graphRangeType = .mtd
-            graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
-        }
-        
-        
         //Other Filters Applied
-        var filteredRevenue = dateFilteredRevenue
-        
         //Gender
         if let gender = otherFilters?[0], gender != "All Genders"
         {
@@ -337,6 +323,17 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         if let subCategory = otherFilters?[2], subCategory != "All Categories"
         {
             filteredRevenue = filteredRevenue?.filter({ $0.sub_category == subCategory })
+        }
+        
+        //Handle Graph Scenarios
+        let dateRange = DateRange(startDate, endDate)
+        var graphRangeType = dateRangeType
+        var graphDateRange = dateRange
+        var filteredRevenueForGraph = filteredRevenue
+        if (dateRangeType == .yesterday || dateRangeType == .today) {
+            filteredRevenueForGraph = nil
+            graphRangeType = .mtd
+            graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
         var salonServiceToatal:Double = 0.0
@@ -370,7 +367,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let salonServiceRevenueModel = EarningsCellDataModel(earningsType: .Revenue, title: "Salon Service Revenue", value: [salonServiceToatal.rounded().abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: revenueCutomeDateRange)
         dataModels.append(salonServiceRevenueModel)
         //GraphDate
-        let salonServiceGraphEntries = getBarLineGraphEntry(salonServiceRevenueModel.title, forData: filteredRevenueForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        let salonServiceGraphEntries = getBarLineGraphEntry(salonServiceRevenueModel.title, forData: filteredRevenueForGraph, otherFilters: otherFilters, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType)
         barGraphData.append(salonServiceGraphEntries.barGraph)
         lineGraphData.append(salonServiceGraphEntries.lineGraph)
         
@@ -379,7 +376,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let homeServiceRevenueModel = EarningsCellDataModel(earningsType: .Revenue, title: "Home Service Revenue", value: [homeServiceTotal.rounded().abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: revenueCutomeDateRange)
         dataModels.append(homeServiceRevenueModel)
         //GraphDate
-        let homeServiceGraphEntries = getBarLineGraphEntry(homeServiceRevenueModel.title, forData: filteredRevenueForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        let homeServiceGraphEntries = getBarLineGraphEntry(homeServiceRevenueModel.title, forData: filteredRevenueForGraph, otherFilters: otherFilters, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType)
         barGraphData.append(homeServiceGraphEntries.barGraph)
         lineGraphData.append(homeServiceGraphEntries.lineGraph)
         
@@ -388,7 +385,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         let retailProductsRevenueModel = EarningsCellDataModel(earningsType: .Revenue, title: "Retail Products Revenue", value: [retailTotal.rounded().abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: revenueCutomeDateRange)
         dataModels.append(retailProductsRevenueModel)
         //GraphDate
-        let retailServiceGraphEntries = getBarLineGraphEntry(retailProductsRevenueModel.title, forData: filteredRevenueForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        let retailServiceGraphEntries = getBarLineGraphEntry(retailProductsRevenueModel.title, forData: filteredRevenueForGraph, otherFilters: otherFilters, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType)
         barGraphData.append(retailServiceGraphEntries.barGraph)
         lineGraphData.append(retailServiceGraphEntries.lineGraph)
         
@@ -403,16 +400,16 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         EZLoadingActivity.hide()
     }
     
-    func getBarLineGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> BarLineGraphEntry
+    func getBarLineGraphEntry(_ title:String, forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, otherFilters : [String]?, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> BarLineGraphEntry
     {
         let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
-        let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
+        let values = graphData(forData: data, otherFilters: otherFilters, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
         let graphColor = EarningDetails.Revenue.graphBarColor
         
         let barGraphEntry = GraphDataEntry(graphType: .barGraph, dataTitle: "Achieved Value", units: units, values: values, barColor: graphColor.first!)
         
         
-        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: graphData(forData: [], atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
+        let lineGraphEntry = GraphDataEntry(graphType: .linedGraph, dataTitle: "Target Value", units: units, values: graphData(forData: [], otherFilters: otherFilters, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType), barColor: graphColor.last!)
         
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
@@ -431,7 +428,7 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         return BarLineGraphEntry(barGraphEntry, lineGraphEntry)
     }
     
-    func graphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
+    func graphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, otherFilters : [String]?, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
         
         var dataForBar = [Double]()
         var filteredRevenue = data
@@ -447,6 +444,24 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
                 }
                 return false
             })
+            
+            //Gender
+            if let gender = otherFilters?[0], gender != "All Genders"
+            {
+                filteredRevenue = filteredRevenue?.filter({ $0.service_gender == gender })
+            }
+            
+            //Category
+            if let category = otherFilters?[1], category != "All Categories"
+            {
+                filteredRevenue = filteredRevenue?.filter({ $0.category == category })
+            }
+            
+            //Sub-Category
+            if let subCategory = otherFilters?[2], subCategory != "All Categories"
+            {
+                filteredRevenue = filteredRevenue?.filter({ $0.sub_category == subCategory })
+            }
         }
         
         //salon service
@@ -466,27 +481,16 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = filteredRevenue?.filter({$0.date == objDt}).first
-                {
-                    dataForBar.append(Double(data.total ?? 0.0))
-                }
-                else {
-                    dataForBar.append(Double(0.0))
-                }
+                let data = filteredRevenue?.filter({$0.date == objDt})
+                let value = data?.compactMap({$0.total}).reduce(0){$0 + $1} ?? 0.0
+                dataForBar.append(value)
             }
             
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = filteredRevenue?.map ({ (revenue) -> Double in
-                    if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(revenue.total ?? 0.0)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1} ?? 0.0
-                
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total})
+                let value = data?.reduce(0) {$0 + ($1 ?? 0.0)} ?? 0.0
                 dataForBar.append(value)
             }
             
@@ -494,30 +498,19 @@ class RevenueVC: UIViewController, RevenueDisplayLogic
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = filteredRevenue?.map ({ (revenue) -> Double in
-                        if let rMonth = revenue.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(revenue.total ?? 0.0)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1} ?? 0.0
-                    
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total})
+                    let value = data?.reduce(0) {$0 + ($1 ?? 0.0)} ?? 0.0
                     dataForBar.append(value)
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = filteredRevenue?.filter({$0.date == objDt}).first
-                    {
-                        dataForBar.append(Double(data.total ?? 0.0))
-                    }
-                    else {
-                        dataForBar.append(Double(0.0))
-                    }
+                    let data = filteredRevenue?.filter({$0.date == objDt})
+                    let value = data?.compactMap({$0.total}).reduce(0){$0 + $1} ?? 0.0
+                    dataForBar.append(value)
                 }
             }
         }

@@ -121,7 +121,7 @@ class EarningsFilterVC: UIViewController, EarningsFilterDisplayLogic
         
         let selectedGender = filterValueArray[0]
 
-        let sub1 = [EarningsSubCatgoryFilterModel(subCategory: "All Genders", isSelected: (selectedGender == "All Genders")), EarningsSubCatgoryFilterModel(subCategory: "Male", isSelected: (selectedGender == "Male")), EarningsSubCatgoryFilterModel(subCategory: "Female", isSelected: (selectedGender == "Female")), EarningsSubCatgoryFilterModel(subCategory: "Other", isSelected: (selectedGender == "Other"))]
+        let sub1 = [EarningsSubCatgoryFilterModel(subCategory: "All Genders", isSelected: (selectedGender == "All Genders")), EarningsSubCatgoryFilterModel(subCategory: "Male", isSelected: (selectedGender == "Male")), EarningsSubCatgoryFilterModel(subCategory: "Female", isSelected: (selectedGender == "Female")), EarningsSubCatgoryFilterModel(subCategory: "Others", isSelected: (selectedGender == "Others"))]
         data.append(EarningsCatgoryFilterModel(category: "Gender", isSelected: true, subCategories: sub1))
         
         

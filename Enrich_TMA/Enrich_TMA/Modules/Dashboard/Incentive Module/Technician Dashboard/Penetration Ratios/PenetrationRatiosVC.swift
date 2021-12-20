@@ -207,69 +207,107 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let serviceCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
         
         var serviceRatio : Double = 0.0
-        //        if(invoiceNumbers.count > 0){
-        //            serviceRatio =  Double(Double(serviceCount.count) / Double(invoiceNumbers.count))
-        //        }
-        
         switch dateRangeType
         {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = serviceCount.filter({$0.date == objDt}).first{
-                    serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
-                    values.append(serviceRatio)
+                let data = serviceCount.filter({$0.date == objDt})
+                let uniqueInvoice = data.compactMap({$0.invoice_number}).unique(map: {$0})
+                    let count = uniqueInvoice.count
+                
+                if(data.count > 0){
                     
+                    serviceRatio =  Double(data.count / count)
+                    values.append(serviceRatio)
                 }
                 else {
-                    values.append(Double(0.0))
+                    values.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = serviceCount.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
-                        return serviceRatio
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
+//            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//            for qMonth in months {
+//                let value = serviceCount.map ({ (services) -> Double in
+//                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                       rMonth == qMonth
+//                    {
+//                        serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+//                        return serviceRatio
+//                    }
+//                    return 0.0
+//                }).reduce(0) {$0 + $1}
+//
+//                values.append(value)
+//            }
+        
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let service = serviceCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
                 
-                values.append(value)
+                let uniqueInvoice = service.compactMap({$0.invoice_number}).unique(map: {$0})
+                    let count = uniqueInvoice.count
+                
+                if(service.count > 0){
+                    
+                    serviceRatio =  Double(service.count) / Double(count)
+                    values.append(serviceRatio)
+                }
+                else {
+                    values.append(0.0)
+                }
             }
+            
             
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = serviceCount.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
-                            return serviceRatio
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+//                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//                for qMonth in months {
+//                    let value = serviceCount.map ({ (services) -> Double in
+//                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                           rMonth == qMonth
+//                        {
+//                            serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+//                            return serviceRatio
+//                        }
+//                        return 0.0
+//                    }).reduce(0) {$0 + $1}
+//
+//                    values.append(value)
+//                }
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let service = serviceCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
                     
-                    values.append(value)
+                    let uniqueInvoice = service.compactMap({$0.invoice_number}).unique(map: {$0})
+                        let count = uniqueInvoice.count
+                    
+                    if(service.count > 0){
+                        
+                        serviceRatio =  Double(service.count) / Double(count)
+                        values.append(serviceRatio)
+                    }
+                    else {
+                        values.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = serviceCount.filter({$0.date == objDt}).first
-                    {
-                        serviceRatio =  Double((Double(1.0)) / Double(invoiceNumbers.count))
+                    let data = serviceCount.filter({$0.date == objDt})
+                    let uniqueInvoice = data.compactMap({$0.invoice_number}).unique(map: {$0})
+                        let count = uniqueInvoice.count
+                    
+                    if(data.count > 0){
+                        
+                        serviceRatio =  Double(data.count) / Double(count)
                         values.append(serviceRatio)
                     }
                     else {
-                        values.append(Double(0.0))
+                        values.append(0.0)
                     }
                 }
             }
@@ -287,68 +325,101 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let productCount = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         
         var productRatio :Double = 0.0
-        //        if(serviceCount.count > 0){
-        //            productRatio = Double(productCount.count / serviceCount.count)
-        //        }
         
         switch dateRangeType
         {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = productCount.filter({$0.date == objDt}).first{
-                    productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                let data = productCount.filter({$0.date == objDt})
+                let serviceData = serviceCount.filter({$0.date == objDt})
+                
+                if(data.count > 0){
+                productRatio =  Double(data.count) / Double(serviceData.count)
                     values.append(productRatio)
                 }
                 else {
-                    values.append(Double(0.0))
+                    values.append(0.0)
                 }
+
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = productCount.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
-                        return Double(productRatio)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
-                values.append(value)
-            }
+//            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//            for qMonth in months {
+//                let value = productCount.map ({ (services) -> Double in
+//                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                       rMonth == qMonth
+//                    {
+//                        productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+//                        return Double(productRatio)
+//                    }
+//                    return 0.0
+//                }).reduce(0) {$0 + $1}
+//
+//                values.append(value)
+//            }
             
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let product = productCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
+                let service = serviceCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
+                
+                
+                if(service.count > 0){
+                    
+                    productRatio =  Double(product.count) / Double(service.count)
+                    values.append(productRatio)
+                }
+                else {
+                    values.append(0.0)
+                }
+            }
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = productCount.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
-                            return Double(productRatio)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+//                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//                for qMonth in months {
+//                    let value = productCount.map ({ (services) -> Double in
+//                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                           rMonth == qMonth
+//                        {
+//                            productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+//                            return Double(productRatio)
+//                        }
+//                        return 0.0
+//                    }).reduce(0) {$0 + $1}
+//
+//                    values.append(value)
+//                }
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let product = productCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
+                    let service = serviceCount.filter({($0.date?.contains(month)) ?? false}).map({$0})
                     
-                    values.append(value)
+                    
+                    if(service.count > 0){
+                        
+                        productRatio =  Double(product.count) / Double(service.count)
+                        values.append(productRatio)
+                    }
+                    else {
+                        values.append(0.0)
+                    }
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = productCount.filter({$0.date == objDt}).first
-                    {
-                        productRatio =  Double((Double(1.0)) / Double(serviceCount.count))
+                    let data = productCount.filter({$0.date == objDt})
+                    let serviceData = serviceCount.filter({$0.date == objDt})
+                    
+                    if(data.count > 0){
+                    productRatio =  Double(data.count) / Double(serviceData.count)
                         values.append(productRatio)
                     }
                     else {
-                        values.append(Double(0.0))
+                        values.append(0.0)
                     }
                 }
             }
@@ -379,59 +450,94 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let data = customerServedArray.filter({$0.date == objDt}).first{
-                    appBookingRatio = Double((Double(data.no_of_services ?? 0)) / Double(appBooking.count))
-                    values.append(appBookingRatio)
+
+                let appointment = appBooking.filter({$0.date == objDt})
+                let customer = customerServedArray.filter({$0.date == objDt})
+                if(appointment.count > 0 || customer.count > 0){
+                    values.append(Double(appointment.count) / Double(customer.count))
                 }
                 else {
-                    values.append(Double(0.0))
+                    values.append(0.0)
                 }
             }
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = customerServedArray.map ({ (services) -> Double in
-                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
-                        return (appBookingRatio)
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
+//            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//            for qMonth in months {
+//                let value = customerServedArray.map ({ (services) -> Double in
+//                    if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                       rMonth == qMonth
+//                    {
+//                        appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
+//                        return (appBookingRatio)
+//                    }
+//                    return 0.0
+//                }).reduce(0) {$0 + $1}
+//
+//                values.append(value)
+//            }
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let appbooking = appBooking.filter({($0.date?.contains(month)) ?? false}).map({$0.paid_service_revenue})
+                let appbookingvalue = appbooking.reduce(0) {$0 + ($1 ?? 0.0)}
                 
+        
+                let customer = customerServedArray.filter({($0.date?.contains(month)) ?? false}).map({$0.no_of_services})
+                let customergvalue = customer.reduce(0) {$0 + ($1 ?? Int(0.0))}
+                if(appbookingvalue > 0 || customergvalue > 0){
+                let value = Double(appbookingvalue) / Double(customergvalue)
                 values.append(value)
+                }
+                else {
+                    values.append(0.0)
+                }
             }
-            
         case .cutome:
             
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = customerServedArray.map ({ (services) -> Double in
-                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
-                            return (appBookingRatio)
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
+//                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
+//                for qMonth in months {
+//                    let value = customerServedArray.map ({ (services) -> Double in
+//                        if let rMonth = services.date?.date()?.string(format: "MMM yy"),
+//                           rMonth == qMonth
+//                        {
+//                            appBookingRatio = Double((Double(services.no_of_services ?? 0)) / Double(appBooking.count))
+//                            return (appBookingRatio)
+//                        }
+//                        return 0.0
+//                    }).reduce(0) {$0 + $1}
+//
+//                    values.append(value)
+//                }
+                
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let appbooking = appBooking.filter({($0.date?.contains(month)) ?? false}).map({$0.paid_service_revenue})
+                    let appbookingvalue = appbooking.reduce(0) {$0 + ($1 ?? 0.0)}
                     
+            
+                    let customer = customerServedArray.filter({($0.date?.contains(month)) ?? false}).map({$0.no_of_services})
+                    let customergvalue = customer.reduce(0) {$0 + ($1 ?? Int(0.0))}
+                    if(appbookingvalue > 0 || customergvalue > 0){
+                    let value = Double(appbookingvalue) / Double(customergvalue)
                     values.append(value)
+                    }
+                    else {
+                        values.append(0.0)
+                    }
                 }
+                
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let data = customerServedArray.filter({$0.date == objDt}).first
-                    {
-                        appBookingRatio = Double((Double(data.no_of_services ?? 0)) / Double(appBooking.count))
-                        values.append(appBookingRatio)
+                    let appointment = appBooking.filter({$0.date == objDt})
+                    let customer = customerServedArray.filter({$0.date == objDt})
+                    if(appointment.count > 0 || customer.count > 0){
+                        values.append(Double(appointment.count) / Double(customer.count))
                     }
                     else {
-                        values.append(Double(0.0))
+                        values.append(0.0)
                     }
                 }
             }
@@ -656,12 +762,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         var serviceRatio : Double = 0.0
         if(updateUniqueData!.count > 0){
-            serviceRatio =  Double(serviceCount!.count / updateUniqueData!.count)
+            serviceRatio =  Double(serviceCount!.count) / Double(updateUniqueData!.count)
         }
         
         //"Service Count Per Invoice"
         //Data Model
-        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(updateUniqueData?.count ?? 0),String(serviceRatio)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(updateUniqueData?.count ?? 0),serviceRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(serviceCountPerInvoiceModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceCountPerInvoiceModel.title, forData: filteredPenetrationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -672,12 +778,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         var productRatio :Double = 0.0
         if(serviceCount!.count > 0){
-            productRatio = Double(productCount!.count / serviceCount!.count)
+            productRatio = Double(productCount!.count) / Double(serviceCount!.count)
         }
         
         //"Product To Service"
         //Data Model
-        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount?.count ?? 0),String(serviceCount?.count ?? 0),String(productRatio)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount?.count ?? 0),String(serviceCount?.count ?? 0),productRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(productToServiceModel)
         //Graph Data
         graphData.append(getGraphEntry(productToServiceModel.title, forData: filteredPenetrationForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -687,9 +793,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let appBooking = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
         
         var appBookingRatio : Double = 0.0
-        if(updateUniqueData!.count > 0) {
-            appBookingRatio =  Double(appBooking!.count / updateUniqueData!.count)
-        }
+        
         //customers served
         let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
             if let date = customerEngagement.date?.date()?.startOfDay {
@@ -704,9 +808,13 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             customersServedCount = customersServedCount + Double(objCustomersServed.no_of_services ?? 0)
         }
         
+        if(customersServedCount > 0) {
+            appBookingRatio =  Double(appBooking!.count) / Double(customersServedCount)
+        }
+        
         //"App Booking"
         //Data Model
-        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),String(appBookingRatio)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),appBookingRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(appBookingModel)
         //Graph Data
         graphData.append(getGraphEntry(appBookingModel.title, forData: filteredPenetrationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -723,23 +831,23 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             return false
         })
         
-        if(filteredCrossSell?.count ?? 0 > 0){
+        if let crossSellData = filteredCrossSell, crossSellData.count > 0 {
             
             var crossSellRevenueCount : Double = 0.0
-            for objCrossSell in filteredCrossSell ?? []{
+            for objCrossSell in crossSellData {
                 crossSellRevenueCount += objCrossSell.paid_service_revenue ?? 0.0
             }
             
             //"Cross Sell"
             //Data Model
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(filteredCrossSell?.count ?? 0), crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(crossSellData.count), crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
             
         }
         else {
-            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+            let crossSellModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["NA","NA"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
             dataModel.append(crossSellModel)
             //Graph Data
             graphData.append(getGraphEntry(crossSellModel.title, forData: filteredPenetrationForGraph, atIndex: 3, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -861,7 +969,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             //cross sell
 //            let crossSell = technicianDataJSON?.data?.cross_sell_transactions
             
-            let crossSell = technicianDataJSON?.data?.cross_sell_transactions?.filter({ (crossSell) -> Bool in
+            let filteredCrossSell = technicianDataJSON?.data?.cross_sell_transactions?.filter({ (crossSell) -> Bool in
                 if let date = crossSell.date?.date()?.startOfDay {
                     
                     return date >= dateRange.start && date <= dateRange.end
@@ -869,22 +977,22 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 return false
             })
             
-            if(crossSell?.count ?? 0 > 0){
+            if let crossSellData = filteredCrossSell, crossSellData.count > 0{
                 
                 var crossSellRevenueCount : Double = 0.0
-                for objCrossSell in crossSell! {
+                for objCrossSell in crossSellData {
                     crossSellRevenueCount += objCrossSell.paid_service_revenue ?? 0.0
                 }
                 
                 //"Cross Sell"
                 //Data Model
-                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(crossSell?.count ?? 0),crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: [String(crossSellData.count),crossSellRevenueCount.roundedStringValue()], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
                 
                 
                 
             }
             else {
-                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["0","0"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
+                dataModel[index] = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Cross Sell", value: ["NA","NA"], subTitle: ["Services", "Revenue"], showGraph: true, cellType: .DoubleValue, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: penetrationCutomeDateRange)
                 
             }
             return

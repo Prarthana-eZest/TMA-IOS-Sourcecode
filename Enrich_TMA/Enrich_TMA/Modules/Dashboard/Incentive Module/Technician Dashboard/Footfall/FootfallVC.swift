@@ -251,9 +251,6 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             })
         }
         
-        // var serviceToatal : Int = 0 //= serviceData?.count ?? 0
-        
-        
         let uniqueInvoices = filteredFootfall?.compactMap({$0.invoice_number}).unique(map: {$0}) ?? []
         //salon service
         if(index == 0){
@@ -296,63 +293,19 @@ class FootfallVC: UIViewController, FootfallDisplayLogic
             })
         }
         else {
-
             filteredFootfall = filteredFootfall?.filter({(($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         }
         
-        switch dateRangeType
-        {
+        let saloneGraphData = graphData(forData: data, atIndex: 0, dateRange: dateRange, dateRangeType: dateRangeType)
         
-        case .yesterday, .today, .week, .mtd:
-            let dates = dateRange.end.dayDates(from: dateRange.start)
-            for objDt in dates {
-                if let data = filteredFootfall?.filter({$0.date == objDt})
-                {
-                    totalFootfall.append(Double(data.count))
-                }
-                else {
-                    totalFootfall.append(0.0)
-                }
-            }
-            
-        case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
-            for month in months {
-                if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false})
-                {
-                    totalFootfall.append(Double(data.count))
-                }
-                else {
-                    totalFootfall.append(0.0)
-                }
-            }
-            
-        case .cutome:
-            
-            if dateRange.end.days(from: dateRange.start) > 31
-            {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
-                for month in months {
-                    if let data = filteredFootfall?.filter({($0.date?.contains(month)) ?? false}).map({$0.total})
-                    {
-                        totalFootfall.append(Double(data.count))
-                    }
-                    else {
-                        totalFootfall.append(Double(0.0))
-                    }
-                }
-            }
-            else {
-                let dates = dateRange.end.dayDates(from: dateRange.start)
-                for objDt in dates {
-                    if let data = filteredFootfall?.filter({$0.date == objDt})
-                    {
-                        totalFootfall.append(Double(data.count))
-                    }
-                    else {
-                        totalFootfall.append(0.0)
-                    }
-                }
+        let homeGraphData = graphData(forData: data, atIndex: 1, dateRange: dateRange, dateRangeType: dateRangeType)
+        
+        let retailGraphData = graphData(forData: data, atIndex: 2, dateRange: dateRange, dateRangeType: dateRangeType)
+        
+        if saloneGraphData.count == homeGraphData.count, homeGraphData.count == retailGraphData.count {
+            for (index, saloneValue) in saloneGraphData.enumerated() {
+                let totalValue = saloneValue + homeGraphData[index] + retailGraphData[index]
+                totalFootfall.append(totalValue)
             }
         }
         
@@ -462,12 +415,8 @@ extension FootfallVC: EarningsFilterDelegate {
         EZLoadingActivity.hide()
     }
     
-    func calculateSalonService(filterArray: [Dashboard.GetRevenueDashboard.RevenueTransaction], invoiceNumbers: [String], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
+    func calculateSalonService(filterArray: [Dashboard.GetRevenueDashboard.RevenueTransaction], invoiceNumbers: [String], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double] {
         var values = [Double]()
-        
-        
-        //.unique(map: {$0.invoice_number})
-        
         
         //service
         let serviceData = filterArray.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) && invoiceNumbers.contains($0.invoice_number ?? "")})
@@ -478,60 +427,36 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let _ = serviceData.filter({$0.date == objDt}).first {
-                    values.append(Double(1.0))
-                }
-                else {
-                    values.append(Double(0.0))
-                }
+                let data = serviceData.filter({$0.date == objDt})
+                let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                values.append(Double(invoiceCount))
             }
+            
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = serviceData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(Double(1.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
-                values.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let uniqueInvoiceCount = serviceData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                values.append(Double(uniqueInvoiceCount))
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = serviceData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(Double(1.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
-                    values.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let uniqueInvoiceCount = serviceData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                    values.append(Double(uniqueInvoiceCount))
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let _ = serviceData.filter({$0.date == objDt}).first
-                    {
-                        values.append(Double(1.0))
-                    }
-                    else {
-                        values.append(Double(0.0))
-                    }
+                    let data = serviceData.filter({$0.date == objDt})
+                    let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                    values.append(Double(invoiceCount))
                 }
             }
         }
-        
         
         return values
     }
@@ -550,56 +475,33 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let _ = homeServiceRevenueData.filter({$0.date == objDt}).first{
-                    values.append(Double(1.0))
-                }
-                else {
-                    values.append(Double(0.0))
-                }
+                let data = homeServiceRevenueData.filter({$0.date == objDt})
+                let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                values.append(Double(invoiceCount))
             }
+            
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = homeServiceRevenueData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(Double(1.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
-                values.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let uniqueInvoiceCount = homeServiceRevenueData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                values.append(Double(uniqueInvoiceCount))
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = homeServiceRevenueData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(Double(1.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
-                    values.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let uniqueInvoiceCount = homeServiceRevenueData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                    values.append(Double(uniqueInvoiceCount))
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let _ = homeServiceRevenueData.filter({$0.date == objDt}).first
-                    {
-                        values.append(Double(1.0))
-                    }
-                    else {
-                        values.append(Double(0.0))
-                    }
+                    let data = homeServiceRevenueData.filter({$0.date == objDt})
+                    let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                    values.append(Double(invoiceCount))
                 }
             }
         }
@@ -618,56 +520,33 @@ extension FootfallVC: EarningsFilterDelegate {
         case .yesterday, .today, .week, .mtd:
             let dates = dateRange.end.dayDates(from: dateRange.start)
             for objDt in dates {
-                if let _ = retailData.filter({$0.date == objDt}).first{
-                    values.append(Double(1.0))
-                }
-                else {
-                    values.append(Double(0.0))
-                }
+                let data = retailData.filter({$0.date == objDt})
+                let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                values.append(Double(invoiceCount))
             }
+            
         case .qtd, .ytd:
-            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            for qMonth in months {
-                let value = retailData.map ({ (rewards) -> Double in
-                    if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                       rMonth == qMonth
-                    {
-                        return Double(Double(1.0))
-                    }
-                    return 0.0
-                }).reduce(0) {$0 + $1}
-                
-                values.append(value)
+            let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+            for month in months {
+                let uniqueInvoiceCount = retailData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                values.append(Double(uniqueInvoiceCount))
             }
             
         case .cutome:
-            
             if dateRange.end.days(from: dateRange.start) > 31
             {
-                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-                for qMonth in months {
-                    let value = retailData.map ({ (rewards) -> Double in
-                        if let rMonth = rewards.date?.date()?.string(format: "MMM yy"),
-                           rMonth == qMonth
-                        {
-                            return Double(Double(1.0))
-                        }
-                        return 0.0
-                    }).reduce(0) {$0 + $1}
-                    
-                    values.append(value)
+                let months = dateRange.end.monthNames(from: dateRange.start, withFormat: "yyyy-MM")
+                for month in months {
+                    let uniqueInvoiceCount = retailData.filter({($0.date?.contains(month)) ?? false}).unique(map: {$0.invoice_number}).count
+                    values.append(Double(uniqueInvoiceCount))
                 }
             }
             else {
                 let dates = dateRange.end.dayDates(from: dateRange.start)
                 for objDt in dates {
-                    if let _ = retailData.filter({$0.date == objDt}).first
-                    {
-                        values.append(Double(1.0))
-                    }
-                    else {
-                        values.append(Double(0.0))
-                    }
+                    let data = retailData.filter({$0.date == objDt})
+                    let invoiceCount = data.unique(map: {$0.invoice_number}).count
+                    values.append(Double(invoiceCount))
                 }
             }
         }
