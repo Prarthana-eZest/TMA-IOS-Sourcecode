@@ -250,7 +250,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 
                 if(service.count > 0){
                     
-                    serviceRatio =  Double(service.count / count)
+                    serviceRatio =  Double(service.count) / Double(count)
                     values.append(serviceRatio)
                 }
                 else {
@@ -286,7 +286,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     
                     if(service.count > 0){
                         
-                        serviceRatio =  Double(service.count / count)
+                        serviceRatio =  Double(service.count) / Double(count)
                         values.append(serviceRatio)
                     }
                     else {
@@ -303,7 +303,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     
                     if(data.count > 0){
                         
-                        serviceRatio =  Double(data.count / count)
+                        serviceRatio =  Double(data.count) / Double(count)
                         values.append(serviceRatio)
                     }
                     else {
@@ -367,7 +367,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 
                 if(service.count > 0){
                     
-                    productRatio =  Double(product.count / service.count)
+                    productRatio =  Double(product.count) / Double(service.count)
                     values.append(productRatio)
                 }
                 else {
@@ -400,7 +400,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     
                     if(service.count > 0){
                         
-                        productRatio =  Double(product.count / service.count)
+                        productRatio =  Double(product.count) / Double(service.count)
                         values.append(productRatio)
                     }
                     else {
