@@ -21,7 +21,7 @@ enum EarningDetails : String {
     case CustomerEngagement = "Customer Engagement"
     case ResourceUtilisation = "Resource Utilisation"
     case Fixed_Earning = "Fixed-Earning"
-    case Incentive = "Incentive"
+    case Incentive = "Earning" //"Incentive"
     case Bonus = "Bonus"
     case Other_Earnings = "Other Earnings"
     case Awards = "Awards"
@@ -58,11 +58,11 @@ enum EarningDetails : String {
         case .PenetrationRatios: return UIImage(named: "Ratio")
         case .CustomerEngagement: return UIImage(named: "Engagement")
         case .ResourceUtilisation: return UIImage(named: "Utilisation")
-        case .Fixed_Earning: return UIImage(named: "Revenue")
-        case.Incentive: return UIImage(named: "Sales")
+        case .Fixed_Earning: return UIImage(named: "FixedEarnings")
+        case.Incentive: return UIImage(named: "Incentive")
         case .Bonus: return UIImage(named: "Bonus")
         case .Other_Earnings: return UIImage(named: "OtherEarnings")
-        case .Awards: return UIImage(named: "Ratio")
+        case .Awards: return UIImage(named: "Awards")
         case .Deductions: return UIImage(named: "Deduction")
         }
     }
@@ -192,7 +192,7 @@ enum EarningDetails : String {
         case .CustomerEngagement: return UIColor(red: 0.77, green: 0.80, blue: 1.00, alpha: 1.00)
         case .ResourceUtilisation: return UIColor(red: 0.85, green: 0.93, blue: 0.97, alpha: 1.00)
         case .Fixed_Earning: return UIColor(red: 0.75, green: 0.89, blue: 0.85, alpha: 1.00)
-        case .Incentive: return UIColor(red: 0.81, green: 0.85, blue: 0.96, alpha: 1.00)
+        case .Incentive: return UIColor(red: 0.36, green: 0.53, blue: 0.90, alpha: 1.00)
         case .Bonus: return UIColor(red: 0.79, green: 0.90, blue: 0.45, alpha: 1.00)
         case .Other_Earnings: return UIColor(red: 0.85, green: 0.93, blue: 0.97, alpha: 1.00)
         case .Awards: return UIColor(red: 1.00, green: 0.91, blue: 0.70, alpha: 1.00)

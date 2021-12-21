@@ -386,19 +386,19 @@ enum Dashboard {
         struct Groups : Codable {
             let group_value : String?
             let group_label : String?
-            let parameters : [Parameters]?
+            let parameters : [Parameter]?
         }
         
-        struct Parameters : Codable {
+        struct Parameter : Codable {
             let name : String?
             let description : String?
             let parameter_mapping : String?
             let start_date : String?
             let end_date : String?
-            let transactions : [Transactions]?
+            let transactions : [Transaction]?
         }
         
-        struct Transactions : Codable {
+        struct Transaction : Codable {
             let date : String?
             let month : Int?
             let year : Int?
