@@ -9,7 +9,7 @@
 import UIKit
 
 enum EarningViewType {
-    case list, grid
+    case list, grid, earnings
 }
 
 protocol EnrningsDelegate: class {
@@ -51,6 +51,7 @@ class EarningHeaderCell: UITableViewCell {
         let dateRange = DateRange(Date.today.startOfMonth, Date.today)
         let dateRangeType : DateRangeType = .mtd
         
+        if(viewType == .grid || viewType == .list){
         earningsModel.append(EarningsHeaderDataModel(earningsType: .Revenue, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
         
         earningsModel.append(EarningsHeaderDataModel(earningsType: .Sales, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_SalesToatal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
@@ -66,11 +67,32 @@ class EarningHeaderCell: UITableViewCell {
         earningsModel.append(EarningsHeaderDataModel(earningsType: .PenetrationRatios, value: 0.0, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
         
         earningsModel.append(EarningsHeaderDataModel(earningsType: .ResourceUtilisation, value: 0.0, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
-
+        }
+        else {
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Fixed_Earning, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Incentive, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Bonus, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Other_Earnings, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Awards, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Deductions, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+        }
         self.viewType = viewType
-        if viewType == .grid {
+        if(viewType == .earnings){//for earnings
+            btnList.isHidden = true
+            btnGrid.isHidden = true
             let count = (earningsModel.count % 2 == 0) ? earningsModel.count / 2 : (earningsModel.count / 2 + 1)
             collectionViewHeight.constant = CGFloat((count * (gridViewHeight)))
+        }
+        else if viewType == .grid {
+            let count = (earningsModel.count % 2 == 0) ? earningsModel.count / 2 : (earningsModel.count / 2 + 1)
+            collectionViewHeight.constant = CGFloat((count * (gridViewHeight)))
+            btnList.isHidden = true
+            btnGrid.isHidden = true
             btnGrid.isSelected = true
             btnGrid.backgroundColor = UIColor(red: 0.87, green: 0.32, blue: 0.32, alpha: 1.00)
 
@@ -80,7 +102,8 @@ class EarningHeaderCell: UITableViewCell {
             collectionViewHeight.constant = CGFloat((earningsModel.count * (listViewHeight)))
             btnList.isSelected = true
             btnList.backgroundColor = UIColor(red: 0.87, green: 0.32, blue: 0.32, alpha: 1.00)
-
+            btnList.isHidden = true
+            btnGrid.isHidden = true
             btnGrid.isSelected = false
             btnGrid.backgroundColor = UIColor.white
 
@@ -110,7 +133,7 @@ extension EarningHeaderCell: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if viewType == .grid {
+        if viewType == .grid || viewType == .earnings {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CellIdentifier.earningGridViewCell, for: indexPath) as? EarningGridViewCell else {
                 return UICollectionViewCell()
             }
@@ -129,7 +152,7 @@ extension EarningHeaderCell: UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if viewType == .grid {
+        if viewType == .grid || viewType == .earnings {
             return CGSize(width: (collectionView.bounds.width / 2) - 1, height: CGFloat(gridViewHeight))
         }else {
             return CGSize(width: collectionView.bounds.width, height: CGFloat(listViewHeight))

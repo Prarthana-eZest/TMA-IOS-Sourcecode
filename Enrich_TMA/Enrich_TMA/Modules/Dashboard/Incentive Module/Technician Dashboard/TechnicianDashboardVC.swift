@@ -338,6 +338,36 @@ extension TechnicianDashboardVC: EnrningsDelegate {
             let vc = ResourceUtilisationVC.instantiate(fromAppStoryboard: .Incentive)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Fixed_Earning:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Incentive:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Bonus:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Other_Earnings:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Awards:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+        case .Deductions:
+            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            vc.headerModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

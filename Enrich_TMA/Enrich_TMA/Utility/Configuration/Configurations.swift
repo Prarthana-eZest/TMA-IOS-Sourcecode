@@ -431,6 +431,8 @@ enum CellIdentifier {
     static let earningDetailsHeaderFilterCell = "EarningDetailsHeaderFilterCell"
     static let earningDetailsCell = "EarningDetailsCell"
     static let earningDetailsThreeValueCell = "EarningDetailsThreeValueCell"
+    static let earningTotalHeaderCell = "EarningTotalHeaderCell"
+    static let viewCTCCell = "ViewCTCCell"
     
     // Filter
     static let packageFilterCell = "PackageFilterCell"

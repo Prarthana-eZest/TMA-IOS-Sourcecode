@@ -198,6 +198,7 @@ extension DashboardVC {
         sections.append(configureSection(idetifier: .dashboardProfile, items: 1, data: []))
         if showIncentiveOption {
             sections.append(configureSection(idetifier: .technicianDashboard, items: 1, data: []))
+            
         }
         if !appointments.isEmpty {
             sections.append(configureSection(idetifier: .appointmentHeader, items: 1, data: []))
@@ -276,12 +277,12 @@ extension DashboardVC {
         }
         else if let model = viewModel as? Dashboard.GetEarningsDashboard.Response {
             EZLoadingActivity.hide()
-           // print("Dashboard data shown above")
+            print("Earnings : \(model)")
             let userDefaults = UserDefaults.standard
             userDefaults.set(encodable: model, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
             userDefaults.synchronize()
             
-            let vc = EarningsViewController.instantiate(fromAppStoryboard: .Incentive)
+            let vc = EarningsViewController.instantiate(fromAppStoryboard: .Earnings)
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -462,11 +463,11 @@ extension DashboardVC: DashboardHeaderCellDelegate {
 extension DashboardVC: IncentiveDashboardDelegate {
     
     func actionTechnicianNext() {
-       // getRevenueDashboard()
+        getRevenueDashboard()
     }
     
     func actionEarningsNext() {
-        
+        getEarningsDashboard()
     }
 }
 
@@ -649,7 +650,7 @@ extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("Selection")
+        print("Selection \(sections[indexPath.section])")
         
         let data = sections[indexPath.section]
         
@@ -659,12 +660,12 @@ extension DashboardVC: UITableViewDelegate, UITableViewDataSource {
             vc.profileType = .selfUser
             self.navigationController?.pushViewController(vc, animated: true)
             
-        case .incentiveEarnings:
-           // getIncentiveDashboard()
-            getEarningsDashboard()
-        case .technicianDashboard:
-            getRevenueDashboard()
-        
+//        case .incentiveEarnings:
+//           // getIncentiveDashboard()
+//          //  getEarningsDashboard()
+//        case .technicianDashboard:
+//         //   getRevenueDashboard()
+//
         default:
             break
         }
@@ -738,12 +739,18 @@ extension DashboardVC {
                                         leftMargin: margin, rightMarging: margin, isPagingEnabled: false,
                                         textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
             
-        case .technicianDashboard, .incentiveEarnings, .customerServed:
+        case .technicianDashboard, .customerServed:
             
             return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
                                         showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
                                         leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
                                         textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
+            
+        case .incentiveEarnings:
+        return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: cellHeight, cellWidth: cellWidth,
+                                    showHeader: false, showFooter: false, headerHeight: 0, footerHeight: 0,
+                                    leftMargin: 0, rightMarging: 0, isPagingEnabled: false,
+                                    textFont: nil, textColor: .black, items: items, identifier: idetifier, data: data)
             
         case .revenueTrend:
             
