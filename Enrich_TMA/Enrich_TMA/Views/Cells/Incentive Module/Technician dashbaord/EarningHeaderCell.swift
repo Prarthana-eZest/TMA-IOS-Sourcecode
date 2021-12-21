@@ -44,6 +44,46 @@ class EarningHeaderCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func getValue(index : Int) -> Int {
+        var cellValue : Int = 0
+        
+        let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+        
+        let earningsData = earningsJSON?.data?.groups
+        
+        
+        
+        switch index {
+        case 0:
+            let fixedEarnings = earningsData?.filter({$0.group_label == "Fixed-Earning"})
+            var dataArray = [Dashboard.GetEarningsDashboard.Transactions]()
+            for objParameter in fixedEarnings ?? []{
+                let objParameters = objParameter.parameters
+                for objTransaction in objParameters ?? [] {
+                    //for objData in objTransaction.transactions ?? []{
+                        
+                        dataArray = objTransaction.transactions?.filter({ (data) -> Bool in
+                            if data.month == 12 && data.year == 2021 {
+                                return true
+                            }
+                            return false
+                        }) ?? []
+                   // }
+                }
+                
+            }
+            print("Data array \(dataArray)")
+
+        default:
+            let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+            
+            cellValue = earningsJSON?.data?.total_earning ?? 0
+        }
+        
+
+        return cellValue
+    }
+    
     func configureCell(viewType: EarningViewType, value : Float) {
         earningsModel.removeAll()
         
@@ -69,7 +109,7 @@ class EarningHeaderCell: UITableViewCell {
         earningsModel.append(EarningsHeaderDataModel(earningsType: .ResourceUtilisation, value: 0.0, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
         }
         else {
-            earningsModel.append(EarningsHeaderDataModel(earningsType: .Fixed_Earning, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
+            earningsModel.append(EarningsHeaderDataModel(earningsType: .Fixed_Earning, value: Double(getValue(index: 0)), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
             
             earningsModel.append(EarningsHeaderDataModel(earningsType: .Incentive, value: ((UserDefaults.standard.value(forKey: UserDefauiltsKeys.k_key_RevenueTotal) as? Double)!), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
             

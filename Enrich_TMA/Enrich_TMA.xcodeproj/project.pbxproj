@@ -687,6 +687,42 @@
 		F89B140C2771927400D18658 /* ViewCTCModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14062771927400D18658 /* ViewCTCModels.swift */; };
 		F89B140D2771927400D18658 /* ViewCTCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14072771927400D18658 /* ViewCTCViewController.swift */; };
 		F89B140E2771927400D18658 /* ViewCTCInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14082771927400D18658 /* ViewCTCInteractor.swift */; };
+		F89B14242771D57900D18658 /* FixedEarningsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B141E2771D57800D18658 /* FixedEarningsPresenter.swift */; };
+		F89B14252771D57900D18658 /* FixedEarningsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B141F2771D57800D18658 /* FixedEarningsWorker.swift */; };
+		F89B14262771D57900D18658 /* FixedEarningsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14202771D57800D18658 /* FixedEarningsRouter.swift */; };
+		F89B14272771D57900D18658 /* FixedEarningsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14212771D57800D18658 /* FixedEarningsModels.swift */; };
+		F89B14282771D57900D18658 /* FixedEarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14222771D57800D18658 /* FixedEarningsViewController.swift */; };
+		F89B14292771D57900D18658 /* FixedEarningsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14232771D57800D18658 /* FixedEarningsInteractor.swift */; };
+		F89B14332771D58C00D18658 /* IncentivePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B142D2771D58C00D18658 /* IncentivePresenter.swift */; };
+		F89B14342771D58C00D18658 /* IncentiveWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B142E2771D58C00D18658 /* IncentiveWorker.swift */; };
+		F89B14352771D58C00D18658 /* IncentiveRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B142F2771D58C00D18658 /* IncentiveRouter.swift */; };
+		F89B14362771D58C00D18658 /* IncentiveModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14302771D58C00D18658 /* IncentiveModels.swift */; };
+		F89B14372771D58C00D18658 /* IncentiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14312771D58C00D18658 /* IncentiveViewController.swift */; };
+		F89B14382771D58C00D18658 /* IncentiveInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14322771D58C00D18658 /* IncentiveInteractor.swift */; };
+		F89B14422771D59A00D18658 /* BonusPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B143C2771D59A00D18658 /* BonusPresenter.swift */; };
+		F89B14432771D59A00D18658 /* BonusWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B143D2771D59A00D18658 /* BonusWorker.swift */; };
+		F89B14442771D59A00D18658 /* BonusRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B143E2771D59A00D18658 /* BonusRouter.swift */; };
+		F89B14452771D59A00D18658 /* BonusModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B143F2771D59A00D18658 /* BonusModels.swift */; };
+		F89B14462771D59A00D18658 /* BonusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14402771D59A00D18658 /* BonusViewController.swift */; };
+		F89B14472771D59A00D18658 /* BonusInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14412771D59A00D18658 /* BonusInteractor.swift */; };
+		F89B14512771D5A800D18658 /* OtherEarningsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B144B2771D5A800D18658 /* OtherEarningsPresenter.swift */; };
+		F89B14522771D5A800D18658 /* OtherEarningsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B144C2771D5A800D18658 /* OtherEarningsWorker.swift */; };
+		F89B14532771D5A800D18658 /* OtherEarningsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B144D2771D5A800D18658 /* OtherEarningsRouter.swift */; };
+		F89B14542771D5A800D18658 /* OtherEarningsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B144E2771D5A800D18658 /* OtherEarningsModels.swift */; };
+		F89B14552771D5A800D18658 /* OtherEarningsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B144F2771D5A800D18658 /* OtherEarningsViewController.swift */; };
+		F89B14562771D5A800D18658 /* OtherEarningsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14502771D5A800D18658 /* OtherEarningsInteractor.swift */; };
+		F89B14602771D5BA00D18658 /* AwardsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145A2771D5BA00D18658 /* AwardsPresenter.swift */; };
+		F89B14612771D5BA00D18658 /* AwardsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145B2771D5BA00D18658 /* AwardsWorker.swift */; };
+		F89B14622771D5BA00D18658 /* AwardsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145C2771D5BA00D18658 /* AwardsRouter.swift */; };
+		F89B14632771D5BA00D18658 /* AwardsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145D2771D5BA00D18658 /* AwardsModels.swift */; };
+		F89B14642771D5BA00D18658 /* AwardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145E2771D5BA00D18658 /* AwardsViewController.swift */; };
+		F89B14652771D5BA00D18658 /* AwardsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B145F2771D5BA00D18658 /* AwardsInteractor.swift */; };
+		F89B146F2771D5CA00D18658 /* DeductionsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B14692771D5CA00D18658 /* DeductionsPresenter.swift */; };
+		F89B14702771D5CA00D18658 /* DeductionsWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B146A2771D5CA00D18658 /* DeductionsWorker.swift */; };
+		F89B14712771D5CA00D18658 /* DeductionsRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B146B2771D5CA00D18658 /* DeductionsRouter.swift */; };
+		F89B14722771D5CA00D18658 /* DeductionsModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B146C2771D5CA00D18658 /* DeductionsModels.swift */; };
+		F89B14732771D5CA00D18658 /* DeductionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B146D2771D5CA00D18658 /* DeductionsViewController.swift */; };
+		F89B14742771D5CA00D18658 /* DeductionsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89B146E2771D5CA00D18658 /* DeductionsInteractor.swift */; };
 		F89CD29B256CDECC00F15C18 /* DependentListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CD295256CDECC00F15C18 /* DependentListPresenter.swift */; };
 		F89CD29C256CDECC00F15C18 /* DependentListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CD296256CDECC00F15C18 /* DependentListWorker.swift */; };
 		F89CD29E256CDECC00F15C18 /* DependentListModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F89CD298256CDECC00F15C18 /* DependentListModels.swift */; };
@@ -1569,6 +1605,42 @@
 		F89B14062771927400D18658 /* ViewCTCModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCTCModels.swift; sourceTree = "<group>"; };
 		F89B14072771927400D18658 /* ViewCTCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCTCViewController.swift; sourceTree = "<group>"; };
 		F89B14082771927400D18658 /* ViewCTCInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCTCInteractor.swift; sourceTree = "<group>"; };
+		F89B141E2771D57800D18658 /* FixedEarningsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsPresenter.swift; sourceTree = "<group>"; };
+		F89B141F2771D57800D18658 /* FixedEarningsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsWorker.swift; sourceTree = "<group>"; };
+		F89B14202771D57800D18658 /* FixedEarningsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsRouter.swift; sourceTree = "<group>"; };
+		F89B14212771D57800D18658 /* FixedEarningsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsModels.swift; sourceTree = "<group>"; };
+		F89B14222771D57800D18658 /* FixedEarningsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsViewController.swift; sourceTree = "<group>"; };
+		F89B14232771D57800D18658 /* FixedEarningsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedEarningsInteractor.swift; sourceTree = "<group>"; };
+		F89B142D2771D58C00D18658 /* IncentivePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentivePresenter.swift; sourceTree = "<group>"; };
+		F89B142E2771D58C00D18658 /* IncentiveWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveWorker.swift; sourceTree = "<group>"; };
+		F89B142F2771D58C00D18658 /* IncentiveRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveRouter.swift; sourceTree = "<group>"; };
+		F89B14302771D58C00D18658 /* IncentiveModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveModels.swift; sourceTree = "<group>"; };
+		F89B14312771D58C00D18658 /* IncentiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveViewController.swift; sourceTree = "<group>"; };
+		F89B14322771D58C00D18658 /* IncentiveInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncentiveInteractor.swift; sourceTree = "<group>"; };
+		F89B143C2771D59A00D18658 /* BonusPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusPresenter.swift; sourceTree = "<group>"; };
+		F89B143D2771D59A00D18658 /* BonusWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusWorker.swift; sourceTree = "<group>"; };
+		F89B143E2771D59A00D18658 /* BonusRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusRouter.swift; sourceTree = "<group>"; };
+		F89B143F2771D59A00D18658 /* BonusModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusModels.swift; sourceTree = "<group>"; };
+		F89B14402771D59A00D18658 /* BonusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusViewController.swift; sourceTree = "<group>"; };
+		F89B14412771D59A00D18658 /* BonusInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusInteractor.swift; sourceTree = "<group>"; };
+		F89B144B2771D5A800D18658 /* OtherEarningsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsPresenter.swift; sourceTree = "<group>"; };
+		F89B144C2771D5A800D18658 /* OtherEarningsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsWorker.swift; sourceTree = "<group>"; };
+		F89B144D2771D5A800D18658 /* OtherEarningsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsRouter.swift; sourceTree = "<group>"; };
+		F89B144E2771D5A800D18658 /* OtherEarningsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsModels.swift; sourceTree = "<group>"; };
+		F89B144F2771D5A800D18658 /* OtherEarningsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsViewController.swift; sourceTree = "<group>"; };
+		F89B14502771D5A800D18658 /* OtherEarningsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherEarningsInteractor.swift; sourceTree = "<group>"; };
+		F89B145A2771D5BA00D18658 /* AwardsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsPresenter.swift; sourceTree = "<group>"; };
+		F89B145B2771D5BA00D18658 /* AwardsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsWorker.swift; sourceTree = "<group>"; };
+		F89B145C2771D5BA00D18658 /* AwardsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsRouter.swift; sourceTree = "<group>"; };
+		F89B145D2771D5BA00D18658 /* AwardsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsModels.swift; sourceTree = "<group>"; };
+		F89B145E2771D5BA00D18658 /* AwardsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsViewController.swift; sourceTree = "<group>"; };
+		F89B145F2771D5BA00D18658 /* AwardsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsInteractor.swift; sourceTree = "<group>"; };
+		F89B14692771D5CA00D18658 /* DeductionsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsPresenter.swift; sourceTree = "<group>"; };
+		F89B146A2771D5CA00D18658 /* DeductionsWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsWorker.swift; sourceTree = "<group>"; };
+		F89B146B2771D5CA00D18658 /* DeductionsRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsRouter.swift; sourceTree = "<group>"; };
+		F89B146C2771D5CA00D18658 /* DeductionsModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsModels.swift; sourceTree = "<group>"; };
+		F89B146D2771D5CA00D18658 /* DeductionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsViewController.swift; sourceTree = "<group>"; };
+		F89B146E2771D5CA00D18658 /* DeductionsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeductionsInteractor.swift; sourceTree = "<group>"; };
 		F89CD295256CDECC00F15C18 /* DependentListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependentListPresenter.swift; sourceTree = "<group>"; };
 		F89CD296256CDECC00F15C18 /* DependentListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependentListWorker.swift; sourceTree = "<group>"; };
 		F89CD298256CDECC00F15C18 /* DependentListModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependentListModels.swift; sourceTree = "<group>"; };
@@ -3869,6 +3941,84 @@
 			path = ViewCTC;
 			sourceTree = "<group>";
 		};
+		F89B14182771D47500D18658 /* Fixed Earnings */ = {
+			isa = PBXGroup;
+			children = (
+				F89B141E2771D57800D18658 /* FixedEarningsPresenter.swift */,
+				F89B141F2771D57800D18658 /* FixedEarningsWorker.swift */,
+				F89B14202771D57800D18658 /* FixedEarningsRouter.swift */,
+				F89B14212771D57800D18658 /* FixedEarningsModels.swift */,
+				F89B14222771D57800D18658 /* FixedEarningsViewController.swift */,
+				F89B14232771D57800D18658 /* FixedEarningsInteractor.swift */,
+			);
+			path = "Fixed Earnings";
+			sourceTree = "<group>";
+		};
+		F89B14192771D4DC00D18658 /* Incentive */ = {
+			isa = PBXGroup;
+			children = (
+				F89B142D2771D58C00D18658 /* IncentivePresenter.swift */,
+				F89B142E2771D58C00D18658 /* IncentiveWorker.swift */,
+				F89B142F2771D58C00D18658 /* IncentiveRouter.swift */,
+				F89B14302771D58C00D18658 /* IncentiveModels.swift */,
+				F89B14312771D58C00D18658 /* IncentiveViewController.swift */,
+				F89B14322771D58C00D18658 /* IncentiveInteractor.swift */,
+			);
+			path = Incentive;
+			sourceTree = "<group>";
+		};
+		F89B141A2771D52D00D18658 /* Bonus */ = {
+			isa = PBXGroup;
+			children = (
+				F89B143C2771D59A00D18658 /* BonusPresenter.swift */,
+				F89B143D2771D59A00D18658 /* BonusWorker.swift */,
+				F89B143E2771D59A00D18658 /* BonusRouter.swift */,
+				F89B143F2771D59A00D18658 /* BonusModels.swift */,
+				F89B14402771D59A00D18658 /* BonusViewController.swift */,
+				F89B14412771D59A00D18658 /* BonusInteractor.swift */,
+			);
+			path = Bonus;
+			sourceTree = "<group>";
+		};
+		F89B141B2771D53B00D18658 /* Other Earnings */ = {
+			isa = PBXGroup;
+			children = (
+				F89B144B2771D5A800D18658 /* OtherEarningsPresenter.swift */,
+				F89B144C2771D5A800D18658 /* OtherEarningsWorker.swift */,
+				F89B144D2771D5A800D18658 /* OtherEarningsRouter.swift */,
+				F89B144E2771D5A800D18658 /* OtherEarningsModels.swift */,
+				F89B144F2771D5A800D18658 /* OtherEarningsViewController.swift */,
+				F89B14502771D5A800D18658 /* OtherEarningsInteractor.swift */,
+			);
+			path = "Other Earnings";
+			sourceTree = "<group>";
+		};
+		F89B141C2771D54F00D18658 /* Awards */ = {
+			isa = PBXGroup;
+			children = (
+				F89B145A2771D5BA00D18658 /* AwardsPresenter.swift */,
+				F89B145B2771D5BA00D18658 /* AwardsWorker.swift */,
+				F89B145C2771D5BA00D18658 /* AwardsRouter.swift */,
+				F89B145D2771D5BA00D18658 /* AwardsModels.swift */,
+				F89B145E2771D5BA00D18658 /* AwardsViewController.swift */,
+				F89B145F2771D5BA00D18658 /* AwardsInteractor.swift */,
+			);
+			path = Awards;
+			sourceTree = "<group>";
+		};
+		F89B141D2771D55800D18658 /* Deductions */ = {
+			isa = PBXGroup;
+			children = (
+				F89B14692771D5CA00D18658 /* DeductionsPresenter.swift */,
+				F89B146A2771D5CA00D18658 /* DeductionsWorker.swift */,
+				F89B146B2771D5CA00D18658 /* DeductionsRouter.swift */,
+				F89B146C2771D5CA00D18658 /* DeductionsModels.swift */,
+				F89B146D2771D5CA00D18658 /* DeductionsViewController.swift */,
+				F89B146E2771D5CA00D18658 /* DeductionsInteractor.swift */,
+			);
+			path = Deductions;
+			sourceTree = "<group>";
+		};
 		F89CD293256CDE8400F15C18 /* Dependent List */ = {
 			isa = PBXGroup;
 			children = (
@@ -3902,6 +4052,12 @@
 				F8A323F327674C22003DC166 /* EarningsRouter.swift */,
 				F8A323F427674C22003DC166 /* EarningsModels.swift */,
 				F8A323F627674C22003DC166 /* EarningsInteractor.swift */,
+				F89B14182771D47500D18658 /* Fixed Earnings */,
+				F89B14192771D4DC00D18658 /* Incentive */,
+				F89B141A2771D52D00D18658 /* Bonus */,
+				F89B141B2771D53B00D18658 /* Other Earnings */,
+				F89B141C2771D54F00D18658 /* Awards */,
+				F89B141D2771D55800D18658 /* Deductions */,
 				F89B14022771925400D18658 /* ViewCTC */,
 			);
 			path = "Earnings Module";
@@ -4865,7 +5021,9 @@
 			files = (
 				E30A94F4234DC28C00E544D0 /* AppointmentFilterPresenter.swift in Sources */,
 				F851EF4826BBC1AE00D97020 /* FootfallPresenter.swift in Sources */,
+				F89B14742771D5CA00D18658 /* DeductionsInteractor.swift in Sources */,
 				E35C299E234B45D200AAD18B /* ScheduleInteractor.swift in Sources */,
+				F89B14532771D5A800D18658 /* OtherEarningsRouter.swift in Sources */,
 				E30E5E4C2357494F001040F5 /* OTPVerificationModuleModels.swift in Sources */,
 				E3B3A611237C2D3B00F6B56E /* ExtensionAppDelegate.swift in Sources */,
 				F8D02420241220C900CD5E71 /* OfferCell.swift in Sources */,
@@ -4879,6 +5037,7 @@
 				F85EE67A24BDAEAB001D9B0F /* ListingPresenter.swift in Sources */,
 				F8A3C8BA25DE52DD0088739A /* RevenueTrendVC.swift in Sources */,
 				E362486823E0365100CCF440 /* AvailMyPackages.swift in Sources */,
+				F89B14422771D59A00D18658 /* BonusPresenter.swift in Sources */,
 				F8311F1E25D10BB0002AEF38 /* OnlinePaymentCell.swift in Sources */,
 				E31011A323700BA2003720F3 /* GenericCustomerConsulationInteractor.swift in Sources */,
 				E38815E123797C440091964B /* JabCardServiceHeaderCell.swift in Sources */,
@@ -4905,7 +5064,9 @@
 				E30E5E1523574662001040F5 /* HeaderViewWithTitleCell.swift in Sources */,
 				E3FCBADD240D37AE008349A8 /* BillingInfoCheckboxCell.swift in Sources */,
 				E37237E32356F4CE00DD0375 /* MyProfileHeaderCell.swift in Sources */,
+				F89B14602771D5BA00D18658 /* AwardsPresenter.swift in Sources */,
 				F84DBEE82462F2800036DF42 /* KeychainWrapper.swift in Sources */,
+				F89B146F2771D5CA00D18658 /* DeductionsPresenter.swift in Sources */,
 				F8A9147E246A8190003D39E0 /* TeleConsultationWorker.swift in Sources */,
 				E30E5E492357494F001040F5 /* OTPVerificationModulePresenter.swift in Sources */,
 				E33F10FF234B103800C2F9F5 /* ExtensionTextField.swift in Sources */,
@@ -4926,6 +5087,7 @@
 				E38815DB237973080091964B /* JobCardModels.swift in Sources */,
 				E3723817235731C800DD0375 /* RateTheCustomerVC.swift in Sources */,
 				E3CEA5D723CC832A00DD213F /* AddNewNoteWorker.swift in Sources */,
+				F89B14722771D5CA00D18658 /* DeductionsModels.swift in Sources */,
 				E3FCB899240D3141008349A8 /* SubProdListModuleModels.swift in Sources */,
 				E38815EA23797D330091964B /* RecommendationsCell.swift in Sources */,
 				F832BE4025E62CD70095D886 /* AttendanceDetailsInteractor.swift in Sources */,
@@ -4970,6 +5132,7 @@
 				E30E5E4B2357494F001040F5 /* OTPVerificationModuleVC.swift in Sources */,
 				E35C296A234B1DF100AAD18B /* MoreModuleVC.swift in Sources */,
 				F851EF2326BBC10400D97020 /* SalesInteractor.swift in Sources */,
+				F89B14342771D58C00D18658 /* IncentiveWorker.swift in Sources */,
 				E3FCBAE8240D37AE008349A8 /* ServiceWithoutStylistCell.swift in Sources */,
 				E3E87DCD2362CD3F009B6AB5 /* SearchCell.swift in Sources */,
 				F8802C0E25E50ABE005EBD1D /* CTCDetailsVC.swift in Sources */,
@@ -4983,6 +5146,7 @@
 				F86E74E525DF9478007FC9B2 /* AchievementInteractor.swift in Sources */,
 				F851EFA126BBC29100D97020 /* CustomerEngagementInteractor.swift in Sources */,
 				E38815E523797C9A0091964B /* BillOfMaterialCell.swift in Sources */,
+				F89B14542771D5A800D18658 /* OtherEarningsModels.swift in Sources */,
 				E38E9BE223D59202005E3BB7 /* PaymentModeInteractor.swift in Sources */,
 				F8B77E74240E63A2006A35B0 /* CustomerReviewView.swift in Sources */,
 				E30E5E512357494F001040F5 /* LoginModulePresenter.swift in Sources */,
@@ -4990,6 +5154,7 @@
 				F8DD44D824D4071F006BC246 /* AutoDiscountListPresenter.swift in Sources */,
 				F8F386E025639DEC00B6284F /* SelectStylistAndTimeslotModels.swift in Sources */,
 				E3FCBAD7240D37AE008349A8 /* TimeSlotsTableViewCell.swift in Sources */,
+				F89B14272771D57900D18658 /* FixedEarningsModels.swift in Sources */,
 				F8A323FA27674C22003DC166 /* EarningsModels.swift in Sources */,
 				F8B77E59240E5ED0006A35B0 /* IrresistibleOffersCell.swift in Sources */,
 				E30A9518234DF43D00E544D0 /* NotificationsVC.swift in Sources */,
@@ -5023,6 +5188,7 @@
 				E372380A23570F5900DD0375 /* MyCustomerCell.swift in Sources */,
 				E30E5E1723574662001040F5 /* HeaderViewWithSubTitleCell.swift in Sources */,
 				E30A9515234DF43D00E544D0 /* NotificationsWorker.swift in Sources */,
+				F89B14452771D59A00D18658 /* BonusModels.swift in Sources */,
 				E30E5E4F2357494F001040F5 /* LoginModuleWorker.swift in Sources */,
 				E3FCB8FD240D34A5008349A8 /* WhyEnrich.swift in Sources */,
 				F875C4672410D919009AA42F /* TrendingProductsCell.swift in Sources */,
@@ -5098,6 +5264,7 @@
 				F8B77E43240E5357006A35B0 /* SalonServiceModuleViewController.swift in Sources */,
 				E33F111E234B103800C2F9F5 /* NetworkRechability.swift in Sources */,
 				F851EF8826BBC25500D97020 /* PenetrationRatiosWorker.swift in Sources */,
+				F89B14732771D5CA00D18658 /* DeductionsViewController.swift in Sources */,
 				F8FAFD882424CCA200123E84 /* ApplyCouponWorker.swift in Sources */,
 				F89B140B2771927400D18658 /* ViewCTCRouter.swift in Sources */,
 				F875C46E2410D919009AA42F /* HairstylesCollectionViewCell.swift in Sources */,
@@ -5105,6 +5272,7 @@
 				E3033FCF235EC1EC00E0BF0A /* EmployeeListingPresenter.swift in Sources */,
 				E3CEA5D823CC832A00DD213F /* AddNewNotePresenter.swift in Sources */,
 				F8254346247693E1007ED67E /* SearchModulePresenter.swift in Sources */,
+				F89B14382771D58C00D18658 /* IncentiveInteractor.swift in Sources */,
 				F8A91481246A8190003D39E0 /* TeleConsultationVC.swift in Sources */,
 				E33F1106234B103800C2F9F5 /* ContactsHelper.swift in Sources */,
 				E33BA97823FD434A00AABFE2 /* NotificationDetailsCell.swift in Sources */,
@@ -5129,6 +5297,7 @@
 				E3FCB889240D3141008349A8 /* ProductDetailsModuleInteractor.swift in Sources */,
 				E30E5E442357494F001040F5 /* LoginOTPModuleWorker.swift in Sources */,
 				E3FCB88A240D3141008349A8 /* ProductDetailsModuleVC.swift in Sources */,
+				F89B14642771D5BA00D18658 /* AwardsViewController.swift in Sources */,
 				F85925B024459881005E386A /* ChangeTimeSlotWorker.swift in Sources */,
 				F8DD555925DBB0AE00BBA432 /* IntAxisValueFormatter.swift in Sources */,
 				F8F4F33326CBED6F008EA453 /* EarningsFilterInteractor.swift in Sources */,
@@ -5136,6 +5305,8 @@
 				E3F38D9323C4A27B00F3A9E3 /* AuthoriseServicesPresenter.swift in Sources */,
 				F8802C0A25E50ABE005EBD1D /* CTCDetailsPresenter.swift in Sources */,
 				E3FCB89F240D3141008349A8 /* ProductListingModuleWorker.swift in Sources */,
+				F89B14242771D57900D18658 /* FixedEarningsPresenter.swift in Sources */,
+				F89B14622771D5BA00D18658 /* AwardsRouter.swift in Sources */,
 				E3F38D8823C495FB00F3A9E3 /* ServiceRadioSelectionCell.swift in Sources */,
 				F8B77E67240E5F4A006A35B0 /* OffersModels.swift in Sources */,
 				F89CD2A0256CDECC00F15C18 /* DependentListInteractor.swift in Sources */,
@@ -5145,6 +5316,7 @@
 				E3FCBAB6240D37AE008349A8 /* RecommendedForCell.swift in Sources */,
 				F86E74E025DF9478007FC9B2 /* AchievementPresenter.swift in Sources */,
 				F85A3CEE24D7FB84001974CC /* BestPossibleDiscountCell.swift in Sources */,
+				F89B14442771D59A00D18658 /* BonusRouter.swift in Sources */,
 				E33F8FFB2355E21C000D5288 /* DashboardVC.swift in Sources */,
 				F84DBEE72462F2800036DF42 /* KeychainItemAccessibility.swift in Sources */,
 				E3E87DC92362C48E009B6AB5 /* SearchByVC.swift in Sources */,
@@ -5167,6 +5339,7 @@
 				F8B77E46240E5357006A35B0 /* SalonServiceModuleWorker.swift in Sources */,
 				E30A94F5234DC28C00E544D0 /* AppointmentFilterWorker.swift in Sources */,
 				E31562B523F58ACE009BE344 /* UIFactory.swift in Sources */,
+				F89B14362771D58C00D18658 /* IncentiveModels.swift in Sources */,
 				E3FCBB36240D37AE008349A8 /* RateServiceCell.swift in Sources */,
 				F825434D2476B2D5007ED67E /* PopularBrandsCell.swift in Sources */,
 				F82BCF74248F7A4800F16419 /* SendPaymentLinkVC.swift in Sources */,
@@ -5214,6 +5387,7 @@
 				E35C2999234B45D200AAD18B /* SchedulePresenter.swift in Sources */,
 				F8C6FCF026B94A86005B5276 /* TechnicianDashboardWorker.swift in Sources */,
 				F825433224767A72007ED67E /* ServiceCategoryTableViewCell.swift in Sources */,
+				F89B14522771D5A800D18658 /* OtherEarningsWorker.swift in Sources */,
 				F875C4902410DE0F009AA42F /* OurProductsCell.swift in Sources */,
 				F8802C0B25E50ABE005EBD1D /* CTCDetailsWorker.swift in Sources */,
 				E3FCB887240D3141008349A8 /* ProductDetailsModuleWorker.swift in Sources */,
@@ -5241,6 +5415,7 @@
 				F875C4912410DE0F009AA42F /* HomeHeaderCell.swift in Sources */,
 				F851EF9D26BBC29100D97020 /* CustomerEngagementWorker.swift in Sources */,
 				F8784FDC244D94F800104BE8 /* ManageAddressModuleInteractor.swift in Sources */,
+				F89B14552771D5A800D18658 /* OtherEarningsViewController.swift in Sources */,
 				E3FCB904240D34A8008349A8 /* ProductCollectionView.swift in Sources */,
 				E33F1108234B103800C2F9F5 /* ListPickerDialog.swift in Sources */,
 				E31F81632384014E00089572 /* MyProfileMultiOptionCell.swift in Sources */,
@@ -5278,6 +5453,7 @@
 				E35C296E234B1DF100AAD18B /* MoreModulePresenter.swift in Sources */,
 				F8A323FC27674C22003DC166 /* EarningsInteractor.swift in Sources */,
 				F8254345247693E1007ED67E /* SearchModuleWorker.swift in Sources */,
+				F89B14652771D5BA00D18658 /* AwardsInteractor.swift in Sources */,
 				E3FCB94C240D3585008349A8 /* HeaderViewCell.swift in Sources */,
 				F8D0241C24121FA600CD5E71 /* PackageDetailVC.swift in Sources */,
 				E35C2985234B290300AAD18B /* AppointmentStatusCell.swift in Sources */,
@@ -5294,10 +5470,13 @@
 				E37237DC2356F3FF00DD0375 /* MyProfileWorker.swift in Sources */,
 				F875C49B24111134009AA42F /* AllReviewsModulePresenter.swift in Sources */,
 				F87494FD26CAA003002A2202 /* PackageFilterCell.swift in Sources */,
+				F89B14332771D58C00D18658 /* IncentivePresenter.swift in Sources */,
 				F8F7CA1726BA827300A2323D /* EarningDetailsHeaderCell.swift in Sources */,
+				F89B14262771D57900D18658 /* FixedEarningsRouter.swift in Sources */,
 				E3FAF4FB2398DD7B00B0D45D /* BOMQuantityCell.swift in Sources */,
 				F8FAFD8B2424CCA200123E84 /* ApplyCouponInteractor.swift in Sources */,
 				F8DD554E25DBA75600BBA432 /* RevenueTrendListCell.swift in Sources */,
+				F89B14632771D5BA00D18658 /* AwardsModels.swift in Sources */,
 				F832BE3B25E62CD70095D886 /* AttendanceDetailsPresenter.swift in Sources */,
 				F86E74D225DF8904007FC9B2 /* ProductivityDetailsVC.swift in Sources */,
 				E3F38D9423C4A27B00F3A9E3 /* AuthoriseServicesWorker.swift in Sources */,
@@ -5306,9 +5485,11 @@
 				E3FCBABD240D37AE008349A8 /* ServiceDescriptionCell.swift in Sources */,
 				E3033FD2235EC1EC00E0BF0A /* EmployeeListingModels.swift in Sources */,
 				F8F7CA0226BA80AB00A2323D /* RevenueInteractor.swift in Sources */,
+				F89B14712771D5CA00D18658 /* DeductionsRouter.swift in Sources */,
 				E361D6DF23B4BDFE00716C92 /* ConfirmCustomerOTPVC.swift in Sources */,
 				F8F386E125639DEC00B6284F /* SelectStylistAndTimeslotVC.swift in Sources */,
 				E31011A623702090003720F3 /* TagViewCell.swift in Sources */,
+				F89B14512771D5A800D18658 /* OtherEarningsPresenter.swift in Sources */,
 				F8A91482246A8190003D39E0 /* TeleConsultationInteractor.swift in Sources */,
 				F89CD2AB256CDF1300F15C18 /* AddNewDependentVC.swift in Sources */,
 				E33F110E234B103800C2F9F5 /* AnyEncodable.swift in Sources */,
@@ -5347,10 +5528,12 @@
 				E30E5E472357494F001040F5 /* LoginOTPModuleInteractor.swift in Sources */,
 				F851EFB526BBC2D100D97020 /* ResourceUtilisationVC.swift in Sources */,
 				E3B83FE52373FF2E0061DF8E /* AppointmentTimelineCell.swift in Sources */,
+				F89B14702771D5CA00D18658 /* DeductionsWorker.swift in Sources */,
 				E3FCB88D240D3141008349A8 /* ProductLandingModuleModels.swift in Sources */,
 				E32F68B323796493009DD6A9 /* ServiceHistoryCell.swift in Sources */,
 				F89CD29B256CDECC00F15C18 /* DependentListPresenter.swift in Sources */,
 				E3E88A632375691500E717ED /* ClientInformationModels.swift in Sources */,
+				F89B14472771D59A00D18658 /* BonusInteractor.swift in Sources */,
 				F8FAFD8F2424F29400123E84 /* OfferDetailVC.swift in Sources */,
 				E37237FE23570E1B00DD0375 /* MyCustomersPresenter.swift in Sources */,
 				E30950DE237AA932005CF7FB /* PointsHeaderCell.swift in Sources */,
@@ -5360,20 +5543,24 @@
 				E33F111C234B103800C2F9F5 /* APIErrorModel.swift in Sources */,
 				F86EFE5A2433286500835141 /* CustomerDetailsVC.swift in Sources */,
 				E3FCB898240D3141008349A8 /* SubProdListModuleInteractor.swift in Sources */,
+				F89B14282771D57900D18658 /* FixedEarningsViewController.swift in Sources */,
 				E3FCB895240D3141008349A8 /* RateTheProductModulePresenter.swift in Sources */,
 				F851EFB626BBC2D100D97020 /* ResourceUtilisationInteractor.swift in Sources */,
 				E3FCBAB2240D37AE008349A8 /* TrendingServicesCell.swift in Sources */,
 				F851EF4D26BBC1AF00D97020 /* FootfallInteractor.swift in Sources */,
 				F89B13FD2771913E00D18658 /* ViewCTCCell.swift in Sources */,
 				F8C6FCF326B94A86005B5276 /* TechnicianDashboardVC.swift in Sources */,
+				F89B14562771D5A800D18658 /* OtherEarningsInteractor.swift in Sources */,
 				F8B77E51240E5357006A35B0 /* BookingDetailsAddOnsViewController.swift in Sources */,
 				E3C16B7F2387D94E003E7619 /* TermsAndConditionsVC.swift in Sources */,
 				E3FCB89B240D3141008349A8 /* SubProdListModuleWorker.swift in Sources */,
 				E3F92FF5237AC61B0084A37D /* InvoiceInteractor.swift in Sources */,
 				E3C16B7B2387D94E003E7619 /* TermsAndConditionsPresenter.swift in Sources */,
+				F89B14432771D59A00D18658 /* BonusWorker.swift in Sources */,
 				F85925AF24459881005E386A /* ChangeTimeSlotPresenter.swift in Sources */,
 				F875C47A2410D919009AA42F /* ProductQuantityCell.swift in Sources */,
 				F8A91480246A8190003D39E0 /* TeleConsultationModels.swift in Sources */,
+				F89B14352771D58C00D18658 /* IncentiveRouter.swift in Sources */,
 				E3FAF4F22398DC0A00B0D45D /* BillOfMaterialPresenter.swift in Sources */,
 				E30A94F9234DC28C00E544D0 /* AppointmentFilterInteractor.swift in Sources */,
 				F89FA0752435D5C500893474 /* SOSFactory.swift in Sources */,
@@ -5387,6 +5574,7 @@
 				E32F68AE23795966009DD6A9 /* MembershipStatusCell.swift in Sources */,
 				F851EF5D26BBC1E500D97020 /* CustomerFeedbackPresenter.swift in Sources */,
 				E33F1117234B103800C2F9F5 /* StorageType.swift in Sources */,
+				F89B14612771D5BA00D18658 /* AwardsWorker.swift in Sources */,
 				F851EF4C26BBC1AF00D97020 /* FootfallVC.swift in Sources */,
 				E30E5E522357494F001040F5 /* LoginModuleInteractor.swift in Sources */,
 				F8C769B827295B36002096A0 /* FormatterUtils.swift in Sources */,
@@ -5398,6 +5586,7 @@
 				E3FCBADE240D37AE008349A8 /* AddressTypeCell.swift in Sources */,
 				E3E24F4E2408D73900F7CCDA /* LocationManager.swift in Sources */,
 				E3FCBAEF240D37AE008349A8 /* ViewAllRecommendedSlotsCell.swift in Sources */,
+				F89B14462771D59A00D18658 /* BonusViewController.swift in Sources */,
 				F8F386EB2563AE4600B6284F /* StylistAvailablePresenter.swift in Sources */,
 				E38E9BE523D59202005E3BB7 /* PaymentModePresenter.swift in Sources */,
 				E358D859238E61D500CBEE5E /* PettyCashListingModels.swift in Sources */,
@@ -5407,6 +5596,7 @@
 				F8AC74AE2434653F00A3A791 /* AddNewPettyCashInteractor.swift in Sources */,
 				E362486A23E0365100CCF440 /* AvailMyPackagesModuleInteractor.swift in Sources */,
 				F891BE9F26B7E1550073EA91 /* ShiftCalendarModels.swift in Sources */,
+				F89B14372771D58C00D18658 /* IncentiveViewController.swift in Sources */,
 				E361D6DB23B4BDFE00716C92 /* ConfirmCustomerOTPPresenter.swift in Sources */,
 				E38815DD237973080091964B /* JobCardInteractor.swift in Sources */,
 				E3FCBAC3240D37AE008349A8 /* BookingDetailSummaryCell.swift in Sources */,
@@ -5457,6 +5647,7 @@
 				E33F10FE234B103800C2F9F5 /* ExtensionString.swift in Sources */,
 				F89B13F62770E60F00D18658 /* EarningTotalHeaderCell.swift in Sources */,
 				E33F1104234B103800C2F9F5 /* Configurations.swift in Sources */,
+				F89B14292771D57900D18658 /* FixedEarningsInteractor.swift in Sources */,
 				F8B8610425C4223000EFDEFE /* PowerBIReportPresenter.swift in Sources */,
 				F8F386DD25639DEC00B6284F /* SelectStylistAndTimeslotPresenter.swift in Sources */,
 				F84E60E925C95F7C00291ED9 /* UIGradientExtension.swift in Sources */,
@@ -5499,6 +5690,7 @@
 				F8DD44DD24D4071F006BC246 /* AutoDiscountListInteractor.swift in Sources */,
 				E3FCBACD240D37AE008349A8 /* SelectedServicesCell.swift in Sources */,
 				F851EF8A26BBC25500D97020 /* PenetrationRatiosModels.swift in Sources */,
+				F89B14252771D57900D18658 /* FixedEarningsWorker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

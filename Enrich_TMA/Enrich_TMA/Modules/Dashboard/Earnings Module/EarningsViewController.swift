@@ -97,6 +97,16 @@ class EarningsViewController: UIViewController, EarningsDisplayLogic
   
   //@IBOutlet weak var nameTextField: UITextField!
   
+    func getTotalEarnings() -> Int {
+        var totalEarnings : Int = 0
+        
+        let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+        
+        totalEarnings = earningsJSON?.data?.total_earning ?? 0
+
+        return totalEarnings
+    }
+    
   func doSomething()
   {
     let request = Earnings.Something.Request()
@@ -126,11 +136,8 @@ extension EarningsViewController: UITableViewDelegate, UITableViewDataSource {
             }
             cell.selectionStyle = .none
            
-           // headerModel?.value = Double(48955)
-            let model = EarningsHeaderDataModel(earningsType: .Incentive, value: 48955, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: earningsCutomeDateRange)
-        //{
-                    cell.configureCell(model: model, data: [])
-            //}
+            let model = EarningsHeaderDataModel(earningsType: .Incentive, value: Double(getTotalEarnings()), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: earningsCutomeDateRange)
+            cell.configureCell(model: model, data: [])
             return cell
         }
         else if(indexPath.row == 1){
