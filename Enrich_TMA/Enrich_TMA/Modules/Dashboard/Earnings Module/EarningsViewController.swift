@@ -234,7 +234,7 @@ extension EarningsViewController: EnrningsDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Fixed_Earning:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = FixedEarningsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
             

@@ -3944,11 +3944,11 @@
 		F89B14182771D47500D18658 /* Fixed Earnings */ = {
 			isa = PBXGroup;
 			children = (
+				F89B14222771D57800D18658 /* FixedEarningsViewController.swift */,
 				F89B141E2771D57800D18658 /* FixedEarningsPresenter.swift */,
 				F89B141F2771D57800D18658 /* FixedEarningsWorker.swift */,
 				F89B14202771D57800D18658 /* FixedEarningsRouter.swift */,
 				F89B14212771D57800D18658 /* FixedEarningsModels.swift */,
-				F89B14222771D57800D18658 /* FixedEarningsViewController.swift */,
 				F89B14232771D57800D18658 /* FixedEarningsInteractor.swift */,
 			);
 			path = "Fixed Earnings";

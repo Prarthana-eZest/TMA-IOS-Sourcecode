@@ -108,7 +108,7 @@ class EarningHeaderCell: UITableViewCell {
         
         earningsModel.append(EarningsHeaderDataModel(earningsType: .ResourceUtilisation, value: 0.0, isExpanded: false, dateRangeType: dateRangeType, customeDateRange: dateRange))
         }
-        else {
+        else{
             let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
             let currentMonth = Int(Date.today.string(format: "M"))
             for group in earningsJSON?.data?.groups ?? []{
