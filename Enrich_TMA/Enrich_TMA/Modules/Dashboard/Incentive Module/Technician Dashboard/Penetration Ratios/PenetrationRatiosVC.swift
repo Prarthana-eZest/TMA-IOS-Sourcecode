@@ -125,6 +125,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 model.customeDateRange = dateRange
             }
             
+            print("date range \(dateRange)")
             update(modeData: model, withData: dateFilteredPenetration, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
             
             graphData[selectedIndex] = getGraphEntry(model.title, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
@@ -218,7 +219,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 
                 if(data.count > 0){
                     
-                    serviceRatio =  Double(data.count / count)
+                    serviceRatio =  Double(data.count) / Double(count)
                     values.append(serviceRatio)
                 }
                 else {
@@ -300,7 +301,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                     let data = serviceCount.filter({$0.date == objDt})
                     let uniqueInvoice = data.compactMap({$0.invoice_number}).unique(map: {$0})
                         let count = uniqueInvoice.count
-                    
+                    print("service \(data.count) invoice \(count)")
                     if(data.count > 0){
                         
                         serviceRatio =  Double(data.count) / Double(count)
@@ -755,19 +756,19 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         
         //invoice data
         let invoiceNumber = filteredPenetrationRatio?.filter({($0.invoice_number ?? "") != ""})
-        let updateUniqueData = invoiceNumber?.unique(map: {$0.invoice_number})
+        //let updateUniqueData = invoiceNumber?.unique(map: {$0.invoice_number})
         
         //service count per invoice
         let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
-        
+        let invoiceService = serviceCount?.compactMap({$0.invoice_number}).unique(map: {$0})
         var serviceRatio : Double = 0.0
-        if(updateUniqueData!.count > 0){
-            serviceRatio =  Double(serviceCount!.count) / Double(updateUniqueData!.count)
+        if(invoiceService!.count > 0){
+            serviceRatio =  Double(serviceCount!.count) / Double(invoiceService!.count)
         }
         
         //"Service Count Per Invoice"
         //Data Model
-        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(updateUniqueData?.count ?? 0),serviceRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(invoiceService?.count ?? 0),serviceRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(serviceCountPerInvoiceModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceCountPerInvoiceModel.title, forData: filteredPenetrationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -928,9 +929,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
             count = serviceCount?.count ?? 0
             
-            if(uniqueInvoices!.count > 0){
-                invoceCount = uniqueInvoices?.count ?? 0
-                ratio = Double(count / uniqueInvoices!.count)
+            let uniqueInvoice = serviceCount?.compactMap({$0.invoice_number}).unique(map: {$0})
+            let countInvoice = uniqueInvoice?.count
+            print("service \(count) invoice \(countInvoice)")
+            if(countInvoice ?? 0 > 0){
+                invoceCount = countInvoice ?? 0
+                ratio = Double(count) / Double(countInvoice ?? 0)
             }
             
         case 1:
@@ -942,7 +946,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             invoceCount = serviceCount?.count ?? 0
             
             if(invoceCount > 0){
-                ratio = Double(count / invoceCount)
+                ratio = Double(count) / Double(invoceCount)
             }
             
         case 2:
@@ -950,7 +954,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
             
             count = appBooking?.count ?? 0
             if(uniqueInvoices!.count > 0) {
-                ratio =  Double(count / uniqueInvoices!.count)
+                ratio =  Double(count) / Double(uniqueInvoices!.count)
             }
             //customers served
             let filteredCustomerEngagement = technicianDataJSON?.data?.technician_feedbacks?.filter({ (customerEngagement) -> Bool in
@@ -1041,7 +1045,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         }
         // }
         
-        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(count),String(invoceCount),String(ratio)], subTitle: [modeData.subTitle[0], modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [String(count),String(invoceCount),ratio.roundedStringValue(toFractionDigits: 2)], subTitle: [modeData.subTitle[0], modeData.subTitle[1], modeData.subTitle[2]], showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
         
     }
     
