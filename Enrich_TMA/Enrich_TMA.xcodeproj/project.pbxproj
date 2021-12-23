@@ -3957,11 +3957,11 @@
 		F89B14192771D4DC00D18658 /* Incentive */ = {
 			isa = PBXGroup;
 			children = (
+				F89B14312771D58C00D18658 /* IncentiveViewController.swift */,
 				F89B142D2771D58C00D18658 /* IncentivePresenter.swift */,
 				F89B142E2771D58C00D18658 /* IncentiveWorker.swift */,
 				F89B142F2771D58C00D18658 /* IncentiveRouter.swift */,
 				F89B14302771D58C00D18658 /* IncentiveModels.swift */,
-				F89B14312771D58C00D18658 /* IncentiveViewController.swift */,
 				F89B14322771D58C00D18658 /* IncentiveInteractor.swift */,
 			);
 			path = Incentive;
@@ -3970,11 +3970,11 @@
 		F89B141A2771D52D00D18658 /* Bonus */ = {
 			isa = PBXGroup;
 			children = (
+				F89B14402771D59A00D18658 /* BonusViewController.swift */,
 				F89B143C2771D59A00D18658 /* BonusPresenter.swift */,
 				F89B143D2771D59A00D18658 /* BonusWorker.swift */,
 				F89B143E2771D59A00D18658 /* BonusRouter.swift */,
 				F89B143F2771D59A00D18658 /* BonusModels.swift */,
-				F89B14402771D59A00D18658 /* BonusViewController.swift */,
 				F89B14412771D59A00D18658 /* BonusInteractor.swift */,
 			);
 			path = Bonus;
@@ -3983,11 +3983,11 @@
 		F89B141B2771D53B00D18658 /* Other Earnings */ = {
 			isa = PBXGroup;
 			children = (
+				F89B144F2771D5A800D18658 /* OtherEarningsViewController.swift */,
 				F89B144B2771D5A800D18658 /* OtherEarningsPresenter.swift */,
 				F89B144C2771D5A800D18658 /* OtherEarningsWorker.swift */,
 				F89B144D2771D5A800D18658 /* OtherEarningsRouter.swift */,
 				F89B144E2771D5A800D18658 /* OtherEarningsModels.swift */,
-				F89B144F2771D5A800D18658 /* OtherEarningsViewController.swift */,
 				F89B14502771D5A800D18658 /* OtherEarningsInteractor.swift */,
 			);
 			path = "Other Earnings";
@@ -3996,11 +3996,11 @@
 		F89B141C2771D54F00D18658 /* Awards */ = {
 			isa = PBXGroup;
 			children = (
+				F89B145E2771D5BA00D18658 /* AwardsViewController.swift */,
 				F89B145A2771D5BA00D18658 /* AwardsPresenter.swift */,
 				F89B145B2771D5BA00D18658 /* AwardsWorker.swift */,
 				F89B145C2771D5BA00D18658 /* AwardsRouter.swift */,
 				F89B145D2771D5BA00D18658 /* AwardsModels.swift */,
-				F89B145E2771D5BA00D18658 /* AwardsViewController.swift */,
 				F89B145F2771D5BA00D18658 /* AwardsInteractor.swift */,
 			);
 			path = Awards;
@@ -4009,11 +4009,11 @@
 		F89B141D2771D55800D18658 /* Deductions */ = {
 			isa = PBXGroup;
 			children = (
+				F89B146D2771D5CA00D18658 /* DeductionsViewController.swift */,
 				F89B14692771D5CA00D18658 /* DeductionsPresenter.swift */,
 				F89B146A2771D5CA00D18658 /* DeductionsWorker.swift */,
 				F89B146B2771D5CA00D18658 /* DeductionsRouter.swift */,
 				F89B146C2771D5CA00D18658 /* DeductionsModels.swift */,
-				F89B146D2771D5CA00D18658 /* DeductionsViewController.swift */,
 				F89B146E2771D5CA00D18658 /* DeductionsInteractor.swift */,
 			);
 			path = Deductions;

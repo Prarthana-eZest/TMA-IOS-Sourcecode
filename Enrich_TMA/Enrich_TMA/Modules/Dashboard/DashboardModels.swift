@@ -395,6 +395,9 @@ enum Dashboard {
             let parameter_mapping : String?
             let start_date : String?
             let end_date : String?
+            let minimum_feedback_count : Int?
+            let minimum_technician_interaction_score : Double?
+            let comment : String?
             let transactions : [Transaction]?
         }
         

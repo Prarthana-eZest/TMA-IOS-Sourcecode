@@ -239,27 +239,27 @@ extension EarningsViewController: EnrningsDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Incentive:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = IncentiveViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Bonus:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = BonusViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Other_Earnings:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = OtherEarningsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Awards:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = AwardsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
             
         case .Deductions:
-            let vc = RevenueVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = DeductionsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
             self.navigationController?.pushViewController(vc, animated: true)
         }

@@ -83,7 +83,7 @@ enum EarningDetails : String {
         case .Bonus: return UIColor(red: 0.34, green: 0.69, blue: 0.08, alpha: 1.00)
         case .Other_Earnings: return UIColor(red: 0.29, green: 0.40, blue: 0.42, alpha: 1.00)
         case .Awards: return UIColor(red: 0.73, green: 0.34, blue: 0.84, alpha: 1.00)
-        case .Deductions: return UIColor(red: 255, green: 97, blue: 136, alpha: 1.00)//rgba(255, 97, 136, 1)
+        case .Deductions: return UIColor(red: 1.0, green: 0.38, blue: 0.53, alpha: 1.00)//rgba(255, 97, 136, 1)
         }
     }
     
@@ -104,7 +104,7 @@ enum EarningDetails : String {
         case .Bonus: return [UIColor(red: 0.78, green: 0.88, blue: 0.44, alpha: 1.00), UIColor(red: 0.34, green: 0.69, blue: 0.08, alpha: 1.00)]
         case .Other_Earnings: return [UIColor(red: 0.83, green: 0.94, blue: 0.99, alpha: 1.00), UIColor(red: 0.29, green: 0.40, blue: 0.42, alpha: 1.00)]
         case .Awards: return [UIColor(red: 0.95, green: 0.72, blue: 0.71, alpha: 1.00), UIColor(red: 0.73, green: 0.34, blue: 0.84, alpha: 1.00)]
-        case .Deductions: return [UIColor(red: 242, green: 112, blue: 156, alpha: 1.00), UIColor(red: 255, green: 148, blue: 114, alpha: 1.00)]
+        case .Deductions: return [UIColor(red: 0.95, green: 0.44, blue: 0.61, alpha: 1.00), UIColor(red: 1.0, green: 0.58, blue: 0.45, alpha: 1.00)]
         }//rgba(242, 112, 156, 1) rgba(255, 148, 114, 1)
     }
     
@@ -139,7 +139,7 @@ enum EarningDetails : String {
         case .PenetrationRatios: return "Penetration Ratio"
         case .CustomerEngagement: return "Customer Engagement"
         case .ResourceUtilisation: return "Resource Utilisation"
-        case .Fixed_Earning: return "Fixed Earning"
+        case .Fixed_Earning: return "Fixed-Earning"
         case .Incentive: return "Incentive"
         case .Bonus: return "Bonus"
         case .Other_Earnings: return "Other Earnings"
@@ -178,7 +178,7 @@ enum EarningDetails : String {
         case .Bonus: return [UIColor(red: 0.78, green: 0.88, blue: 0.44, alpha: 1.00)]
         case .Other_Earnings: return [UIColor(red: 0.98, green: 0.75, blue: 0.36, alpha: 1.00), UIColor(red: 0.32, green: 0.71, blue: 0.87, alpha: 1.00)]
         case .Awards: return [UIColor(red: 0.88, green: 0.45, blue: 1.00, alpha: 1.00)]
-        case .Deductions: return [UIColor(red: 255, green: 97, blue: 136, alpha: 1.00)]//rgba(255, 97, 136, 1)
+        case .Deductions: return [UIColor(red: 1.0, green: 0.38, blue: 0.53, alpha: 1.00)]//rgba(255, 97, 136, 1)
         }
     }
     
@@ -192,11 +192,11 @@ enum EarningDetails : String {
         case .CustomerEngagement: return UIColor(red: 0.77, green: 0.80, blue: 1.00, alpha: 1.00)
         case .ResourceUtilisation: return UIColor(red: 0.85, green: 0.93, blue: 0.97, alpha: 1.00)
         case .Fixed_Earning: return UIColor(red: 0.75, green: 0.89, blue: 0.85, alpha: 1.00)
-        case .Incentive: return UIColor(red: 0.36, green: 0.53, blue: 0.90, alpha: 1.00)
+        case .Incentive: return UIColor(red: 0.36, green: 0.53, blue: 0.90, alpha: 0.3)//rgba(91, 134, 229, 1)
         case .Bonus: return UIColor(red: 0.79, green: 0.90, blue: 0.45, alpha: 1.00)
         case .Other_Earnings: return UIColor(red: 0.85, green: 0.93, blue: 0.97, alpha: 1.00)
-        case .Awards: return UIColor(red: 1.00, green: 0.91, blue: 0.70, alpha: 1.00)
-        case .Deductions: return UIColor(red: 255, green: 97, blue: 136, alpha: 1.00) //rgba(255, 97, 136, 1)
+        case .Awards: return UIColor(red: 0.95, green: 0.75, blue: 1.0, alpha: 1.00)
+        case .Deductions: return UIColor(red: 1.0, green: 0.38, blue: 0.53, alpha: 0.4) //rgba(255, 97, 136, 1)
         default: return nil
         }
     }
