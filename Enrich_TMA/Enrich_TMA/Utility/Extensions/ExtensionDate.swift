@@ -202,6 +202,19 @@ extension Date
         return array
     }
     
+    func monthNumber(from:Date, withFormat format: String = "M") -> [Int] {
+        var array = [Int]()
+        if from > self { return array }
+        
+        var date = from
+        while date <= self {
+            array.append(Int(date.string(format: format)))
+            date = Calendar.current.date(byAdding: .month, value: 1, to: date)!
+        }
+        return array
+    }
+    
+    
     func inSameMonth(asDate date: Date) -> Bool
     {
         return Utils.calendar.isDate(self, equalTo: date, toGranularity: .month)

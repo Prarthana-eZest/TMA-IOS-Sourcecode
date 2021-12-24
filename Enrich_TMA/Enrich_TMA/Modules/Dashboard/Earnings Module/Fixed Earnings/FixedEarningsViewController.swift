@@ -14,14 +14,14 @@ import UIKit
 
 protocol FixedEarningsDisplayLogic: class
 {
-  func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
+    func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
 }
 
 class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
 {
-  var interactor: FixedEarningsBusinessLogic?
-  var router: (NSObjectProtocol & FixedEarningsRoutingLogic & FixedEarningsDataPassing)?
-
+    var interactor: FixedEarningsBusinessLogic?
+    var router: (NSObjectProtocol & FixedEarningsRoutingLogic & FixedEarningsDataPassing)?
+    
     @IBOutlet private weak var tableView: UITableView!
     var dateRangeType : DateRangeType = .mtd
     var fixedEarningsDateRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
@@ -36,71 +36,71 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
     
     var graphData = [GraphDataEntry]()
     
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = FixedEarningsInteractor()
-    let presenter = FixedEarningsPresenter()
-    let router = FixedEarningsRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
-    }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderCell)
-    tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
-    tableView.register(UINib(nibName: CellIdentifier.earningDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsCell)
-    fromChartFilter = false
-    dateRangeType = .mtd
-    updateFixedEarningsData(startDate: Date.today.startOfMonth)
+    // MARK: Object lifecycle
     
-  }
-  
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = FixedEarningsInteractor()
+        let presenter = FixedEarningsPresenter()
+        let router = FixedEarningsRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsCell)
+        fromChartFilter = false
+        dateRangeType = .mtd
+        updateFixedEarningsData(startDate: Date.today.startOfMonth)
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.addCustomBackButton(title: "Fixed Earnings")
     }
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
+    
     func updateFixedEarningsData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
@@ -113,33 +113,33 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
         var graphDateRange = fixedEarningsDateRange // need to change
         var filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
         if (dateRangeType == .yesterday || dateRangeType == .today) {
-//            filteredFixedEarningsForGraph = nil
+            //            filteredFixedEarningsForGraph = nil
             graphRangeType = .mtd
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
         let currentMonth = 3//Int(Date.today.string(format: "M"))
-//        for group in earningsJSON?.data?.groups ?? []{
-//            if let earningType = EarningDetails(rawValue: group.group_label ?? ""){
-//                let transactions = group.parameters?.map({ (parameter) -> Dashboard.GetEarningsDashboard.Transaction? in
-//                    let filterTransaction = parameter.transactions?.filter({$0.month == currentMonth})
-//                    return filterTransaction?.first
-//                })
-//                let value = transactions?.compactMap({$0?.amount}).reduce(0){$0 + $1} ?? 0
-//
-////                dataModel.append(EarningsHeaderDataModel(earningsType: earningType, value: Double(value), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: fixedEarningsDateRange))
-//
-//                headerModel?.value = Double(value)
-//                headerModel?.dateRangeType = graphRangeType
-//               // headerGraphData = getTotalFixedEarningsGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
-//            }
-//        }
+        //        for group in earningsJSON?.data?.groups ?? []{
+        //            if let earningType = EarningDetails(rawValue: group.group_label ?? ""){
+        //                let transactions = group.parameters?.map({ (parameter) -> Dashboard.GetEarningsDashboard.Transaction? in
+        //                    let filterTransaction = parameter.transactions?.filter({$0.month == currentMonth})
+        //                    return filterTransaction?.first
+        //                })
+        //                let value = transactions?.compactMap({$0?.amount}).reduce(0){$0 + $1} ?? 0
+        //
+        ////                dataModel.append(EarningsHeaderDataModel(earningsType: earningType, value: Double(value), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: fixedEarningsDateRange))
+        //
+        //                headerModel?.value = Double(value)
+        //                headerModel?.dateRangeType = graphRangeType
+        //               // headerGraphData = getTotalFixedEarningsGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        //            }
+        //        }
         let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
         var amount : Int = 0
         for data in dataArray {
             for parameter in data.parameters ?? [] {
                 let value = parameter.transactions?.filter({$0.month == currentMonth})
-//                value?.first?.amount
+                //                value?.first?.amount
                 amount += value?.first?.amount ?? 0
             }
         }
@@ -152,27 +152,27 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
         dataModel.removeAll()
         graphData.removeAll()
         
-            let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+        let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
         let currentMonth = 3//Int(Date.today.string(format: "M"))
         
         //Handle Graph Scenarios
         let dateRange = DateRange(startDate, endDate)
         var graphRangeType = dateRangeType
         var graphDateRange = dateRange
-        var filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
+        var filteredFixedEarningsForGraph = [Dashboard.GetEarningsDashboard.Transaction]()
         
-        if (dateRangeType == .yesterday || dateRangeType == .today) {
-           // filteredFixedEarningsForGraph = nil
-            graphRangeType = .mtd
+        if (dateRangeType == .mtd) {
+            //filteredFixedEarningsForGraph = nil
+            graphRangeType = .qtd
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
-
+        
         let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
         var index = 0
         for data in dataArray {
             for parameter in data.parameters ?? [] {
                 let value = parameter.transactions?.filter({$0.month == currentMonth})
-//                value?.first?.amount
+                //                value?.first?.amount
                 let model = EarningsCellDataModel(earningsType: .Fixed_Earning, title: parameter.name ?? "", value: [String(value?.first?.amount ?? 0)], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
                 dataModel.append(model)
                 graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: fixedEarningsDateRange, dateRangeType: graphRangeType))
@@ -183,24 +183,24 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
         index = 0
         
         calculateTotalFixedEarnings()
-//        for group in earningsJSON?.data?.groups ?? []{
-//            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
-//                for parameter in group.parameters ?? []{
-//                    let model = EarningsCellDataModel(earningsType: group.group_label ?? "", title: parameter.name, value: "", subTitle: "", showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
-//                    dataModel.append(model)
-//                    graphData.append(getGraphEntry(parameter.name, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphRangeType, dateRangeType: fixedEarningsDateRange))
-//                }
-//            }
-//
-//        }
-           //get trnacation - input gr - map
+        //        for group in earningsJSON?.data?.groups ?? []{
+        //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
+        //                for parameter in group.parameters ?? []{
+        //                    let model = EarningsCellDataModel(earningsType: group.group_label ?? "", title: parameter.name, value: "", subTitle: "", showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+        //                    dataModel.append(model)
+        //                    graphData.append(getGraphEntry(parameter.name, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphRangeType, dateRangeType: fixedEarningsDateRange))
+        //                }
+        //            }
+        //
+        //        }
+        //get trnacation - input gr - map
         
-//        //salon service
-//        //Data Model
-//        let salonServiceModel = EarningsCellDataModel(earningsType: .Fixed_Earning, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
-//        dataModel.append(salonServiceModel)
-//        //Graph Data
-//        graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
+        //        //salon service
+        //        //Data Model
+        //        let salonServiceModel = EarningsCellDataModel(earningsType: .Fixed_Earning, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+        //        dataModel.append(salonServiceModel)
+        //        //Graph Data
+        //        graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
         
         tableView.reloadData()
         EZLoadingActivity.hide()
@@ -216,212 +216,205 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
     }
     
     func graphData(forData data:[Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
-        
-//        var filteredFootfall = data
-//
-//        if data == nil, (data?.count ?? 0 <= 0) {
-//            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
-//
-//
-//            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (freeServices) -> Bool in
-//                if let date = freeServices.date?.date()?.startOfDay {
-//
-//                    return date >= dateRange.start && date <= dateRange.end
-//                }
-//                return false
-//            })
-//        }
-//
-//        let uniqueInvoices = filteredFootfall?.compactMap({$0.invoice_number}).unique(map: {$0}) ?? []
-        //salon service
-//        if(index == 0){
-//            return calculateSalonService(filterArray: filteredFootfall ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-//        }
-//        else if(index == 1){//home service
-//            return calculateHomeService(filterArray: filteredFootfall ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-//        }
-//        else{ // Retail product
-//            return calculateRetailProduct(filterArray: filteredFootfall ?? [], invoiceNumbers: uniqueInvoices, dateRange: dateRange, dateRangeType: dateRangeType)
-//        }
-        return [0.0]
+        var filteredFixedEarnings = data
+        let month = 3
+        if data == nil, (data?.count ?? 0 <= 0){
+            let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+            
+            let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
+            //var index = 0
+            for data in dataArray {
+                for parameter in data.parameters ?? [] {
+                    let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
+                        let month = fixedEarnings.month {
+                            return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
+                        }
+                        return false
+                    })
+                }
+            }
+        }
     }
     
-    func getTotalFixedEarningsGraphEntry(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
-    {
-        let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
-        let values = totalFixedEarningsGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
-        let graphColor = EarningDetails.Fixed_Earning.graphBarColor
-        
-        return GraphDataEntry(graphType: .barGraph, dataTitle: headerModel?.earningsType.headerTitle ?? "", units: units, values: values, barColor: graphColor.first!)
-    }
+    return [0.0]
+}
+
+func getTotalFixedEarningsGraphEntry(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
+{
+    let units = xAxisUnits(forDateRange: dateRange, rangeType: dateRangeType)
+    let values = totalFixedEarningsGraphData(forData: data, dateRange: dateRange, dateRangeType: dateRangeType)
+    let graphColor = EarningDetails.Fixed_Earning.graphBarColor
     
-    func totalFixedEarningsGraphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double]
-    {
-//        var totalFixedEarnings = [Double]()
-//        var filteredFootfall = data
-//
-//        //Fetch Data incase not having filtered already
-//        if data == nil, (data?.count ?? 0 <= 0) {
-//            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
-//
-//            //Date filter applied
-//            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (footFall) -> Bool in
-//                if let date = footFall.date?.date()?.startOfDay {
-//                    return  (date >= dateRange.start && date <= dateRange.end) &&
-//                            (((footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ((footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || (footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || (footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail))
-//                }
-//                return false
-//            })
-//        }
-//        else {
-//            filteredFootfall = filteredFootfall?.filter({(($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-//        }
-//
-//        let saloneGraphData = graphData(forData: data, atIndex: 0, dateRange: dateRange, dateRangeType: dateRangeType)
-//
-//        let homeGraphData = graphData(forData: data, atIndex: 1, dateRange: dateRange, dateRangeType: dateRangeType)
-//
-//        let retailGraphData = graphData(forData: data, atIndex: 2, dateRange: dateRange, dateRangeType: dateRangeType)
-//
-//        if saloneGraphData.count == homeGraphData.count, homeGraphData.count == retailGraphData.count {
-//            for (index, saloneValue) in saloneGraphData.enumerated() {
-//                let totalValue = saloneValue + homeGraphData[index] + retailGraphData[index]
-//                totalFixedEarnings.append(totalValue)
-//            }
-//        }
-//
-//        return totalFixedEarnings
-        return [0.0]
-    }
+    return GraphDataEntry(graphType: .barGraph, dataTitle: headerModel?.earningsType.headerTitle ?? "", units: units, values: values, barColor: graphColor.first!)
+}
+
+func totalFixedEarningsGraphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double]
+{
+    //        var totalFixedEarnings = [Double]()
+    //        var filteredFootfall = data
+    //
+    //        //Fetch Data incase not having filtered already
+    //        if data == nil, (data?.count ?? 0 <= 0) {
+    //            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+    //
+    //            //Date filter applied
+    //            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (footFall) -> Bool in
+    //                if let date = footFall.date?.date()?.startOfDay {
+    //                    return  (date >= dateRange.start && date <= dateRange.end) &&
+    //                            (((footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ((footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || (footFall.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || (footFall.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail))
+    //                }
+    //                return false
+    //            })
+    //        }
+    //        else {
+    //            filteredFootfall = filteredFootfall?.filter({(($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon) || ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home))) || ($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+    //        }
+    //
+    //        let saloneGraphData = graphData(forData: data, atIndex: 0, dateRange: dateRange, dateRangeType: dateRangeType)
+    //
+    //        let homeGraphData = graphData(forData: data, atIndex: 1, dateRange: dateRange, dateRangeType: dateRangeType)
+    //
+    //        let retailGraphData = graphData(forData: data, atIndex: 2, dateRange: dateRange, dateRangeType: dateRangeType)
+    //
+    //        if saloneGraphData.count == homeGraphData.count, homeGraphData.count == retailGraphData.count {
+    //            for (index, saloneValue) in saloneGraphData.enumerated() {
+    //                let totalValue = saloneValue + homeGraphData[index] + retailGraphData[index]
+    //                totalFixedEarnings.append(totalValue)
+    //            }
+    //        }
+    //
+    //        return totalFixedEarnings
+    return [0.0]
+}
+
+func updateFixedEarningsData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
+    let selectedIndex = indexPath.row - 1
+    let dateRange = DateRange(startDate!, endDate)
     
-    func updateFixedEarningsData(atIndex indexPath:IndexPath, withStartDate startDate: Date?, endDate: Date = Date().startOfDay, rangeType:DateRangeType) {
-        let selectedIndex = indexPath.row - 1
-        let dateRange = DateRange(startDate!, endDate)
-        
+    let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+    
+    //        //Date filter applied
+    //        let dateFilteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+    //            if let date = revenue.date?.date()?.startOfDay {
+    //                return date >= dateRange.start && date <= dateRange.end
+    //            }
+    //            return false
+    //        })
+    //
+    //        if(selectedIndex >= 0){
+    //            let model = dataModel[selectedIndex]
+    //            model.dateRangeType = rangeType
+    //            if model.dateRangeType == .cutome {
+    //                model.customeDateRange = dateRange
+    //            }
+    //
+    //            update(modeData: model, withData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+    //            graphData[selectedIndex] = getGraphEntry(model.title,forData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
+    //        }
+    //        else if let _ = headerModel {
+    //            headerModel?.dateRangeType = rangeType
+    //            if headerModel?.dateRangeType == .cutome {
+    //                headerModel?.customeDateRange = dateRange
+    //            }
+    //
+    //            updateHeaderModel(withData: dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
+    //            headerGraphData = getTotalFixedEarningsGraphEntry(forData:dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
+    //        }
+    
+    tableView.reloadRows(at: [indexPath], with: .automatic)
+}
+
+func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+    
+    var filteredFootfall = data
+    
+    //Fetch Data incase not having filtered already
+    if data == nil, (data?.count ?? 0 <= 0) {
         let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
         
-//        //Date filter applied
-//        let dateFilteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
-//            if let date = revenue.date?.date()?.startOfDay {
-//                return date >= dateRange.start && date <= dateRange.end
-//            }
-//            return false
-//        })
-//
-//        if(selectedIndex >= 0){
-//            let model = dataModel[selectedIndex]
-//            model.dateRangeType = rangeType
-//            if model.dateRangeType == .cutome {
-//                model.customeDateRange = dateRange
-//            }
-//
-//            update(modeData: model, withData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
-//            graphData[selectedIndex] = getGraphEntry(model.title,forData: dateFilteredFootfall, atIndex: selectedIndex, dateRange: dateRange, dateRangeType: rangeType)
-//        }
-//        else if let _ = headerModel {
-//            headerModel?.dateRangeType = rangeType
-//            if headerModel?.dateRangeType == .cutome {
-//                headerModel?.customeDateRange = dateRange
-//            }
-//
-//            updateHeaderModel(withData: dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
-//            headerGraphData = getTotalFixedEarningsGraphEntry(forData:dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
-//        }
-        
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+        //Date filter applied
+        filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
     }
     
-    func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
-        
-        var filteredFootfall = data
-        
-        //Fetch Data incase not having filtered already
-        if data == nil, (data?.count ?? 0 <= 0) {
-            let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
-            
-            //Date filter applied
-            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
-                if let date = revenue.date?.date()?.startOfDay {
-                    return date >= dateRange.start && date <= dateRange.end
-                }
-                return false
-            })
-        }
-        
-        var value : Double = 0.0
-        switch index {
-        case 0:
-            //service
-            let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
-            value = Double(salonServiceData.unique(map: {$0.invoice_number}).count)
-            
-        case 1:
-            //Home
-            let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
-            value = Double(homeServiceRevenueData.unique(map: {$0.invoice_number}).count)
-            
-        case 2:
-            //Retail
-            let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-            value = Double(retailData?.unique(map: {$0.invoice_number}).count ?? 0)
-            
-        default:
-            print("****************** UNKNOWN ******************")
-        }
-        
-        dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
-    }
-    
-    func updateHeaderModel(withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) {
-        
-        var filteredFootfall = data
-        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
-        
-        //Fetch Data incase not having filtered already
-        if data == nil, (data?.count ?? 0 <= 0) {
-            //Date filter applied
-            filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
-                if let date = revenue.date?.date()?.startOfDay {
-                    return date >= dateRange.start && date <= dateRange.end
-                }
-                return false
-            })
-        }
-        
+    var value : Double = 0.0
+    switch index {
+    case 0:
         //service
         let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
-        let salonServiceCount : Int = salonServiceData.unique(map: {$0.invoice_number}).count
-        print("serviceToatal conunt : \(salonServiceCount)")
+        value = Double(salonServiceData.unique(map: {$0.invoice_number}).count)
         
+    case 1:
         //Home
         let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
-        let homeServiceCount : Int = homeServiceRevenueData.unique(map: {$0.invoice_number}).count
-        print("homeServiceTotal conunt : \(homeServiceCount)")
+        value = Double(homeServiceRevenueData.unique(map: {$0.invoice_number}).count)
         
+    case 2:
         //Retail
         let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-        let retailCount : Int = retailData?.unique(map: {$0.invoice_number}).count ?? 0
-        print("retail conunt : \(retailCount)")
+        value = Double(retailData?.unique(map: {$0.invoice_number}).count ?? 0)
         
-        headerModel?.value = Double(salonServiceCount + homeServiceCount + retailCount)
+    default:
+        print("****************** UNKNOWN ******************")
     }
-  func doSomething()
-  {
+    
+    dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
+}
+
+func updateHeaderModel(withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) {
+    
+    var filteredFootfall = data
+    let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+    
+    //Fetch Data incase not having filtered already
+    if data == nil, (data?.count ?? 0 <= 0) {
+        //Date filter applied
+        filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+            if let date = revenue.date?.date()?.startOfDay {
+                return date >= dateRange.start && date <= dateRange.end
+            }
+            return false
+        })
+    }
+    
+    //service
+    let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
+    let salonServiceCount : Int = salonServiceData.unique(map: {$0.invoice_number}).count
+    print("serviceToatal conunt : \(salonServiceCount)")
+    
+    //Home
+    let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
+    let homeServiceCount : Int = homeServiceRevenueData.unique(map: {$0.invoice_number}).count
+    print("homeServiceTotal conunt : \(homeServiceCount)")
+    
+    //Retail
+    let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+    let retailCount : Int = retailData?.unique(map: {$0.invoice_number}).count ?? 0
+    print("retail conunt : \(retailCount)")
+    
+    headerModel?.value = Double(salonServiceCount + homeServiceCount + retailCount)
+}
+func doSomething()
+{
     let request = FixedEarnings.Something.Request()
     interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
-  {
+}
+
+func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
+{
     //nameTextField.text = viewModel.name
-  }
+}
 }
 
 extension FixedEarningsViewController: EarningsFilterDelegate {
     
     func actionDateFilter() {
         print("Date Filter")
-        let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
         self.view.alpha = screenPopUpAlpha
         vc.fromChartFilter = false
         vc.selectedRangeTypeString = dateRangeType.rawValue
@@ -445,6 +438,35 @@ extension FixedEarningsViewController: EarningsFilterDelegate {
     
     func actionNormalFilter() {
         print("Normal Filter")
+    }
+    func calculateData(filterArray: [Dashboard.GetEarningsDashboard.Transaction], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
+        var value = [Double]
+        
+        switch dateRangeType {
+        case .mtd:
+            let dates = dateRange.end.monthNumber(from: DatedateRange.start)
+//                let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+            for objDt in dates{
+                let data = filterArray.compactMap($)
+//                let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
+//                //var index = 0
+//                for data in dataArray {
+//                    for parameter in data.parameters ?? [] {
+//                        let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
+//                            let month = fixedEarnings.month {
+//                                return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
+//                            }
+//                            return false
+//                        })
+//                    }
+//                }
+            }
+            
+        default:
+            <#code#>
+        }
+        
+        return value
     }
     
     func calculateSalonService(filterArray: [Dashboard.GetRevenueDashboard.RevenueTransaction], invoiceNumbers: [String], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double] {
@@ -598,7 +620,7 @@ extension FixedEarningsViewController: EarningDetailsDelegate {
         
         let selectedIndex = indexPath.row - 1
         
-        let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
         vc.isFromProductivity = false
         self.view.alpha = screenPopUpAlpha
         vc.fromChartFilter = true

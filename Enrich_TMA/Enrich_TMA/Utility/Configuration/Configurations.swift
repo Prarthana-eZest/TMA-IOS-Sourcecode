@@ -438,6 +438,7 @@ enum CellIdentifier {
     static let packageFilterCell = "PackageFilterCell"
     static let selectFilterDateRangeCell = "SelectFilterDateRangeCell"
     static let earningCategoryFilterCell = "EarningCategoryFilterCell"
+    static let earningsSelectFilterDateRangeCell = "EarningsSelectFilterDateRangeCell"
 }
 
 struct SectionConfiguration {
