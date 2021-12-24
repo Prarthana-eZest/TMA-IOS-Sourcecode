@@ -600,6 +600,14 @@
 		F86E74E425DF9478007FC9B2 /* AchievementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86E74DE25DF9478007FC9B2 /* AchievementVC.swift */; };
 		F86E74E525DF9478007FC9B2 /* AchievementInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86E74DF25DF9478007FC9B2 /* AchievementInteractor.swift */; };
 		F86EFE5A2433286500835141 /* CustomerDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86EFE592433286500835141 /* CustomerDetailsVC.swift */; };
+		F8731AB527758A7A0014245A /* EarningsDateFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AAF27758A790014245A /* EarningsDateFilterPresenter.swift */; };
+		F8731AB627758A7A0014245A /* EarningsDateFilterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB027758A790014245A /* EarningsDateFilterWorker.swift */; };
+		F8731AB727758A7A0014245A /* EarningsDateFilterRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB127758A790014245A /* EarningsDateFilterRouter.swift */; };
+		F8731AB827758A7A0014245A /* EarningsDateFilterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB227758A790014245A /* EarningsDateFilterModels.swift */; };
+		F8731AB927758A7A0014245A /* EarningsDateFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB327758A790014245A /* EarningsDateFilterViewController.swift */; };
+		F8731ABA27758A7A0014245A /* EarningsDateFilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB427758A7A0014245A /* EarningsDateFilterInteractor.swift */; };
+		F8731AC32775A4050014245A /* EarningsSelectFilterDateRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */; };
+		F8731AC42775A4050014245A /* EarningsSelectFilterDateRangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */; };
 		F87494E826CA9E4C002A2202 /* PackageFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E226CA9E4C002A2202 /* PackageFilterPresenter.swift */; };
 		F87494E926CA9E4C002A2202 /* PackageFilterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E326CA9E4C002A2202 /* PackageFilterWorker.swift */; };
 		F87494EB26CA9E4C002A2202 /* PackageFilterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E526CA9E4C002A2202 /* PackageFilterModels.swift */; };
@@ -1518,6 +1526,14 @@
 		F86E74DE25DF9478007FC9B2 /* AchievementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementVC.swift; sourceTree = "<group>"; };
 		F86E74DF25DF9478007FC9B2 /* AchievementInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementInteractor.swift; sourceTree = "<group>"; };
 		F86EFE592433286500835141 /* CustomerDetailsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerDetailsVC.swift; sourceTree = "<group>"; };
+		F8731AAF27758A790014245A /* EarningsDateFilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterPresenter.swift; sourceTree = "<group>"; };
+		F8731AB027758A790014245A /* EarningsDateFilterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterWorker.swift; sourceTree = "<group>"; };
+		F8731AB127758A790014245A /* EarningsDateFilterRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterRouter.swift; sourceTree = "<group>"; };
+		F8731AB227758A790014245A /* EarningsDateFilterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterModels.swift; sourceTree = "<group>"; };
+		F8731AB327758A790014245A /* EarningsDateFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterViewController.swift; sourceTree = "<group>"; };
+		F8731AB427758A7A0014245A /* EarningsDateFilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterInteractor.swift; sourceTree = "<group>"; };
+		F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsSelectFilterDateRangeCell.swift; sourceTree = "<group>"; };
+		F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningsSelectFilterDateRangeCell.xib; sourceTree = "<group>"; };
 		F87494E226CA9E4C002A2202 /* PackageFilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterPresenter.swift; sourceTree = "<group>"; };
 		F87494E326CA9E4C002A2202 /* PackageFilterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterWorker.swift; sourceTree = "<group>"; };
 		F87494E526CA9E4C002A2202 /* PackageFilterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterModels.swift; sourceTree = "<group>"; };
@@ -3717,6 +3733,19 @@
 			path = "Customer Details";
 			sourceTree = "<group>";
 		};
+		F8731AAE27758A090014245A /* EarningsDateFilter */ = {
+			isa = PBXGroup;
+			children = (
+				F8731AB327758A790014245A /* EarningsDateFilterViewController.swift */,
+				F8731AAF27758A790014245A /* EarningsDateFilterPresenter.swift */,
+				F8731AB027758A790014245A /* EarningsDateFilterWorker.swift */,
+				F8731AB127758A790014245A /* EarningsDateFilterRouter.swift */,
+				F8731AB227758A790014245A /* EarningsDateFilterModels.swift */,
+				F8731AB427758A7A0014245A /* EarningsDateFilterInteractor.swift */,
+			);
+			path = EarningsDateFilter;
+			sourceTree = "<group>";
+		};
 		F87494DF26CA9E15002A2202 /* Filters */ = {
 			isa = PBXGroup;
 			children = (
@@ -3924,6 +3953,8 @@
 				F89B13F52770E60F00D18658 /* EarningTotalHeaderCell.xib */,
 				F89B13FB2771913E00D18658 /* ViewCTCCell.swift */,
 				F89B13FC2771913E00D18658 /* ViewCTCCell.xib */,
+				F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */,
+				F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */,
 			);
 			path = "Earnings Module";
 			sourceTree = "<group>";
@@ -4059,6 +4090,7 @@
 				F89B141C2771D54F00D18658 /* Awards */,
 				F89B141D2771D55800D18658 /* Deductions */,
 				F89B14022771925400D18658 /* ViewCTC */,
+				F8731AAE27758A090014245A /* EarningsDateFilter */,
 			);
 			path = "Earnings Module";
 			sourceTree = "<group>";
@@ -4806,6 +4838,7 @@
 				F825433324767A72007ED67E /* ServiceCategoryTableViewCell.xib in Resources */,
 				E38FCA30237AB6CA00573CCE /* InvoiceCell.xib in Resources */,
 				E3D196A4233105DA006597BA /* Main.storyboard in Resources */,
+				F8731AC42775A4050014245A /* EarningsSelectFilterDateRangeCell.xib in Resources */,
 				E39659C423506EB6008C2ADD /* PettyCashAttachementCell.xib in Resources */,
 				E33F1179234B12DA00C2F9F5 /* FuturaPTBold.otf in Resources */,
 				E33F1182234B12DA00C2F9F5 /* FuturaPTBoldOblique.otf in Resources */,
@@ -5330,6 +5363,7 @@
 				F81A01FC25E382B9003CD33D /* MyDetailsWorker.swift in Sources */,
 				E362486723E0365100CCF440 /* AvailMyPackagesModuleWorker.swift in Sources */,
 				F875C4942410FA01009AA42F /* HomeModuleVC.swift in Sources */,
+				F8731AB927758A7A0014245A /* EarningsDateFilterViewController.swift in Sources */,
 				F8920F5726CAB1E800C168CD /* DateFilterVC.swift in Sources */,
 				F875C4772410D919009AA42F /* ImageViewCollectionCell.swift in Sources */,
 				E3723814235731C800DD0375 /* RateTheCustomerWorker.swift in Sources */,
@@ -5369,6 +5403,7 @@
 				F851EF9C26BBC29100D97020 /* CustomerEngagementPresenter.swift in Sources */,
 				E33F1101234B103800C2F9F5 /* ExtensionGeneric.swift in Sources */,
 				F844E59D26C640DA00252A56 /* EarningDetailsThreeValueCell.swift in Sources */,
+				F8731ABA27758A7A0014245A /* EarningsDateFilterInteractor.swift in Sources */,
 				F875C4712410D919009AA42F /* CashbackOfferCell.swift in Sources */,
 				F8F386EF2563AE4600B6284F /* StylistAvailableVC.swift in Sources */,
 				F8F7C9FE26BA80AB00A2323D /* RevenueWorker.swift in Sources */,
@@ -5383,6 +5418,7 @@
 				F8F71ECC256B901A00F940BF /* SelectServiceDependentCell.swift in Sources */,
 				E30A9519234DF43D00E544D0 /* NotificationsInteractor.swift in Sources */,
 				E3CEA5D623CC832A00DD213F /* AddNewNoteModels.swift in Sources */,
+				F8731AB627758A7A0014245A /* EarningsDateFilterWorker.swift in Sources */,
 				F8A3C8AD25DE31F40088739A /* IncentiveMyDetailsCell.swift in Sources */,
 				E35C2999234B45D200AAD18B /* SchedulePresenter.swift in Sources */,
 				F8C6FCF026B94A86005B5276 /* TechnicianDashboardWorker.swift in Sources */,
@@ -5564,6 +5600,7 @@
 				E3FAF4F22398DC0A00B0D45D /* BillOfMaterialPresenter.swift in Sources */,
 				E30A94F9234DC28C00E544D0 /* AppointmentFilterInteractor.swift in Sources */,
 				F89FA0752435D5C500893474 /* SOSFactory.swift in Sources */,
+				F8731AB527758A7A0014245A /* EarningsDateFilterPresenter.swift in Sources */,
 				F8AC74A92434653F00A3A791 /* AddNewPettyCashPresenter.swift in Sources */,
 				F851EF7526BBC21800D97020 /* ProductivityModels.swift in Sources */,
 				F89B140C2771927400D18658 /* ViewCTCModels.swift in Sources */,
@@ -5573,6 +5610,7 @@
 				E3E88A642375691500E717ED /* ClientInformationVC.swift in Sources */,
 				E32F68AE23795966009DD6A9 /* MembershipStatusCell.swift in Sources */,
 				F851EF5D26BBC1E500D97020 /* CustomerFeedbackPresenter.swift in Sources */,
+				F8731AB827758A7A0014245A /* EarningsDateFilterModels.swift in Sources */,
 				E33F1117234B103800C2F9F5 /* StorageType.swift in Sources */,
 				F89B14612771D5BA00D18658 /* AwardsWorker.swift in Sources */,
 				F851EF4C26BBC1AF00D97020 /* FootfallVC.swift in Sources */,
@@ -5622,6 +5660,7 @@
 				F8D0241524121E0B00CD5E71 /* PackageListingModels.swift in Sources */,
 				E3FCB89E240D3141008349A8 /* SortProductViewController.swift in Sources */,
 				F8F4F32F26CBED6F008EA453 /* EarningsFilterWorker.swift in Sources */,
+				F8731AB727758A7A0014245A /* EarningsDateFilterRouter.swift in Sources */,
 				E3B23128238FA3EB00C17B56 /* AddNotesCell.swift in Sources */,
 				E3C16B802387D94E003E7619 /* TermsAndConditionsInteractor.swift in Sources */,
 				F8EDBE9F25DBE09D001150D1 /* ProductivityHeaderCell.swift in Sources */,
@@ -5661,6 +5700,7 @@
 				F832BE3F25E62CD70095D886 /* AttendanceDetailsVC.swift in Sources */,
 				E3FCB944240D3585008349A8 /* RecommendedMoriningAfterEvenNightCollectionViewCell.swift in Sources */,
 				E3033FD4235EC1EC00E0BF0A /* EmployeeListingInteractor.swift in Sources */,
+				F8731AC32775A4050014245A /* EarningsSelectFilterDateRangeCell.swift in Sources */,
 				E3FCB8A2240D3141008349A8 /* ProductListingSearchViewController.swift in Sources */,
 				E33F8FF72355E21C000D5288 /* DashboardPresenter.swift in Sources */,
 				E35C296D234B1DF100AAD18B /* MoreModuleModels.swift in Sources */,
