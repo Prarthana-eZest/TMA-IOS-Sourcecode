@@ -208,7 +208,7 @@ extension Date
         
         var date = from
         while date <= self {
-            array.append(Int(date.string(format: format)))
+            array.append(Int(date.string(format: format)) ?? 0)
             date = Calendar.current.date(byAdding: .month, value: 1, to: date)!
         }
         return array

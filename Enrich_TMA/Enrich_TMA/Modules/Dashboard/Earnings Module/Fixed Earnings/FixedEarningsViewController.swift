@@ -17,7 +17,7 @@ protocol FixedEarningsDisplayLogic: class
     func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
 }
 
-class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
+class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, EarningDetailsDelegate
 {
     var interactor: FixedEarningsBusinessLogic?
     var router: (NSObjectProtocol & FixedEarningsRoutingLogic & FixedEarningsDataPassing)?
@@ -83,9 +83,10 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsTViewTrendHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell)
+        
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
-        tableView.register(UINib(nibName: CellIdentifier.earningDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsViewTrendCellTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell)
         fromChartFilter = false
         dateRangeType = .mtd
         updateFixedEarningsData(startDate: Date.today.startOfMonth)
@@ -223,21 +224,22 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic
             
             let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
             //var index = 0
-            for data in dataArray {
-                for parameter in data.parameters ?? [] {
-                    let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
-                        let month = fixedEarnings.month {
-                            return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
-                        }
-                        return false
-                    })
-                }
-            }
+//            for data in dataArray {
+//                for parameter in data.parameters ?? [] {
+//                    let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
+//                        let month = fixedEarnings.month {
+//                            return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
+//                        }
+//                        return false
+//                    })
+//                }
+//            }
         }
+        return [0.0]
     }
     
-    return [0.0]
-}
+    
+
 
 func getTotalFixedEarningsGraphEntry(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
 {
@@ -440,31 +442,31 @@ extension FixedEarningsViewController: EarningsFilterDelegate {
         print("Normal Filter")
     }
     func calculateData(filterArray: [Dashboard.GetEarningsDashboard.Transaction], dateRange: DateRange, dateRangeType: DateRangeType) -> [Double]{
-        var value = [Double]
+        var value = [Double]()
         
-        switch dateRangeType {
-        case .mtd:
-            let dates = dateRange.end.monthNumber(from: DatedateRange.start)
-//                let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-            for objDt in dates{
-                let data = filterArray.compactMap($)
-//                let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
-//                //var index = 0
-//                for data in dataArray {
-//                    for parameter in data.parameters ?? [] {
-//                        let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
-//                            let month = fixedEarnings.month {
-//                                return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
-//                            }
-//                            return false
-//                        })
-//                    }
-//                }
-            }
-            
-        default:
-            <#code#>
-        }
+//        switch dateRangeType {
+//        case .mtd:
+//            let dates = dateRange.end.monthNumber(from: DatedateRange.start)
+////                let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+//            for objDt in dates{
+//                let data = filterArray.compactMap($)
+////                let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
+////                //var index = 0
+////                for data in dataArray {
+////                    for parameter in data.parameters ?? [] {
+////                        let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
+////                            let month = fixedEarnings.month {
+////                                return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
+////                            }
+////                            return false
+////                        })
+////                    }
+////                }
+//            }
+//
+//        default:
+//            <#code#>
+//        }
         
         return value
     }
@@ -608,7 +610,7 @@ extension FixedEarningsViewController: EarningsFilterDelegate {
     }
 }
 
-extension FixedEarningsViewController: EarningDetailsDelegate {
+extension FixedEarningsViewController: EarningDetailsViewTrendDelegate {
     
     func reloadData() {
         self.tableView.beginUpdates()
@@ -665,7 +667,7 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsHeaderCell, for: indexPath) as? EarningDetailsHeaderCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell, for: indexPath) as? EarningDetailsTViewTrendHeaderCell else {
                 return UITableViewCell()
             }
             if let model = headerModel {
@@ -681,7 +683,7 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
             return cell
         }
         else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsCell, for: indexPath) as? EarningDetailsCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell, for: indexPath) as? EarningDetailsViewTrendCellTableViewCell else {
                 return UITableViewCell()
             }
             cell.selectionStyle = .none

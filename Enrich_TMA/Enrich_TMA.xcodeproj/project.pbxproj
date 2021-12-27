@@ -608,6 +608,10 @@
 		F8731ABA27758A7A0014245A /* EarningsDateFilterInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AB427758A7A0014245A /* EarningsDateFilterInteractor.swift */; };
 		F8731AC32775A4050014245A /* EarningsSelectFilterDateRangeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */; };
 		F8731AC42775A4050014245A /* EarningsSelectFilterDateRangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */; };
+		F8731AD0277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731ACE277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift */; };
+		F8731AD1277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8731ACF277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.xib */; };
+		F8731AD727788B010014245A /* EarningDetailsViewTrendCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8731AD527788B000014245A /* EarningDetailsViewTrendCellTableViewCell.swift */; };
+		F8731AD827788B010014245A /* EarningDetailsViewTrendCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8731AD627788B000014245A /* EarningDetailsViewTrendCellTableViewCell.xib */; };
 		F87494E826CA9E4C002A2202 /* PackageFilterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E226CA9E4C002A2202 /* PackageFilterPresenter.swift */; };
 		F87494E926CA9E4C002A2202 /* PackageFilterWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E326CA9E4C002A2202 /* PackageFilterWorker.swift */; };
 		F87494EB26CA9E4C002A2202 /* PackageFilterModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F87494E526CA9E4C002A2202 /* PackageFilterModels.swift */; };
@@ -1534,6 +1538,10 @@
 		F8731AB427758A7A0014245A /* EarningsDateFilterInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsDateFilterInteractor.swift; sourceTree = "<group>"; };
 		F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningsSelectFilterDateRangeCell.swift; sourceTree = "<group>"; };
 		F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningsSelectFilterDateRangeCell.xib; sourceTree = "<group>"; };
+		F8731ACE277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningDetailsTViewTrendHeaderCell.swift; sourceTree = "<group>"; };
+		F8731ACF277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningDetailsTViewTrendHeaderCell.xib; sourceTree = "<group>"; };
+		F8731AD527788B000014245A /* EarningDetailsViewTrendCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningDetailsViewTrendCellTableViewCell.swift; sourceTree = "<group>"; };
+		F8731AD627788B000014245A /* EarningDetailsViewTrendCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningDetailsViewTrendCellTableViewCell.xib; sourceTree = "<group>"; };
 		F87494E226CA9E4C002A2202 /* PackageFilterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterPresenter.swift; sourceTree = "<group>"; };
 		F87494E326CA9E4C002A2202 /* PackageFilterWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterWorker.swift; sourceTree = "<group>"; };
 		F87494E526CA9E4C002A2202 /* PackageFilterModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageFilterModels.swift; sourceTree = "<group>"; };
@@ -3955,6 +3963,10 @@
 				F89B13FC2771913E00D18658 /* ViewCTCCell.xib */,
 				F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */,
 				F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */,
+				F8731ACE277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift */,
+				F8731ACF277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.xib */,
+				F8731AD527788B000014245A /* EarningDetailsViewTrendCellTableViewCell.swift */,
+				F8731AD627788B000014245A /* EarningDetailsViewTrendCellTableViewCell.xib */,
 			);
 			path = "Earnings Module";
 			sourceTree = "<group>";
@@ -4809,6 +4821,7 @@
 				E3D196A9233105E8006597BA /* Assets.xcassets in Resources */,
 				E38815EB23797D330091964B /* RecommendationsCell.xib in Resources */,
 				E33F1183234B12DA00C2F9F5 /* FuturaPTCondBookOblique.otf in Resources */,
+				F8731AD1277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.xib in Resources */,
 				E30E5E8D23574AC9001040F5 /* Location.storyboard in Resources */,
 				E367FA9B236034E100341527 /* MonthCollectionCell.xib in Resources */,
 				F875C47B2410D919009AA42F /* ProductQuantityCell.xib in Resources */,
@@ -4835,6 +4848,7 @@
 				E33F118B234B12DA00C2F9F5 /* NotoSerif-Regular.ttf in Resources */,
 				E30A94E3234D953900E544D0 /* Catalogue.storyboard in Resources */,
 				E3FCBAF3240D37AE008349A8 /* TimeSlotCell.xib in Resources */,
+				F8731AD827788B010014245A /* EarningDetailsViewTrendCellTableViewCell.xib in Resources */,
 				F825433324767A72007ED67E /* ServiceCategoryTableViewCell.xib in Resources */,
 				E38FCA30237AB6CA00573CCE /* InvoiceCell.xib in Resources */,
 				E3D196A4233105DA006597BA /* Main.storyboard in Resources */,
@@ -5238,6 +5252,7 @@
 				E3FCB8FA240D34A5008349A8 /* HeaderViewWithAd.swift in Sources */,
 				E3723813235731C800DD0375 /* RateTheCustomerPresenter.swift in Sources */,
 				E38E9BE623D59202005E3BB7 /* PaymentModeVC.swift in Sources */,
+				F8731AD0277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift in Sources */,
 				E33F8FFC2355E21C000D5288 /* DashboardInteractor.swift in Sources */,
 				F8DD555B25DBB0AE00BBA432 /* DateValueFormatter.swift in Sources */,
 				F8B77E71240E6118006A35B0 /* LocationModuleModels.swift in Sources */,
@@ -5441,6 +5456,7 @@
 				F891BEA026B7E1550073EA91 /* ShiftCalendarVC.swift in Sources */,
 				F8B77E55240E5357006A35B0 /* SubCategoryListingVC.swift in Sources */,
 				E3FCBB26240D37AE008349A8 /* EnterCouponCodeCell.swift in Sources */,
+				F8731AD727788B010014245A /* EarningDetailsViewTrendCellTableViewCell.swift in Sources */,
 				E30601D8237EB43100988EEC /* AddNewNoteVC.swift in Sources */,
 				F8802C0125E5083B005EBD1D /* CTCBreakUpCell.swift in Sources */,
 				F8DD555225DBAA5700BBA432 /* IncentiveCommonHeaderCell.swift in Sources */,

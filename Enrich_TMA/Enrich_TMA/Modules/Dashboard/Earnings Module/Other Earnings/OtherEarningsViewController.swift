@@ -82,9 +82,10 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
       override func viewDidLoad()
       {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsTViewTrendHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell)
+        
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
-        tableView.register(UINib(nibName: CellIdentifier.earningDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsViewTrendCellTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell)
         fromChartFilter = false
         dateRangeType = .mtd
         updateOtherEarningsData(startDate: Date.today.startOfMonth)
@@ -406,7 +407,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
         
         func actionDateFilter() {
             print("Date Filter")
-            let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
             self.view.alpha = screenPopUpAlpha
             vc.fromChartFilter = false
             vc.selectedRangeTypeString = dateRangeType.rawValue
@@ -583,7 +584,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             
             let selectedIndex = indexPath.row - 1
             
-            let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.isFromProductivity = false
             self.view.alpha = screenPopUpAlpha
             vc.fromChartFilter = true
@@ -628,7 +629,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
             if indexPath.row == 0 {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsHeaderCell, for: indexPath) as? EarningDetailsHeaderCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell, for: indexPath) as? EarningDetailsTViewTrendHeaderCell else {
                     return UITableViewCell()
                 }
                 if let model = headerModel {
@@ -644,7 +645,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
                 return cell
             }
             else {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsCell, for: indexPath) as? EarningDetailsCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell, for: indexPath) as? EarningDetailsViewTrendCellTableViewCell else {
                     return UITableViewCell()
                 }
                 cell.selectionStyle = .none

@@ -433,12 +433,16 @@ enum CellIdentifier {
     static let earningDetailsThreeValueCell = "EarningDetailsThreeValueCell"
     static let earningTotalHeaderCell = "EarningTotalHeaderCell"
     static let viewCTCCell = "ViewCTCCell"
+    static let earningDetailsCellWithGraphs = "EarningDetailsCellWithGraphs"
     
     // Filter
     static let packageFilterCell = "PackageFilterCell"
     static let selectFilterDateRangeCell = "SelectFilterDateRangeCell"
     static let earningCategoryFilterCell = "EarningCategoryFilterCell"
+    //Earnings cell
     static let earningsSelectFilterDateRangeCell = "EarningsSelectFilterDateRangeCell"
+    static let earningDetailsTViewTrendHeaderCell = "EarningDetailsTViewTrendHeaderCell"
+    static let earningDetailsViewTrendCellTableViewCell = "EarningDetailsViewTrendCellTableViewCell"
 }
 
 struct SectionConfiguration {

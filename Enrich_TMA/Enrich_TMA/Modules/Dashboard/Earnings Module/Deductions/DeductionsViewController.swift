@@ -82,10 +82,11 @@ class DeductionsViewController: UIViewController, DeductionsDisplayLogic
     override func viewDidLoad()
     {
       super.viewDidLoad()
-      tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderCell)
-      tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
-      tableView.register(UINib(nibName: CellIdentifier.earningDetailsCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsCell)
-      fromChartFilter = false
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsTViewTrendHeaderCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell)
+        
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
+        tableView.register(UINib(nibName: CellIdentifier.earningDetailsViewTrendCellTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell)
+        fromChartFilter = false
       dateRangeType = .mtd
       updateDeductionsData(startDate: Date.today.startOfMonth)
       
@@ -406,7 +407,7 @@ class DeductionsViewController: UIViewController, DeductionsDisplayLogic
       
       func actionDateFilter() {
           print("Date Filter")
-          let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
           self.view.alpha = screenPopUpAlpha
           vc.fromChartFilter = false
           vc.selectedRangeTypeString = dateRangeType.rawValue
@@ -583,7 +584,7 @@ class DeductionsViewController: UIViewController, DeductionsDisplayLogic
           
           let selectedIndex = indexPath.row - 1
           
-          let vc = DateFilterVC.instantiate(fromAppStoryboard: .Incentive)
+          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
           vc.isFromProductivity = false
           self.view.alpha = screenPopUpAlpha
           vc.fromChartFilter = true
@@ -626,40 +627,40 @@ class DeductionsViewController: UIViewController, DeductionsDisplayLogic
       }
       
       func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-          
-          if indexPath.row == 0 {
-              guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsHeaderCell, for: indexPath) as? EarningDetailsHeaderCell else {
-                  return UITableViewCell()
-              }
-              if let model = headerModel {
-                  var data:[GraphDataEntry] = []
-                  if let hgraphData = headerGraphData {
-                      data = [hgraphData]
-                  }
-                  cell.configureCell(model: model, data: data)
-              }
-              cell.delegate = self
-              cell.parentVC = self
-              cell.selectionStyle = .none
-              return cell
-          }
-          else {
-              guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsCell, for: indexPath) as? EarningDetailsCell else {
-                  return UITableViewCell()
-              }
-              cell.selectionStyle = .none
-              cell.delegate = self
-              cell.parentVC = self
-              
-              let index = indexPath.row - 1
-              let model = dataModel[index]
-              let barGraph = graphData[index]
-              
-              cell.configureCell(model: model, data: [barGraph])
-              return cell
-          }
-          
-      }
+        
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsTViewTrendHeaderCell, for: indexPath) as? EarningDetailsTViewTrendHeaderCell else {
+                return UITableViewCell()
+            }
+            if let model = headerModel {
+                var data:[GraphDataEntry] = []
+                if let hgraphData = headerGraphData {
+                    data = [hgraphData]
+                }
+                cell.configureCell(model: model, data: data)
+            }
+            cell.delegate = self
+            cell.parentVC = self
+            cell.selectionStyle = .none
+            return cell
+        }
+        else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell, for: indexPath) as? EarningDetailsViewTrendCellTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.selectionStyle = .none
+            cell.delegate = self
+            cell.parentVC = self
+            
+            let index = indexPath.row - 1
+            let model = dataModel[index]
+            let barGraph = graphData[index]
+            
+            cell.configureCell(model: model, data: [barGraph])
+            return cell
+        }
+        
+    }
       
       func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
           return UITableView.automaticDimension
