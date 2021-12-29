@@ -95,13 +95,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="View CTC View Controller" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpb-2W-uyY">
-                                <rect key="frame" x="110" y="438" width="195" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wmf-oY-a0W" customClass="Gradient" customModule="TMA_Stage" customModuleProvider="target">
                                 <rect key="frame" x="16" y="64" width="382" height="175"/>
                                 <subviews>
@@ -200,13 +193,52 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vY2-Me-Mfa">
+                                <rect key="frame" x="128.5" y="269" width="157" height="24"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VIewCTC" translatesAutoresizingMaskIntoConstraints="NO" id="M15-8K-dH5">
+                                        <rect key="frame" x="0.0" y="1.5" width="21" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="B7h-P0-NNn"/>
+                                            <constraint firstAttribute="width" secondItem="M15-8K-dH5" secondAttribute="height" multiplier="1:1" id="i25-Sv-jTq"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Salary Break-up" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v6g-za-Lg4">
+                                        <rect key="frame" x="29" y="0.0" width="128" height="24"/>
+                                        <fontDescription key="fontDescription" name="FuturaPT-Demi" family="Futura PT" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="v6g-za-Lg4" secondAttribute="trailing" id="Agp-ZJ-brt"/>
+                                    <constraint firstItem="M15-8K-dH5" firstAttribute="centerY" secondItem="vY2-Me-Mfa" secondAttribute="centerY" id="Z6B-3U-yhI"/>
+                                    <constraint firstItem="v6g-za-Lg4" firstAttribute="leading" secondItem="M15-8K-dH5" secondAttribute="trailing" constant="8" id="fMR-vm-Mnq"/>
+                                    <constraint firstItem="v6g-za-Lg4" firstAttribute="top" secondItem="vY2-Me-Mfa" secondAttribute="top" id="jYM-vX-Ktx"/>
+                                    <constraint firstAttribute="bottom" secondItem="v6g-za-Lg4" secondAttribute="bottom" id="tUs-3m-az2"/>
+                                    <constraint firstItem="M15-8K-dH5" firstAttribute="leading" secondItem="vY2-Me-Mfa" secondAttribute="leading" id="xtw-iJ-dZq"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OvG-qz-675">
+                                <rect key="frame" x="16" y="315" width="382" height="547"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dZz-Jx-K5O"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="dZz-Jx-K5O" firstAttribute="trailing" secondItem="Wmf-oY-a0W" secondAttribute="trailing" constant="16" id="RRF-8O-gs1"/>
                             <constraint firstItem="Wmf-oY-a0W" firstAttribute="leading" secondItem="dZz-Jx-K5O" secondAttribute="leading" constant="16" id="Sfk-0z-7uK"/>
+                            <constraint firstItem="dZz-Jx-K5O" firstAttribute="bottom" secondItem="OvG-qz-675" secondAttribute="bottom" id="UYG-3s-5C2"/>
+                            <constraint firstItem="vY2-Me-Mfa" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dZz-Jx-K5O" secondAttribute="leading" constant="16" id="WpH-JX-ezg"/>
+                            <constraint firstItem="OvG-qz-675" firstAttribute="trailing" secondItem="Wmf-oY-a0W" secondAttribute="trailing" id="WrZ-cs-b6Z"/>
+                            <constraint firstItem="dZz-Jx-K5O" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="vY2-Me-Mfa" secondAttribute="trailing" constant="16" id="Zpo-eJ-CG0"/>
                             <constraint firstItem="Wmf-oY-a0W" firstAttribute="top" secondItem="dZz-Jx-K5O" secondAttribute="top" constant="20" id="aNI-s0-z3y"/>
+                            <constraint firstItem="OvG-qz-675" firstAttribute="top" secondItem="vY2-Me-Mfa" secondAttribute="bottom" constant="22" id="gEa-IM-4UP"/>
+                            <constraint firstItem="vY2-Me-Mfa" firstAttribute="centerX" secondItem="cxF-PY-QYT" secondAttribute="centerX" id="kcQ-u6-P4I"/>
+                            <constraint firstItem="vY2-Me-Mfa" firstAttribute="top" secondItem="Wmf-oY-a0W" secondAttribute="bottom" constant="30" id="ooD-Od-lyw"/>
+                            <constraint firstItem="OvG-qz-675" firstAttribute="leading" secondItem="Wmf-oY-a0W" secondAttribute="leading" id="rGF-vv-eaT"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -788,6 +820,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="VIewCTC" width="21" height="22"/>
         <image name="closeLogin" width="23" height="23"/>
         <image name="revenueCircle" width="72" height="72"/>
         <systemColor name="systemBackgroundColor">
