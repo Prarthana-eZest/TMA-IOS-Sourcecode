@@ -28,10 +28,10 @@ class ViewCTCCell: UITableViewCell {
         parentView.layer.shadowOffset = CGSize(width: 0, height: 10)
         parentView.layer.shadowColor = UIColor.gray.cgColor
         
-        self.contentView.layer.cornerRadius = 8
-       // self.contentView.layer.borderWidth = 1.0
-       // self.contentView.layer.borderColor = UIColor.clear.cgColor
-        self.contentView.layer.masksToBounds = true
+        self.contentView.backgroundColor = .clear
+        backgroundColor = .clear
+        self.parentView.layer.cornerRadius = 8
+        self.parentView.clipsToBounds = true
 
         self.layer.shadowColor = UIColor.gray.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 10)

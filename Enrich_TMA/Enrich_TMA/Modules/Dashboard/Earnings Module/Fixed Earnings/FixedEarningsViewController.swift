@@ -87,6 +87,10 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsViewTrendCellTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell)
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        
         fromChartFilter = false
         dateRangeType = .mtd
         updateFixedEarningsData(startDate: Date.today.startOfMonth)
@@ -112,7 +116,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
         var graphRangeType = dateRangeType
         var graphDateRange = fixedEarningsDateRange // need to change
-        var filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
+        let filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
         if (dateRangeType == .yesterday || dateRangeType == .today) {
             //            filteredFixedEarningsForGraph = nil
             graphRangeType = .mtd
@@ -700,9 +704,9 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return UITableView.automaticDimension
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selection")
