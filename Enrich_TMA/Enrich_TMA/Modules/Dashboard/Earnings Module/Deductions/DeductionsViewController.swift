@@ -95,7 +95,7 @@ class DeductionsViewController: UIViewController, DeductionsDisplayLogic
       override func viewWillAppear(_ animated: Bool) {
           super.viewWillAppear(animated)
           self.navigationController?.navigationBar.isHidden = false
-          self.navigationController?.addCustomBackButton(title: EarningDetails.Awards.rawValue)
+          self.navigationController?.addCustomBackButton(title: EarningDetails.Deductions.rawValue)
       }
     // MARK: Do something
     
