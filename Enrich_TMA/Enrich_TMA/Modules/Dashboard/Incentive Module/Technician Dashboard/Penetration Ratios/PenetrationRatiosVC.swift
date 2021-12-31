@@ -762,7 +762,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
         let invoiceService = serviceCount?.compactMap({$0.invoice_number}).unique(map: {$0})
         var serviceRatio : Double = 0.0
-        if(invoiceService!.count > 0){
+        if(invoiceService?.count ?? 0 > 0){
             serviceRatio =  Double(serviceCount!.count) / Double(invoiceService!.count)
         }
         
