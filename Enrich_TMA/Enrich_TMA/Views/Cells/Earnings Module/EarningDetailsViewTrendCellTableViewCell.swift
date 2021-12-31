@@ -31,16 +31,16 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
     
     // Double View
     @IBOutlet weak var doubleValueFirstView: UIView!
-    @IBOutlet weak var doubleValueSecondView: UIView!
+//    @IBOutlet weak var doubleValueSecondView: UIView!
     @IBOutlet weak var lblDoubleViewFirstTitle: UILabel!
     @IBOutlet weak var lblDoubleViewFirstSubTitle: UILabel!
-    @IBOutlet weak var lblDoubleViewSecondTitle: UILabel!
-    @IBOutlet weak var lblDoubleViewSecondSubTitle: UILabel!
-        
-    // Package View
-    @IBOutlet weak var packageView: UIView!
-    @IBOutlet weak var lblPackageValue: UILabel!
-    @IBOutlet weak var btnPakageType: UIButton!
+//    @IBOutlet weak var lblDoubleViewSecondTitle: UILabel!
+//    @IBOutlet weak var lblDoubleViewSecondSubTitle: UILabel!
+//
+//    // Package View
+//    @IBOutlet weak var packageView: UIView!
+//    @IBOutlet weak var lblPackageValue: UILabel!
+//    @IBOutlet weak var btnPakageType: UIButton!
     
     
     var model: EarningsCellDataModel!
@@ -104,8 +104,8 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
         
         singleValueView.isHidden = model.cellType != .SingleValue
         doubleValueFirstView.isHidden = model.cellType != .DoubleValue
-        doubleValueSecondView.isHidden = model.cellType != .DoubleValue
-        packageView.isHidden = model.cellType != .PackageType
+//        doubleValueSecondView.isHidden = model.cellType != .DoubleValue
+//        packageView.isHidden = model.cellType != .PackageType
         
         switch model.cellType {
         case .SingleValue:
@@ -115,15 +115,17 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
             doubleValueFirstView.backgroundColor = model.earningsType.doubleValueTileColors?.first
             lblDoubleViewFirstTitle.text = model.value[1]
             lblDoubleViewFirstSubTitle.text = model.subTitle[1]
-            doubleValueSecondView.backgroundColor = model.earningsType.doubleValueTileColors?.last
-            lblDoubleViewSecondTitle.text = model.value[2]
-            lblDoubleViewSecondSubTitle.text = model.subTitle[2]
-        case .PackageType:
-            packageView.backgroundColor = model.earningsType.packageValueTileColor
-            let valuePackage = model.value[0]
-            lblPackageValue.text = valuePackage
+            //doubleValueSecondView.backgroundColor = model.earningsType.doubleValueTileColors?.last
+           // lblDoubleViewSecondTitle.text = model.value[2]
+            //lblDoubleViewSecondSubTitle.text = model.subTitle[2]
+//        case .PackageType:
+//            packageView.backgroundColor = model.earningsType.packageValueTileColor
+//            let valuePackage = model.value[0]
+//            lblPackageValue.text = valuePackage
         case .TripleValue: break
     
+        case .PackageType:
+            break
         }
         
     }

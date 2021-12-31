@@ -110,7 +110,7 @@ class EarningHeaderCell: UITableViewCell {
         }
         else{
             let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-            let currentMonth = 3//Int(Date.today.string(format: "M"))
+            let currentMonth = Int(Date.today.string(format: "M"))
             for group in earningsJSON?.data?.groups ?? []{
                 if let earningType = EarningDetails(rawValue: group.group_label ?? ""){
                     let transactions = group.parameters?.map({ (parameter) -> Dashboard.GetEarningsDashboard.Transaction? in

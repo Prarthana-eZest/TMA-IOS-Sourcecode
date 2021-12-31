@@ -118,7 +118,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
                 graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
             }
             
-            let currentMonth = 3//Int(Date.today.string(format: "M"))
+            let currentMonth = Int(Date.today.string(format: "M"))
     
             let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Other_Earnings}) ?? []
             var amount : Int = 0
@@ -139,7 +139,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             graphData.removeAll()
             
                 let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-                let currentMonth = 3//Int(Date.today.string(format: "M"))
+                let currentMonth = Int(Date.today.string(format: "M"))
             
             //Handle Graph Scenarios
             let dateRange = DateRange(startDate, endDate)

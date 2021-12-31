@@ -119,7 +119,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
-        let currentMonth = 3//Int(Date.today.string(format: "M"))
+        let currentMonth = Int(Date.today.string(format: "M"))
         //        for group in earningsJSON?.data?.groups ?? []{
         //            if let earningType = EarningDetails(rawValue: group.group_label ?? ""){
         //                let transactions = group.parameters?.map({ (parameter) -> Dashboard.GetEarningsDashboard.Transaction? in
@@ -154,7 +154,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         graphData.removeAll()
         
         let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-        let currentMonth = 3//Int(Date.today.string(format: "M"))
+        let currentMonth = Int(Date.today.string(format: "M"))
         
         //Handle Graph Scenarios
         let dateRange = DateRange(startDate, endDate)
@@ -416,26 +416,26 @@ extension FixedEarningsViewController: EarningsFilterDelegate {
     
     func actionDateFilter() {
         print("Date Filter")
-        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-        self.view.alpha = screenPopUpAlpha
-        vc.fromChartFilter = false
-        vc.selectedRangeTypeString = dateRangeType.rawValue
-        vc.cutomRange = fixedEarningsDateRange
-        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-            // Do something
-            self.view.alpha = 1.0
-            if(result){
-                fromChartFilter = false
-                dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-                
-                if(dateRangeType == .cutome), let start = startDate, let end = endDate
-                {
-                    fixedEarningsDateRange = DateRange(start,end)
-                }
-                updateFixedEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-            }
-        }
+//        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+//        self.view.alpha = screenPopUpAlpha
+//        vc.fromChartFilter = false
+//        vc.selectedRangeTypeString = dateRangeType.rawValue
+//        vc.cutomRange = fixedEarningsDateRange
+//        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+//        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+//            // Do something
+//            self.view.alpha = 1.0
+//            if(result){
+//                fromChartFilter = false
+//                dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+//
+//                if(dateRangeType == .cutome), let start = startDate, let end = endDate
+//                {
+//                    fixedEarningsDateRange = DateRange(start,end)
+//                }
+//                updateFixedEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+//            }
+//        }
     }
     
     func actionNormalFilter() {
@@ -618,39 +618,39 @@ extension FixedEarningsViewController: EarningDetailsViewTrendDelegate {
     }
     
     func actionDurationFilter(forCell cell: UITableViewCell) {
-        guard let indexPath = tableView.indexPath(for: cell), dataModel.count >= indexPath.row else { return }
-        
-        let selectedIndex = indexPath.row - 1
-        
-        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-        vc.isFromProductivity = false
-        self.view.alpha = screenPopUpAlpha
-        vc.fromChartFilter = true
-        if(selectedIndex >= 0){
-            let model = dataModel[selectedIndex]
-            vc.selectedRangeTypeString = model.dateRangeType.rawValue
-            vc.cutomRange = model.customeDateRange
-        }
-        else if let model = headerModel {
-            vc.selectedRangeTypeString = model.dateRangeType.rawValue
-            vc.cutomRange = model.customeDateRange
-        }
-        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-            // Do something
-            self.view.alpha = 1.0
-            if result == true, startDate != nil, endDate != nil {
-                fromFilters = false
-                fromChartFilter = true
-                
-                let rangeType  = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-                updateFixedEarningsData(atIndex: indexPath, withStartDate: startDate, endDate: endDate!, rangeType: rangeType)
-                
-                tableView.reloadRows(at: [indexPath], with: .automatic)
-                let text = "You have selected \(rangeTypeString ?? "MTD") filter from Charts."
-                self.showToast(alertTitle: alertTitle, message: text, seconds: toastMessageDuration)
-            }
-        }
+//        guard let indexPath = tableView.indexPath(for: cell), dataModel.count >= indexPath.row else { return }
+//
+//        let selectedIndex = indexPath.row - 1
+//
+//        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+//        vc.isFromProductivity = false
+//        self.view.alpha = screenPopUpAlpha
+//        vc.fromChartFilter = true
+//        if(selectedIndex >= 0){
+//            let model = dataModel[selectedIndex]
+//            vc.selectedRangeTypeString = model.dateRangeType.rawValue
+//            vc.cutomRange = model.customeDateRange
+//        }
+//        else if let model = headerModel {
+//            vc.selectedRangeTypeString = model.dateRangeType.rawValue
+//            vc.cutomRange = model.customeDateRange
+//        }
+//        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+//        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+//            // Do something
+//            self.view.alpha = 1.0
+//            if result == true, startDate != nil, endDate != nil {
+//                fromFilters = false
+//                fromChartFilter = true
+//
+//                let rangeType  = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+//                updateFixedEarningsData(atIndex: indexPath, withStartDate: startDate, endDate: endDate!, rangeType: rangeType)
+//                
+//                tableView.reloadRows(at: [indexPath], with: .automatic)
+//                let text = "You have selected \(rangeTypeString ?? "MTD") filter from Charts."
+//                self.showToast(alertTitle: alertTitle, message: text, seconds: toastMessageDuration)
+//            }
+//        }
     }
 }
 
