@@ -761,6 +761,7 @@
 		F8A3C8BA25DE52DD0088739A /* RevenueTrendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8B425DE52DD0088739A /* RevenueTrendVC.swift */; };
 		F8A3C8BB25DE52DD0088739A /* RevenueTrendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */; };
 		F8A3C8BD25DE53200088739A /* Incentive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A3C8BC25DE53200088739A /* Incentive.storyboard */; };
+		F8A3F598277EF40B00AFF75D /* ExtensionsInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */; };
 		F8A40B2525DD0C0E00CAEB31 /* CustomerServedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */; };
 		F8A40B2625DD0C0E00CAEB31 /* CustomerServedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */; };
 		F8A9147D246A8190003D39E0 /* TeleConsultationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */; };
@@ -1691,6 +1692,7 @@
 		F8A3C8B425DE52DD0088739A /* RevenueTrendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueTrendVC.swift; sourceTree = "<group>"; };
 		F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueTrendInteractor.swift; sourceTree = "<group>"; };
 		F8A3C8BC25DE53200088739A /* Incentive.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Incentive.storyboard; sourceTree = "<group>"; };
+		F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsInt.swift; sourceTree = "<group>"; };
 		F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServedCell.swift; sourceTree = "<group>"; };
 		F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerServedCell.xib; sourceTree = "<group>"; };
 		F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleConsultationPresenter.swift; sourceTree = "<group>"; };
@@ -2285,6 +2287,7 @@
 				E3B3A610237C2D3A00F6B56E /* ExtensionAppDelegate.swift */,
 				F8C7699427291871002096A0 /* ExtensionDate.swift */,
 				F87D6F2A273B9926008EF1A1 /* ExtensionEncodable.swift */,
+				F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -5101,6 +5104,7 @@
 				F840D18C24B4B3060065F795 /* AppVersionCell.swift in Sources */,
 				E33F10E9234B103800C2F9F5 /* EZLoadingActivity.swift in Sources */,
 				F8F4F33126CBED6F008EA453 /* EarningsFilterModels.swift in Sources */,
+				F8A3F598277EF40B00AFF75D /* ExtensionsInt.swift in Sources */,
 				E33F111A234B103800C2F9F5 /* ConstantsStrings.swift in Sources */,
 				E3FCBAD8240D37AE008349A8 /* DeliveryPinCodeCell.swift in Sources */,
 				E35C296B234B1DF100AAD18B /* MoreModuleWorker.swift in Sources */,

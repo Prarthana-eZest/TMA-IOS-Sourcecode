@@ -159,7 +159,7 @@ class AwardsViewController: UIViewController, AwardsDisplayLogic
                 for parameter in data.parameters ?? [] {
                     let value = parameter.transactions?.filter({$0.month == currentMonth})
     //                value?.first?.amount
-                    let model = EarningsCellDataModel(earningsType: .Awards, title: parameter.name ?? "", value: [String(value?.first?.amount ?? 0)], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: awardsDateRange)
+                    let model = EarningsCellDataModel(earningsType: .Awards, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: awardsDateRange)
                     dataModel.append(model)
                     graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: awardsDateRange, dateRangeType: graphRangeType))
                     
@@ -406,27 +406,27 @@ class AwardsViewController: UIViewController, AwardsDisplayLogic
     extension AwardsViewController: EarningsFilterDelegate {
         
         func actionDateFilter() {
-            print("Date Filter")
-            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-            self.view.alpha = screenPopUpAlpha
-            vc.fromChartFilter = false
-            vc.selectedRangeTypeString = dateRangeType.rawValue
-            vc.cutomRange = awardsDateRange
-            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-            vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-                // Do something
-                self.view.alpha = 1.0
-                if(result){
-                    fromChartFilter = false
-                    dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-                    
-                    if(dateRangeType == .cutome), let start = startDate, let end = endDate
-                    {
-                        awardsDateRange = DateRange(start,end)
-                    }
-                    updateAwardsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-                }
-            }
+//            print("Date Filter")
+//            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+//            self.view.alpha = screenPopUpAlpha
+//            vc.fromChartFilter = false
+//            vc.selectedRangeTypeString = dateRangeType.rawValue
+//            vc.cutomRange = awardsDateRange
+//            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+//            vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+//                // Do something
+//                self.view.alpha = 1.0
+//                if(result){
+//                    fromChartFilter = false
+//                    dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+//                    
+//                    if(dateRangeType == .cutome), let start = startDate, let end = endDate
+//                    {
+//                        awardsDateRange = DateRange(start,end)
+//                    }
+//                    updateAwardsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+//                }
+//            }
         }
         
         func actionNormalFilter() {

@@ -160,7 +160,7 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
               for parameter in data.parameters ?? [] {
                   let value = parameter.transactions?.filter({$0.month == currentMonth})
   //                value?.first?.amount
-                  let model = EarningsCellDataModel(earningsType: .Incentive, title: parameter.name ?? "", value: [String(value?.first?.amount ?? 0)], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: incentiveDateRange)
+                  let model = EarningsCellDataModel(earningsType: .Incentive, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: incentiveDateRange)
                   dataModel.append(model)
                   graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: incentiveDateRange, dateRangeType: graphRangeType))
                   

@@ -20,13 +20,13 @@ class ViewCTCCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-//        parentView.clipsToBounds = true
-//        parentView.layer.cornerRadius = 8
-//        parentView.layer.masksToBounds = false
-//        parentView.layer.shadowRadius = 8
-//        parentView.layer.shadowOpacity = 0.20
-//        parentView.layer.shadowOffset = CGSize(width: 0, height: 10)
-//        parentView.layer.shadowColor = UIColor.gray.cgColor
+        parentView.clipsToBounds = true
+        parentView.layer.cornerRadius = 8
+        parentView.layer.masksToBounds = false
+        parentView.layer.shadowRadius = 8
+        parentView.layer.shadowOpacity = 0.20
+        parentView.layer.shadowOffset = CGSize(width: 0, height: 10)
+        parentView.layer.shadowColor = UIColor.gray.cgColor
         
         self.contentView.backgroundColor = .clear
         backgroundColor = .clear
