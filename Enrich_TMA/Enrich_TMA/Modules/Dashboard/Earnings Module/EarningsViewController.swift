@@ -175,7 +175,7 @@ extension EarningsViewController: UITableViewDelegate, UITableViewDataSource {
         if(indexPath.row == 2){
             //View CTC
             let vc = ViewCTCViewController.instantiate(fromAppStoryboard: .Earnings)
-            self.navigationController?.pushViewController(vc, animated: true)
+            //self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -251,17 +251,17 @@ extension EarningsViewController: EnrningsDelegate {
         case .Other_Earnings:
             let vc = OtherEarningsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
-            self.navigationController?.pushViewController(vc, animated: true)
+            //self.navigationController?.pushViewController(vc, animated: true)
             
         case .Awards:
             let vc = AwardsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
-            self.navigationController?.pushViewController(vc, animated: true)
+            //self.navigationController?.pushViewController(vc, animated: true)
             
         case .Deductions:
             let vc = DeductionsViewController.instantiate(fromAppStoryboard: .Earnings)
             vc.headerModel = model
-            self.navigationController?.pushViewController(vc, animated: true)
+           // self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

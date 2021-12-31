@@ -20,8 +20,8 @@ enum EarningDetails : String {
     case PenetrationRatios = "Penetration Ratios"
     case CustomerEngagement = "Customer Engagement"
     case ResourceUtilisation = "Resource Utilisation"
-    case Fixed_Earning = "Fixed-Earning"
-    case Incentive = "Earning" //"Incentive"
+    case Fixed_Earning = "Fixed Earning"
+    case Incentive = "Incentive"
     case Bonus = "Bonus"
     case Other_Earnings = "Other Earnings"
     case Awards = "Awards"
@@ -119,12 +119,12 @@ enum EarningDetails : String {
         case .PenetrationRatios: return UIImage(named: "PenetrationWhite")
         case .CustomerEngagement: return UIImage(named: "EngagementWhite")
         case .ResourceUtilisation: return UIImage(named: "UtilisationWhite")
-        case .Fixed_Earning: return UIImage(named: "RevenueWhite")
-        case .Incentive: return UIImage(named: "SalesWhite")
+        case .Fixed_Earning: return UIImage(named: "FixedEarningsHeader")
+        case .Incentive: return UIImage(named: "IncentiveHeader")
         case.Bonus: return UIImage(named: "BonusHeader")
-        case .Other_Earnings: return UIImage(named: "UtilisationWhite")
-        case .Awards: return UIImage(named: "PenetrationWhite")
-        case .Deductions: return UIImage(named: "PenetrationWhite")
+        case .Other_Earnings: return UIImage(named: "OtherEarningsHeader")
+        case .Awards: return UIImage(named: "AwardsHeader")
+        case .Deductions: return UIImage(named: "DeductionsHeader")
         }
     }
     

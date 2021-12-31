@@ -31,6 +31,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u6x-mC-Qcz" userLabel="Incentive View" customClass="Gradient" customModule="TMA_Stage" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="142.5" height="120"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SDO-iH-ICo">
+                                                <rect key="frame" x="0.0" y="0.0" width="142.5" height="120"/>
+                                                <connections>
+                                                    <action selector="actionIncentiveNext:" destination="pGm-CF-mEe" eventType="touchUpInside" id="Bx8-XV-fj2"/>
+                                                </connections>
+                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="techncian_dashboard" translatesAutoresizingMaskIntoConstraints="NO" id="Ug4-lc-nzN">
                                                 <rect key="frame" x="67.5" y="10" width="65" height="65"/>
                                                 <constraints>
@@ -60,9 +66,13 @@
                                             <constraint firstItem="ide-YR-7cj" firstAttribute="leading" secondItem="cSu-dM-Mf7" secondAttribute="trailing" constant="10" id="75D-eq-7uJ"/>
                                             <constraint firstAttribute="trailing" secondItem="ide-YR-7cj" secondAttribute="trailing" constant="10" id="AkS-Hh-Wgb"/>
                                             <constraint firstAttribute="bottom" secondItem="cSu-dM-Mf7" secondAttribute="bottom" constant="10" id="U3J-pK-Qe4"/>
+                                            <constraint firstItem="SDO-iH-ICo" firstAttribute="leading" secondItem="u6x-mC-Qcz" secondAttribute="leading" id="VcA-El-EEe"/>
                                             <constraint firstItem="Ug4-lc-nzN" firstAttribute="top" secondItem="u6x-mC-Qcz" secondAttribute="top" constant="10" id="Wuo-Zw-QwH"/>
+                                            <constraint firstAttribute="bottom" secondItem="SDO-iH-ICo" secondAttribute="bottom" id="ZMJ-dA-NPy"/>
+                                            <constraint firstAttribute="trailing" secondItem="SDO-iH-ICo" secondAttribute="trailing" id="bNP-mV-Ya9"/>
                                             <constraint firstAttribute="trailing" secondItem="Ug4-lc-nzN" secondAttribute="trailing" constant="10" id="fRw-ea-fWI"/>
                                             <constraint firstAttribute="bottom" secondItem="ide-YR-7cj" secondAttribute="bottom" constant="10" id="gK6-YR-wQr"/>
+                                            <constraint firstItem="SDO-iH-ICo" firstAttribute="top" secondItem="u6x-mC-Qcz" secondAttribute="top" id="k2g-te-Swt"/>
                                             <constraint firstItem="cSu-dM-Mf7" firstAttribute="leading" secondItem="u6x-mC-Qcz" secondAttribute="leading" constant="10" id="oNu-6g-2F7"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -87,6 +97,12 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sIG-0L-dLg" userLabel="Earnings View" customClass="Gradient" customModule="TMA_Stage" customModuleProvider="target">
                                         <rect key="frame" x="157.5" y="0.0" width="142.5" height="120"/>
                                         <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8dY-zT-nYy">
+                                                <rect key="frame" x="0.0" y="0.0" width="142.5" height="120"/>
+                                                <connections>
+                                                    <action selector="actionEarningsNext:" destination="pGm-CF-mEe" eventType="touchUpInside" id="PL6-Pj-BRf"/>
+                                                </connections>
+                                            </button>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="earnings_dashboard" translatesAutoresizingMaskIntoConstraints="NO" id="2cs-Op-a6e">
                                                 <rect key="frame" x="67.5" y="10" width="65" height="65"/>
                                                 <constraints>
@@ -113,13 +129,17 @@
                                             </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="8dY-zT-nYy" secondAttribute="bottom" id="275-5J-a7f"/>
                                             <constraint firstItem="qJC-6Q-ZCy" firstAttribute="leading" secondItem="Rz6-b2-8sR" secondAttribute="trailing" constant="10" id="CgU-Lo-YCB"/>
+                                            <constraint firstAttribute="trailing" secondItem="8dY-zT-nYy" secondAttribute="trailing" id="REH-P5-ubt"/>
                                             <constraint firstAttribute="bottom" secondItem="qJC-6Q-ZCy" secondAttribute="bottom" constant="10" id="bD2-kF-GRW"/>
                                             <constraint firstItem="2cs-Op-a6e" firstAttribute="top" secondItem="sIG-0L-dLg" secondAttribute="top" constant="10" id="fkb-jv-A6k"/>
+                                            <constraint firstItem="8dY-zT-nYy" firstAttribute="top" secondItem="sIG-0L-dLg" secondAttribute="top" id="i2n-Rn-L5d"/>
                                             <constraint firstItem="Rz6-b2-8sR" firstAttribute="leading" secondItem="sIG-0L-dLg" secondAttribute="leading" constant="10" id="mBF-LW-wdt"/>
                                             <constraint firstAttribute="trailing" secondItem="qJC-6Q-ZCy" secondAttribute="trailing" constant="10" id="ofU-Jk-jWU"/>
                                             <constraint firstAttribute="trailing" secondItem="2cs-Op-a6e" secondAttribute="trailing" constant="10" id="rUy-qb-GCk"/>
                                             <constraint firstAttribute="bottom" secondItem="Rz6-b2-8sR" secondAttribute="bottom" constant="10" id="ry6-AU-SUc"/>
+                                            <constraint firstItem="8dY-zT-nYy" firstAttribute="leading" secondItem="sIG-0L-dLg" secondAttribute="leading" id="vZd-Tk-3cn"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="VCornerRadius">
