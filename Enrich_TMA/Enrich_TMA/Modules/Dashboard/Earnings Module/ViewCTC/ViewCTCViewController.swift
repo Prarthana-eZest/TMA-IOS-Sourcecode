@@ -14,7 +14,9 @@ import UIKit
 
 protocol ViewCTCDisplayLogic: class
 {
-  func displaySomething(viewModel: ViewCTC.Something.ViewModel)
+ 
+    func displaySuccessCTC<T: Decodable> (viewModel: T)
+    func displayErrorCTC(errorMessage: String?)
 }
 
 class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
@@ -70,6 +72,7 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
   {
     super.viewDidLoad()
     doSomething()
+    getCTCDetails()
   }
   
     override func viewWillAppear(_ animated: Bool) {
@@ -91,4 +94,28 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
   {
     //nameTextField.text = viewModel.name
   }
+    
+    //Get earnings dashbioard data
+    func getCTCDetails() {
+        EZLoadingActivity.show("Loading...", disableUI: true)
+        let request = ViewCTC.GetCTCDeatils.Request()
+        interactor?.getCTCDetails(request: request)
+    }
+    
+    func displaySuccessCTC<T>(viewModel: T) where T: Decodable {
+        EZLoadingActivity.hide()
+       // print("Response: \(viewModel)")
+        
+        if let model = viewModel as? ViewCTC.GetCTCDeatils.Response, model.status == true {
+            print("********* from success********* \n \(viewModel)")
+           
+        }
+        
+    }
+    
+    func displayErrorCTC(errorMessage: String?) {
+        EZLoadingActivity.hide()
+        print("Failed: \(errorMessage ?? "")")
+        showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
 }

@@ -14,7 +14,29 @@ import UIKit
 
 class ViewCTCWorker
 {
+    let networkLayer = NetworkLayerAlamofire() // Uncomment this in case do request using Alamofire for client request
+    
+    var presenter: ViewCTCPresentationLogic?
+    
   func doSomeWork()
   {
   }
+    
+    //Get earnings data
+    func postRequestGetCTC(request: ViewCTC.GetCTCDeatils.Request) {
+
+        let errorHandler: (String) -> Void = { (error) in
+            print(error)
+            self.presenter?.presentErrorCTC(responseError: error)
+        }
+        let successHandler: (ViewCTC.GetCTCDeatils.Response) -> Void = { (response) in
+            print("Earnings response\(response)")
+            self.presenter?.presentSuccessCTC(response: response)
+        }
+
+        let url = ConstantAPINames.getCTCDetails.rawValue
+
+        self.networkLayer.get(urlString: url, headers: ["X-Request-From": "tma", "Authorization": "Bearer \(GenericClass.sharedInstance.isuserLoggedIn().accessToken)"], successHandler: successHandler, errorHandler: errorHandler)
+    }
+    
 }

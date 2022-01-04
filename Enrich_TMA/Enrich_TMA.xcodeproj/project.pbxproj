@@ -762,6 +762,8 @@
 		F8A3C8BB25DE52DD0088739A /* RevenueTrendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */; };
 		F8A3C8BD25DE53200088739A /* Incentive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A3C8BC25DE53200088739A /* Incentive.storyboard */; };
 		F8A3F598277EF40B00AFF75D /* ExtensionsInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */; };
+		F8A3F5AF2783733300AFF75D /* CTCDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */; };
+		F8A3F5B02783733300AFF75D /* CTCDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */; };
 		F8A40B2525DD0C0E00CAEB31 /* CustomerServedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */; };
 		F8A40B2625DD0C0E00CAEB31 /* CustomerServedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */; };
 		F8A9147D246A8190003D39E0 /* TeleConsultationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */; };
@@ -1693,6 +1695,8 @@
 		F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueTrendInteractor.swift; sourceTree = "<group>"; };
 		F8A3C8BC25DE53200088739A /* Incentive.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Incentive.storyboard; sourceTree = "<group>"; };
 		F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsInt.swift; sourceTree = "<group>"; };
+		F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTCDetailsCell.swift; sourceTree = "<group>"; };
+		F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CTCDetailsCell.xib; sourceTree = "<group>"; };
 		F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServedCell.swift; sourceTree = "<group>"; };
 		F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerServedCell.xib; sourceTree = "<group>"; };
 		F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleConsultationPresenter.swift; sourceTree = "<group>"; };
@@ -3960,10 +3964,11 @@
 		F89B13E82770E5B300D18658 /* Earnings Module */ = {
 			isa = PBXGroup;
 			children = (
-				F89B13F42770E60F00D18658 /* EarningTotalHeaderCell.swift */,
-				F89B13F52770E60F00D18658 /* EarningTotalHeaderCell.xib */,
 				F89B13FB2771913E00D18658 /* ViewCTCCell.swift */,
 				F89B13FC2771913E00D18658 /* ViewCTCCell.xib */,
+				F8A3F5A92783723C00AFF75D /* CTC Cell */,
+				F89B13F42770E60F00D18658 /* EarningTotalHeaderCell.swift */,
+				F89B13F52770E60F00D18658 /* EarningTotalHeaderCell.xib */,
 				F8731AC12775A4050014245A /* EarningsSelectFilterDateRangeCell.swift */,
 				F8731AC22775A4050014245A /* EarningsSelectFilterDateRangeCell.xib */,
 				F8731ACE277882CA0014245A /* EarningDetailsTViewTrendHeaderCell.swift */,
@@ -4131,6 +4136,15 @@
 				F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */,
 			);
 			path = "Revenue Trend";
+			sourceTree = "<group>";
+		};
+		F8A3F5A92783723C00AFF75D /* CTC Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */,
+				F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */,
+			);
+			path = "CTC Cell";
 			sourceTree = "<group>";
 		};
 		F8A40B2225DD0BCB00CAEB31 /* Customer Served */ = {
@@ -4893,6 +4907,7 @@
 				E33F1175234B12DA00C2F9F5 /* FuturaPTExtraBold.otf in Resources */,
 				E3FCBACB240D37AE008349A8 /* SelectedServicesCell.xib in Resources */,
 				F8802C0225E5083B005EBD1D /* CTCBreakUpCell.xib in Resources */,
+				F8A3F5B02783733300AFF75D /* CTCDetailsCell.xib in Resources */,
 				F85A3CEF24D7FB84001974CC /* BestPossibleDiscountCell.xib in Resources */,
 				E3FCBAC5240D37AE008349A8 /* TimeSlotsTableViewCell.xib in Resources */,
 				E32F68B423796493009DD6A9 /* ServiceHistoryCell.xib in Resources */,
@@ -5310,6 +5325,7 @@
 				F8D02426241225A000CD5E71 /* ShowListingView.swift in Sources */,
 				E30E5E452357494F001040F5 /* LoginOTPModuleModels.swift in Sources */,
 				E3FCB8A5240D3141008349A8 /* AddOnListingViewController.swift in Sources */,
+				F8A3F5AF2783733300AFF75D /* CTCDetailsCell.swift in Sources */,
 				E3FCBB2D240D37AE008349A8 /* HairServicesCell.swift in Sources */,
 				F851EF2126BBC10400D97020 /* SalesModels.swift in Sources */,
 				F85282E426BD63C800E02CB2 /* EarningDetailsCell.swift in Sources */,
@@ -5892,7 +5908,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.106;
+				MARKETING_VERSION = 1.107;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6094,7 +6110,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.106;
+				MARKETING_VERSION = 1.107;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6128,7 +6144,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.106;
+				MARKETING_VERSION = 1.107;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EnrichSalon.TMA;
 				PRODUCT_NAME = TMA_Stage;

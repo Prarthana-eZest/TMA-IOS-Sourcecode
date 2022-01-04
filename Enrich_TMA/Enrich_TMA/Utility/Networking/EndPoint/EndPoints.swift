@@ -233,6 +233,7 @@ public enum ConstantAPINames: String {
     case getIncentiveDashboard = "rest/V1/get-incentive-dashboard?is_custom=1"
     case getRevenueDashboard = "rest/V1/get-revenue-dashboard?is_custom=1"
     case getEarningsDashboard = "rest/V1/get-earning-dashboard?is_custom=1"
+    case getCTCDetails = "rest/V1/get-salary-details?is_custom=1"
 
     // Consultaion Form
     case getConsulationForm = "rest/V1/getform"

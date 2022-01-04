@@ -15,6 +15,7 @@ import UIKit
 protocol ViewCTCBusinessLogic
 {
   func doSomething(request: ViewCTC.Something.Request)
+    func getCTCDetails(request: ViewCTC.GetCTCDeatils.Request)
 }
 
 protocol ViewCTCDataStore
@@ -36,6 +37,13 @@ class ViewCTCInteractor: ViewCTCBusinessLogic, ViewCTCDataStore
     worker?.doSomeWork()
     
     let response = ViewCTC.Something.Response()
-    presenter?.presentSomething(response: response)
+   // presenter?.presentSomething(response: response)
   }
+    
+    //get earnings dashboard data
+    func getCTCDetails(request: ViewCTC.GetCTCDeatils.Request) {
+        worker = ViewCTCWorker()
+        worker?.presenter = self.presenter
+        worker?.postRequestGetCTC(request: request)
+    }
 }

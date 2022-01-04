@@ -740,58 +740,58 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
                 return date >= startDate && date <= endDate
             }
             return false
-        })
+        }) ?? []
         
         //Handle Graph Scenarios
         let dateRange = DateRange(startDate, endDate)
         var graphRangeType = dateRangeType
         var graphDateRange = dateRange
-        var filteredPenetrationForGraph = filteredPenetrationRatio
+        let filteredPenetrationForGraph = filteredPenetrationRatio
         if (dateRangeType == .yesterday || dateRangeType == .today) {
-            filteredPenetrationForGraph = nil
+           // filteredPenetrationForGraph = nil
             graphRangeType = .mtd
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
         
         
         //invoice data
-        let invoiceNumber = filteredPenetrationRatio?.filter({($0.invoice_number ?? "") != ""})
+        let invoiceNumber = filteredPenetrationRatio.filter({($0.invoice_number ?? "") != ""})
         //let updateUniqueData = invoiceNumber?.unique(map: {$0.invoice_number})
         
         //service count per invoice
-        let serviceCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)})
-        let invoiceService = serviceCount?.compactMap({$0.invoice_number}).unique(map: {$0})
+        let serviceCount = filteredPenetrationRatio.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services)}) 
+        let invoiceService = serviceCount.compactMap({$0.invoice_number}).unique(map: {$0})
         var serviceRatio : Double = 0.0
-        if(invoiceService?.count ?? 0 > 0){
-            serviceRatio =  Double(serviceCount!.count) / Double(invoiceService!.count)
+        if(invoiceService.count > 0){
+            serviceRatio =  Double(serviceCount.count) / Double(invoiceService.count)
         }
         
         //"Service Count Per Invoice"
         //Data Model
-        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount?.count ?? 0),String(invoiceService?.count ?? 0),serviceRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let serviceCountPerInvoiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Service Count Per Invoice", value: [String(serviceCount.count ),String(invoiceService.count ),serviceRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Services", "Invoice", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(serviceCountPerInvoiceModel)
         //Graph Data
         graphData.append(getGraphEntry(serviceCountPerInvoiceModel.title, forData: filteredPenetrationForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
         
         
         //product to service
-        let productCount = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+        let productCount = filteredPenetrationRatio.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
         
         var productRatio :Double = 0.0
-        if(serviceCount!.count > 0){
-            productRatio = Double(productCount!.count) / Double(serviceCount!.count)
+        if(serviceCount.count > 0){
+            productRatio = Double(productCount.count) / Double(serviceCount.count)
         }
         
         //"Product To Service"
         //Data Model
-        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount?.count ?? 0),String(serviceCount?.count ?? 0),productRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let productToServiceModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "Product To Service", value: [String(productCount.count ),String(serviceCount.count ),productRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Product", "Services", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(productToServiceModel)
         //Graph Data
         graphData.append(getGraphEntry(productToServiceModel.title, forData: filteredPenetrationForGraph, atIndex: 1, dateRange: graphDateRange, dateRangeType: graphRangeType))
         
         
         //app booking
-        let appBooking = filteredPenetrationRatio?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
+        let appBooking = filteredPenetrationRatio.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && (($0.platform ?? "").containsIgnoringCase(find:platform.CMA))})
         
         var appBookingRatio : Double = 0.0
         
@@ -810,12 +810,12 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         }
         
         if(customersServedCount > 0) {
-            appBookingRatio =  Double(appBooking!.count) / Double(customersServedCount)
+            appBookingRatio =  Double(appBooking.count) / Double(customersServedCount)
         }
         
         //"App Booking"
         //Data Model
-        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking?.count ?? 0),String(customersServedCount),appBookingRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
+        let appBookingModel = EarningsCellDataModel(earningsType: .PenetrationRatios, title: "App Booking", value: [String(appBooking.count ),String(customersServedCount),appBookingRatio.roundedStringValue(toFractionDigits: 2)], subTitle: ["Appointments" ,"Total Served", "Ratio"], showGraph: true, cellType: .TripleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: penetrationCutomeDateRange)
         dataModel.append(appBookingModel)
         //Graph Data
         graphData.append(getGraphEntry(appBookingModel.title, forData: filteredPenetrationForGraph, atIndex: 2, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -864,7 +864,7 @@ class PenetrationRatiosVC: UIViewController, PenetrationRatiosDisplayLogic
         if(penerationRatioFromFilters?.count ?? 0 > 0){
             for objPenetration in penerationRatioFromFilters! {
                 
-                for objTransaction in filteredPenetrationRatio! {
+                for objTransaction in filteredPenetrationRatio {
                     
                     if((objTransaction.category == objPenetration.compare_label!) || (objTransaction.category == objPenetration.to_compare_label!)) {
                         categotyCount = categotyCount + 1

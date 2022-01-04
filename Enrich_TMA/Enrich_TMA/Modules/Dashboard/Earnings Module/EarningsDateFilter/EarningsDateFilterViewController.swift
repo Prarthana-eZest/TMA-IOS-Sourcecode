@@ -200,7 +200,7 @@ extension EarningsDateFilterViewController: SelectDateRangeDelegate {
     
     func actionFromDate() {
         let model = data.last
-        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.fromDate ?? Date.today.lastYear(), minimumDate: Date.today.lastYear(), maximumDate: Date.today, datePickerMode: .date) { (selectedDate) in
+        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.fromDate ?? Date.today.lastYear(), minimumDate: Date.today.lastYear(), maximumDate: Date.today, datePickerMode: .dateAndTime) { (selectedDate) in
             if(selectedDate != nil){
                 self.data.last?.fromDate = selectedDate
                 let userDefaults = UserDefaults.standard

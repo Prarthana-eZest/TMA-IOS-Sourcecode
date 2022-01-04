@@ -159,7 +159,11 @@ class BonusViewController: UIViewController, BonusDisplayLogic
               for parameter in data.parameters ?? [] {
                   let value = parameter.transactions?.filter({$0.month == currentMonth})
   //                value?.first?.amount
-                  let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
+                var amount = 0
+                if(parameter.transactions?.count ?? 0 < 0){
+                    amount = 0
+                }
+                  let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [amount.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
                   dataModel.append(model)
                   graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: bonusDateRange, dateRangeType: graphRangeType))
                   

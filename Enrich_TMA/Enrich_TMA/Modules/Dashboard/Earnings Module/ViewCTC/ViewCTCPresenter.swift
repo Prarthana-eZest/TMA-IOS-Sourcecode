@@ -14,7 +14,9 @@ import UIKit
 
 protocol ViewCTCPresentationLogic
 {
-  func presentSomething(response: ViewCTC.Something.Response)
+//  func presentSomething(response: ViewCTC.Something.Response)
+    func presentSuccessCTC<T: Decodable>(response: T)
+    func presentErrorCTC(responseError: String?)
 }
 
 class ViewCTCPresenter: ViewCTCPresentationLogic
@@ -23,9 +25,17 @@ class ViewCTCPresenter: ViewCTCPresentationLogic
   
   // MARK: Do something
   
-  func presentSomething(response: ViewCTC.Something.Response)
-  {
-    let viewModel = ViewCTC.Something.ViewModel()
-    viewController?.displaySomething(viewModel: viewModel)
-  }
+//  func presentSomething(response: ViewCTC.Something.Response)
+//  {
+//    let viewModel = ViewCTC.Something.ViewModel()
+//    viewController?.displaySomething(viewModel: viewModel)
+//  }
+    
+    func presentSuccessCTC<T>(response: T) where T: Decodable {
+        viewController?.displaySuccessCTC(viewModel: response)
+    }
+
+    func presentErrorCTC(responseError: String?) {
+        viewController?.displayErrorCTC(errorMessage: responseError)
+    }
 }
