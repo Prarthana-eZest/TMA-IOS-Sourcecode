@@ -294,33 +294,33 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Basic"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.basic ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.basic ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.basic ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.basic ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 2{
                     cell.lblBasicTitle.text = "HRA + DA"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.hra_da ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.hra_da ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.hra_da ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.hra_da ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Statutory Bonus"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.statutory_bonus ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.statutory_bonus ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.statutory_bonus ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.statutory_bonus ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 4{
                     cell.lblBasicTitle.text = "Additional Pay-Out"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.additional_pay_out ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.additional_pay_out ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.additional_pay_out ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.additional_pay_out ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 5{
                     cell.lblBasicTitle.text = "Conveyance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.conveyance_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.conveyance_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.conveyance_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.conveyance_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 6{
                     cell.lblBasicTitle.text = "Medical Allowance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.medical_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.medical_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.medical_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.medical_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 7{
                     cell.lblBasicTitle.text = "Telephone Allowance"
@@ -329,28 +329,28 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 if indexPath.row == 8{
                     cell.lblBasicTitle.text = "Food Allowance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.food_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.food_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.food_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.food_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 9{
                     cell.lblBasicTitle.text = "Books & Periodicals"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 10{
                     cell.lblBasicTitle.text = "Education Allowance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.education_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.education_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.education_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.education_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 11{
                     cell.lblBasicTitle.text = "Washing Allowance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.washing_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.washing_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.washing_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.washing_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 12{
                     cell.lblBasicTitle.text = "Tea Allowance"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.tea_allowance ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.tea_allowance ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.tea_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.tea_allowance ?? 0) * 12).roundedStringValue()
                 }
                 return cell
             }
@@ -430,8 +430,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Fixed Pay"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
-                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = (self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
                 }
                 else if indexPath.row == 2{
                     
@@ -440,13 +440,13 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     
                     cell.lblBasicTopTitle.text = "Employer's Contribution"
                     cell.lblBasicTitle.text = "Provident Fund"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.company_pf ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.company_pf ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.company_pf ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.company_pf ?? 0) * 12).roundedStringValue()
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "ESIC"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.employee_esic ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_esic ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_esic ?? 0) * 12).roundedStringValue()
                 }
                 
                 return cell
@@ -538,18 +538,18 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 else if indexPath.row == 2{
                     cell.lblBasicTitle.text = "ESIC"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.employee_esic ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_esic ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_esic ?? 0) * 12).roundedStringValue()
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Profession Tax"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.professional_tax ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.professional_tax ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.professional_tax ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = (((self.ctcModelObject?.data?.professional_tax ?? 0) * 12) + 100).roundedStringValue()
                 }
                 else if indexPath.row == 4{
                     cell.lblBasicTitle.text = "Mediclaim Premium"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.mediclaim ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.mediclaim ?? 0) * 12)
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.mediclaim ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.mediclaim ?? 0) * 12).roundedStringValue()
                 }
                 
                 return cell
