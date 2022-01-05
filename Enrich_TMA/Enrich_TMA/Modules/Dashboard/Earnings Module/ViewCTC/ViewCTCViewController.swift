@@ -199,9 +199,6 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
             }
             return 1 + 4 + 1
         case .takeHome:
-            if self.ctcBreakUpStruct.isTakeHomeTapped == false{
-                return 1
-            }
             return 1
         case .otherBenefits:
             if self.ctcBreakUpStruct.isOtherBenefitsTapped == false{
