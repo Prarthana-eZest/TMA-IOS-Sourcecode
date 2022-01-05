@@ -109,31 +109,47 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
           incentiveData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
       }
       
-      func calculateTotalIncentive() {
-          let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-          var graphRangeType = dateRangeType
-          var graphDateRange = incentiveDateRange // need to change
-          var filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
-          if (dateRangeType == .yesterday || dateRangeType == .today) {
-  //            filteredFixedEarningsForGraph = nil
-              graphRangeType = .mtd
-              graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
-          }
-          
-          let currentMonth = Int(Date.today.string(format: "M"))
- 
-          let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Incentive}) ?? []
-          var amount : Int = 0
-          for data in dataArray {
-              for parameter in data.parameters ?? [] {
-                  let value = parameter.transactions?.filter({$0.month == currentMonth})
-                  amount += value?.first?.amount ?? 0
-              }
-          }
-          headerModel?.value = Double(amount)
-          headerModel?.dateRangeType = graphRangeType
-          headerGraphData = getTotalIncentiveGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
-      }
+    func calculateTotalIncentive(dateRange : DateRange) {
+        let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
+        var graphRangeType = dateRangeType
+        var graphDateRange = incentiveDateRange // need to change
+        let filteredIncentiveForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
+        if (dateRangeType == .mtd || dateRangeType == .today) {
+            //            filteredIncentiveForGraph = nil
+            graphRangeType = .qtd
+            graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
+        }
+        var amount : Int = 0
+        let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Incentive}) ?? []
+        
+        if(dateRangeType == .mtd){
+        let currentMonth = Int(Date.today.string(format: "M"))
+            for data in dataArray {
+            for parameter in data.parameters ?? [] {
+                let value = parameter.transactions?.filter({$0.month == currentMonth})
+                //                value?.first?.amount
+                amount += value?.first?.amount ?? 0
+            }
+        }
+        
+        }
+        else {
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            //var amount = 0
+            for data in dataArray {
+            for parameter in data.parameters ?? [] {
+                    for month in months {
+                    let value = parameter.transactions?.filter({$0.month == month})
+                    amount += value?.first?.amount ?? 0
+                }
+            }
+        }
+        }
+        
+        headerModel?.value = Double(amount)
+        headerModel?.dateRangeType = graphRangeType
+        headerGraphData = getTotalIncentiveGraphEntry(forData: filteredIncentiveForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
+    }
       
       func incentiveData(startDate : Date, endDate : Date = Date().startOfDay, completion: (() -> Void)? ) {
           dataModel.removeAll()
@@ -146,30 +162,49 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
           let dateRange = DateRange(startDate, endDate)
           var graphRangeType = dateRangeType
           var graphDateRange = dateRange
-          var filteredFixedEarningsForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
+          var filteredIncentiveForGraph = [Dashboard.GetRevenueDashboard.RevenueTransaction]()
           
           if (dateRangeType == .yesterday || dateRangeType == .today) {
-             // filteredFixedEarningsForGraph = nil
+             // filteredIncentiveForGraph = nil
               graphRangeType = .mtd
               graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
           }
 
           let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Incentive}) ?? []
-          var index = 0
-          for data in dataArray {
-              for parameter in data.parameters ?? [] {
-                  let value = parameter.transactions?.filter({$0.month == currentMonth})
-  //                value?.first?.amount
-                  let model = EarningsCellDataModel(earningsType: .Incentive, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: incentiveDateRange)
-                  dataModel.append(model)
-                  graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: incentiveDateRange, dateRangeType: graphRangeType))
-                  
-                  index += 1
-              }
-          }
-          index = 0
+        var index = 0
+        for data in dataArray {
+            if(dateRangeType == .mtd){
+            for parameter in data.parameters ?? [] {
+                
+                let value = parameter.transactions?.filter({$0.month == currentMonth})
+                //                value?.first?.amount
+                let model = EarningsCellDataModel(earningsType: .Incentive, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: incentiveDateRange)
+                dataModel.append(model)
+                graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: incentiveDateRange, dateRangeType: graphRangeType))
+                
+                index += 1
+                }
+            }
+            else {
+                let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+                var amount = 0
+                for parameter in data.parameters ?? [] {
+                        for month in months {
+                        let value = parameter.transactions?.filter({$0.month == month})
+                        amount += value?.first?.amount ?? 0
+                    }
+                    let model = EarningsCellDataModel(earningsType: .Incentive, title: parameter.name ?? "", value: [amount.roundedStringValue()], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: incentiveDateRange)
+                    dataModel.append(model)
+                    graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: incentiveDateRange, dateRangeType: graphRangeType))
+                    
+                    index += 1
+                    amount = 0
+                }
+            }
+        }
+        index = 0
           
-          calculateTotalIncentive()
+          calculateTotalIncentive(dateRange : dateRange)
  
           tableView.reloadData()
           EZLoadingActivity.hide()
@@ -226,7 +261,7 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
       
       func totalIncentiveGraphData(forData data:[Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double]
       {
-  //        var totalFixedEarnings = [Double]()
+  //        var totalIncentive = [Double]()
   //        var filteredFootfall = data
   //
   //        //Fetch Data incase not having filtered already
@@ -255,11 +290,11 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
   //        if saloneGraphData.count == homeGraphData.count, homeGraphData.count == retailGraphData.count {
   //            for (index, saloneValue) in saloneGraphData.enumerated() {
   //                let totalValue = saloneValue + homeGraphData[index] + retailGraphData[index]
-  //                totalFixedEarnings.append(totalValue)
+  //                totalIncentive.append(totalValue)
   //            }
   //        }
   //
-  //        return totalFixedEarnings
+  //        return totalIncentive
           return [0.0]
       }
       
@@ -294,7 +329,7 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
   //            }
   //
   //            updateHeaderModel(withData: dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
-  //            headerGraphData = getTotalFixedEarningsGraphEntry(forData:dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
+  //            headerGraphData = getTotalIncentiveGraphEntry(forData:dateFilteredFootfall, dateRange: dateRange, dateRangeType: rangeType)
   //        }
           
           tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -388,26 +423,26 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
       
       func actionDateFilter() {
           print("Date Filter")
-//          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-//          self.view.alpha = screenPopUpAlpha
-//          vc.fromChartFilter = false
-//          vc.selectedRangeTypeString = dateRangeType.rawValue
-//          vc.cutomRange = incentiveDateRange
-//          UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-//          vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-//              // Do something
-//              self.view.alpha = 1.0
-//              if(result){
-//                  fromChartFilter = false
-//                  dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-//
-//                  if(dateRangeType == .cutome), let start = startDate, let end = endDate
-//                  {
-//                      incentiveDateRange = DateRange(start,end)
-//                  }
-//                  updateIncentiveData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-//              }
-//          }
+          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+          self.view.alpha = screenPopUpAlpha
+          vc.fromChartFilter = false
+          vc.selectedRangeTypeString = dateRangeType.rawValue
+          vc.cutomRange = incentiveDateRange
+          UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+          vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+              // Do something
+              self.view.alpha = 1.0
+              if(result){
+                  fromChartFilter = false
+                  dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+
+                  if(dateRangeType == .cutome), let start = startDate, let end = endDate
+                  {
+                      incentiveDateRange = DateRange(start,end)
+                  }
+                  updateIncentiveData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+              }
+          }
       }
       
       func actionNormalFilter() {
