@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0E745891275A58C500005935 /* ExtensionDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E745890275A58C500005935 /* ExtensionDouble.swift */; };
+		449D13B727844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449D13B527844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib */; };
+		449D13B827844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D13B627844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift */; };
+		449D13BB2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D13B92784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift */; };
+		449D13BC2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449D13BA2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.xib */; };
 		69400E1D2F1F3F927A241AA8 /* Pods_Enrich_TMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32C6778C4F80BC364D0D5CAA /* Pods_Enrich_TMA.framework */; };
 		6C8EF22ABB4EBF37B69F6F6E /* Pods_Enrich_TMAUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F93DD41D1FF48BF2C4971B5 /* Pods_Enrich_TMAUITests.framework */; };
 		D7A97E9D62DD6FD8DA434C0D /* Pods_Enrich_TMATests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9E5937A73CD31D48C3E419B /* Pods_Enrich_TMATests.framework */; };
@@ -762,8 +766,6 @@
 		F8A3C8BB25DE52DD0088739A /* RevenueTrendInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */; };
 		F8A3C8BD25DE53200088739A /* Incentive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A3C8BC25DE53200088739A /* Incentive.storyboard */; };
 		F8A3F598277EF40B00AFF75D /* ExtensionsInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */; };
-		F8A3F5AF2783733300AFF75D /* CTCDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */; };
-		F8A3F5B02783733300AFF75D /* CTCDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */; };
 		F8A40B2525DD0C0E00CAEB31 /* CustomerServedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */; };
 		F8A40B2625DD0C0E00CAEB31 /* CustomerServedCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */; };
 		F8A9147D246A8190003D39E0 /* TeleConsultationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */; };
@@ -927,6 +929,10 @@
 		0F93DD41D1FF48BF2C4971B5 /* Pods_Enrich_TMAUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMAUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F07588299F85041D16386AA /* Pods-Enrich_TMA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMA.release.xcconfig"; path = "Target Support Files/Pods-Enrich_TMA/Pods-Enrich_TMA.release.xcconfig"; sourceTree = "<group>"; };
 		32C6778C4F80BC364D0D5CAA /* Pods_Enrich_TMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		449D13B527844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTCBreakUpTableViewCell.xib; sourceTree = "<group>"; };
+		449D13B627844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCBreakUpTableViewCell.swift; sourceTree = "<group>"; };
+		449D13B92784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTCBreakUpDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		449D13BA2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CTCBreakUpDetailsTableViewCell.xib; sourceTree = "<group>"; };
 		60FCC72418C0EE210D93ACD8 /* Pods-Enrich_TMA.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMA.stage.xcconfig"; path = "Target Support Files/Pods-Enrich_TMA/Pods-Enrich_TMA.stage.xcconfig"; sourceTree = "<group>"; };
 		88D18718FC62A27A6A217F18 /* Pods-Enrich_TMATests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMATests.debug.xcconfig"; path = "Target Support Files/Pods-Enrich_TMATests/Pods-Enrich_TMATests.debug.xcconfig"; sourceTree = "<group>"; };
 		8BA559FB9B5C2F18F9BDE270 /* Pods-Enrich_TMAUITests.stage.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMAUITests.stage.xcconfig"; path = "Target Support Files/Pods-Enrich_TMAUITests/Pods-Enrich_TMAUITests.stage.xcconfig"; sourceTree = "<group>"; };
@@ -1695,8 +1701,6 @@
 		F8A3C8B525DE52DD0088739A /* RevenueTrendInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevenueTrendInteractor.swift; sourceTree = "<group>"; };
 		F8A3C8BC25DE53200088739A /* Incentive.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Incentive.storyboard; sourceTree = "<group>"; };
 		F8A3F597277EF40B00AFF75D /* ExtensionsInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsInt.swift; sourceTree = "<group>"; };
-		F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTCDetailsCell.swift; sourceTree = "<group>"; };
-		F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CTCDetailsCell.xib; sourceTree = "<group>"; };
 		F8A40B2325DD0C0E00CAEB31 /* CustomerServedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerServedCell.swift; sourceTree = "<group>"; };
 		F8A40B2425DD0C0E00CAEB31 /* CustomerServedCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomerServedCell.xib; sourceTree = "<group>"; };
 		F8A91477246A8190003D39E0 /* TeleConsultationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeleConsultationPresenter.swift; sourceTree = "<group>"; };
@@ -3918,6 +3922,10 @@
 			isa = PBXGroup;
 			children = (
 				F8802BFB25E50800005EBD1D /* CTCDetailsCell.swift */,
+				449D13B627844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift */,
+				449D13B92784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift */,
+				449D13BA2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.xib */,
+				449D13B527844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib */,
 				F8802BFC25E50800005EBD1D /* CTCDetailsCell.xib */,
 				F8802BFF25E5083B005EBD1D /* CTCBreakUpCell.swift */,
 				F8802C0025E5083B005EBD1D /* CTCBreakUpCell.xib */,
@@ -4141,8 +4149,6 @@
 		F8A3F5A92783723C00AFF75D /* CTC Cell */ = {
 			isa = PBXGroup;
 			children = (
-				F8A3F5AD2783733300AFF75D /* CTCDetailsCell.swift */,
-				F8A3F5AE2783733300AFF75D /* CTCDetailsCell.xib */,
 			);
 			path = "CTC Cell";
 			sourceTree = "<group>";
@@ -4747,6 +4753,7 @@
 				E38815E223797C440091964B /* JabCardServiceHeaderCell.xib in Resources */,
 				E33F1180234B12DA00C2F9F5 /* FuturaPTCondExtraBoldOblique.otf in Resources */,
 				F8B8610725C4235D00EFDEFE /* index.html in Resources */,
+				449D13B727844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib in Resources */,
 				F8B77E79240E642A006A35B0 /* CustomerReviewCell.xib in Resources */,
 				E3FCBADA240D37AE008349A8 /* BookingDetailMembershipPlanCell.xib in Resources */,
 				E33F117A234B12DA00C2F9F5 /* FuturaPTBook.otf in Resources */,
@@ -4782,6 +4789,7 @@
 				F832BE3325E629CE0095D886 /* IncentiveDetailsHeaderCell.xib in Resources */,
 				F8F7CA1826BA827300A2323D /* EarningDetailsHeaderCell.xib in Resources */,
 				E3FCBAF9240D37AE008349A8 /* StylistDetailsCell.xib in Resources */,
+				449D13BC2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.xib in Resources */,
 				E33F118C234B12DA00C2F9F5 /* NotoSerif-Italic.ttf in Resources */,
 				E3FCBAC8240D37AE008349A8 /* PersonalDetailsCell.xib in Resources */,
 				E3FCBAEC240D37AE008349A8 /* BookingDetailServiceCell.xib in Resources */,
@@ -4907,7 +4915,6 @@
 				E33F1175234B12DA00C2F9F5 /* FuturaPTExtraBold.otf in Resources */,
 				E3FCBACB240D37AE008349A8 /* SelectedServicesCell.xib in Resources */,
 				F8802C0225E5083B005EBD1D /* CTCBreakUpCell.xib in Resources */,
-				F8A3F5B02783733300AFF75D /* CTCDetailsCell.xib in Resources */,
 				F85A3CEF24D7FB84001974CC /* BestPossibleDiscountCell.xib in Resources */,
 				E3FCBAC5240D37AE008349A8 /* TimeSlotsTableViewCell.xib in Resources */,
 				E32F68B423796493009DD6A9 /* ServiceHistoryCell.xib in Resources */,
@@ -5325,7 +5332,6 @@
 				F8D02426241225A000CD5E71 /* ShowListingView.swift in Sources */,
 				E30E5E452357494F001040F5 /* LoginOTPModuleModels.swift in Sources */,
 				E3FCB8A5240D3141008349A8 /* AddOnListingViewController.swift in Sources */,
-				F8A3F5AF2783733300AFF75D /* CTCDetailsCell.swift in Sources */,
 				E3FCBB2D240D37AE008349A8 /* HairServicesCell.swift in Sources */,
 				F851EF2126BBC10400D97020 /* SalesModels.swift in Sources */,
 				F85282E426BD63C800E02CB2 /* EarningDetailsCell.swift in Sources */,
@@ -5496,6 +5502,7 @@
 				F8F7C9FD26BA80AB00A2323D /* RevenuePresenter.swift in Sources */,
 				E3FCB8A0240D3141008349A8 /* ProductListingModuleInteractor.swift in Sources */,
 				E3FCB897240D3141008349A8 /* SubProdListModulePresenter.swift in Sources */,
+				449D13B827844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift in Sources */,
 				E37237FF23570E1B00DD0375 /* MyCustomersWorker.swift in Sources */,
 				F82BCF71248F7A4800F16419 /* SendPaymentLinkWorker.swift in Sources */,
 				E33F8FE72355B6BF000D5288 /* DashboardProfileCell.swift in Sources */,
@@ -5576,6 +5583,7 @@
 				F87494E926CA9E4C002A2202 /* PackageFilterWorker.swift in Sources */,
 				F8DD555A25DBB0AE00BBA432 /* DayAxisValueFormatter.swift in Sources */,
 				F875C46B2410D919009AA42F /* ProductCatalogHeaderCell.swift in Sources */,
+				449D13BB2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift in Sources */,
 				E3F92FF8237AD2A30084A37D /* CartAmountCell.swift in Sources */,
 				F85925B224459881005E386A /* ChangeTimeSlotModels.swift in Sources */,
 				F851EF4926BBC1AE00D97020 /* FootfallWorker.swift in Sources */,

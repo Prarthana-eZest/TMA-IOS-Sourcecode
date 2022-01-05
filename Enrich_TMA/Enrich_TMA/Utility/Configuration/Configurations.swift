@@ -182,6 +182,11 @@ enum SectionIdentifier: String {
     case bestPossibleDiscount = "Best Possible Discount"
     case walletAndRewardMode = "Wallet Reward Mode"
 
+    case fixedPay = "Fixed Pay"
+    case totalCTC = "Total CTC"
+    case deductions = "Deductions"
+    case takeHome = "Take Home"
+    case otherBenefits = "Other Benefits"
 }
 
 enum CellIdentifier {
@@ -443,6 +448,9 @@ enum CellIdentifier {
     static let earningsSelectFilterDateRangeCell = "EarningsSelectFilterDateRangeCell"
     static let earningDetailsTViewTrendHeaderCell = "EarningDetailsTViewTrendHeaderCell"
     static let earningDetailsViewTrendCellTableViewCell = "EarningDetailsViewTrendCellTableViewCell"
+    static let ctcBreakUpTableViewCell = "CTCBreakUpTableViewCell"
+    static let ctcBreakUpDetailsTableViewCell = "CTCBreakUpDetailsTableViewCell"
+    
 }
 
 struct SectionConfiguration {
