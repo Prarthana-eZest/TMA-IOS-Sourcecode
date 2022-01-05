@@ -52,6 +52,7 @@ enum ViewCTC
             let conveyance_allowance : Int?
             let education_allowance : Int?
             let medical_allowance : Int?
+            let telephone_allowance : Int?
             let other_allowance : Int?
             let employee_pf : Int?
             let employee_esic : Int?
@@ -87,6 +88,7 @@ enum ViewCTC
             let uhs_allowance : Int?
             let fix_pay : Int?
             let ctc : Int?
+            let gratuity : Int?
             let take_home : Int?
             let hra_da : Int?
             let statutory_bonus : Int?
