@@ -123,6 +123,7 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
 
         if let model = viewModel as? ViewCTC.GetCTCDeatils.Response, model.status == true {
             self.ctcModelObject = model
+            self.tableView.reloadData()
         }
         
     }
@@ -167,6 +168,59 @@ extension ViewCTCViewController{
         default :
             return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 0, cellWidth: width, showHeader: false, showFooter: false, headerHeight: headerHeight, footerHeight: 0, leftMargin: 0, rightMarging: 0, isPagingEnabled: false, textFont: nil, textColor: sectionTitleColor, items: items, identifier: idetifier, data: data)
         }
+    }
+    
+    func calculateFixedPayMonthlyIncome() -> Int{
+        
+        let basic = self.ctcModelObject?.data?.basic ?? 0
+        let hra_da = self.ctcModelObject?.data?.hra_da ?? 0
+        let statutory_bonus = self.ctcModelObject?.data?.statutory_bonus ?? 0
+        let additional_payout = self.ctcModelObject?.data?.additional_payout ?? 0
+        let conveyance_allowance = self.ctcModelObject?.data?.conveyance_allowance ?? 0
+        let medical_allowance = self.ctcModelObject?.data?.medical_allowance ?? 0
+        let telephone_allowance = self.ctcModelObject?.data?.telephone_allowance ?? 0
+        let food_allowance = self.ctcModelObject?.data?.food_allowance ?? 0
+        let books_and_periodicals_allowance = self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0
+        let education_allowance = self.ctcModelObject?.data?.education_allowance ?? 0
+        let washing_allowance = self.ctcModelObject?.data?.washing_allowance ?? 0
+        let tea_allowance = self.ctcModelObject?.data?.tea_allowance ?? 0
+        
+        let count1 = basic + hra_da + statutory_bonus + additional_payout + conveyance_allowance
+        let count2 = medical_allowance + telephone_allowance + food_allowance + books_and_periodicals_allowance
+        let count3 = education_allowance + washing_allowance + tea_allowance
+        
+        let totalCount = count1 + count2 + count3
+        return totalCount
+    }
+
+    //Take home = fixedpay - deductions
+    func calculateTotalCTCMonthlyIncome() -> Int{
+        let fixed_pay = calculateFixedPayMonthlyIncome()
+        let employee_esic = self.ctcModelObject?.data?.employee_esic ?? 0
+        let employee_pf = self.ctcModelObject?.data?.employee_pf ?? 0
+        
+        let totalCount = fixed_pay + employee_esic + employee_pf
+        return totalCount
+    }
+    
+    func calculateDeductionsMonthlyIncome() -> Int{
+        let employee_pf = self.ctcModelObject?.data?.employee_pf ?? 0
+        let employee_esic = self.ctcModelObject?.data?.employee_esic ?? 0
+        let professional_tax = self.ctcModelObject?.data?.professional_tax ?? 0
+        let mediclaim = self.ctcModelObject?.data?.mediclaim ?? 0
+
+        let totalCount = employee_pf + employee_esic + professional_tax + mediclaim
+        return totalCount
+    }
+    
+    func calculateOthersBenefitsMonthlyIncome() -> Int{
+        let grooming_points = self.ctcModelObject?.data?.grooming_points ?? 0
+        let gratuity = self.ctcModelObject?.data?.gratuity ?? 0
+        let mediclaim_coverage = self.ctcModelObject?.data?.mediclaim_coverage ?? 0
+        let life_insurance_coverage = self.ctcModelObject?.data?.life_insurance_coverage ?? 0
+        
+        let totalCount = grooming_points + gratuity + mediclaim_coverage + life_insurance_coverage
+        return totalCount
     }
     
 }
@@ -245,8 +299,9 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.lbltitle.text = CTCDetailsCode.fixedPay
                 
-                cell.lblMonthly.text = "52,236"
-                cell.lblYear.text = "8,90,000"
+                cell.lblMonthly.text = self.calculateFixedPayMonthlyIncome().roundedStringValue()
+                let yearLyValue = self.calculateFixedPayMonthlyIncome() * 12
+                cell.lblYear.text = yearLyValue.roundedStringValue()
                 
                 return cell
             }
@@ -265,8 +320,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentStackView.alignment = .center
                 
                 cell.lblBasicTitle.text = "Total"
-                cell.lblBasicMonth.text = "52,236"
-                cell.lblBasicYear.text = "8,90,000"
+                cell.lblBasicMonth.text = self.calculateFixedPayMonthlyIncome().roundedStringValue()
+                
+                let yearLyValue = self.calculateFixedPayMonthlyIncome() * 12
+                cell.lblBasicYear.text = yearLyValue.roundedStringValue()
                 
                 //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
                 
@@ -321,8 +378,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 if indexPath.row == 7{
                     cell.lblBasicTitle.text = "Telephone Allowance"
-                    cell.lblBasicMonth.text = "Telephone Allowance"
-                    cell.lblBasicYear.text = "Telephone Allowance"
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.telephone_allowance ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.telephone_allowance ?? 0) * 12).roundedStringValue()
                 }
                 if indexPath.row == 8{
                     cell.lblBasicTitle.text = "Food Allowance"
@@ -381,8 +438,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.lbltitle.text = CTCDetailsCode.totalCTC
                 
-                cell.lblMonthly.text = "54,256"
-                cell.lblYear.text = "9,40,000"
+                cell.lblMonthly.text = self.calculateTotalCTCMonthlyIncome().roundedStringValue()
+                cell.lblYear.text = (self.calculateTotalCTCMonthlyIncome() * 12).roundedStringValue()
                 
                 return cell
             }
@@ -401,8 +458,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicTopTitle.isHidden = true
                 
                 cell.lblBasicTitle.text = "Total"
-                cell.lblBasicMonth.text = "54,256"
-                cell.lblBasicYear.text = "9,40,000"
+                cell.lblBasicMonth.text = self.calculateTotalCTCMonthlyIncome().roundedStringValue()
+                cell.lblBasicYear.text = (self.calculateTotalCTCMonthlyIncome() * 12).roundedStringValue()
                 
                 //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
                 
@@ -427,8 +484,12 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Fixed Pay"
-                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
-                    cell.lblBasicYear.text = (self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
+                    cell.lblBasicMonth.text = self.calculateFixedPayMonthlyIncome().roundedStringValue()
+                    
+                    //(self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = (self.calculateFixedPayMonthlyIncome() * 12 ).roundedStringValue()
+                    
+                    //(self.ctcModelObject?.data?.fix_pay ?? 0).roundedStringValue()
                 }
                 else if indexPath.row == 2{
                     
@@ -437,8 +498,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     
                     cell.lblBasicTopTitle.text = "Employer's Contribution"
                     cell.lblBasicTitle.text = "Provident Fund"
-                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.company_pf ?? 0).roundedStringValue()
-                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.company_pf ?? 0) * 12).roundedStringValue()
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_pf ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_pf ?? 0) * 12).roundedStringValue()
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "ESIC"
@@ -481,8 +542,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.lbltitle.text = CTCDetailsCode.deductions
                 
-                cell.lblMonthly.text = "2,236"
-                cell.lblYear.text = "24,000"
+                cell.lblMonthly.text = self.calculateDeductionsMonthlyIncome().roundedStringValue()
+                cell.lblYear.text = (self.calculateDeductionsMonthlyIncome() * 12).roundedStringValue()
                 
                 return cell
             }
@@ -501,8 +562,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicTopTitle.isHidden = true
                 
                 cell.lblBasicTitle.text = "Total"
-                cell.lblBasicMonth.text = "2,236"
-                cell.lblBasicYear.text = "24,000"
+                cell.lblBasicMonth.text = self.calculateDeductionsMonthlyIncome().roundedStringValue()
+                cell.lblBasicYear.text = (self.calculateDeductionsMonthlyIncome() * 12).roundedStringValue()
                 
                 //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
                 
@@ -567,8 +628,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
             
             cell.lbltitle.text = CTCDetailsCode.takeHome
             
-            cell.lblMonthly.text = "48,589"
-            cell.lblYear.text = "8,90,000"
+            //Take home = fixedpay - deductions
+            let takeHomeCount = self.calculateFixedPayMonthlyIncome() - self.calculateDeductionsMonthlyIncome()
+            cell.lblMonthly.text = takeHomeCount.roundedStringValue()
+            cell.lblYear.text = (takeHomeCount * 12).roundedStringValue()
             
             return cell
             
@@ -601,8 +664,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.lbltitle.text = CTCDetailsCode.otherBenefits
                 
-                cell.lblMonthly.text = "2,236"
-                cell.lblYear.text = "24,000"
+                cell.lblMonthly.text = self.calculateOthersBenefitsMonthlyIncome().roundedStringValue()
+                cell.lblYear.text = (self.calculateOthersBenefitsMonthlyIncome() * 12).roundedStringValue()
                 
                 return cell
             }
@@ -618,8 +681,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicYear.textColor = UIColor(hexString: "#4AA0CC")
                 
                 cell.lblBasicTitle.text = "Total"
-                cell.lblBasicMonth.text = "2,236"
-                cell.lblBasicYear.text = "24,000"
+                cell.lblBasicMonth.text = self.calculateOthersBenefitsMonthlyIncome().roundedStringValue()
+                cell.lblBasicYear.text = (self.calculateOthersBenefitsMonthlyIncome() * 12).roundedStringValue()
                 
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
@@ -651,8 +714,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 else if indexPath.row == 2{
                     cell.lblBasicTitle.text = "Gratuity"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.grooming_points ?? 0) * 12)
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.gratuity ?? 0)
+                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.gratuity ?? 0) * 12)
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Mediclaim Coverage"
