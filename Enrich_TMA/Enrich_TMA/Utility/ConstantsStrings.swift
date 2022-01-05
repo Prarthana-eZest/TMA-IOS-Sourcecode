@@ -387,3 +387,10 @@ enum TotalSegmentsCode {
     static let remainingAmount = "Remaining Amount"
     static let rewardsSpend = "rewards-spend"
 }
+enum CTCDetailsCode{
+    static let fixedPay = "Fixed Pay"
+    static let totalCTC = "Total CTC"
+    static let deductions = "Deductions"
+    static let takeHome = "Take Home"
+    static let otherBenefits = "Other Benefits"
+}

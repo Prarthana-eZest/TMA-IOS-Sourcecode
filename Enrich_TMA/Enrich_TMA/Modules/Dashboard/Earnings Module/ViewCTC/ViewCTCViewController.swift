@@ -14,86 +14,102 @@ import UIKit
 
 protocol ViewCTCDisplayLogic: class
 {
- 
     func displaySuccessCTC<T: Decodable> (viewModel: T)
     func displayErrorCTC(errorMessage: String?)
+}
+struct CTCBreakUpStruct{
+    var isFixedPayTapped:Bool = false
+    var isToTalCTCTapped:Bool = false
+    var isDeductionsTapped:Bool = false
+    var isTakeHomeTapped:Bool = false
+    var isOtherBenefitsTapped:Bool = false
 }
 
 class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
 {
-  var interactor: ViewCTCBusinessLogic?
-  var router: (NSObjectProtocol & ViewCTCRoutingLogic & ViewCTCDataPassing)?
-
-  // MARK: Object lifecycle
-  
-  override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
-  {
-    super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    setup()
-  }
-  
-  required init?(coder aDecoder: NSCoder)
-  {
-    super.init(coder: aDecoder)
-    setup()
-  }
-  
-  // MARK: Setup
-  
-  private func setup()
-  {
-    let viewController = self
-    let interactor = ViewCTCInteractor()
-    let presenter = ViewCTCPresenter()
-    let router = ViewCTCRouter()
-    viewController.interactor = interactor
-    viewController.router = router
-    interactor.presenter = presenter
-    presenter.viewController = viewController
-    router.viewController = viewController
-    router.dataStore = interactor
-  }
-  
-  // MARK: Routing
-  
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?)
-  {
-    if let scene = segue.identifier {
-      let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
-      if let router = router, router.responds(to: selector) {
-        router.perform(selector, with: segue)
-      }
+    var interactor: ViewCTCBusinessLogic?
+    var router: (NSObjectProtocol & ViewCTCRoutingLogic & ViewCTCDataPassing)?
+    
+    @IBOutlet weak var tableView: UITableView!
+    var sections = [SectionConfiguration]()
+    private var ctcBreakUpStruct = CTCBreakUpStruct()
+    var ctcModelObject: ViewCTC.GetCTCDeatils.Response?
+    
+    // MARK: Object lifecycle
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
+    {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setup()
     }
-  }
-  
-  // MARK: View lifecycle
-  
-  override func viewDidLoad()
-  {
-    super.viewDidLoad()
-    doSomething()
-    getCTCDetails()
-  }
-  
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    // MARK: Setup
+    
+    private func setup()
+    {
+        let viewController = self
+        let interactor = ViewCTCInteractor()
+        let presenter = ViewCTCPresenter()
+        let router = ViewCTCRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        interactor.presenter = presenter
+        presenter.viewController = viewController
+        router.viewController = viewController
+        router.dataStore = interactor
+    }
+    
+    // MARK: Routing
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if let scene = segue.identifier {
+            let selector = NSSelectorFromString("routeTo\(scene)WithSegue:")
+            if let router = router, router.responds(to: selector) {
+                router.perform(selector, with: segue)
+            }
+        }
+    }
+    
+    // MARK: View lifecycle
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        self.tableView.register(UINib(nibName: CellIdentifier.ctcBreakUpTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.ctcBreakUpTableViewCell)
+        self.tableView.register(UINib(nibName: CellIdentifier.ctcBreakUpDetailsTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell)
+        
+        configureSection()
+        doSomething()
+        getCTCDetails()
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.addCustomBackButton(title: "CTC Break-up")
     }
-  // MARK: Do something
-  
-  //@IBOutlet weak var nameTextField: UITextField!
-  
-  func doSomething()
-  {
-    let request = ViewCTC.Something.Request()
-    interactor?.doSomething(request: request)
-  }
-  
-  func displaySomething(viewModel: ViewCTC.Something.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
-  }
+    // MARK: Do something
+    
+    //@IBOutlet weak var nameTextField: UITextField!
+    
+    func doSomething()
+    {
+        let request = ViewCTC.Something.Request()
+        interactor?.doSomething(request: request)
+    }
+    
+    func displaySomething(viewModel: ViewCTC.Something.ViewModel)
+    {
+        //nameTextField.text = viewModel.name
+    }
     
     //Get earnings dashbioard data
     func getCTCDetails() {
@@ -104,11 +120,9 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
     
     func displaySuccessCTC<T>(viewModel: T) where T: Decodable {
         EZLoadingActivity.hide()
-       // print("Response: \(viewModel)")
-        
+
         if let model = viewModel as? ViewCTC.GetCTCDeatils.Response, model.status == true {
-            print("********* from success********* \n \(viewModel)")
-           
+            self.ctcModelObject = model
         }
         
     }
@@ -117,5 +131,663 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
         EZLoadingActivity.hide()
         print("Failed: \(errorMessage ?? "")")
         showAlert(alertTitle: alertTitle, alertMessage: errorMessage ?? "Request Failed")
+    }
+}
+extension ViewCTCViewController{
+    func configureSection() {
+        // configureSections
+        sections.removeAll()
+        
+        sections.append(configureSection(sectionTitle: "",idetifier: .fixedPay, items: 1, data: []))
+        sections.append(configureSection(sectionTitle: "",idetifier: .totalCTC, items: 1, data: []))
+        sections.append(configureSection(sectionTitle: "",idetifier: .deductions, items: 1, data: []))
+        sections.append(configureSection(sectionTitle: "",idetifier: .takeHome, items: 1, data: []))
+        sections.append(configureSection(sectionTitle: "",idetifier: .otherBenefits, items: 1, data: []))
+        
+    }
+    
+    func configureSection(sectionTitle:String = "", idetifier: SectionIdentifier, items: Int, data: Any) -> SectionConfiguration {
+        
+        let headerHeight: CGFloat = is_iPAD ? 78 : 58
+        
+        var width: CGFloat = 0.0
+        if (self.tableView != nil)
+        {
+            width = self.tableView.frame.size.width
+        }
+        
+        let font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: is_iPAD ? 22.0 : 16.0)
+        let sectionTitleColor = UIColor(hexString: "#2B2A29")
+        
+        switch idetifier {
+        
+        case .fixedPay, .totalCTC, .deductions, .takeHome, .otherBenefits:
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 0, cellWidth: width, showHeader: false, showFooter: false, headerHeight: headerHeight, footerHeight: 0, leftMargin: 0, rightMarging: 0, isPagingEnabled: false, textFont: font, textColor: sectionTitleColor, items: items, identifier: idetifier, data: data)
+            
+        default :
+            return SectionConfiguration(title: idetifier.rawValue, subTitle: "", cellHeight: 0, cellWidth: width, showHeader: false, showFooter: false, headerHeight: headerHeight, footerHeight: 0, leftMargin: 0, rightMarging: 0, isPagingEnabled: false, textFont: nil, textColor: sectionTitleColor, items: items, identifier: idetifier, data: data)
+        }
+    }
+    
+}
+
+extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let data = sections[section]
+        guard data.items > 0 else {
+            return 0
+        }
+        switch data.identifier {
+        case .fixedPay:
+            if self.ctcBreakUpStruct.isFixedPayTapped == false{
+                return 1
+            }
+            return 1 + 12 + 1
+            
+        case .totalCTC:
+            if self.ctcBreakUpStruct.isToTalCTCTapped == false{
+                return 1
+            }
+            return 1 + 3 + 1
+        case .deductions:
+            if self.ctcBreakUpStruct.isDeductionsTapped == false{
+                return 1
+            }
+            return 1 + 4 + 1
+        case .takeHome:
+            if self.ctcBreakUpStruct.isTakeHomeTapped == false{
+                return 1
+            }
+            return 1
+        case .otherBenefits:
+            if self.ctcBreakUpStruct.isOtherBenefitsTapped == false{
+                return 1
+            }
+            return 1 + 4 + 1
+        default:
+            return data.items
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let data = sections[indexPath.section]
+        
+        switch data.identifier {
+        
+        case .fixedPay:
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpTableViewCell) as! CTCBreakUpTableViewCell
+
+                cell.imgDropDownView.isHidden = false
+                
+                cell.parentView.backgroundColor = .white
+                cell.lbltitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.textColor = UIColor(hexString: "#14B28D")
+                cell.lblYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.lblMonthlyTitle.textColor = UIColor(hexString: "#2B2A29")
+                cell.lblYearTitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.isHidden = true
+                cell.lblYear.isHidden = true
+                
+                if self.ctcBreakUpStruct.isFixedPayTapped == false{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
+                    cell.lblMonthly.isHidden = false
+                    cell.lblYear.isHidden = false
+                    
+                }else{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                }
+                
+                cell.lbltitle.text = CTCDetailsCode.fixedPay
+                
+                cell.lblMonthly.text = "52,236"
+                cell.lblYear.text = "8,90,000"
+                
+                return cell
+            }
+            else if indexPath.row == 13{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#14B28D")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.lblBasicTopTitle.isHidden = true
+                cell.parentStackView.alignment = .center
+                
+                cell.lblBasicTitle.text = "Total"
+                cell.lblBasicMonth.text = "52,236"
+                cell.lblBasicYear.text = "8,90,000"
+                
+                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#7D7D7C")
+                
+                cell.parentView.layer.cornerRadius = 0
+                cell.parentView.layer.masksToBounds = true
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                if indexPath.row == 1{
+                    cell.lblBasicTitle.text = "Basic"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                }
+                if indexPath.row == 2{
+                    cell.lblBasicTitle.text = "HRA + DA"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.hra_da ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.hra_da ?? 0)
+                }
+                if indexPath.row == 3{
+                    cell.lblBasicTitle.text = "Statutory Bonus"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.statutory_bonus ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.statutory_bonus ?? 0)
+                }
+                if indexPath.row == 4{
+                    cell.lblBasicTitle.text = "Additional Pay-Out"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                }
+                if indexPath.row == 5{
+                    cell.lblBasicTitle.text = "Conveyance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.basic ?? 0)
+                }
+                if indexPath.row == 6{
+                    cell.lblBasicTitle.text = "Medical Allowance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.mediclaim ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.mediclaim ?? 0)
+                }
+                if indexPath.row == 7{
+                    cell.lblBasicTitle.text = "Telephone Allowance"
+                    cell.lblBasicMonth.text = "Telephone Allowance"
+                    cell.lblBasicYear.text = "Telephone Allowance"
+                }
+                if indexPath.row == 8{
+                    cell.lblBasicTitle.text = "Food Allowance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.food_allowance ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.food_allowance ?? 0)
+                }
+                if indexPath.row == 9{
+                    cell.lblBasicTitle.text = "Books & Periodicals"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0)
+                }
+                if indexPath.row == 10{
+                    cell.lblBasicTitle.text = "Education Allowance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.education_allowance ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.education_allowance ?? 0)
+                }
+                if indexPath.row == 11{
+                    cell.lblBasicTitle.text = "Washing Allowance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.washing_allowance ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.washing_allowance ?? 0)
+                }
+                if indexPath.row == 12{
+                    cell.lblBasicTitle.text = "Tea Allowance"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.tea_allowance ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.tea_allowance ?? 0)
+                }
+                return cell
+            }
+            
+        case .totalCTC:
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpTableViewCell) as! CTCBreakUpTableViewCell
+                
+                cell.imgDropDownView.isHidden = false
+                
+                cell.parentView.backgroundColor = .white
+                cell.lbltitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.textColor = UIColor(hexString: "#14B28D")
+                cell.lblYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.lblMonthlyTitle.textColor = UIColor(hexString: "#2B2A29")
+                cell.lblYearTitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.isHidden = true
+                cell.lblYear.isHidden = true
+                
+                if self.ctcBreakUpStruct.isToTalCTCTapped == false{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
+                    cell.lblMonthly.isHidden = false
+                    cell.lblYear.isHidden = false
+                    
+                }else{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                }
+                
+                cell.lbltitle.text = CTCDetailsCode.totalCTC
+                
+                cell.lblMonthly.text = "54,256"
+                cell.lblYear.text = "9,40,000"
+                
+                return cell
+            }
+            else if indexPath.row == 4{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#14B28D")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                cell.lblBasicTitle.text = "Total"
+                cell.lblBasicMonth.text = "54,256"
+                cell.lblBasicYear.text = "9,40,000"
+                
+                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                
+                return cell
+            }
+            else{
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#7D7D7C")
+                
+                cell.parentView.layer.cornerRadius = 0
+                cell.parentView.layer.masksToBounds = true
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                if indexPath.row == 1{
+                    cell.lblBasicTitle.text = "Fixed Pay"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
+                }
+                else if indexPath.row == 2{
+                    
+                    cell.parentStackView.alignment = .bottom
+                    cell.lblBasicTopTitle.isHidden = false
+                    
+                    cell.lblBasicTopTitle.text = "Employer's Contribution"
+                    cell.lblBasicTitle.text = "Provident Fund"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.professional_tax ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.professional_tax ?? 0)
+                }
+                else if indexPath.row == 3{
+                    cell.lblBasicTitle.text = "ESIC"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                }
+                
+                return cell
+            }
+            
+        case .deductions:
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpTableViewCell) as! CTCBreakUpTableViewCell
+                
+                cell.imgDropDownView.isHidden = false
+                
+                cell.parentView.backgroundColor = .white
+                cell.lbltitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.textColor = UIColor(hexString: "#14B28D")
+                cell.lblYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.lblMonthlyTitle.textColor = UIColor(hexString: "#2B2A29")
+                cell.lblYearTitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.isHidden = true
+                cell.lblYear.isHidden = true
+                
+                if self.ctcBreakUpStruct.isDeductionsTapped == false{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
+                    cell.lblMonthly.isHidden = false
+                    cell.lblYear.isHidden = false
+                    
+                }else{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                }
+                
+                cell.lblMonthly.textColor = UIColor(hexString: "#F28088")
+                cell.lblYear.textColor = UIColor(hexString: "#F28088")
+                
+                cell.lbltitle.text = CTCDetailsCode.deductions
+                
+                cell.lblMonthly.text = "2,236"
+                cell.lblYear.text = "24,000"
+                
+                return cell
+            }
+            else if indexPath.row == 5{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#F28088")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#F28088")
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                cell.lblBasicTitle.text = "Total"
+                cell.lblBasicMonth.text = "2,236"
+                cell.lblBasicYear.text = "24,000"
+                
+                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#7D7D7C")
+                
+                cell.parentView.layer.cornerRadius = 0
+                cell.parentView.layer.masksToBounds = true
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                if indexPath.row == 1{
+                    cell.parentStackView.alignment = .bottom
+                    cell.lblBasicTopTitle.isHidden = false
+                    cell.lblBasicTopTitle.text = "Employee's Contribution"
+                    
+                    cell.lblBasicTitle.text = "Provident Fund"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.fix_pay ?? 0)
+                }
+                else if indexPath.row == 2{
+                    cell.lblBasicTitle.text = "ESIC"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.professional_tax ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.professional_tax ?? 0)
+                }
+                else if indexPath.row == 3{
+                    cell.lblBasicTitle.text = "Profession Tax"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                }
+                else if indexPath.row == 4{
+                    cell.lblBasicTitle.text = "Mediclaim Premium"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.employee_esic ?? 0)
+                }
+                
+                return cell
+            }
+        case .takeHome:
+            let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpTableViewCell) as! CTCBreakUpTableViewCell
+            
+            cell.imgDropDownView.isHidden = true
+            cell.parentView.backgroundColor = UIColor(hexString: "#4AA0CC")
+            cell.lbltitle.textColor = UIColor.white
+            cell.lblMonthly.textColor = UIColor.white
+            cell.lblYear.textColor = UIColor.white
+            cell.lblMonthlyTitle.textColor = UIColor.white
+            cell.lblYearTitle.textColor = UIColor.white
+            
+            cell.lblMonthly.isHidden = false
+            cell.lblYear.isHidden = false
+            
+            cell.lbltitle.text = CTCDetailsCode.takeHome
+            
+            cell.lblMonthly.text = "48,589"
+            cell.lblYear.text = "8,90,000"
+            
+            return cell
+            
+        case .otherBenefits:
+            if indexPath.row == 0{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpTableViewCell) as! CTCBreakUpTableViewCell
+                
+                cell.imgDropDownView.isHidden = false
+                
+                cell.parentView.backgroundColor = .white
+                cell.lbltitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.textColor = UIColor(hexString: "#14B28D")
+                cell.lblYear.textColor = UIColor(hexString: "#14B28D")
+                
+                cell.lblMonthlyTitle.textColor = UIColor(hexString: "#2B2A29")
+                cell.lblYearTitle.textColor = UIColor(hexString: "#2B2A29")
+                
+                cell.lblMonthly.isHidden = true
+                cell.lblYear.isHidden = true
+                
+                if self.ctcBreakUpStruct.isOtherBenefitsTapped == false{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
+                    cell.lblMonthly.isHidden = false
+                    cell.lblYear.isHidden = false
+                    
+                }else{
+                    cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                }
+                
+                cell.lbltitle.text = CTCDetailsCode.otherBenefits
+                
+                cell.lblMonthly.text = "2,236"
+                cell.lblYear.text = "24,000"
+                
+                return cell
+            }
+            else if indexPath.row == 5{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTDemi.rawValue, size: 16)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#4AA0CC")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#4AA0CC")
+                
+                cell.lblBasicTitle.text = "Total"
+                cell.lblBasicMonth.text = "2,236"
+                cell.lblBasicYear.text = "24,000"
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                
+                return cell
+            }
+            else{
+                let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell) as! CTCBreakUpDetailsTableViewCell
+                cell.lblBasicTitle.font = UIFont(name: FontName.FuturaPTBook.rawValue, size: 14)
+                cell.lblBasicMonth.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                cell.lblBasicYear.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 14)
+                
+                cell.lblBasicTitle.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicMonth.textColor = UIColor(hexString: "#7D7D7C")
+                cell.lblBasicYear.textColor = UIColor(hexString: "#7D7D7C")
+                
+                cell.parentView.layer.cornerRadius = 0
+                cell.parentView.layer.masksToBounds = true
+                
+                cell.parentStackView.alignment = .center
+                cell.lblBasicTopTitle.isHidden = true
+                
+                if indexPath.row == 1{
+                    cell.lblBasicTitle.text = "Grooming Points"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
+                }
+                else if indexPath.row == 2{
+                    cell.lblBasicTitle.text = "Gratuity"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
+                }
+                else if indexPath.row == 3{
+                    cell.lblBasicTitle.text = "Mediclaim Coverage"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.mediclaim_coverage ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.mediclaim_coverage ?? 0)
+                }
+                else if indexPath.row == 4{
+                    cell.lblBasicTitle.text = "Life Insurance Coverage"
+                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.life_insurance_coverage ?? 0)
+                    cell.lblBasicYear.text = String(self.ctcModelObject?.data?.life_insurance_coverage ?? 0)
+                }
+                
+                return cell
+            }
+        default:
+            return UITableViewCell()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        let data = sections[indexPath.section]
+        
+        switch data.identifier {
+        
+        case .fixedPay, .takeHome:
+            if indexPath.row == 0 || indexPath.row == 13{
+                return 60
+            }
+            return 40
+            
+        case .totalCTC:
+            if indexPath.row == 0 || indexPath.row == 4 || indexPath.row == 2{
+                return 60
+            }
+            return 40
+            
+        case .deductions:
+            if indexPath.row == 0 || indexPath.row == 5 || indexPath.row == 1{
+                return 60
+            }
+            return 40
+            
+        case .otherBenefits:
+            if indexPath.row == 0 || indexPath.row == 5{
+                return 60
+            }
+            return 40
+            
+        default:
+            return 0
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = sections[indexPath.section]
+        switch data.identifier {
+            
+        case .fixedPay:
+            self.ctcBreakUpStruct.isToTalCTCTapped = false
+            self.ctcBreakUpStruct.isOtherBenefitsTapped = false
+            self.ctcBreakUpStruct.isDeductionsTapped = false
+            self.ctcBreakUpStruct.isTakeHomeTapped = false
+            
+            if self.ctcBreakUpStruct.isFixedPayTapped == false{
+                self.ctcBreakUpStruct.isFixedPayTapped = true
+            }else{
+                self.ctcBreakUpStruct.isFixedPayTapped = false
+            }
+             
+        case .totalCTC:
+            self.ctcBreakUpStruct.isFixedPayTapped = false
+            self.ctcBreakUpStruct.isDeductionsTapped = false
+            self.ctcBreakUpStruct.isTakeHomeTapped = false
+            self.ctcBreakUpStruct.isOtherBenefitsTapped = false
+            
+            if self.ctcBreakUpStruct.isToTalCTCTapped == false{
+                self.ctcBreakUpStruct.isToTalCTCTapped = true
+            }else{
+                self.ctcBreakUpStruct.isToTalCTCTapped = false
+            }
+            
+        case .deductions:
+            self.ctcBreakUpStruct.isFixedPayTapped = false
+            self.ctcBreakUpStruct.isToTalCTCTapped = false
+            self.ctcBreakUpStruct.isTakeHomeTapped = false
+            self.ctcBreakUpStruct.isOtherBenefitsTapped = false
+            
+            if self.ctcBreakUpStruct.isDeductionsTapped == false{
+                self.ctcBreakUpStruct.isDeductionsTapped = true
+            }else{
+                self.ctcBreakUpStruct.isDeductionsTapped = false
+            }
+            
+        case .takeHome:
+            self.ctcBreakUpStruct.isFixedPayTapped = false
+            self.ctcBreakUpStruct.isToTalCTCTapped = false
+            self.ctcBreakUpStruct.isDeductionsTapped = false
+            self.ctcBreakUpStruct.isOtherBenefitsTapped = false
+            
+            if self.ctcBreakUpStruct.isTakeHomeTapped == false{
+                self.ctcBreakUpStruct.isTakeHomeTapped = true
+            }else{
+                self.ctcBreakUpStruct.isTakeHomeTapped = false
+            }
+            
+        case .otherBenefits:
+            self.ctcBreakUpStruct.isFixedPayTapped = false
+            self.ctcBreakUpStruct.isToTalCTCTapped = false
+            self.ctcBreakUpStruct.isDeductionsTapped = false
+            self.ctcBreakUpStruct.isTakeHomeTapped = false
+            
+            if self.ctcBreakUpStruct.isOtherBenefitsTapped == false{
+                self.ctcBreakUpStruct.isOtherBenefitsTapped = true
+            }else{
+                self.ctcBreakUpStruct.isOtherBenefitsTapped = false
+            }
+            
+        default:
+            break
+        }
+        
+        self.tableView.reloadData()
+        
+    }
+            
+}
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
     }
 }
