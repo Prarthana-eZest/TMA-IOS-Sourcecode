@@ -78,13 +78,23 @@
                             <constraint firstItem="cFh-X4-XoT" firstAttribute="top" secondItem="M8R-Dq-7mj" secondAttribute="top" constant="5" id="ywp-q4-Yxa"/>
                         </constraints>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkS-Sx-UIM">
+                        <rect key="frame" x="-2" y="0.0" width="324" height="7"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="7" id="Yhn-1y-fl6"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="M8R-Dq-7mj" secondAttribute="trailing" id="9bV-UE-P6E"/>
+                    <constraint firstItem="CkS-Sx-UIM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="N98-ii-52u"/>
                     <constraint firstItem="M8R-Dq-7mj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Pgc-er-E1O"/>
                     <constraint firstItem="M8R-Dq-7mj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="VyW-7T-cVc"/>
+                    <constraint firstAttribute="trailing" secondItem="CkS-Sx-UIM" secondAttribute="trailing" constant="-2" id="eyv-mi-7Zf"/>
                     <constraint firstAttribute="bottom" secondItem="M8R-Dq-7mj" secondAttribute="bottom" id="gbg-1Q-wbB"/>
+                    <constraint firstItem="CkS-Sx-UIM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-2" id="gff-FA-EWC"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -96,6 +106,7 @@
                 <outlet property="lblBasicYear" destination="R4g-0h-xFk" id="okV-Rf-LZE"/>
                 <outlet property="parentStackView" destination="cFh-X4-XoT" id="2Qc-B6-8Da"/>
                 <outlet property="parentView" destination="M8R-Dq-7mj" id="MPJ-nB-1HZ"/>
+                <outlet property="topBorderHideView" destination="CkS-Sx-UIM" id="9If-N2-yeB"/>
             </connections>
             <point key="canvasLocation" x="139" y="68"/>
         </tableViewCell>

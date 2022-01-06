@@ -114,18 +114,29 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qCS-NG-Q91">
+                        <rect key="frame" x="-2" y="50" width="324" height="10"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="10" id="KpZ-4b-zCZ"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="qCS-NG-Q91" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="-2" id="5Z4-wa-LLh"/>
                     <constraint firstItem="ZZ8-em-k2F" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="atq-i3-nbE"/>
+                    <constraint firstAttribute="bottom" secondItem="qCS-NG-Q91" secondAttribute="bottom" id="fkC-DV-tWA"/>
                     <constraint firstAttribute="trailing" secondItem="ZZ8-em-k2F" secondAttribute="trailing" id="lBe-Bl-smo"/>
                     <constraint firstAttribute="bottom" secondItem="ZZ8-em-k2F" secondAttribute="bottom" constant="1.5" id="oQF-6R-xmg"/>
+                    <constraint firstAttribute="trailing" secondItem="qCS-NG-Q91" secondAttribute="trailing" constant="-2" id="p67-Xs-crS"/>
                     <constraint firstItem="ZZ8-em-k2F" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="1.5" id="udR-PI-jwW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
+                <outlet property="buttomBorderHideView" destination="qCS-NG-Q91" id="iSh-S7-jWG"/>
                 <outlet property="imgDropDownIcon" destination="HT2-9w-vnZ" id="Ck7-pw-d6y"/>
                 <outlet property="imgDropDownView" destination="o0m-8I-mJl" id="NIh-UF-pES"/>
                 <outlet property="lblMonthly" destination="UXp-If-b6s" id="UHI-6q-6Ur"/>
