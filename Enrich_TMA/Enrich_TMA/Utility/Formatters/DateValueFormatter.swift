@@ -45,6 +45,7 @@ public class CustomValueFormatter: NSObject, IAxisValueFormatter {
                 break
             }
         }
+        print("************ \(stringToReturn)")
         return stringToReturn
     }
 }

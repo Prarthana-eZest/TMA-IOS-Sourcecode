@@ -159,37 +159,14 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         graphData.removeAll()
         
         let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-       
-        
-        //Date filter applied
-//        var filteredFixedEarnings = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
-//            if let date = revenue.date?.date()?.startOfDay {
-//                return date >= startDate && date <= endDate
-//            }
-//            return false
-//        })
         
         let dateRange = DateRange(startDate, endDate)
-//        var filteredFixedEarning = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning})
-//
-//        for data in filteredFixedEarning ?? []{
-//            for transactions in data.parameters ?? []{
-//                print(transactions.transactions?.first?.month)
-//            }
-//        }
-//
-//
-//        var filteredFixedEarnings = filteredFixedEarning?.first?.parameters
-//        print("********* FIXED EARNINGS ************\(filteredFixedEarnings)")
-        //earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
-        var currentMonth = 1
-        //Handle Graph Scenarios
+
         fromDidSelect = false
         var graphRangeType = dateRangeType
         var graphDateRange = dateRange
-       // var filteredFixedEarningsForGraph = [Dashboard.GetEarningsDashboard.Transaction]()
         
-        currentMonth = Int(endDate.string(format: "M")) ?? 1
+        let currentMonth = Int(endDate.string(format: "M")) ?? 1
         
         if (dateRangeType == .mtd) {
             //filteredFixedEarningsForGraph = nil
@@ -230,28 +207,6 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
             }
             index = 0
         }
-        
-        
-        calculateTotalFixedEarnings(dateRange: dateRange)
-        //        for group in earningsJSON?.data?.groups ?? []{
-        //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
-        //                for parameter in group.parameters ?? []{
-        //                    let model = EarningsCellDataModel(earningsType: group.group_label ?? "", title: parameter.name, value: "", subTitle: "", showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
-        //                    dataModel.append(model)
-        //                    graphData.append(getGraphEntry(parameter.name, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphRangeType, dateRangeType: fixedEarningsDateRange))
-        //                }
-        //            }
-        //
-        //        }
-        //get trnacation - input gr - map
-        
-        //        //salon service
-        //        //Data Model
-        //        let salonServiceModel = EarningsCellDataModel(earningsType: .Fixed_Earning, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
-        //        dataModel.append(salonServiceModel)
-        //        //Graph Data
-        //        graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
-        
         tableView.reloadData()
         EZLoadingActivity.hide()
     }
