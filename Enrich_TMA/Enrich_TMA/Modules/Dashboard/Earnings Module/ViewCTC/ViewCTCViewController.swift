@@ -226,10 +226,10 @@ extension ViewCTCViewController{
     //Take home = fixedpay - deductions
     func calculateTotalCTCMonthlyIncome() -> Int{
         let fixed_pay = calculateFixedPayMonthlyIncome()
-        let employee_esic = self.ctcModelObject?.data?.employee_esic ?? 0
+        let company_esic = self.ctcModelObject?.data?.company_esic ?? 0
         let employee_pf = self.ctcModelObject?.data?.employee_pf ?? 0
         
-        let totalCount = fixed_pay + employee_esic + employee_pf
+        let totalCount = fixed_pay + company_esic + employee_pf
         return totalCount
     }
     
@@ -611,13 +611,13 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "ESIC"
-                    if(self.ctcModelObject?.data?.employee_esic == 0){
+                    if(self.ctcModelObject?.data?.company_esic == 0){
                         cell.lblBasicMonth.text = "-"
                         cell.lblBasicYear.text = "-"
                     }
                     else {
-                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_esic ?? 0).roundedStringValue()
-                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_esic ?? 0) * 12).roundedStringValue()
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.company_esic ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.company_esic ?? 0) * 12).roundedStringValue()
                     }
                 }
                 

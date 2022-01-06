@@ -21,11 +21,11 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
 {
     var interactor: FixedEarningsBusinessLogic?
     var router: (NSObjectProtocol & FixedEarningsRoutingLogic & FixedEarningsDataPassing)?
-    
+    var selectedIndx = IndexPath()
     @IBOutlet private weak var tableView: UITableView!
     var dateRangeType : DateRangeType = .mtd
     var fixedEarningsDateRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
-    
+    var fromDidSelect : Bool = false
     var fromFilters : Bool = false
     var fromChartFilter : Bool = false
     
@@ -87,7 +87,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsHeaderFilterCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsHeaderFilterCell)
         tableView.register(UINib(nibName: CellIdentifier.earningDetailsViewTrendCellTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.earningDetailsViewTrendCellTableViewCell)
-        
+        fromDidSelect = false
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -109,7 +109,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
     func updateFixedEarningsData(startDate: Date?, endDate: Date = Date().startOfDay) {
         
         EZLoadingActivity.show("Loading...", disableUI: true)
-        fixedEarnigsnData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
+        fixedEarningsData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
     }
     
     func calculateTotalFixedEarnings(dateRange : DateRange) {
@@ -154,7 +154,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         headerGraphData = getTotalFixedEarningsGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
     }
     
-    func fixedEarnigsnData(startDate : Date, endDate : Date = Date().startOfDay, completion: (() -> Void)? ) {
+    func fixedEarningsData(startDate : Date, endDate : Date = Date().startOfDay, completion: (() -> Void)? ) {
         dataModel.removeAll()
         graphData.removeAll()
         
@@ -184,10 +184,10 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         //earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
         var currentMonth = 1
         //Handle Graph Scenarios
-        
+        fromDidSelect = false
         var graphRangeType = dateRangeType
         var graphDateRange = dateRange
-        var filteredFixedEarningsForGraph = [Dashboard.GetEarningsDashboard.Transaction]()
+       // var filteredFixedEarningsForGraph = [Dashboard.GetEarningsDashboard.Transaction]()
         
         currentMonth = Int(endDate.string(format: "M")) ?? 1
         
@@ -205,9 +205,9 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
                 
                 let value = parameter.transactions?.filter({$0.month == currentMonth})
                 //                value?.first?.amount
-                let model = EarningsCellDataModel(earningsType: .Fixed_Earning, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+                let model = EarningsCellDataModel(earningsType: .Fixed_Earning, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: graphDateRange)
                 dataModel.append(model)
-                graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: fixedEarningsDateRange, dateRangeType: graphRangeType))
+                graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: graphDateRange, dateRangeType: graphRangeType))
                 
                 index += 1
                 }
@@ -220,16 +220,17 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
                         let value = parameter.transactions?.filter({$0.month == month})
                         amount += value?.first?.amount ?? 0
                     }
-                    let model = EarningsCellDataModel(earningsType: .Fixed_Earning, title: parameter.name ?? "", value: [amount.roundedStringValue()], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+                    let model = EarningsCellDataModel(earningsType: .Fixed_Earning, title: parameter.name ?? "", value: [amount.roundedStringValue()], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: graphDateRange)
                     dataModel.append(model)
-                    graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: fixedEarningsDateRange, dateRangeType: graphRangeType))
+                    graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: graphDateRange, dateRangeType: graphRangeType))
                     
                     index += 1
                     amount = 0
                 }
             }
+            index = 0
         }
-        index = 0
+        
         
         calculateTotalFixedEarnings(dateRange: dateRange)
         //        for group in earningsJSON?.data?.groups ?? []{
@@ -265,33 +266,15 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
     }
     
     func graphData(forData data:[Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
-       // var filteredFixedEarnings = data
         
         let month = Int(dateRange.end.string(format: "M"))
         var values = [Double]()
-       //0 if data == nil, (data?.count ?? 0 <= 0){
-            //let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
-            
-           // let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
-            
-            
+        
             for objData in data ?? [] {
                 if objData.month == month {
                     values.append(Double(objData.amount ?? 0))
                 }
             }
-            //var index = 0
-//            for data in dataArray {
-//                for parameter in data.parameters ?? [] {
-//                    let value = parameter.transactions?.filter({ (fixedEarnings) -> Bool in
-//                        let month = fixedEarnings.month {
-//                            return month >= Date.today.monthNumber(from: dateRange.start) ?? month <= Date.today.monthNumber(from: dateRange.end)
-//                        }
-//                        return false
-//                    })
-//                }
-//            }
-       // }
         return values
     }
     
@@ -763,12 +746,20 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
             cell.selectionStyle = .none
             cell.delegate = self
             cell.parentVC = self
-            
+            if(fromDidSelect){
+                let index = selectedIndx.row - 1
+                let model = dataModel[index]
+                let barGraph = graphData[index]
+                    cell.configureCell(model: model, data: [barGraph])
+                fromDidSelect = false
+            }
+            else {
             let index = indexPath.row - 1
             let model = dataModel[index]
             let barGraph = graphData[index]
+                cell.configureCell(model: model, data: [barGraph])
+            }
             
-            cell.configureCell(model: model, data: [barGraph])
             return cell
         }
         
@@ -779,6 +770,8 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
 //    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        fromDidSelect = true
+        selectedIndx = indexPath
         print("Selection")
     }
     
