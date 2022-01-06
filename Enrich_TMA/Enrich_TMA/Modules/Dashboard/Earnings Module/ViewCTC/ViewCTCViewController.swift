@@ -358,6 +358,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentView.layer.cornerRadius = 10
                 cell.parentView.layer.masksToBounds = true
                 
+                cell.topBorderHideView.isHidden = false
                 return cell
             }
             else{
@@ -376,6 +377,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
+                cell.topBorderHideView.isHidden = true
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Basic"
@@ -568,6 +570,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentView.layer.cornerRadius = 10
                 cell.parentView.layer.masksToBounds = true
                 
+                cell.topBorderHideView.isHidden = false
                 return cell
             }
             else{
@@ -586,6 +589,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
+                
+                cell.topBorderHideView.isHidden = true
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Fixed Pay"
@@ -686,6 +691,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentView.layer.cornerRadius = 10
                 cell.parentView.layer.masksToBounds = true
                 
+                cell.topBorderHideView.isHidden = false
                 return cell
             }
             else{
@@ -703,6 +709,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
+                
+                cell.topBorderHideView.isHidden = true
                 
                 if indexPath.row == 1{
                     cell.parentStackView.alignment = .bottom
@@ -845,6 +853,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentView.layer.cornerRadius = 10
                 cell.parentView.layer.masksToBounds = true
                 
+                cell.topBorderHideView.isHidden = false
                 return cell
             }
             else{
@@ -863,6 +872,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
                 
+                cell.topBorderHideView.isHidden = true
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Grooming Points"
                     if(self.ctcModelObject?.data?.grooming_points == 0){
