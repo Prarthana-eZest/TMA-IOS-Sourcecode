@@ -107,7 +107,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             otherEarningsData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
         }
         
-        func calculateTotalOtherEarnings() {
+    func calculateTotalOtherEarnings(dateRange: DateRange) {
             let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
             var graphRangeType = dateRangeType
             var graphDateRange = otherEarningsDateRange // need to change
@@ -121,13 +121,31 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             let currentMonth = Int(Date.today.string(format: "M"))
     
             let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Other_Earnings}) ?? []
+           
             var amount : Int = 0
-            for data in dataArray {
+            
+            if(dateRangeType == .mtd){
+            let currentMonth = Int(Date.today.string(format: "M"))
+                for data in dataArray {
                 for parameter in data.parameters ?? [] {
                     let value = parameter.transactions?.filter({$0.month == currentMonth})
-    //                value?.first?.amount
+                    //                value?.first?.amount
                     amount += value?.first?.amount ?? 0
                 }
+            }
+            
+            }
+            else {
+                let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+                //var amount = 0
+                for data in dataArray {
+                for parameter in data.parameters ?? [] {
+                        for month in months {
+                        let value = parameter.transactions?.filter({$0.month == month})
+                        amount += value?.first?.amount ?? 0
+                    }
+                }
+            }
             }
             headerModel?.value = Double(amount)
             headerModel?.dateRangeType = graphRangeType
@@ -156,21 +174,40 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Other_Earnings}) ?? []
             var index = 0
             for data in dataArray {
+                if(dateRangeType == .mtd){
                 for parameter in data.parameters ?? [] {
+                    
                     let value = parameter.transactions?.filter({$0.month == currentMonth})
-    //                value?.first?.amount
+                    //                value?.first?.amount
                     let model = EarningsCellDataModel(earningsType: .Other_Earnings, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: otherEarningsDateRange)
                     dataModel.append(model)
                     graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: otherEarningsDateRange, dateRangeType: graphRangeType))
                     
                     index += 1
+                    }
+                }
+                else {
+                    let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+                    var amount = 0
+                    for parameter in data.parameters ?? [] {
+                            for month in months {
+                            let value = parameter.transactions?.filter({$0.month == month})
+                            amount += value?.first?.amount ?? 0
+                        }
+                        let model = EarningsCellDataModel(earningsType: .Other_Earnings, title: parameter.name ?? "", value: [amount.roundedStringValue()], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: otherEarningsDateRange)
+                        dataModel.append(model)
+                        graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: otherEarningsDateRange, dateRangeType: graphRangeType))
+                        
+                        index += 1
+                        amount = 0
+                    }
                 }
             }
             index = 0
             
-            calculateTotalOtherEarnings()
+            calculateTotalOtherEarnings(dateRange: dateRange)
     //        for group in earningsJSON?.data?.groups ?? []{
-    //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
+    //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Other_Earnings) {
     //                for parameter in group.parameters ?? []{
     //                    let model = EarningsCellDataModel(earningsType: group.group_label ?? "", title: parameter.name, value: "", subTitle: "", showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
     //                    dataModel.append(model)
@@ -183,7 +220,7 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
             
     //        //salon service
     //        //Data Model
-    //        let salonServiceModel = EarningsCellDataModel(earningsType: .Fixed_Earning, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+    //        let salonServiceModel = EarningsCellDataModel(earningsType: .Other_Earnings, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
     //        dataModel.append(salonServiceModel)
     //        //Graph Data
     //        graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -406,27 +443,27 @@ class OtherEarningsViewController: UIViewController, OtherEarningsDisplayLogic
     extension OtherEarningsViewController: EarningsFilterDelegate {
         
         func actionDateFilter() {
-//            print("Date Filter")
-//            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-//            self.view.alpha = screenPopUpAlpha
-//            vc.fromChartFilter = false
-//            vc.selectedRangeTypeString = dateRangeType.rawValue
-//            vc.cutomRange = otherEarningsDateRange
-//            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-//            vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-//                // Do something
-//                self.view.alpha = 1.0
-//                if(result){
-//                    fromChartFilter = false
-//                    dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-//                    
-//                    if(dateRangeType == .cutome), let start = startDate, let end = endDate
-//                    {
-//                        otherEarningsDateRange = DateRange(start,end)
-//                    }
-//                    updateOtherEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-//                }
-//            }
+            print("Date Filter")
+            let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+            self.view.alpha = screenPopUpAlpha
+            vc.fromChartFilter = false
+            vc.selectedRangeTypeString = dateRangeType.rawValue
+            vc.cutomRange = otherEarningsDateRange
+            UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+            vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+                // Do something
+                self.view.alpha = 1.0
+                if(result){
+                    fromChartFilter = false
+                    dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+                    
+                    if(dateRangeType == .cutome), let start = startDate, let end = endDate
+                    {
+                        otherEarningsDateRange = DateRange(start,end)
+                    }
+                    updateOtherEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+                }
+            }
         }
         
         func actionNormalFilter() {

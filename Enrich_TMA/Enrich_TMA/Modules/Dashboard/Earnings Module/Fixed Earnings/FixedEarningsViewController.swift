@@ -112,7 +112,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
         fixedEarnigsnData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
     }
     
-    func calculateTotalFixedEarnings() {
+    func calculateTotalFixedEarnings(dateRange : DateRange) {
         let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
         var graphRangeType = dateRangeType
         var graphDateRange = fixedEarningsDateRange // need to change
@@ -122,32 +122,33 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
             graphRangeType = .mtd
             graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
         }
-        
-        let currentMonth = Int(Date.today.string(format: "M"))
-        //        for group in earningsJSON?.data?.groups ?? []{
-        //            if let earningType = EarningDetails(rawValue: group.group_label ?? ""){
-        //                let transactions = group.parameters?.map({ (parameter) -> Dashboard.GetEarningsDashboard.Transaction? in
-        //                    let filterTransaction = parameter.transactions?.filter({$0.month == currentMonth})
-        //                    return filterTransaction?.first
-        //                })
-        //                let value = transactions?.compactMap({$0?.amount}).reduce(0){$0 + $1} ?? 0
-        //
-        ////                dataModel.append(EarningsHeaderDataModel(earningsType: earningType, value: Double(value), isExpanded: false, dateRangeType: dateRangeType, customeDateRange: fixedEarningsDateRange))
-        //
-        //                headerModel?.value = Double(value)
-        //                headerModel?.dateRangeType = graphRangeType
-        //               // headerGraphData = getTotalFixedEarningsGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
-        //            }
-        //        }
-        let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
         var amount : Int = 0
-        for data in dataArray {
+        let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
+        
+        if(dateRangeType == .mtd){
+        let currentMonth = Int(Date.today.string(format: "M"))
+            for data in dataArray {
             for parameter in data.parameters ?? [] {
                 let value = parameter.transactions?.filter({$0.month == currentMonth})
                 //                value?.first?.amount
                 amount += value?.first?.amount ?? 0
             }
         }
+        
+        }
+        else {
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            //var amount = 0
+            for data in dataArray {
+            for parameter in data.parameters ?? [] {
+                    for month in months {
+                    let value = parameter.transactions?.filter({$0.month == month})
+                    amount += value?.first?.amount ?? 0
+                }
+            }
+        }
+        }
+        
         headerModel?.value = Double(amount)
         headerModel?.dateRangeType = graphRangeType
         headerGraphData = getTotalFixedEarningsGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
@@ -169,17 +170,17 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
 //        })
         
         let dateRange = DateRange(startDate, endDate)
-        var filteredFixedEarning = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning})
-        
-        for data in filteredFixedEarning ?? []{
-            for transactions in data.parameters ?? []{
-                print(transactions.transactions?.first?.month)
-            }
-        }
-        
-        
-        var filteredFixedEarnings = filteredFixedEarning?.first?.parameters
-        print("********* FIXED EARNINGS ************\(filteredFixedEarnings)")
+//        var filteredFixedEarning = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning})
+//
+//        for data in filteredFixedEarning ?? []{
+//            for transactions in data.parameters ?? []{
+//                print(transactions.transactions?.first?.month)
+//            }
+//        }
+//
+//
+//        var filteredFixedEarnings = filteredFixedEarning?.first?.parameters
+//        print("********* FIXED EARNINGS ************\(filteredFixedEarnings)")
         //earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Fixed_Earning}) ?? []
         var currentMonth = 1
         //Handle Graph Scenarios
@@ -224,12 +225,13 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
                     graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: fixedEarningsDateRange, dateRangeType: graphRangeType))
                     
                     index += 1
+                    amount = 0
                 }
             }
         }
         index = 0
         
-        calculateTotalFixedEarnings()
+        calculateTotalFixedEarnings(dateRange: dateRange)
         //        for group in earningsJSON?.data?.groups ?? []{
         //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
         //                for parameter in group.parameters ?? []{
@@ -255,7 +257,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
     
     func getGraphEntry(_ title:String, forData data:[Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
     {
-        let units = xAxisUnits(forDateRange: dateRange, rangeType: .qtd)
+        let units = xAxisUnitsEarnings(forDateRange: dateRange, rangeType: dateRangeType)
         let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
         let graphColor = EarningDetails.Fixed_Earning.graphBarColor
         
@@ -470,27 +472,27 @@ func displaySomething(viewModel: FixedEarnings.Something.ViewModel)
 extension FixedEarningsViewController: EarningsFilterDelegate {
     
     func actionDateFilter() {
-//        print("Date Filter")
-//        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-//        self.view.alpha = screenPopUpAlpha
-//        vc.fromChartFilter = false
-//        vc.selectedRangeTypeString = dateRangeType.rawValue
-//        vc.cutomRange = fixedEarningsDateRange
-//        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-//        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-//            // Do something
-//            self.view.alpha = 1.0
-//            if(result){
-//                fromChartFilter = false
-//                dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-//
-//                if(dateRangeType == .cutome), let start = startDate, let end = endDate
-//                {
-//                    fixedEarningsDateRange = DateRange(start,end)
-//                }
-//                updateFixedEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-//            }
-//        }
+        print("Date Filter")
+        let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+        self.view.alpha = screenPopUpAlpha
+        vc.fromChartFilter = false
+        vc.selectedRangeTypeString = dateRangeType.rawValue
+        vc.cutomRange = fixedEarningsDateRange
+        UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+        vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+            // Do something
+            self.view.alpha = 1.0
+            if(result){
+                fromChartFilter = false
+                dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+
+                if(dateRangeType == .cutome), let start = startDate, let end = endDate
+                {
+                    fixedEarningsDateRange = DateRange(start,end)
+                }
+                updateFixedEarningsData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+            }
+        }
     }
     
     func actionNormalFilter() {

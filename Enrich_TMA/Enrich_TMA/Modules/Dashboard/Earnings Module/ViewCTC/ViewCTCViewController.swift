@@ -29,6 +29,8 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
     var interactor: ViewCTCBusinessLogic?
     var router: (NSObjectProtocol & ViewCTCRoutingLogic & ViewCTCDataPassing)?
     
+    @IBOutlet weak var totalMonthlyCTCLabel: UILabel!
+    @IBOutlet weak var totalAnnualCTCLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var sections = [SectionConfiguration]()
     private var ctcBreakUpStruct = CTCBreakUpStruct()
@@ -86,7 +88,7 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
         self.tableView.register(UINib(nibName: CellIdentifier.ctcBreakUpDetailsTableViewCell, bundle: nil), forCellReuseIdentifier: CellIdentifier.ctcBreakUpDetailsTableViewCell)
         
         configureSection()
-        doSomething()
+       // doSomething()
         getCTCDetails()
     }
     
@@ -123,6 +125,8 @@ class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
         if let model = viewModel as? ViewCTC.GetCTCDeatils.Response, model.status == true {
             self.ctcModelObject = model
             self.tableView.reloadData()
+            totalMonthlyCTCLabel.text = self.calculateTotalCTCMonthlyIncome().abbrevationString
+            totalAnnualCTCLabel.text = (self.calculateTotalCTCMonthlyIncome() * 12).abbrevationString
         }
         
     }
@@ -171,7 +175,32 @@ extension ViewCTCViewController{
     
     func calculateFixedPayMonthlyIncome() -> Int{
         
-        let basic = self.ctcModelObject?.data?.basic ?? 0
+        
+        
+//        [Monthly_basic] + [Monthly_special_allowance] + [Monthly_house_rent_allowance] + [Monthly_bonus] + [Monthly_washing_allowance] +
+//            [Monthly_food_allowance] + [Monthly_conveyance_allowance] + [Monthly_education_allowance] +
+//            [Monthly_medical_allowance] + [Monthly_other_allowance]
+        
+        let basics = self.ctcModelObject?.data?.basic ?? 0
+        let speial_allowance = self.ctcModelObject?.data?.special_allowance ?? 0
+        let houseRent = self.ctcModelObject?.data?.home_rent_allowance ?? 0
+        let bonuses = self.ctcModelObject?.data?.bonus ?? 0
+        let washingAllownace = self.ctcModelObject?.data?.washing_allowance ?? 0
+        let foodAllowance = self.ctcModelObject?.data?.food_allowance ?? 0
+        let conveyanceAllowance = self.ctcModelObject?.data?.conveyance_allowance ?? 0
+        let educationAllowance = self.ctcModelObject?.data?.education_allowance ?? 0
+        let meicalAllowance = self.ctcModelObject?.data?.medical_allowance ?? 0
+        let otherAllowance = self.ctcModelObject?.data?.other_allowance ?? 0
+        
+        let firts = basics + speial_allowance + houseRent + bonuses + washingAllownace
+        let second = foodAllowance + conveyanceAllowance + educationAllowance
+        let third = meicalAllowance + otherAllowance
+        
+        let totalCount = firts + second + third
+        return totalCount
+        
+        
+      /*  let basic = self.ctcModelObject?.data?.basic ?? 0
         let hra_da = self.ctcModelObject?.data?.hra_da ?? 0
         let statutory_bonus = self.ctcModelObject?.data?.statutory_bonus ?? 0
         let additional_payout = self.ctcModelObject?.data?.additional_payout ?? 0
@@ -189,7 +218,8 @@ extension ViewCTCViewController{
         let count3 = education_allowance + washing_allowance + tea_allowance
         
         let totalCount = count1 + count2 + count3
-        return totalCount
+        return totalCount*/
+        
     }
 
     //Take home = fixedpay - deductions
@@ -349,63 +379,135 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Basic"
+                    if(self.ctcModelObject?.data?.basic == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.basic ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.basic ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 2{
                     cell.lblBasicTitle.text = "HRA + DA"
+                    if(self.ctcModelObject?.data?.hra_da == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.hra_da ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.hra_da ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Statutory Bonus"
+                    if(self.ctcModelObject?.data?.statutory_bonus == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.statutory_bonus ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.statutory_bonus ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 4{
                     cell.lblBasicTitle.text = "Additional Pay-Out"
+                    if(self.ctcModelObject?.data?.additional_pay_out == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.additional_pay_out ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.additional_pay_out ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 5{
                     cell.lblBasicTitle.text = "Conveyance"
+                    if(self.ctcModelObject?.data?.conveyance_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.conveyance_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.conveyance_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 6{
                     cell.lblBasicTitle.text = "Medical Allowance"
+                    if(self.ctcModelObject?.data?.medical_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.medical_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.medical_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 7{
                     cell.lblBasicTitle.text = "Telephone Allowance"
+                    if(self.ctcModelObject?.data?.telephone_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.telephone_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.telephone_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 8{
                     cell.lblBasicTitle.text = "Food Allowance"
+                    if(self.ctcModelObject?.data?.food_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.food_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.food_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 9{
                     cell.lblBasicTitle.text = "Books & Periodicals"
+                    if(self.ctcModelObject?.data?.books_and_periodicals_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.books_and_periodicals_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 10{
                     cell.lblBasicTitle.text = "Education Allowance"
+                    if(self.ctcModelObject?.data?.education_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.education_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.education_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 11{
                     cell.lblBasicTitle.text = "Washing Allowance"
+                    if(self.ctcModelObject?.data?.washing_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.washing_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.washing_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 if indexPath.row == 12{
                     cell.lblBasicTitle.text = "Tea Allowance"
+                    if(self.ctcModelObject?.data?.tea_allowance == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.tea_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.tea_allowance ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 return cell
             }
@@ -501,13 +603,25 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     
                     cell.lblBasicTopTitle.text = "Employer's Contribution"
                     cell.lblBasicTitle.text = "Provident Fund"
+                    if(self.ctcModelObject?.data?.employee_pf == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_pf ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_pf ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "ESIC"
+                    if(self.ctcModelObject?.data?.employee_esic == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_esic ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_esic ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 
                 return cell
@@ -596,23 +710,47 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     cell.lblBasicTopTitle.text = "Employee's Contribution"
                     
                     cell.lblBasicTitle.text = "Provident Fund"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.employee_pf ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.employee_pf ?? 0) * 12)
+                    if(self.ctcModelObject?.data?.employee_pf == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_pf ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_pf ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 2{
                     cell.lblBasicTitle.text = "ESIC"
+                    if(self.ctcModelObject?.data?.employee_esic == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.employee_esic ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.employee_esic ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Profession Tax"
+                    if(self.ctcModelObject?.data?.professional_tax == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.professional_tax ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = (((self.ctcModelObject?.data?.professional_tax ?? 0) * 12) + 100).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 4{
                     cell.lblBasicTitle.text = "Mediclaim Premium"
+                    if(self.ctcModelObject?.data?.mediclaim == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.mediclaim ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.mediclaim ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 
                 return cell
@@ -670,10 +808,14 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 
                 cell.lbltitle.text = CTCDetailsCode.otherBenefits
-                
+                if(calculateOthersBenefitsMonthlyIncome() == 0){
+                    cell.lblMonthly.text = "-"
+                    cell.lblYear.text = "-"
+                }
+                else {
                 cell.lblMonthly.text = self.calculateOthersBenefitsMonthlyIncome().roundedStringValue()
                 cell.lblYear.text = (self.calculateOthersBenefitsMonthlyIncome() * 12).roundedStringValue()
-                
+                }
                 return cell
             }
             else if indexPath.row == 5{
@@ -688,9 +830,15 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicYear.textColor = UIColor(hexString: "#4AA0CC")
                 
                 cell.lblBasicTitle.text = "Total"
+                if(self.calculateOthersBenefitsMonthlyIncome() == 0)
+                {
+                    cell.lblBasicMonth.text = "-"
+                    cell.lblBasicYear.text = "-"
+                }
+                else {
                 cell.lblBasicMonth.text = self.calculateOthersBenefitsMonthlyIncome().roundedStringValue()
                 cell.lblBasicYear.text = (self.calculateOthersBenefitsMonthlyIncome() * 12).roundedStringValue()
-                
+                }
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
                         
@@ -717,23 +865,47 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 
                 if indexPath.row == 1{
                     cell.lblBasicTitle.text = "Grooming Points"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.grooming_points ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.grooming_points ?? 0) * 12)
+                    if(self.ctcModelObject?.data?.grooming_points == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.grooming_points ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.grooming_points ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 2{
                     cell.lblBasicTitle.text = "Gratuity"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.gratuity ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.gratuity ?? 0) * 12)
+                    if(self.ctcModelObject?.data?.gratuity == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
+                    cell.lblBasicMonth.text = "-"//(self.ctcModelObject?.data?.gratuity ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = "-"//((self.ctcModelObject?.data?.gratuity ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 3{
                     cell.lblBasicTitle.text = "Mediclaim Coverage"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.mediclaim_coverage ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.mediclaim_coverage ?? 0) * 12)
+                    if(self.ctcModelObject?.data?.mediclaim_coverage == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.mediclaim_coverage ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.mediclaim_coverage ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 else if indexPath.row == 4{
                     cell.lblBasicTitle.text = "Life Insurance Coverage"
-                    cell.lblBasicMonth.text = String(self.ctcModelObject?.data?.life_insurance_coverage ?? 0)
-                    cell.lblBasicYear.text = String((self.ctcModelObject?.data?.life_insurance_coverage ?? 0) * 12)
+                    if(self.ctcModelObject?.data?.life_insurance_coverage == 0){
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
+                    }
+                    else {
+                    cell.lblBasicMonth.text = (self.ctcModelObject?.data?.life_insurance_coverage ?? 0).roundedStringValue()
+                    cell.lblBasicYear.text = ((self.ctcModelObject?.data?.life_insurance_coverage ?? 0) * 12).roundedStringValue()
+                    }
                 }
                 
                 return cell

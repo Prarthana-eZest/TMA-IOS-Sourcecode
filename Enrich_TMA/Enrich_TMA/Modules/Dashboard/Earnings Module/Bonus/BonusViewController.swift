@@ -107,7 +107,7 @@ class BonusViewController: UIViewController, BonusDisplayLogic
           bonusData(startDate: startDate ?? Date.today, endDate: endDate, completion: nil)
       }
       
-      func calculateTotalBonus() {
+    func calculateTotalBonus(dateRange: DateRange) {
           let earningsJSON = UserDefaults.standard.value(Dashboard.GetEarningsDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
           var graphRangeType = dateRangeType
           var graphDateRange = bonusDateRange // need to change
@@ -118,20 +118,36 @@ class BonusViewController: UIViewController, BonusDisplayLogic
               graphDateRange = DateRange(graphRangeType.date!, Date().startOfDay)
           }
           
-          let currentMonth = Int(Date.today.string(format: "M"))
-  
-          let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Bonus}) ?? []
-          var amount : Int = 0
-          for data in dataArray {
-              for parameter in data.parameters ?? [] {
-                  let value = parameter.transactions?.filter({$0.month == currentMonth})
-  //                value?.first?.amount
-                  amount += value?.first?.amount ?? 0
-              }
-          }
-          headerModel?.value = Double(amount)
-          headerModel?.dateRangeType = graphRangeType
-          headerGraphData = getTotalBonusGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
+        var amount : Int = 0
+        let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Bonus}) ?? []
+        
+        if(dateRangeType == .mtd){
+        let currentMonth = Int(Date.today.string(format: "M"))
+            for data in dataArray {
+            for parameter in data.parameters ?? [] {
+                let value = parameter.transactions?.filter({$0.month == currentMonth})
+                //                value?.first?.amount
+                amount += value?.first?.amount ?? 0
+            }
+        }
+        
+        }
+        else {
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            //var amount = 0
+            for data in dataArray {
+            for parameter in data.parameters ?? [] {
+                    for month in months {
+                    let value = parameter.transactions?.filter({$0.month == month})
+                    amount += value?.first?.amount ?? 0
+                }
+            }
+        }
+        }
+        
+        headerModel?.value = Double(amount)
+        headerModel?.dateRangeType = graphRangeType
+        headerGraphData = getTotalBonusGraphEntry(forData: filteredFixedEarningsForGraph, dateRange: graphDateRange, dateRangeType: graphRangeType)
       }
       
       func bonusData(startDate : Date, endDate : Date = Date().startOfDay, completion: (() -> Void)? ) {
@@ -154,27 +170,42 @@ class BonusViewController: UIViewController, BonusDisplayLogic
           }
 
           let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Bonus}) ?? []
-          var index = 0
-          for data in dataArray {
-              for parameter in data.parameters ?? [] {
-                  let value = parameter.transactions?.filter({$0.month == currentMonth})
-  //                value?.first?.amount
-                var amount = value?.first?.amount
-                if(amount == nil){
+        var index = 0
+        for data in dataArray {
+            if(dateRangeType == .mtd){
+            for parameter in data.parameters ?? [] {
+                
+                let value = parameter.transactions?.filter({$0.month == currentMonth})
+                //                value?.first?.amount
+                let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
+                dataModel.append(model)
+                graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: bonusDateRange, dateRangeType: graphRangeType))
+                
+                index += 1
+                }
+            }
+            else {
+                let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+                var amount = 0
+                for parameter in data.parameters ?? [] {
+                        for month in months {
+                        let value = parameter.transactions?.filter({$0.month == month})
+                        amount += value?.first?.amount ?? 0
+                    }
+                    let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [amount.roundedStringValue()], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
+                    dataModel.append(model)
+                    graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: bonusDateRange, dateRangeType: graphRangeType))
+                    
+                    index += 1
                     amount = 0
                 }
-                let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
-                  dataModel.append(model)
-                  graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: bonusDateRange, dateRangeType: graphRangeType))
-                  
-                  index += 1
-              }
-          }
-          index = 0
+            }
+        }
+        index = 0
           
-          calculateTotalBonus()
+          calculateTotalBonus(dateRange: dateRange)
   //        for group in earningsJSON?.data?.groups ?? []{
-  //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Fixed_Earning) {
+  //            if  (EarningDetails(rawValue: group.group_label ?? "") == EarningDetails.Bonus) {
   //                for parameter in group.parameters ?? []{
   //                    let model = EarningsCellDataModel(earningsType: group.group_label ?? "", title: parameter.name, value: "", subTitle: "", showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
   //                    dataModel.append(model)
@@ -187,7 +218,7 @@ class BonusViewController: UIViewController, BonusDisplayLogic
           
   //        //salon service
   //        //Data Model
-  //        let salonServiceModel = EarningsCellDataModel(earningsType: .Fixed_Earning, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
+  //        let salonServiceModel = EarningsCellDataModel(earningsType: .Bonus, title: "Salon Service", value: [Double(0.0).abbrevationString], subTitle: [""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: fixedEarningsDateRange)
   //        dataModel.append(salonServiceModel)
   //        //Graph Data
   //        graphData.append(getGraphEntry(salonServiceModel.title, forData: filteredFixedEarningsForGraph, atIndex: 0, dateRange: graphDateRange, dateRangeType: graphRangeType))
@@ -411,26 +442,26 @@ class BonusViewController: UIViewController, BonusDisplayLogic
       
       func actionDateFilter() {
           print("Date Filter")
-//          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
-//          self.view.alpha = screenPopUpAlpha
-//          vc.fromChartFilter = false
-//          vc.selectedRangeTypeString = dateRangeType.rawValue
-//          vc.cutomRange = bonusDateRange
-//          UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
-//          vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
-//              // Do something
-//              self.view.alpha = 1.0
-//              if(result){
-//                  fromChartFilter = false
-//                  dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
-//
-//                  if(dateRangeType == .cutome), let start = startDate, let end = endDate
-//                  {
-//                      bonusDateRange = DateRange(start,end)
-//                  }
-//                  updateBonusData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
-//              }
-//          }
+          let vc = EarningsDateFilterViewController.instantiate(fromAppStoryboard: .Earnings)
+          self.view.alpha = screenPopUpAlpha
+          vc.fromChartFilter = false
+          vc.selectedRangeTypeString = dateRangeType.rawValue
+          vc.cutomRange = bonusDateRange
+          UIApplication.shared.keyWindow?.rootViewController?.present(vc, animated: true, completion: nil)
+          vc.viewDismissBlock = { [unowned self] (result, startDate, endDate, rangeTypeString) in
+              // Do something
+              self.view.alpha = 1.0
+              if(result){
+                  fromChartFilter = false
+                  dateRangeType = DateRangeType(rawValue: rangeTypeString ?? "") ?? .cutome
+
+                  if(dateRangeType == .cutome), let start = startDate, let end = endDate
+                  {
+                      bonusDateRange = DateRange(start,end)
+                  }
+                  updateBonusData(startDate: startDate ?? Date.today, endDate: endDate ?? Date.today)
+              }
+          }
       }
       
       func actionNormalFilter() {
