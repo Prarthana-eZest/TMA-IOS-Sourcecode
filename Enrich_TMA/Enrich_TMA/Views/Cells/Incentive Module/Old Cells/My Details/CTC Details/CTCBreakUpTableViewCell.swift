@@ -17,7 +17,8 @@ class CTCBreakUpTableViewCell: UITableViewCell {
     @IBOutlet weak var lblYear: UILabel!
     @IBOutlet weak var lblMonthlyTitle: UILabel!
     @IBOutlet weak var lblYearTitle: UILabel!
-    
+    @IBOutlet weak var buttomBorderHideView: UIView!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

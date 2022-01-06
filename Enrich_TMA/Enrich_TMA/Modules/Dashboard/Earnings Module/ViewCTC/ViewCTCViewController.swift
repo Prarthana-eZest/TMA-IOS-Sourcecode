@@ -24,7 +24,6 @@ struct CTCBreakUpStruct{
     var isTakeHomeTapped:Bool = false
     var isOtherBenefitsTapped:Bool = false
 }
-
 class ViewCTCViewController: UIViewController, ViewCTCDisplayLogic
 {
     var interactor: ViewCTCBusinessLogic?
@@ -322,9 +321,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
                     cell.lblMonthly.isHidden = false
                     cell.lblYear.isHidden = false
-                    
+                    cell.buttomBorderHideView.isHidden = true
                 }else{
                     cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                    cell.buttomBorderHideView.isHidden = false
                 }
                 
                 cell.lbltitle.text = CTCDetailsCode.fixedPay
@@ -355,7 +355,8 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 let yearLyValue = self.calculateFixedPayMonthlyIncome() * 12
                 cell.lblBasicYear.text = yearLyValue.roundedStringValue()
                 
-                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                cell.parentView.layer.cornerRadius = 10
+                cell.parentView.layer.masksToBounds = true
                 
                 return cell
             }
@@ -533,9 +534,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
                     cell.lblMonthly.isHidden = false
                     cell.lblYear.isHidden = false
-                    
+                    cell.buttomBorderHideView.isHidden = true
                 }else{
                     cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                    cell.buttomBorderHideView.isHidden = false
                 }
                 
                 cell.lbltitle.text = CTCDetailsCode.totalCTC
@@ -562,8 +564,9 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicTitle.text = "Total"
                 cell.lblBasicMonth.text = self.calculateTotalCTCMonthlyIncome().roundedStringValue()
                 cell.lblBasicYear.text = (self.calculateTotalCTCMonthlyIncome() * 12).roundedStringValue()
-                
-                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                       
+                cell.parentView.layer.cornerRadius = 10
+                cell.parentView.layer.masksToBounds = true
                 
                 return cell
             }
@@ -646,9 +649,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
                     cell.lblMonthly.isHidden = false
                     cell.lblYear.isHidden = false
-                    
+                    cell.buttomBorderHideView.isHidden = true
                 }else{
                     cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                    cell.buttomBorderHideView.isHidden = false
                 }
                 
                 cell.lblMonthly.textColor = UIColor(hexString: "#F28088")
@@ -678,8 +682,9 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 cell.lblBasicTitle.text = "Total"
                 cell.lblBasicMonth.text = self.calculateDeductionsMonthlyIncome().roundedStringValue()
                 cell.lblBasicYear.text = (self.calculateDeductionsMonthlyIncome() * 12).roundedStringValue()
-                
-                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                          
+                cell.parentView.layer.cornerRadius = 10
+                cell.parentView.layer.masksToBounds = true
                 
                 return cell
             }
@@ -763,6 +768,7 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
             
             cell.lblMonthly.isHidden = false
             cell.lblYear.isHidden = false
+            cell.buttomBorderHideView.isHidden = true
             
             cell.lbltitle.text = CTCDetailsCode.takeHome
             
@@ -795,9 +801,10 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                     cell.imgDropDownIcon.image = UIImage(named: "dropDownIcon")
                     cell.lblMonthly.isHidden = false
                     cell.lblYear.isHidden = false
-                    
+                    cell.buttomBorderHideView.isHidden = true
                 }else{
                     cell.imgDropDownIcon.image = UIImage(named: "dropUpIcon")
+                    cell.buttomBorderHideView.isHidden = false
                 }
                 
                 cell.lbltitle.text = CTCDetailsCode.otherBenefits
@@ -834,8 +841,9 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                 }
                 cell.parentStackView.alignment = .center
                 cell.lblBasicTopTitle.isHidden = true
-                
-                //cell.parentView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 10.0)
+                        
+                cell.parentView.layer.cornerRadius = 10
+                cell.parentView.layer.masksToBounds = true
                 
                 return cell
             }
@@ -1014,12 +1022,4 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
         
     }
             
-}
-extension UIView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
 }

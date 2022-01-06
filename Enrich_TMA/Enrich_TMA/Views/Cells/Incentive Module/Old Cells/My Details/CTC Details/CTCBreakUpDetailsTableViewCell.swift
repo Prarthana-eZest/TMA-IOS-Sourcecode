@@ -10,6 +10,7 @@ import UIKit
 
 class CTCBreakUpDetailsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var topBorderHideView: UIView!
     @IBOutlet weak var parentView: UIView!
     @IBOutlet weak var parentStackView: UIStackView!
     @IBOutlet weak var lblBasicTopTitle: UILabel!
