@@ -34,10 +34,10 @@ extension Int {
         let formatter = NumberFormatter()
         typealias Abbrevation = (threshold:Double, divisor:Double, suffix:String)
         let abbreviations:[Abbrevation] = [(0, 1, ""),
-                                           (999.0, 1000.0, "K"),
-                                           (1000.0, 1000.0, "K"),
-                                           (1_000_000.0, 1_000_000.0, "M"),
-                                           (100_000_000.0, 1_000_000_000.0, "B")]
+                                           (999.0, 1000.0, " K"),
+                                           (1000.0, 1000.0, " K"),
+                                           (1_000_000.0, 1_000_000.0, " M"),
+                                           (100_000_000.0, 1_000_000_000.0, " B")]
         
         let startValue = abs(self)
         let abbreviation:Abbrevation =
