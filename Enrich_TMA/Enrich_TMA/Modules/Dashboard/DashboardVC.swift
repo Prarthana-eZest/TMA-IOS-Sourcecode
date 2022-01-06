@@ -235,8 +235,8 @@ extension DashboardVC {
         }
         else if let model = viewModel as? Dashboard.GetForceUpadateInfo.Response {
             if model.status == true {
-//                self.forceUpdateData = model
-//                showAppUpdateAlert()
+                self.forceUpdateData = model
+                showAppUpdateAlert()
             }
             else {
                 showAlert(alertTitle: alertTitle, alertMessage: model.message)
