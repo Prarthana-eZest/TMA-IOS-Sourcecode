@@ -221,15 +221,32 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
     }
     
     func graphData(forData data:[Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> [Double] {
-        
-        let month = Int(dateRange.end.string(format: "M"))
         var values = [Double]()
-        
-            for objData in data ?? [] {
-                if objData.month == month {
-                    values.append(Double(objData.amount ?? 0))
+        switch dateRangeType {
+        case .yesterday, .today, .week, .mtd:
+            let month = Int(dateRange.end.string(format: "M"))
+            
+            
+                for objData in data ?? [] {
+                    if objData.month == month {
+                        values.append(Double(objData.amount ?? 0))
+                    }
                 }
+            return values
+            
+        case .qtd, .ytd :
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            for month in months{
+//                let data = filteredRevenue?.filter({($0.date?.contains(month)) ?? false}).map({$0.total})
+//                let value = data?.reduce(0) {$0 + ($1 ?? 0.0)} ?? 0.0
+                let val = data?.filter({($0.month == month) }).map({$0.amount})
+                let vals = val?.reduce(0) {$0 + ($1 ?? Int(0.0))}
+                values.append(Double(vals ?? Int(0.0)))
             }
+       
+        case .cutome:
+            break
+        }
         return values
     }
     
