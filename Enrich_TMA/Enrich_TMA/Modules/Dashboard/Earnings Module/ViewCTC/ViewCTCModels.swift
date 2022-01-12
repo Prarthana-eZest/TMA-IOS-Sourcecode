@@ -92,7 +92,6 @@ enum ViewCTC
             let take_home : Int?
             let hra_da : Int?
             let statutory_bonus : Int?
-            let additional_pay_out : Int?
             let grooming_points : Int?
             let mediclaim_coverage : Int?
             let life_insurance_coverage : Int?
