@@ -38,8 +38,8 @@ class EarningsSelectFilterDateRangeCell: UITableViewCell {
             btnToDate.isUserInteractionEnabled = false
         }
         
-        lblFromDate.text = model.fromDate?.monthNameYearDate
-        lblToDate.text = model.toDate?.monthNameYearDate
+        lblFromDate.text = model.fromDate?.monthNameAndYear
+        lblToDate.text = model.toDate?.monthNameAndYear
     }
 
     

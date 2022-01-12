@@ -11,6 +11,7 @@ import Charts
 
 class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelegate {
     
+    
     @IBOutlet weak private var lblTitle: UILabel!
     @IBOutlet weak private var lblSubTitle: UILabel!
     @IBOutlet weak private var trendlineView: UIStackView!
@@ -23,7 +24,7 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
     
     @IBOutlet var lblLeftAxis: UILabel!
     @IBOutlet var lblRightAxis: UILabel!
-    
+    var dateRangeType : DateRangeType = .mtd
     @IBOutlet weak var graphDtFilter: UIButton!
     // Single View
     @IBOutlet weak var singleValueView: UIView!
@@ -31,13 +32,13 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
     
     // Double View
     @IBOutlet weak var doubleValueFirstView: UIView!
-//    @IBOutlet weak var doubleValueSecondView: UIView!
+    //@IBOutlet weak var doubleValueSecondView: UIView!
     @IBOutlet weak var lblDoubleViewFirstTitle: UILabel!
     @IBOutlet weak var lblDoubleViewFirstSubTitle: UILabel!
-//    @IBOutlet weak var lblDoubleViewSecondTitle: UILabel!
-//    @IBOutlet weak var lblDoubleViewSecondSubTitle: UILabel!
-//
-//    // Package View
+   // @IBOutlet weak var lblDoubleViewSecondTitle: UILabel!
+   // @IBOutlet weak var lblDoubleViewSecondSubTitle: UILabel!
+        
+    // Package View
 //    @IBOutlet weak var packageView: UIView!
 //    @IBOutlet weak var lblPackageValue: UILabel!
 //    @IBOutlet weak var btnPakageType: UIButton!
@@ -115,17 +116,15 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
             doubleValueFirstView.backgroundColor = model.earningsType.doubleValueTileColors?.first
             lblDoubleViewFirstTitle.text = model.value[1]
             lblDoubleViewFirstSubTitle.text = model.subTitle[1]
-            //doubleValueSecondView.backgroundColor = model.earningsType.doubleValueTileColors?.last
-           // lblDoubleViewSecondTitle.text = model.value[2]
-            //lblDoubleViewSecondSubTitle.text = model.subTitle[2]
-//        case .PackageType:
+//            doubleValueSecondView.backgroundColor = model.earningsType.doubleValueTileColors?.last
+//            lblDoubleViewSecondTitle.text = model.value[2]
+//            lblDoubleViewSecondSubTitle.text = model.subTitle[2]
+        case .PackageType: break
 //            packageView.backgroundColor = model.earningsType.packageValueTileColor
 //            let valuePackage = model.value[0]
 //            lblPackageValue.text = valuePackage
         case .TripleValue: break
     
-        case .PackageType:
-            break
         }
         
     }
@@ -163,53 +162,18 @@ extension EarningDetailsViewTrendCellTableViewCell {
         dataModel = graphData
     
         chartView.noDataText = "You need to provide data for the chart."
-        
+        chartView.data = nil
         let data = CombinedChartData()
-        
-        let barData = graphData.filter { $0.graphType == .barGraph }
-        if !barData.isEmpty {
-            data.barData = generateBarData(graphData: barData)
-        }
 
         if let lineData = graphData.first(where: { $0.graphType == .linedGraph }) {
             data.lineData = generateLineData(graphData: lineData)
         }
         
-        /*
-        if(self.model.earningsType == .CustomerEngagement)
-        {
-        //chartParentView.backgroundColor = UIColor.green
-        lblLeftAxis.frame = CGRect(x: chartParentView.frame.origin.x-100, y: 140, width: chartParentView.frame.size.height - 40, height: 20)
-        //label.center = CGPoint(x: 160, y: 285)
-        lblLeftAxis.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-        lblLeftAxis.transform.rotated(by: 90)
-        lblLeftAxis.textAlignment = .center
-        lblLeftAxis.text = "Revenue"
-        lblLeftAxis.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 8.0)
-        lblLeftAxis.backgroundColor = UIColor.red
-        //rgba(156, 157, 178, 1)
-        lblLeftAxis.textColor = UIColor(red: 156/255, green: 157/255, blue: 178/255, alpha: 1)
-        chartParentView.addSubview(lblLeftAxis)
-        chartView.bringSubviewToFront(lblLeftAxis)
-        
-        chartView.frame = CGRect(x: lblLeftAxis.frame.height, y: 40, width: chartView.frame.size.width - 70, height: chartParentView.frame.size.height - 40)
-        
-        lblRightAxis.frame = CGRect(x: 278, y: 140, width: chartParentView.frame.size.height - 40, height: 20)
-        lblRightAxis.textAlignment = .center
-        lblRightAxis.text = "Customer count"
-        lblRightAxis.backgroundColor = UIColor.yellow
-        lblRightAxis.transform.rotated(by: 90)
-        lblRightAxis.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
-        lblRightAxis.font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 8.0)
-        lblRightAxis.textColor = UIColor(red: 156/255, green: 157/255, blue: 178/255, alpha: 1)
-        chartParentView.addSubview(lblRightAxis)
-        chartParentView.bringSubviewToFront(lblRightAxis)
-        
-       
-        chartParentView.addSubview(chartView)
-        chartParentView.bringSubviewToFront(chartView)
-        }*/
-        
+        let barData = graphData.filter { $0.graphType == .barGraph }
+        if !barData.isEmpty {
+            
+            data.barData = generateBarData(graphData: barData)
+        }
         
         chartView.data = data
         chartView.notifyDataSetChanged()
@@ -219,9 +183,24 @@ extension EarningDetailsViewTrendCellTableViewCell {
         let xAxis = chartView.xAxis
         xAxis.enabled = true
         xAxis.labelPosition = .bottom
-        xAxis.labelCount = graphData.first?.units.count ?? 0
         xAxis.wordWrapEnabled = true
-        xAxis.valueFormatter = CustomValueFormatter(values: graphData.first?.units ?? [])//IndexAxisValueFormatter(values: graphData.first?.units ?? [])//
+        /*
+         xAxis.setValueFormatter(new IndexAxisValueFormatter() {
+                  @Override
+                  public String getFormattedValue(float value) {
+                      if (value >= 0) {
+                          if (value <= barChartData.size() - 1) {
+                              return barChartData.get((int) value).getxAxisLabel();
+                          }
+                          return "";
+                      }
+                      return "";
+                  }
+              });
+         */
+        
+        
+      //  xAxis.setLabelCount(graphData.first?.units.count ?? 1, force: false)
         xAxis.labelTextColor = UIColor(red: 0.17, green: 0.16, blue: 0.16, alpha: 1.00)
         if let font = UIFont(name: FontName.FuturaPTMedium.rawValue, size: 8.0) {
             xAxis.labelFont = font
@@ -235,8 +214,26 @@ extension EarningDetailsViewTrendCellTableViewCell {
         xAxis.axisMaximum = Double(graphData.first?.units.count ?? 0) + 1
         xAxis.spaceMin = 0.3
         xAxis.spaceMax = 0.3
+//        xAxis.forceLabelsEnabled = true
         
-        
+//        if(dateRangeType == .mtd || dateRangeType == .qtd)
+//        {
+//            xAxis.valueFormatter = CustomValueFormatter(values: graphData.first?.units ?? [])
+//            xAxis.labelCount = 4
+//            xAxis.granularity = 2
+//            //xAxis.granularity = 1
+//            xAxis.setLabelCount(4, force: true)
+//            xAxis.granularityEnabled = true
+//        }
+//        else {
+            xAxis.valueFormatter = CustomValueFormatter(values: graphData.first?.units ?? [])
+            
+            xAxis.labelCount = (graphData.first?.units.count ?? 0) + 1
+           xAxis.setLabelCount((graphData.first?.units.count ?? 0) + 1, force: false)
+        xAxis.granularityEnabled = true
+            xAxis.granularity = 1
+//        }
+       
         // Left Axis
         let leftAxis = chartView.leftAxis
         leftAxis.setLabelCount(6, force: true)
@@ -313,6 +310,7 @@ extension EarningDetailsViewTrendCellTableViewCell {
             chartDataSet.highlightColor = UIColor.clear
             barChartData.addDataSet(chartDataSet)
         }
+        
         var barWidth = 0.3
         let barSpace = 0.0
         let groupSpace = (1 - (barWidth * Double(graphData.count)))

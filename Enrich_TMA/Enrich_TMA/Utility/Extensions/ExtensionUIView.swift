@@ -174,3 +174,31 @@ public class Gradient: UIView {
     }
 
 }
+extension UIView {
+    
+    static var nib: UINib {
+       return UINib(nibName: "\(self)", bundle: nil)
+    }
+
+    static func instantiateFromNib() -> Self? {
+       return nib.instantiate() as? Self
+    }
+
+}
+
+extension UINib {
+
+   func instantiate() -> Any? {
+      return instantiate(withOwner: nil, options: nil).first
+   }
+}
+
+extension UIWindow {
+    static var key: UIWindow? {
+        if #available(iOS 13, *) {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.keyWindow
+        }
+    }
+}

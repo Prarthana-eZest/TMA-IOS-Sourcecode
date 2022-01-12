@@ -171,13 +171,21 @@ class BonusViewController: UIViewController, BonusDisplayLogic
 
           let dataArray = earningsJSON?.data?.groups?.filter({EarningDetails(rawValue: $0.group_label ?? "") == EarningDetails.Bonus}) ?? []
         var index = 0
+        var amount = 0
         for data in dataArray {
             if(dateRangeType == .mtd){
             for parameter in data.parameters ?? [] {
                 
                 let value = parameter.transactions?.filter({$0.month == currentMonth})
                 //                value?.first?.amount
-                let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [value?.first?.amount?.roundedStringValue() ?? ""], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
+                if(parameter.transactions == nil){
+                    amount = 0
+                }
+                else
+                {
+                    amount = value?.first?.amount ?? 0
+                }
+                let model = EarningsCellDataModel(earningsType: .Bonus, title: parameter.name ?? "", value: [amount.roundedStringValue() ], subTitle: [parameter.comment ?? ""], showGraph: true, cellType: .SingleValue, isExpanded: false, dateRangeType: graphRangeType, customeDateRange: bonusDateRange)
                 dataModel.append(model)
                 graphData.append(getGraphEntry(parameter.name ?? "", forData: parameter.transactions, atIndex: index, dateRange: bonusDateRange, dateRangeType: graphRangeType))
                 
@@ -186,7 +194,7 @@ class BonusViewController: UIViewController, BonusDisplayLogic
             }
             else {
                 let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
-                var amount = 0
+                
                 for parameter in data.parameters ?? [] {
                         for month in months {
                         let value = parameter.transactions?.filter({$0.month == month})

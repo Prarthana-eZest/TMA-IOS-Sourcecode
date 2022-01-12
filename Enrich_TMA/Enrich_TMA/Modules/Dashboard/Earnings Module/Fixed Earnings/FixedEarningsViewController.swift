@@ -207,6 +207,7 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
             }
             index = 0
         }
+        calculateTotalFixedEarnings(dateRange: dateRange)
         tableView.reloadData()
         EZLoadingActivity.hide()
     }
@@ -338,43 +339,43 @@ func updateFixedEarningsData(atIndex indexPath:IndexPath, withStartDate startDat
     tableView.reloadRows(at: [indexPath], with: .automatic)
 }
 
-func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetRevenueDashboard.RevenueTransaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
+func update(modeData:EarningsCellDataModel, withData data: [Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) {
     
     var filteredFootfall = data
     
-    //Fetch Data incase not having filtered already
-    if data == nil, (data?.count ?? 0 <= 0) {
-        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
-        
-        //Date filter applied
-        filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
-            if let date = revenue.date?.date()?.startOfDay {
-                return date >= dateRange.start && date <= dateRange.end
-            }
-            return false
-        })
-    }
+//    //Fetch Data incase not having filtered already
+//    if data == nil, (data?.count ?? 0 <= 0) {
+//        let technicianDataJSON = UserDefaults.standard.value(Dashboard.GetRevenueDashboard.Response.self, forKey: UserDefauiltsKeys.k_key_RevenueDashboard)
+//
+//        //Date filter applied
+//        filteredFootfall = technicianDataJSON?.data?.revenue_transactions?.filter({ (revenue) -> Bool in
+//            if let date = revenue.date?.date()?.startOfDay {
+//                return date >= dateRange.start && date <= dateRange.end
+//            }
+//            return false
+//        })
+//    }
     
     var value : Double = 0.0
-    switch index {
-    case 0:
-        //service
-        let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
-        value = Double(salonServiceData.unique(map: {$0.invoice_number}).count)
-        
-    case 1:
-        //Home
-        let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
-        value = Double(homeServiceRevenueData.unique(map: {$0.invoice_number}).count)
-        
-    case 2:
-        //Retail
-        let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
-        value = Double(retailData?.unique(map: {$0.invoice_number}).count ?? 0)
-        
-    default:
-        print("****************** UNKNOWN ******************")
-    }
+//    switch index {
+//    case 0:
+//        //service
+//        let salonServiceData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.salon)}) ?? []
+//        value = Double(salonServiceData.unique(map: {$0.invoice_number}).count)
+//        
+//    case 1:
+//        //Home
+//        let homeServiceRevenueData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.services) && ($0.appointment_type ?? "").containsIgnoringCase(find:AppointmentType.home)}) ?? []
+//        value = Double(homeServiceRevenueData.unique(map: {$0.invoice_number}).count)
+//        
+//    case 2:
+//        //Retail
+//        let retailData = filteredFootfall?.filter({($0.product_category_type ?? "").containsIgnoringCase(find:CategoryTypes.retail)})
+//        value = Double(retailData?.unique(map: {$0.invoice_number}).count ?? 0)
+//        
+//    default:
+//        print("****************** UNKNOWN ******************")
+//    }
     
     dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)
 }
@@ -642,8 +643,9 @@ extension FixedEarningsViewController: EarningsFilterDelegate {
 extension FixedEarningsViewController: EarningDetailsViewTrendDelegate {
     
     func reloadData() {
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
+//        self.tableView.beginUpdates()
+//        self.tableView.endUpdates()
+        self.tableView.reloadData()
     }
     
     func actionDurationFilter(forCell cell: UITableViewCell) {
@@ -718,20 +720,12 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
             cell.selectionStyle = .none
             cell.delegate = self
             cell.parentVC = self
-            if(fromDidSelect){
-                let index = selectedIndx.row - 1
-                let model = dataModel[index]
-                let barGraph = graphData[index]
-                    cell.configureCell(model: model, data: [barGraph])
-                fromDidSelect = false
-            }
-            else {
+            
             let index = indexPath.row - 1
             let model = dataModel[index]
             let barGraph = graphData[index]
-                cell.configureCell(model: model, data: [barGraph])
-            }
-            
+            cell.dateRangeType = dateRangeType
+            cell.configureCell(model: model, data: [barGraph])
             return cell
         }
         
