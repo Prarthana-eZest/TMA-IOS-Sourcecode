@@ -29,7 +29,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ks6-At-7xl">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="34"/>
-                                    <state key="normal" title="Button">
+                                    <state key="normal" title="Cancel">
                                         <color key="titleColor" red="0.87450980389999999" green="0.32156862749999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
@@ -38,7 +38,7 @@
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTm-uU-qZq">
                                     <rect key="frame" x="165" y="0.0" width="150" height="34"/>
-                                    <state key="normal" title="Button">
+                                    <state key="normal" title="Select">
                                         <color key="titleColor" red="0.87450980389999999" green="0.32156862749999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
@@ -78,6 +78,7 @@
             <connections>
                 <outlet property="mainView" destination="Qsq-Jd-TCr" id="wYi-9r-ihA"/>
                 <outlet property="pickerView" destination="MtF-aC-h2L" id="j46-6a-IkH"/>
+                <outlet property="titleLable" destination="Xwd-dD-SX7" id="KZD-WF-wbt"/>
             </connections>
             <point key="canvasLocation" x="139" y="90"/>
         </view>

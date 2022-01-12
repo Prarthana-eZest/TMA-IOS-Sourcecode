@@ -92,7 +92,7 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
     var fromChartFilter : Bool = false
     var isFromProductivity = false
     var cutomRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
-    
+    var dateTest : Date?
     var selectedFilter = PackageFilterModel(title: "", isSelected: false, fromDate: nil, toDate: nil, sku: "")
     // MARK: Object lifecycle
     
@@ -190,7 +190,7 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
             selectedData = data.last
         }
         
-        viewDismissBlock?(true, selectedData?.fromDate?.startOfDay, selectedData?.toDate?.endOfDay, selectedRangeTypeString)
+        viewDismissBlock?(true, selectedData?.fromDate, selectedData?.toDate, selectedRangeTypeString)
     }
     
     
@@ -200,20 +200,16 @@ extension EarningsDateFilterViewController: SelectDateRangeDelegate {
     
     private func addPickerView(isFrom: Bool) {
          let pickerView = PickerView.instantiateFromNib()
-        if(isFrom){
-            if let fromDate = self.data.last?.fromDate {
-                pickerView?.setSelectedDate(fromDate)
+        pickerView?.setTitle(isFrom ? "From Date" : "To Date")
+        if (!isFrom){
+            if let fromDate = self.data.last?.fromDate{
+                pickerView?.setMinimumDate(fromDate)
+                
             }
         }
-        else {
-            if let toDate = self.data.last?.toDate {
-                pickerView?.setSelectedDate(toDate)
-            }
-        }
-        
-        
          pickerView?.selectedMonthYear = { [weak self] (selectedDate, monthYear) in
             guard let self = self else { return }
+            self.dateTest = selectedDate
             let userDefaults = UserDefaults.standard
             if(isFrom == true){//from date
                 self.data.last?.fromDate = selectedDate
@@ -226,6 +222,23 @@ extension EarningsDateFilterViewController: SelectDateRangeDelegate {
             self.tableView.reloadData()
          }
          pickerView?.addMeOn(onView: self.view)
+        if(isFrom){
+            if let fromDate = self.data.last?.fromDate {
+                pickerView?.setSelectedDate(fromDate)
+//                DispatchQueue.main.async {
+//                    pickerView?.setSelectedDate(fromDate)
+//                }
+            }
+        }
+        else {
+            if let toDate = self.data.last?.toDate {
+                pickerView?.setSelectedDate(toDate)
+//                DispatchQueue.main.async {
+//                    pickerView?.setSelectedDate(toDate)
+//                }
+
+            }
+        }
      }
     
     func actionFromDate() {

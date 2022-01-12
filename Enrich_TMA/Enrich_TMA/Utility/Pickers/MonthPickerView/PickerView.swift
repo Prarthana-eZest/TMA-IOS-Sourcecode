@@ -11,7 +11,8 @@ final class PickerView: UIView {
 
     @IBOutlet weak private var pickerView: MonthYearPickerView!
     @IBOutlet weak private var mainView: UIView!
-
+    @IBOutlet weak private var titleLable: UILabel!
+    
     var selectedDate: ((Date) -> Void)?
     var selectedMonthYear: ((Date, String) -> Void)?
     
@@ -40,21 +41,27 @@ final class PickerView: UIView {
 
     private func commonInit() {}
     
+    func setTitle( _ title: String){
+        titleLable.text = title
+    }
+    
     private func pickerSetup() {
-        let minDate = "2021-01-02"
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        pickerView.minimumDate = Calendar.current.date(byAdding: .month, value: -12, to: Date())
+        pickerView.maximumDate = Date()//Calendar.current.date(byAdding: .month, value: , to: Date())
         
-        pickerView.minimumDate = dateFormatter.date(from: minDate) ?? Date()
-        
-        let maxDate = "2022-12-31"
-        if let maximumPickerDate = dateFormatter.date(from: maxDate) {
-            pickerView.maximumDate = maximumPickerDate
-        }
+        pickerView.locale = .init(identifier: "en_US_POSIX")
+
     }
     
     func setSelectedDate(_ date: Date) {
         pickerView.setDate(date, animated: true)
     }
+    
+    func setMinimumDate(_ date: Date) {
+        pickerView.minimumDate = date
+    }
+    
+    
     
     @objc func dateChanged(_ picker: MonthYearPickerView) {
         print("date changed: \(picker.date)")
