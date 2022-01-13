@@ -22,6 +22,7 @@ open class IndexAxisValueFormatter: NSObject, IAxisValueFormatter
     {
         get
         {
+            print("##########\(_values)")
             return _values
         }
         set

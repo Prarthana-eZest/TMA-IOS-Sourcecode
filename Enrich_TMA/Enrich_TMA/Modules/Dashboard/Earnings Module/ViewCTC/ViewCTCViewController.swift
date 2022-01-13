@@ -495,8 +495,12 @@ extension ViewCTCViewController : UITableViewDelegate, UITableViewDataSource{
                         cell.lblBasicYear.text = "-"
                     }
                     else {
+
+                        cell.lblBasicMonth.text = "-"
+                        cell.lblBasicYear.text = "-"
                     cell.lblBasicMonth.text = (self.ctcModelObject?.data?.other_allowance ?? 0).roundedStringValue()
                     cell.lblBasicYear.text = ((self.ctcModelObject?.data?.other_allowance ?? 0) * 12).roundedStringValue()
+
                     }
                 }
                 if indexPath.row == 12{

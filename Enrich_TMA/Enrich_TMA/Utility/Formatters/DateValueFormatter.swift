@@ -45,7 +45,27 @@ public class CustomValueFormatter: NSObject, IAxisValueFormatter {
                 break
             }
         }
-        print("************ \(stringToReturn)")
         return stringToReturn
+    }
+}
+
+class BarChartFormatter: NSObject,IAxisValueFormatter,IValueFormatter {
+
+
+    var values : [String]
+    required init (values : [String]) {
+        self.values = values
+        super.init()
+    }
+
+
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return values[Int(value)]
+
+    }
+
+    func stringForValue(_ value: Double, entry: ChartDataEntry, dataSetIndex: Int, viewPortHandler: ViewPortHandler?) -> String {
+        return values[Int(entry.x)]
+
     }
 }

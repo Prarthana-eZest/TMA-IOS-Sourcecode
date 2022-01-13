@@ -92,7 +92,7 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
     var fromChartFilter : Bool = false
     var isFromProductivity = false
     var cutomRange:DateRange = DateRange(Date.today.lastYear(), Date.today)
-    
+    var dateTest : Date?
     var selectedFilter = PackageFilterModel(title: "", isSelected: false, fromDate: nil, toDate: nil, sku: "")
     // MARK: Object lifecycle
     
@@ -156,7 +156,7 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
         
         data.append(PackageFilterModel(title: DateRangeType.qtd.rawValue, isSelected: isSelected(dateRangeType: .qtd), fromDate: DateRangeType.qtd.date, toDate: Date.today, sku: nil))
         data.append(PackageFilterModel(title: DateRangeType.ytd.rawValue, isSelected: isSelected(dateRangeType: .ytd), fromDate: DateRangeType.ytd.date, toDate: Date.today, sku: nil))
-        data.append(PackageFilterModel(title: "Select Custom Date Range", isSelected: isSelected(dateRangeType: .cutome), fromDate: cutomRange.start, toDate: cutomRange.end, sku: nil))
+        data.append(PackageFilterModel(title: "Select Custom Months", isSelected: isSelected(dateRangeType: .cutome), fromDate: cutomRange.start, toDate: cutomRange.end, sku: nil))
        
         tableView.reloadData()
         
@@ -190,7 +190,7 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
             selectedData = data.last
         }
         
-        viewDismissBlock?(true, selectedData?.fromDate?.startOfDay, selectedData?.toDate?.endOfDay, selectedRangeTypeString)
+        viewDismissBlock?(true, selectedData?.fromDate, selectedData?.toDate, selectedRangeTypeString)
     }
     
     
@@ -198,28 +198,73 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
 
 extension EarningsDateFilterViewController: SelectDateRangeDelegate {
     
-    func actionFromDate() {
-        let model = data.last
-        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.fromDate ?? Date.today.lastYear(), minimumDate: Date.today.lastYear(), maximumDate: Date.today, datePickerMode: .dateAndTime) { (selectedDate) in
-            if(selectedDate != nil){
+    private func addPickerView(isFrom: Bool) {
+         let pickerView = PickerView.instantiateFromNib()
+        pickerView?.setTitle(isFrom ? "From Date" : "To Date")
+        if (!isFrom){
+            if let fromDate = self.data.last?.fromDate{
+                pickerView?.setMinimumDate(fromDate)
+                
+            }
+        }
+         pickerView?.selectedMonthYear = { [weak self] (selectedDate, monthYear) in
+            guard let self = self else { return }
+            self.dateTest = selectedDate
+            let userDefaults = UserDefaults.standard
+            if(isFrom == true){//from date
                 self.data.last?.fromDate = selectedDate
-                let userDefaults = UserDefaults.standard
-                userDefaults.set(selectedDate?.monthNameYearDate, forKey: UserDefauiltsKeys.k_key_FromDate)
+                userDefaults.set(monthYear, forKey: UserDefauiltsKeys.k_key_FromDate)
+            }
+            else {//to date
+                self.data.last?.toDate = selectedDate
+                userDefaults.set(monthYear, forKey: UserDefauiltsKeys.k_key_ToDate)
             }
             self.tableView.reloadData()
+         }
+         pickerView?.addMeOn(onView: self.view)
+        if(isFrom){
+            if let fromDate = self.data.last?.fromDate {
+                pickerView?.setSelectedDate(fromDate)
+//                DispatchQueue.main.async {
+//                    pickerView?.setSelectedDate(fromDate)
+//                }
+            }
         }
+        else {
+            if let toDate = self.data.last?.toDate {
+                pickerView?.setSelectedDate(toDate)
+//                DispatchQueue.main.async {
+//                    pickerView?.setSelectedDate(toDate)
+//                }
+
+            }
+        }
+     }
+    
+    func actionFromDate() {
+//        let model = data.last
+//        DatePickerDialog().show("From Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.fromDate ?? Date.today.lastYear(), minimumDate: Date.today.lastYear(), maximumDate: Date.today, datePickerMode: .dateAndTime) { (selectedDate) in
+//            if(selectedDate != nil){
+//                self.data.last?.fromDate = selectedDate
+//                let userDefaults = UserDefaults.standard
+//                userDefaults.set(selectedDate?.monthNameYearDate, forKey: UserDefauiltsKeys.k_key_FromDate)
+//            }
+//            self.tableView.reloadData()
+//        }
+        addPickerView(isFrom: true)
     }
     
     func actionToDate() {
-        let model = data.last
-        DatePickerDialog().show("To Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.toDate ?? Date.today, minimumDate: model?.fromDate!, maximumDate: Date.today, datePickerMode: .date) { (selectedDate) in
-            if(selectedDate != nil){
-                self.data.last?.toDate = selectedDate
-                let userDefaults = UserDefaults.standard
-                userDefaults.set(selectedDate?.monthNameYearDate, forKey: UserDefauiltsKeys.k_key_ToDate)
-            }
-            self.tableView.reloadData()
-        }
+//        let model = data.last
+//        DatePickerDialog().show("To Date", doneButtonTitle: "SELECT", cancelButtonTitle: "CANCEL", defaultDate: model?.toDate ?? Date.today, minimumDate: model?.fromDate!, maximumDate: Date.today, datePickerMode: .date) { (selectedDate) in
+//            if(selectedDate != nil){
+//                self.data.last?.toDate = selectedDate
+//                let userDefaults = UserDefaults.standard
+//                userDefaults.set(selectedDate?.monthNameAndYear, forKey: UserDefauiltsKeys.k_key_ToDate)
+//            }
+//            self.tableView.reloadData()
+//        }
+        addPickerView(isFrom: false)
     }
     
 }

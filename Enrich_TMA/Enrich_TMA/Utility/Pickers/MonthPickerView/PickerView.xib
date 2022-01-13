@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PickerView" customModule="TMA_Stage" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qsq-Jd-TCr">
+                    <rect key="frame" x="41.5" y="282.5" width="331" height="331"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xwd-dD-SX7">
+                            <rect key="frame" x="137.5" y="10" width="56.5" height="19.5"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="wZZ-46-jHU">
+                            <rect key="frame" x="8" y="285" width="315" height="34"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ks6-At-7xl">
+                                    <rect key="frame" x="0.0" y="0.0" width="150" height="34"/>
+                                    <state key="normal" title="Cancel">
+                                        <color key="titleColor" red="0.87450980389999999" green="0.32156862749999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="cancelButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="D1a-Pk-Teu"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTm-uU-qZq">
+                                    <rect key="frame" x="165" y="0.0" width="150" height="34"/>
+                                    <state key="normal" title="Select">
+                                        <color key="titleColor" red="0.87450980389999999" green="0.32156862749999998" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="selectButtonTapped" destination="iN0-l3-epB" eventType="touchUpInside" id="roF-Uc-KFt"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MtF-aC-h2L" customClass="MonthYearPickerView" customModule="TMA_Stage" customModuleProvider="target">
+                            <rect key="frame" x="10" y="39.5" width="311" height="235.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="wZZ-46-jHU" secondAttribute="trailing" constant="8" id="0Ar-PA-U86"/>
+                        <constraint firstItem="MtF-aC-h2L" firstAttribute="leading" secondItem="Qsq-Jd-TCr" secondAttribute="leading" constant="10" id="6Uf-gQ-EXU"/>
+                        <constraint firstAttribute="trailing" secondItem="MtF-aC-h2L" secondAttribute="trailing" constant="10" id="Dwn-qQ-Byi"/>
+                        <constraint firstItem="wZZ-46-jHU" firstAttribute="leading" secondItem="Qsq-Jd-TCr" secondAttribute="leading" constant="8" id="Ftu-QN-o0l"/>
+                        <constraint firstItem="MtF-aC-h2L" firstAttribute="top" secondItem="Xwd-dD-SX7" secondAttribute="bottom" constant="10" id="IOJ-Nx-HgJ"/>
+                        <constraint firstItem="Xwd-dD-SX7" firstAttribute="centerX" secondItem="Qsq-Jd-TCr" secondAttribute="centerX" id="SVP-iF-BXM"/>
+                        <constraint firstItem="Xwd-dD-SX7" firstAttribute="top" secondItem="Qsq-Jd-TCr" secondAttribute="top" constant="10" id="aHU-vc-4di"/>
+                        <constraint firstItem="wZZ-46-jHU" firstAttribute="top" secondItem="MtF-aC-h2L" secondAttribute="bottom" constant="10" id="jcG-4q-oi8"/>
+                        <constraint firstAttribute="bottom" secondItem="wZZ-46-jHU" secondAttribute="bottom" constant="12" id="peB-X8-mjz"/>
+                        <constraint firstAttribute="width" secondItem="Qsq-Jd-TCr" secondAttribute="height" multiplier="1:1" id="u3y-JJ-9p9"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Qsq-Jd-TCr" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="WXa-DI-zhD"/>
+                <constraint firstItem="Qsq-Jd-TCr" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="jMj-nn-C5O"/>
+                <constraint firstItem="Qsq-Jd-TCr" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.8" id="nZt-Oe-hmF"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="mainView" destination="Qsq-Jd-TCr" id="wYi-9r-ihA"/>
+                <outlet property="pickerView" destination="MtF-aC-h2L" id="j46-6a-IkH"/>
+                <outlet property="titleLable" destination="Xwd-dD-SX7" id="KZD-WF-wbt"/>
+            </connections>
+            <point key="canvasLocation" x="139" y="90"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

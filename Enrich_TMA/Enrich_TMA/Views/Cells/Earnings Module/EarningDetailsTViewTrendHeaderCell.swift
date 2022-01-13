@@ -153,7 +153,12 @@ extension EarningDetailsTViewTrendHeaderCell {
         xAxis.axisMaximum = Double(graphData.first?.units.count ?? 0) + 1
         xAxis.spaceMin = 0.3
         xAxis.spaceMax = 0.3
+        xAxis.valueFormatter = CustomValueFormatter(values: graphData.first?.units ?? [])
         
+        xAxis.labelCount = (graphData.first?.units.count ?? 0) + 1
+       xAxis.setLabelCount((graphData.first?.units.count ?? 0) + 1, force: false)
+        xAxis.granularityEnabled = true
+        xAxis.granularity = 1
         
         
         // Left Axis
