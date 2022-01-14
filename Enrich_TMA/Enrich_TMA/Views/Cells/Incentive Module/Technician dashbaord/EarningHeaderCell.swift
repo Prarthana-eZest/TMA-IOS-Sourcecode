@@ -23,6 +23,8 @@ class EarningHeaderCell: UITableViewCell {
     @IBOutlet private weak var btnGrid: UIButton!
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var collectionViewHeight: NSLayoutConstraint!
+    @IBOutlet private weak var btnStackView: UIStackView!
+
     
     let gridViewHeight = 180
     let listViewHeight = 70
@@ -128,14 +130,17 @@ class EarningHeaderCell: UITableViewCell {
         if(viewType == .earnings){//for earnings
             btnList.isHidden = true
             btnGrid.isHidden = true
+            btnStackView.isHidden = true
             let count = (earningsModel.count % 2 == 0) ? earningsModel.count / 2 : (earningsModel.count / 2 + 1)
             collectionViewHeight.constant = CGFloat((count * (gridViewHeight)))
         }
         else if viewType == .grid {
             let count = (earningsModel.count % 2 == 0) ? earningsModel.count / 2 : (earningsModel.count / 2 + 1)
             collectionViewHeight.constant = CGFloat((count * (gridViewHeight)))
-            btnList.isHidden = true
-            btnGrid.isHidden = true
+            btnList.isHidden = false
+            btnGrid.isHidden = false
+            btnStackView.isHidden = false
+            
             btnGrid.isSelected = true
             btnGrid.backgroundColor = UIColor(red: 0.87, green: 0.32, blue: 0.32, alpha: 1.00)
 
@@ -145,8 +150,10 @@ class EarningHeaderCell: UITableViewCell {
             collectionViewHeight.constant = CGFloat((earningsModel.count * (listViewHeight)))
             btnList.isSelected = true
             btnList.backgroundColor = UIColor(red: 0.87, green: 0.32, blue: 0.32, alpha: 1.00)
-            btnList.isHidden = true
-            btnGrid.isHidden = true
+            btnList.isHidden = false
+            btnGrid.isHidden = false
+            btnStackView.isHidden = false
+            
             btnGrid.isSelected = false
             btnGrid.backgroundColor = UIColor.white
 
