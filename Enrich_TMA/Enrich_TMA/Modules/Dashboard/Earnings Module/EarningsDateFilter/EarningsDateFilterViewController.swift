@@ -21,7 +21,7 @@ enum EarningsDateRangeType : String {
     case mtd = "MTD"
     case qtd = "QTD"
     case ytd = "YTD"
-    case cutome = "Custom Date Range"
+    case cutome = "Custom Months"
     
     var date: Date? {
         switch self {
@@ -132,8 +132,8 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
     
     // MARK: View lifecycle
     
-    func isSelected(dateRangeType:DateRangeType) -> Bool {
-        let selectedType = DateRangeType(rawValue: selectedRangeTypeString) ?? .cutome
+    func isSelected(dateRangeType:EarningsDateRangeType) -> Bool {
+        let selectedType = EarningsDateRangeType(rawValue: selectedRangeTypeString) ?? .cutome
         return selectedType == dateRangeType
     }
     
@@ -150,12 +150,12 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
         parentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         if fromChartFilter == false{
-            data.append(PackageFilterModel(title: DateRangeType.mtd.rawValue, isSelected: isSelected(dateRangeType: .mtd), fromDate: DateRangeType.mtd.date, toDate: Date.today, sku: nil))
+            data.append(PackageFilterModel(title: EarningsDateRangeType.mtd.rawValue, isSelected: isSelected(dateRangeType: .mtd), fromDate: EarningsDateRangeType.mtd.date, toDate: Date.today, sku: nil))
         }
        
         
-        data.append(PackageFilterModel(title: DateRangeType.qtd.rawValue, isSelected: isSelected(dateRangeType: .qtd), fromDate: DateRangeType.qtd.date, toDate: Date.today, sku: nil))
-        data.append(PackageFilterModel(title: DateRangeType.ytd.rawValue, isSelected: isSelected(dateRangeType: .ytd), fromDate: DateRangeType.ytd.date, toDate: Date.today, sku: nil))
+        data.append(PackageFilterModel(title: EarningsDateRangeType.qtd.rawValue, isSelected: isSelected(dateRangeType: .qtd), fromDate: EarningsDateRangeType.qtd.date, toDate: Date.today, sku: nil))
+        data.append(PackageFilterModel(title: EarningsDateRangeType.ytd.rawValue, isSelected: isSelected(dateRangeType: .ytd), fromDate: EarningsDateRangeType.ytd.date, toDate: Date.today, sku: nil))
         data.append(PackageFilterModel(title: "Select Custom Months", isSelected: isSelected(dateRangeType: .cutome), fromDate: cutomRange.start, toDate: cutomRange.end, sku: nil))
        
         tableView.reloadData()
@@ -185,9 +185,10 @@ class EarningsDateFilterViewController: UIViewController, EarningsDateFilterDisp
     @IBAction func actionApplyFilter(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
         
-        let rangeType = DateRangeType(rawValue: selectedRangeTypeString) ?? .cutome
+        let rangeType = EarningsDateRangeType(rawValue: selectedRangeTypeString) ?? .cutome
         if rangeType == .cutome {
             selectedData = data.last
+            selectedRangeTypeString = "Custom Months"
         }
         
         viewDismissBlock?(true, selectedData?.fromDate, selectedData?.toDate, selectedRangeTypeString)
@@ -200,7 +201,7 @@ extension EarningsDateFilterViewController: SelectDateRangeDelegate {
     
     private func addPickerView(isFrom: Bool) {
          let pickerView = PickerView.instantiateFromNib()
-        pickerView?.setTitle(isFrom ? "From Date" : "To Date")
+        pickerView?.setTitle(isFrom ? "From Month" : "To Month")
         if (!isFrom){
             if let fromDate = self.data.last?.fromDate{
                 pickerView?.setMinimumDate(fromDate)
@@ -310,8 +311,8 @@ extension EarningsDateFilterViewController: UITableViewDelegate, UITableViewData
         data[indexPath.row].isSelected = true
         selectedData = data[indexPath.row]
         
-        let rangeType = DateRangeType(rawValue: selectedData!.title) ?? .cutome
-        selectedRangeTypeString = (rangeType == .cutome) ? "Custom Date Range" : selectedData!.title
+        let rangeType = EarningsDateRangeType(rawValue: selectedData!.title) ?? .cutome
+        selectedRangeTypeString = (rangeType == .cutome) ? "Custom Months" : selectedData!.title
         tableView.reloadData()
     }
 }

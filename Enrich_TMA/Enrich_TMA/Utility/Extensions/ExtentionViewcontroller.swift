@@ -218,13 +218,13 @@ extension UIViewController {
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
-            if dateRange.end.days(from: dateRange.start) > 31
-            {
+           // if dateRange.end.days(from: dateRange.start) > 31
+//            {
                 return dateRange.end.monthNames(from: dateRange.start, withFormat: "MMM yy")
-            }
-            else {
-                return dateRange.end.dayDates(from: dateRange.start, withFormat: "d")
-            }
+//            }
+//            else {
+//                return dateRange.end.dayDates(from: dateRange.start, withFormat: "d")
+//            }
         }
     }
 }

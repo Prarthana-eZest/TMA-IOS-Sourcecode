@@ -575,6 +575,9 @@
 		F85282DE26BD48F200E02CB2 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85282DD26BD48F100E02CB2 /* BalloonMarker.swift */; };
 		F85282E426BD63C800E02CB2 /* EarningDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85282E226BD63C800E02CB2 /* EarningDetailsCell.swift */; };
 		F85282E526BD63C800E02CB2 /* EarningDetailsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F85282E326BD63C800E02CB2 /* EarningDetailsCell.xib */; };
+		F854F543278DB6EC0093F5AE /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F540278DB6EC0093F5AE /* PickerView.swift */; };
+		F854F544278DB6EC0093F5AE /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F854F541278DB6EC0093F5AE /* CustomPickerView.swift */; };
+		F854F545278DB6EC0093F5AE /* PickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = F854F542278DB6EC0093F5AE /* PickerView.xib */; };
 		F855C380249B9809000C2351 /* DeleteReasonVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F855C37F249B9809000C2351 /* DeleteReasonVC.swift */; };
 		F85925AF24459881005E386A /* ChangeTimeSlotPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85925A924459881005E386A /* ChangeTimeSlotPresenter.swift */; };
 		F85925B024459881005E386A /* ChangeTimeSlotWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F85925AA24459881005E386A /* ChangeTimeSlotWorker.swift */; };
@@ -1510,6 +1513,9 @@
 		F85282DD26BD48F100E02CB2 /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		F85282E226BD63C800E02CB2 /* EarningDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EarningDetailsCell.swift; sourceTree = "<group>"; };
 		F85282E326BD63C800E02CB2 /* EarningDetailsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EarningDetailsCell.xib; sourceTree = "<group>"; };
+		F854F540278DB6EC0093F5AE /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		F854F541278DB6EC0093F5AE /* CustomPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
+		F854F542278DB6EC0093F5AE /* PickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerView.xib; sourceTree = "<group>"; };
 		F855C37F249B9809000C2351 /* DeleteReasonVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteReasonVC.swift; sourceTree = "<group>"; };
 		F85925A924459881005E386A /* ChangeTimeSlotPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTimeSlotPresenter.swift; sourceTree = "<group>"; };
 		F85925AA24459881005E386A /* ChangeTimeSlotWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTimeSlotWorker.swift; sourceTree = "<group>"; };
@@ -2329,6 +2335,7 @@
 		E33F10B9234B103700C2F9F5 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+				F854F53F278DB6EC0093F5AE /* MonthPickerView */,
 				E33F10BA234B103700C2F9F5 /* ListPickerDialog.swift */,
 				E33F10BB234B103700C2F9F5 /* DatePickerDialog.swift */,
 			);
@@ -3680,6 +3687,16 @@
 			path = "Incentive Helper";
 			sourceTree = "<group>";
 		};
+		F854F53F278DB6EC0093F5AE /* MonthPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				F854F540278DB6EC0093F5AE /* PickerView.swift */,
+				F854F541278DB6EC0093F5AE /* CustomPickerView.swift */,
+				F854F542278DB6EC0093F5AE /* PickerView.xib */,
+			);
+			path = MonthPickerView;
+			sourceTree = "<group>";
+		};
 		F855C37E249B97ED000C2351 /* Delete Reason */ = {
 			isa = PBXGroup;
 			children = (
@@ -4798,6 +4815,7 @@
 				F882CA67246D445700E67FEC /* TeleMarketingCompletedCell.xib in Resources */,
 				F8F386D5256399EF00B6284F /* BookAppointment.storyboard in Resources */,
 				F875C4682410D919009AA42F /* ProductCategoryBackImageCell.xib in Resources */,
+				F854F545278DB6EC0093F5AE /* PickerView.xib in Resources */,
 				E362487323E03AED00CCF440 /* MyAvailableValuePackagesCell.xib in Resources */,
 				E30A94E1234D950F00E544D0 /* Revenue.storyboard in Resources */,
 				E310119423700A22003720F3 /* SelectGenderCell.xib in Resources */,
@@ -5598,6 +5616,7 @@
 				F8FAFD8A2424CCA200123E84 /* ApplyCouponModels.swift in Sources */,
 				E38815DC237973080091964B /* JobCardVC.swift in Sources */,
 				E3FCBB35240D37AE008349A8 /* ReviewThumpsUpDownCell.swift in Sources */,
+				F854F544278DB6EC0093F5AE /* CustomPickerView.swift in Sources */,
 				E3FCBB33240D37AE008349A8 /* FilterRightTableViewCell.swift in Sources */,
 				E33F111D234B103800C2F9F5 /* HTTPMethod.swift in Sources */,
 				F8254349247693E1007ED67E /* SearchModuleInteractor.swift in Sources */,
@@ -5759,6 +5778,7 @@
 				F8B77E44240E5357006A35B0 /* SalonServiceModuleModels.swift in Sources */,
 				F8802C0D25E50ABE005EBD1D /* CTCDetailsModels.swift in Sources */,
 				E33F10FA234B103800C2F9F5 /* UIBarButtonItem+Badge.swift in Sources */,
+				F854F543278DB6EC0093F5AE /* PickerView.swift in Sources */,
 				F8A323FB27674C22003DC166 /* EarningsViewController.swift in Sources */,
 				F8920F5826CAB1E800C168CD /* DateFilterInteractor.swift in Sources */,
 				F86E74E325DF9478007FC9B2 /* AchievementModels.swift in Sources */,
@@ -5916,7 +5936,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.109;
+				MARKETING_VERSION = 1.112;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6118,7 +6138,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.109;
+				MARKETING_VERSION = 1.112;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6152,7 +6172,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.109;
+				MARKETING_VERSION = 1.112;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EnrichSalon.TMA;
 				PRODUCT_NAME = TMA_Stage;

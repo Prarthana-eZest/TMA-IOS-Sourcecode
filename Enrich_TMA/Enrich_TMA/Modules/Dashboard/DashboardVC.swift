@@ -277,7 +277,7 @@ extension DashboardVC {
         }
         else if let model = viewModel as? Dashboard.GetEarningsDashboard.Response {
             EZLoadingActivity.hide()
-            print("Earnings : \(model)")
+           // print("Earnings : \(model)")
             let userDefaults = UserDefaults.standard
             userDefaults.set(encodable: model, forKey: UserDefauiltsKeys.k_key_EarningsDashboard)
             userDefaults.synchronize()

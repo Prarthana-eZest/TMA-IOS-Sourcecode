@@ -96,7 +96,12 @@ class EarningDetailsViewTrendCellTableViewCell: UITableViewCell, ChartViewDelega
             lblLeftAxis.isHidden = true
             lblRightAxis.isHidden = true
         }
+        if(model.dateRangeType == .cutome){
+            graphDtFilter.setTitle("Custom Months", for: .normal)
+        }
+        else {
         graphDtFilter.setTitle(model.dateRangeType.rawValue, for: .normal)
+        }
 //        if chartView.data == nil, !model.isExpanded {
         //if !model.isExpanded {
             drawGraph(graphData: data, showRightAxix: (model.earningsType == .CustomerEngagement || model.earningsType == .ResourceUtilisation))

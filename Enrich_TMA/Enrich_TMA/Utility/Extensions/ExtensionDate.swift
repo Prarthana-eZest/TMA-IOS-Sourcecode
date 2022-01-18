@@ -52,6 +52,11 @@ extension Date
         return Utils.calendar.date(byAdding: .month, value: -3, to: self)!
     }
     
+    func nextQuarter() -> Date
+    {
+        return Utils.calendar.date(byAdding: .month, value: +2, to: self)!
+    }
+    
     func lastYear() -> Date
     {
         return Utils.calendar.date(byAdding: .year, value: -1, to: self)!

@@ -79,7 +79,12 @@ class EarningDetailsTViewTrendHeaderCell: UITableViewCell, ChartViewDelegate {
         lblTitle.text = model.earningsType.headerTitle
         trendlineView.isHidden = !model.earningsType.isGraphAvailable
         chartParentView.isHidden = !model.earningsType.isGraphAvailable
+        if(model.dateRangeType == .cutome){
+            graphRangeBtn.setTitle("Custome Months", for: .normal)
+        }
+        else {
         graphRangeBtn.setTitle(model.dateRangeType.rawValue, for: .normal)
+        }
         tileHeightConstraint.constant = model.earningsType.headerTileHeight
         chartParentView.isHidden = !model.isExpanded
         lblValue.text = model.value?.roundedStringValue() ?? ""
