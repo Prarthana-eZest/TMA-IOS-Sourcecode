@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0E745891275A58C500005935 /* ExtensionDouble.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E745890275A58C500005935 /* ExtensionDouble.swift */; };
+		442A94C42791BC1500C31DDC /* PickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A94C12791BC1500C31DDC /* PickerView.swift */; };
+		442A94C52791BC1500C31DDC /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 442A94C22791BC1500C31DDC /* CustomPickerView.swift */; };
+		442A94C62791BC1500C31DDC /* PickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 442A94C32791BC1500C31DDC /* PickerView.xib */; };
 		449D13B727844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 449D13B527844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib */; };
 		449D13B827844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D13B627844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift */; };
 		449D13BB2784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449D13B92784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift */; };
@@ -932,6 +935,9 @@
 		0F93DD41D1FF48BF2C4971B5 /* Pods_Enrich_TMAUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMAUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F07588299F85041D16386AA /* Pods-Enrich_TMA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Enrich_TMA.release.xcconfig"; path = "Target Support Files/Pods-Enrich_TMA/Pods-Enrich_TMA.release.xcconfig"; sourceTree = "<group>"; };
 		32C6778C4F80BC364D0D5CAA /* Pods_Enrich_TMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Enrich_TMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		442A94C12791BC1500C31DDC /* PickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerView.swift; sourceTree = "<group>"; };
+		442A94C22791BC1500C31DDC /* CustomPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
+		442A94C32791BC1500C31DDC /* PickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerView.xib; sourceTree = "<group>"; };
 		449D13B527844AFE00E76FF9 /* CTCBreakUpTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CTCBreakUpTableViewCell.xib; sourceTree = "<group>"; };
 		449D13B627844AFE00E76FF9 /* CTCBreakUpTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CTCBreakUpTableViewCell.swift; sourceTree = "<group>"; };
 		449D13B92784636F00E76FF9 /* CTCBreakUpDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTCBreakUpDetailsTableViewCell.swift; sourceTree = "<group>"; };
@@ -1894,6 +1900,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		442A94C02791BC1500C31DDC /* MonthPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				442A94C12791BC1500C31DDC /* PickerView.swift */,
+				442A94C22791BC1500C31DDC /* CustomPickerView.swift */,
+				442A94C32791BC1500C31DDC /* PickerView.xib */,
+			);
+			path = MonthPickerView;
+			sourceTree = "<group>";
+		};
 		6BA850033F150934CFED6E65 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -2335,7 +2351,9 @@
 		E33F10B9234B103700C2F9F5 /* Pickers */ = {
 			isa = PBXGroup;
 			children = (
+
 				F854F53F278DB6EC0093F5AE /* MonthPickerView */,
+
 				E33F10BA234B103700C2F9F5 /* ListPickerDialog.swift */,
 				E33F10BB234B103700C2F9F5 /* DatePickerDialog.swift */,
 			);
@@ -4815,7 +4833,9 @@
 				F882CA67246D445700E67FEC /* TeleMarketingCompletedCell.xib in Resources */,
 				F8F386D5256399EF00B6284F /* BookAppointment.storyboard in Resources */,
 				F875C4682410D919009AA42F /* ProductCategoryBackImageCell.xib in Resources */,
+
 				F854F545278DB6EC0093F5AE /* PickerView.xib in Resources */,
+
 				E362487323E03AED00CCF440 /* MyAvailableValuePackagesCell.xib in Resources */,
 				E30A94E1234D950F00E544D0 /* Revenue.storyboard in Resources */,
 				E310119423700A22003720F3 /* SelectGenderCell.xib in Resources */,
@@ -5616,7 +5636,9 @@
 				F8FAFD8A2424CCA200123E84 /* ApplyCouponModels.swift in Sources */,
 				E38815DC237973080091964B /* JobCardVC.swift in Sources */,
 				E3FCBB35240D37AE008349A8 /* ReviewThumpsUpDownCell.swift in Sources */,
+
 				F854F544278DB6EC0093F5AE /* CustomPickerView.swift in Sources */,
+
 				E3FCBB33240D37AE008349A8 /* FilterRightTableViewCell.swift in Sources */,
 				E33F111D234B103800C2F9F5 /* HTTPMethod.swift in Sources */,
 				F8254349247693E1007ED67E /* SearchModuleInteractor.swift in Sources */,
@@ -5778,7 +5800,9 @@
 				F8B77E44240E5357006A35B0 /* SalonServiceModuleModels.swift in Sources */,
 				F8802C0D25E50ABE005EBD1D /* CTCDetailsModels.swift in Sources */,
 				E33F10FA234B103800C2F9F5 /* UIBarButtonItem+Badge.swift in Sources */,
+
 				F854F543278DB6EC0093F5AE /* PickerView.swift in Sources */,
+
 				F8A323FB27674C22003DC166 /* EarningsViewController.swift in Sources */,
 				F8920F5826CAB1E800C168CD /* DateFilterInteractor.swift in Sources */,
 				F86E74E325DF9478007FC9B2 /* AchievementModels.swift in Sources */,

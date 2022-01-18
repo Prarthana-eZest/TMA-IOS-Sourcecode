@@ -14,14 +14,14 @@ open class DatePickerDialog: UIView {
     private let kDefaultButtonSpacerHeight: CGFloat = 1
     private let kCornerRadius: CGFloat = 7
     private let kDoneButtonTag: Int = 1
-
+    
     // MARK: - Views
     private var dialogView: UIView!
     private var titleLabel: UILabel!
     open var datePicker: UIDatePicker!
     private var cancelButton: UIButton!
     private var doneButton: UIButton!
-
+    
     // MARK: - Variables
     private var defaultDate: Date?
     private var datePickerMode: UIDatePicker.Mode?
