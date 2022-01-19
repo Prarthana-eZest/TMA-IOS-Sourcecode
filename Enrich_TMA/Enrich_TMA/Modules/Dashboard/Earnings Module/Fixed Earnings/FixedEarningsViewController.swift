@@ -212,13 +212,8 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
     
     func getGraphEntry(_ title:String, forData data:[Dashboard.GetEarningsDashboard.Transaction]? = nil, atIndex index : Int, dateRange:DateRange, dateRangeType: DateRangeType) -> GraphDataEntry
     {
-        var dateRangeUpdate = DateRange(dateRange.start, dateRange.end)
-//        if(dateRange.start == dateRange.end)
-//        {
-//            dateRangeUpdate.end = Date.today.nextQuarter()
-//        }
-        let units = xAxisUnitsEarnings(forDateRange: dateRangeUpdate, rangeType: dateRangeType)
-        let values = graphData(forData: data, atIndex: index, dateRange: dateRangeUpdate, dateRangeType: dateRangeType)
+        let units = xAxisUnitsEarnings(forDateRange: dateRange, rangeType: dateRangeType)
+        let values = graphData(forData: data, atIndex: index, dateRange: dateRange, dateRangeType: dateRangeType)
         let graphColor = EarningDetails.Fixed_Earning.graphBarColor
         
         return GraphDataEntry(graphType: .barGraph, dataTitle: title, units: units, values: values, barColor: graphColor.first!)
@@ -296,28 +291,6 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
             }
             totalFixedEarnings.append(Double(amount))
             
-//        case .qtd :
-//
-//            var total = 0
-//            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
-//            for objData in data ?? []{
-//                for parameter in objData.parameters ?? [] {
-//                    for month in months {
-//                        if let dat = parameter.transactions?.filter({($0.month == month) }).map({$0.amount}), dat.count > 0
-//                        {
-//                            let value = dat.reduce(0) {$0 + ($1 ?? Int(0.0))}
-//                            totalFixedEarnings.append(Double(value))
-//                        }
-//                        else {
-//                            totalFixedEarnings.append(Double(0.0))
-//                        }
-//                    }
-//
-//                }
-//
-//                total = 0
-//            }
-            
         case .qtd, .ytd, .cutome:
             let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
             if let group = data?.first(where: { value in
@@ -327,8 +300,6 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
                 let number = parameters.first?.transactions?.count ?? 0
 
                 var totalSubTransactions = [Int: Double]()
-                for month in months {
-                    let parameters = group.parameters ?? []
                                
                                let allData = parameters.compactMap({$0.transactions}).flatMap({$0})
                                
@@ -340,39 +311,16 @@ class FixedEarningsViewController: UIViewController, FixedEarningsDisplayLogic, 
                                    let transaction = (allTransactions[month] ?? []).compactMap({$0.amount}).reduce(0, +)
                                    totalSubTransactions[month] = Double(transaction)
                                }
-                               
-                    for dat in totalSubTransactions{
-                        if(month == dat.key){
-                            totalFixedEarnings.append(dat.value)
-                        }
-                        
-                        let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
-                        headerModel?.value = total
-                    }
+                
+                for month in months {
+                    totalFixedEarnings.append(totalSubTransactions[month] ?? 0.0)
                 }
+                
+                let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
+                headerModel?.value = total
                 return totalFixedEarnings
             }
-            
-//        case .cutome:
-//            var total = 0
-//            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
-//            for objData in data ?? []{
-//                for parameter in objData.parameters ?? [] {
-//                    for month in months {
-//                        if let dat = parameter.transactions?.filter({($0.month == month) }).map({$0.amount}), dat.count > 0
-//                        {
-//                            let value = dat.reduce(0) {$0 + ($1 ?? Int(0.0))}
-//                            totalFixedEarnings.append(Double(value))
-//                        }
-//                        else {
-//                            totalFixedEarnings.append(Double(0.0))
-//                        }
-//                    }
-//
-//                }
-//
-//                total = 0
-//            }
+        
         }
         
         return totalFixedEarnings
@@ -774,6 +722,7 @@ extension FixedEarningsViewController: EarningDetailsViewTrendDelegate {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
                 let text = "You have selected \(rangeTypeString ?? "MTD") filter from Charts."
                 self.showToast(alertTitle: alertTitle, message: text, seconds: toastMessageDuration)
+                self.tableView.reloadData()
             }
         }
     }
@@ -824,10 +773,7 @@ extension FixedEarningsViewController: UITableViewDelegate, UITableViewDataSourc
         }
         
     }
-    
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return UITableView.automaticDimension
-    //    }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("Selection")

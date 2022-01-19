@@ -315,8 +315,6 @@ class AwardsViewController: UIViewController, AwardsDisplayLogic
                 let number = parameters.first?.transactions?.count ?? 0
 
                 var totalSubTransactions = [Int: Double]()
-                for month in months {
-                    let parameters = group.parameters ?? []
                                
                                let allData = parameters.compactMap({$0.transactions}).flatMap({$0})
                                
@@ -328,16 +326,13 @@ class AwardsViewController: UIViewController, AwardsDisplayLogic
                                    let transaction = (allTransactions[month] ?? []).compactMap({$0.amount}).reduce(0, +)
                                    totalSubTransactions[month] = Double(transaction)
                                }
-                               
-                    for dat in totalSubTransactions{
-                        if(month == dat.key){
-                            totalFixedEarnings.append(dat.value)
-                        }
-                        
-                        let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
-                        headerModel?.value = total
-                    }
+                
+                for month in months {
+                    totalFixedEarnings.append(totalSubTransactions[month] ?? 0.0)
                 }
+                
+                let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
+                headerModel?.value = total
                 return totalFixedEarnings
             }
             
@@ -505,7 +500,14 @@ class AwardsViewController: UIViewController, AwardsDisplayLogic
             }
             
         case .cutome:
-            break
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            for month in months {
+                if let data = data?.filter({($0.month == month) }).map({$0.amount}), data.count > 0
+                {
+                    let values = data.reduce(0) {$0 + ($1 ?? Int(0.0))}
+                    value += Double(values)
+                }
+            }
         }
         
         dataModel[index] = EarningsCellDataModel(earningsType: modeData.earningsType, title: modeData.title, value: [value.rounded().abbrevationString], subTitle: modeData.subTitle, showGraph: modeData.showGraph, cellType: modeData.cellType, isExpanded: modeData.isExpanded, dateRangeType: modeData.dateRangeType, customeDateRange: modeData.customeDateRange)

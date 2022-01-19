@@ -30,7 +30,7 @@ class ViewCTCWorker
             self.presenter?.presentErrorCTC(responseError: error)
         }
         let successHandler: (ViewCTC.GetCTCDeatils.Response) -> Void = { (response) in
-            print("Earnings response\(response)")
+           // print("Earnings response\(response)")
             self.presenter?.presentSuccessCTC(response: response)
         }
 

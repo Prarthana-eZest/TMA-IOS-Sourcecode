@@ -307,39 +307,34 @@ class IncentiveViewController: UIViewController, IncentiveDisplayLogic
   //            }
               
           case .qtd, .ytd, .cutome:
-              let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
-              if let group = data?.first(where: { value in
-                  EarningDetails(rawValue: value.group_label ?? "") == EarningDetails.Incentive
-              }) {
-                  let parameters = group.parameters ?? []
-                  let number = parameters.first?.transactions?.count ?? 0
+            let months = dateRange.end.monthNumber(from: dateRange.start, withFormat: "M")
+            if let group = data?.first(where: { value in
+                EarningDetails(rawValue: value.group_label ?? "") == EarningDetails.Incentive
+            }) {
+                let parameters = group.parameters ?? []
+                let number = parameters.first?.transactions?.count ?? 0
 
-                  var totalSubTransactions = [Int: Double]()
-                  for month in months {
-                      let parameters = group.parameters ?? []
-                                 
-                                 let allData = parameters.compactMap({$0.transactions}).flatMap({$0})
-                                 
-                                 let allTransactions = Dictionary(grouping: allData) { transaction in
-                                     return transaction.month
-                                 }
-                                 let allMonths = allTransactions.keys.map( { $0 ?? 0 }).sorted()
-                                 for month in allMonths {
-                                     let transaction = (allTransactions[month] ?? []).compactMap({$0.amount}).reduce(0, +)
-                                     totalSubTransactions[month] = Double(transaction)
-                                 }
-                                 
-                      for dat in totalSubTransactions{
-                          if(month == dat.key){
-                              totalFixedEarnings.append(dat.value)
-                          }
-                          
-                          let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
-                          headerModel?.value = total
-                      }
-                  }
-                  return totalFixedEarnings
-              }
+                var totalSubTransactions = [Int: Double]()
+                               
+                               let allData = parameters.compactMap({$0.transactions}).flatMap({$0})
+                               
+                               let allTransactions = Dictionary(grouping: allData) { transaction in
+                                   return transaction.month
+                               }
+                               let allMonths = allTransactions.keys.map( { $0 ?? 0 }).sorted()
+                               for month in allMonths {
+                                   let transaction = (allTransactions[month] ?? []).compactMap({$0.amount}).reduce(0, +)
+                                   totalSubTransactions[month] = Double(transaction)
+                               }
+                
+                for month in months {
+                    totalFixedEarnings.append(totalSubTransactions[month] ?? 0.0)
+                }
+                
+                let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
+                headerModel?.value = total
+                return totalFixedEarnings
+            }
               
   //        case .cutome:
   //            var total = 0

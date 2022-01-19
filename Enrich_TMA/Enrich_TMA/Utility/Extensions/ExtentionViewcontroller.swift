@@ -214,8 +214,16 @@ extension UIViewController {
         case .week:
             return dateRange.end.dayDates(from: dateRange.start, withFormat: "d")
             
-        case .qtd, .ytd:
+        case .qtd:
+            if(dateRange.start.monthName == dateRange.end.monthName){
+                var dateRangeUpdate = DateRange(dateRange.start, dateRange.end)
+                dateRangeUpdate.end = Date.today.nextQuarter()
+                return dateRangeUpdate.end.monthNames(from: dateRangeUpdate.start,withFormat: "MMM yy")
+            }
             return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
+        
+        case .ytd:
+                return dateRange.end.monthNames(from: dateRange.start,withFormat: "MMM yy")
             
         case .cutome:
            // if dateRange.end.days(from: dateRange.start) > 31

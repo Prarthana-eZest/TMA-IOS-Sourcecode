@@ -343,8 +343,6 @@ class BonusViewController: UIViewController, BonusDisplayLogic
                 let number = parameters.first?.transactions?.count ?? 0
 
                 var totalSubTransactions = [Int: Double]()
-                for month in months {
-                    let parameters = group.parameters ?? []
                                
                                let allData = parameters.compactMap({$0.transactions}).flatMap({$0})
                                
@@ -356,16 +354,13 @@ class BonusViewController: UIViewController, BonusDisplayLogic
                                    let transaction = (allTransactions[month] ?? []).compactMap({$0.amount}).reduce(0, +)
                                    totalSubTransactions[month] = Double(transaction)
                                }
-                               
-                    for dat in totalSubTransactions{
-                        if(month == dat.key){
-                            totalFixedEarnings.append(dat.value)
-                        }
-                        
-                        let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
-                        headerModel?.value = total
-                    }
+                
+                for month in months {
+                    totalFixedEarnings.append(totalSubTransactions[month] ?? 0.0)
                 }
+                
+                let total = totalFixedEarnings.reduce(0.0) { $0 + $1 }
+                headerModel?.value = total
                 return totalFixedEarnings
             }
             
