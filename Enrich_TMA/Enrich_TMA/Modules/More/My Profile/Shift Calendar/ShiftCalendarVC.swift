@@ -207,7 +207,7 @@ extension ShiftCalendarVC {
                 if $0.roster_id != nil , $0.shift_id != nil {
                     events.append(EventData(eventType: .shift, eventName: $0.shift_name ?? "-", eventSubTitle: "\($0.start_time ?? "-") To \($0.end_time ?? "-")"))
                 }
-                if let isLeave = $0.is_leave, isLeave == 1 {
+                else if let isLeave = $0.is_leave, isLeave == 1 {
                     
                     if $0.leave_type_id == 3 {
                         events.append(EventData(eventType: .halfDay, eventName: "Half Day", eventSubTitle: $0.leave_type ?? "-"))

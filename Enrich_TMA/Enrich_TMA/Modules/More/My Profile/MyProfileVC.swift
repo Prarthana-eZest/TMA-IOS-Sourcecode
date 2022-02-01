@@ -332,7 +332,8 @@ extension MyProfileVC {
                 MyProfileModel(title: "Tenure (Years)", value: "\(data.tenure ?? "") Yrs", isMultiOption: false),
                 MyProfileModel(title: "Date of Birth", value: birthDate, isMultiOption: false),
                 MyProfileModel(title: "Mobile", value: data.mobile_number ?? "-", isMultiOption: false),
-                MyProfileModel(title: "Email", value: data.email ?? "-", isMultiOption: false),
+                MyProfileModel(title: "Official mail ID", value: data.email ?? "-", isMultiOption: false),
+                MyProfileModel(title: "Personal mail ID", value: data.personal_email ?? "-", isMultiOption: false),
                 MyProfileModel(title: "Residence Address", value: address, isMultiOption: false),
                 MyProfileModel(title: "Work Schedule", value: "-", isMultiOption: true)])
 

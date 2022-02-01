@@ -64,6 +64,8 @@ enum MyProfile {
             let tenure: String?
             let band: String?
             let role: String?
+            let personal_email: String?
+            let bmt_incentive_dashboard_enabled: Bool?
         }
 
         struct Address: Codable {
