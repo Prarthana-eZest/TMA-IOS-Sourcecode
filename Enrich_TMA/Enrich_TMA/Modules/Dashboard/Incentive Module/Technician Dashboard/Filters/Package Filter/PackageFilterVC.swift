@@ -124,16 +124,6 @@ class PackageFilterVC: UIViewController, PackageFilterDisplayLogic
                 data.append(PackageFilterModel(title: objPackage.name ?? "", isSelected: false, fromDate: nil, toDate: nil, sku: objPackage.sku))
         }
         }
-        
-        
-        
-//        data.append(PackageFilterModel(title: "All Packages", isSelected: true, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 10,000 & Get 13,000", isSelected: false, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 20,000 & Get 27,000", isSelected: false, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 30,000 & Get 42,000", isSelected: false, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 40,000 & Get 58,000", isSelected: false, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 50,000 And Get 75,000", isSelected: false, fromDate: nil, toDate: nil))
-//        data.append(PackageFilterModel(title: "Pay 1,00,000 And Get 1,65,000", isSelected: false, fromDate: nil, toDate: nil))
         lblNoPackage.isHidden = !data.isEmpty
         tableView.reloadData()
         

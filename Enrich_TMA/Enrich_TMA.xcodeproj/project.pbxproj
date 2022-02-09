@@ -5925,7 +5925,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DYKT5CBF5Z;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Enrich_TMA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -5936,7 +5936,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.113;
+				MARKETING_VERSION = 1.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6127,7 +6127,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = DYKT5CBF5Z;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Enrich_TMA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6138,7 +6138,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.113;
+				MARKETING_VERSION = 1.14;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ezest.EnrichTMA;
@@ -6161,7 +6161,7 @@
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3B26WTCHRP;
-				EXCLUDED_ARCHS = arm64;
+				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = Enrich_TMA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -6172,7 +6172,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Enrich_TMA/Utility/Third\\ Party/PayTm\\ Handler/PayTm_SDK",
 				);
-				MARKETING_VERSION = 1.113;
+				MARKETING_VERSION = 1.14;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.EnrichSalon.TMA;
 				PRODUCT_NAME = TMA_Stage;
